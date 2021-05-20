@@ -5,11 +5,12 @@ package client
 import (
 	"bytes"
 	"context"
-	"github.com/golang/mock/gomock"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
 	"testing"
+
+	"github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
@@ -25,8 +26,8 @@ func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
 	mockAPIClient.EXPECT().prepareRequest(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, nil)
 	mockAPIClient.EXPECT().callAPI(gomock.Any()).Return(mockStatusOk, nil)
 	a := &CloudsApiService{
-		client: mockAPIClient,
-		cfg:    Configuration{},
+		Client: mockAPIClient,
+		Cfg:    Configuration{},
 	}
 	_, err := a.GetASpecificCloud(context.Background(), "", 1)
 	assert.Nil(t, err)

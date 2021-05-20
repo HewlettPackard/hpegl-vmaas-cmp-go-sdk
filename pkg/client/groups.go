@@ -6,11 +6,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/antihax/optional"
 
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
@@ -21,8 +22,8 @@ var (
 )
 
 type GroupsApiService struct {
-	client APIClientHandler
-	cfg    Configuration
+	Client APIClientHandler
+	Cfg    Configuration
 }
 
 /*
@@ -48,7 +49,8 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId st
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups"
+	// Client.greenlake.hpe.com/api/vmaas/
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -91,12 +93,12 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId st
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -114,7 +116,7 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId st
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -124,7 +126,7 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId st
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -134,7 +136,7 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId st
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -165,7 +167,7 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups/{group_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
 
@@ -206,12 +208,12 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId s
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -229,7 +231,7 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId s
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -239,7 +241,7 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId s
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -249,7 +251,7 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId s
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -280,7 +282,7 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups/{group_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
 
@@ -321,12 +323,12 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanc
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.GroupResp{}, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return models.GroupResp{}, err
 	}
@@ -344,7 +346,7 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanc
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return models.GroupResp{}, newErr
@@ -354,7 +356,7 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanc
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return models.GroupResp{}, newErr
@@ -364,7 +366,7 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanc
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return models.GroupResp{}, newErr
@@ -397,7 +399,7 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -434,12 +436,12 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId s
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.Groups{}, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return models.Groups{}, err
 	}
@@ -456,7 +458,7 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId s
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return models.Groups{}, newErr
@@ -466,7 +468,7 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId s
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return models.Groups{}, newErr
@@ -507,7 +509,7 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}/update-zones"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups/{group_id}/update-zones"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
 
@@ -554,12 +556,12 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceI
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -577,7 +579,7 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -587,7 +589,7 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -625,7 +627,7 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups/{group_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
 
@@ -672,12 +674,12 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstan
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -695,7 +697,7 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -705,7 +707,7 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -715,7 +717,7 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr

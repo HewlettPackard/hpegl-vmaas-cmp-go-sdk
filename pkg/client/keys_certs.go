@@ -5,12 +5,13 @@ package client
 import (
 	"context"
 	"fmt"
-	"github.com/antihax/optional"
-	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/antihax/optional"
+	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
 // Linger please
@@ -19,8 +20,8 @@ var (
 )
 
 type KeysCertsApiService struct {
-	client APIClientHandler
-	cfg    Configuration
+	Client APIClientHandler
+	Cfg    Configuration
 }
 
 /*
@@ -47,7 +48,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/key-pairs"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -90,12 +91,12 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -108,7 +109,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -121,7 +122,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.CreateKeyPairResponseBody
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -131,7 +132,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -141,7 +142,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -151,7 +152,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -161,7 +162,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -192,7 +193,7 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, ser
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates/{certificate_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/certificates/{certificate_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId), -1)
 
@@ -233,12 +234,12 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, ser
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -256,7 +257,7 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, ser
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -266,7 +267,7 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, ser
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -276,7 +277,7 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, ser
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -307,7 +308,7 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, service
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs/{keypair_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/key-pairs/{keypair_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId), -1)
 
@@ -348,12 +349,12 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, service
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -371,7 +372,7 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, service
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -381,7 +382,7 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, service
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -391,7 +392,7 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, service
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -421,7 +422,7 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/certificates"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -458,12 +459,12 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context, serviceIns
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -481,7 +482,7 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -491,7 +492,7 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -501,7 +502,7 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -532,7 +533,7 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/key-pairs"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -569,12 +570,12 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -587,7 +588,7 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -600,7 +601,7 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.ListAllKeyPair
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -610,7 +611,7 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -620,7 +621,7 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -630,7 +631,7 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -661,7 +662,7 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, servic
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates/{certificate_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/certificates/{certificate_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId), -1)
 
@@ -702,12 +703,12 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, servic
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -725,7 +726,7 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -735,7 +736,7 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -745,7 +746,7 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -776,7 +777,7 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs/{keypair_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/key-pairs/{keypair_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId), -1)
 
@@ -817,12 +818,12 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, serviceIns
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -840,7 +841,7 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -850,7 +851,7 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -860,7 +861,7 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr

@@ -1,6 +1,6 @@
 // (C) Copyright 2021 Hewlett Packard Enterprise Development LP
 
-//go:generate mockgen -source ./client.go -package client -destination ./client_mock.go
+//go:generate mockgen -source ./Client.go -package Client -destination ./client_mock.go
 
 package client
 
@@ -77,7 +77,7 @@ type service struct {
 	client *APIClient
 }
 
-// NewAPIClient creates a new API client. Requires a userAgent string describing your application.
+// NewAPIClient creates a new API Client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.HTTPClient == nil {

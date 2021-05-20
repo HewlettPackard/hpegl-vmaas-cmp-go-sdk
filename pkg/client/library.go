@@ -5,11 +5,12 @@ package client
 import (
 	"context"
 	"fmt"
-	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
 // Linger please
@@ -18,8 +19,8 @@ var (
 )
 
 type LibraryApiService struct {
-	client APIClientHandler
-	cfg    Configuration
+	Client APIClientHandler
+	Cfg    Configuration
 }
 
 /*
@@ -38,7 +39,7 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/library/instance-types"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/library/instance-types"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -75,12 +76,12 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -98,7 +99,7 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -108,7 +109,7 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -118,7 +119,7 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr

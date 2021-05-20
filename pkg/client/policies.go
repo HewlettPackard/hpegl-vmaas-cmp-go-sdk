@@ -21,8 +21,8 @@ var (
 )
 
 type PoliciesApiService struct {
-	client APIClientHandler
-	cfg    Configuration
+	Client APIClientHandler
+	Cfg    Configuration
 }
 
 /*
@@ -42,7 +42,7 @@ func (a *PoliciesApiService) CreateAPolicy(ctx context.Context, body models.Crea
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/policies"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -81,12 +81,12 @@ func (a *PoliciesApiService) CreateAPolicy(ctx context.Context, body models.Crea
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -104,7 +104,7 @@ func (a *PoliciesApiService) CreateAPolicy(ctx context.Context, body models.Crea
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -114,7 +114,7 @@ func (a *PoliciesApiService) CreateAPolicy(ctx context.Context, body models.Crea
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -145,7 +145,7 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/policies/{policy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
 
@@ -186,12 +186,12 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, serviceInstanceI
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -209,7 +209,7 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -219,7 +219,7 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -229,7 +229,7 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -260,7 +260,7 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/policies/{policy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
 
@@ -298,12 +298,12 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -321,7 +321,7 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -331,7 +331,7 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -341,7 +341,7 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -371,7 +371,7 @@ func (a *PoliciesApiService) GetAllPolicies(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/policies"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -408,12 +408,12 @@ func (a *PoliciesApiService) GetAllPolicies(ctx context.Context, serviceInstance
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -431,7 +431,7 @@ func (a *PoliciesApiService) GetAllPolicies(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -441,7 +441,7 @@ func (a *PoliciesApiService) GetAllPolicies(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -479,7 +479,7 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/policies/{policy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
 
@@ -523,12 +523,12 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, serviceInstanceI
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -546,7 +546,7 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -556,7 +556,7 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr

@@ -5,11 +5,12 @@ package client
 import (
 	"context"
 	"fmt"
-	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 
 	"github.com/antihax/optional"
 )
@@ -20,8 +21,8 @@ var (
 )
 
 type NetworksApiService struct {
-	client APIClientHandler
-	cfg    Configuration
+	Client APIClientHandler
+	Cfg    Configuration
 }
 
 /*
@@ -48,7 +49,7 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -91,12 +92,12 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -109,7 +110,7 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -122,7 +123,7 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetNetworkPoolsResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -132,7 +133,7 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -142,7 +143,7 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -152,7 +153,7 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -162,7 +163,7 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -200,7 +201,7 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -243,12 +244,12 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -261,7 +262,7 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -274,7 +275,7 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.CreateNetworkProxyResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -284,7 +285,7 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -294,7 +295,7 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -304,7 +305,7 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -314,7 +315,7 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -345,7 +346,7 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
 
@@ -386,12 +387,12 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstance
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -409,7 +410,7 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -419,7 +420,7 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -429,7 +430,7 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -460,7 +461,7 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceIn
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers/{router_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers/{router_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"router_id"+"}", fmt.Sprintf("%v", routerId), -1)
 
@@ -501,12 +502,12 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceIn
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -524,7 +525,7 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceIn
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -534,7 +535,7 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceIn
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -544,7 +545,7 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceIn
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -575,7 +576,7 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInsta
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
 
@@ -616,12 +617,12 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInsta
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -639,7 +640,7 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -649,7 +650,7 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -659,7 +660,7 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -690,7 +691,7 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies/{proxy_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies/{proxy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
 
@@ -731,12 +732,12 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -754,7 +755,7 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -764,7 +765,7 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -774,7 +775,7 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -806,7 +807,7 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serv
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers/{router_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers/{router_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"router_id"+"}", fmt.Sprintf("%v", routerId), -1)
 
@@ -847,12 +848,12 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serv
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -865,7 +866,7 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serv
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -878,7 +879,7 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serv
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetNetworkRouter
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -888,7 +889,7 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serv
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -898,7 +899,7 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serv
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -908,7 +909,7 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serv
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -939,7 +940,7 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -976,12 +977,12 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -994,7 +995,7 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInst
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1007,7 +1008,7 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.ListNetworkProxies
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1017,7 +1018,7 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1027,7 +1028,7 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1037,7 +1038,7 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1068,7 +1069,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1105,12 +1106,12 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -1123,7 +1124,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1136,7 +1137,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.ListNetworksBody
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1146,7 +1147,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1156,7 +1157,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1166,7 +1167,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1196,7 +1197,7 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/services"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/services"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1233,12 +1234,12 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
@@ -1256,7 +1257,7 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1266,7 +1267,7 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1276,7 +1277,7 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1308,7 +1309,7 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
 
@@ -1349,12 +1350,12 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -1367,7 +1368,7 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInst
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1380,7 +1381,7 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetNetworkBody
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1390,7 +1391,7 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1400,7 +1401,7 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1410,7 +1411,7 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1442,7 +1443,7 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, service
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
 
@@ -1483,12 +1484,12 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, service
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -1501,7 +1502,7 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, service
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1514,7 +1515,7 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, service
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetNetworkPoolResposeBody
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1524,7 +1525,7 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, service
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1534,7 +1535,7 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, service
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1544,7 +1545,7 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, service
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1576,7 +1577,7 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, servic
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies/{proxy_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies/{proxy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
 
@@ -1617,12 +1618,12 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, servic
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -1635,7 +1636,7 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, servic
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1648,7 +1649,7 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetNetworkProxy
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1658,7 +1659,7 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1668,7 +1669,7 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1678,7 +1679,7 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1709,7 +1710,7 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1746,12 +1747,12 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceIns
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -1764,7 +1765,7 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceIns
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1777,7 +1778,7 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetNetworkPoolsResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1787,7 +1788,7 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1797,7 +1798,7 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1807,7 +1808,7 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1838,7 +1839,7 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1875,12 +1876,12 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -1893,7 +1894,7 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInst
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1906,7 +1907,7 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.ListNetworkRouters
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1916,7 +1917,7 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1926,7 +1927,7 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1936,7 +1937,7 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1975,7 +1976,7 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
 
@@ -2022,12 +2023,12 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceI
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -2040,7 +2041,7 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceI
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -2053,7 +2054,7 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.UpdateNetworkRespose
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2063,7 +2064,7 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2073,7 +2074,7 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2083,7 +2084,7 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2122,7 +2123,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
+	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
 
@@ -2169,12 +2170,12 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -2187,7 +2188,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -2200,7 +2201,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.CreateNetworkPoolResponseBody
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2210,7 +2211,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2220,7 +2221,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2230,7 +2231,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2240,7 +2241,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2279,7 +2280,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies/{proxy_id}"
+	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/networks/proxies/{proxy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
 
@@ -2326,12 +2327,12 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 
 		}
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
+	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
@@ -2344,7 +2345,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -2357,7 +2358,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.UpdateNetworkProxyResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2367,7 +2368,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2377,7 +2378,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2387,7 +2388,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2397,7 +2398,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
