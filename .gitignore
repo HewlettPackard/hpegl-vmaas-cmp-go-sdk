@@ -1,2 +1,5 @@
 .vscode
 main.go
+vendor/
+.idea
+*_mock.go
