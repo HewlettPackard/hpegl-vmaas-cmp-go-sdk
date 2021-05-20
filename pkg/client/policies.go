@@ -20,7 +20,10 @@ var (
 	_ context.Context
 )
 
-type PoliciesApiService service
+type PoliciesApiService struct {
+	client APIClientHandler
+	cfg Configuration
+}
 /*
 PoliciesApiService
 Create a Policy
@@ -39,7 +42,7 @@ func (a *PoliciesApiService) CreateAPolicy(ctx context.Context, body models.Crea
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -143,7 +146,7 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
 
@@ -259,7 +262,7 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
 
@@ -371,7 +374,7 @@ func (a *PoliciesApiService) GetAllPolicies(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -480,7 +483,7 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/policies/{policy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
 

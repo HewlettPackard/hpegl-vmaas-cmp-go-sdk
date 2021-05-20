@@ -18,7 +18,10 @@ var (
 	_ context.Context
 )
 
-type RolesApiService service
+type RolesApiService struct {
+	client APIClientHandler
+	cfg Configuration
+}
 /*
 RolesApiService
 Create a Role
@@ -37,7 +40,7 @@ func (a *RolesApiService) CreateARole(ctx context.Context, body models.CreateRol
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -179,7 +182,7 @@ func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body m
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-blueprint"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-blueprint"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
@@ -322,7 +325,7 @@ func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body model
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-cloud"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-cloud"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
@@ -465,7 +468,7 @@ func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body model
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-group"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-group"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
@@ -608,7 +611,7 @@ func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, bod
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-instance-type"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-instance-type"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
@@ -750,7 +753,7 @@ func (a *RolesApiService) DeleteARole(ctx context.Context, serviceInstanceId str
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
@@ -863,7 +866,7 @@ func (a *RolesApiService) GetASpecificRole(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
@@ -992,7 +995,7 @@ func (a *RolesApiService) GetAllRoles(ctx context.Context, serviceInstanceId str
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1095,7 +1098,7 @@ func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body mo
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
@@ -1238,7 +1241,7 @@ func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body mode
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-permission"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-permission"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 

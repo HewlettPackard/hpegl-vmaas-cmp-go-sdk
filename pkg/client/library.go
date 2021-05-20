@@ -17,7 +17,10 @@ var (
 	_ context.Context
 )
 
-type LibraryApiService service
+type LibraryApiService struct {
+	client APIClientHandler
+	cfg Configuration
+}
 /*
 LibraryApiService
 Lists all library instance types
@@ -35,7 +38,7 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/library/instance-types"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/library/instance-types"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)

@@ -18,7 +18,10 @@ var (
 	_ context.Context
 )
 
-type CloudsApiService service
+type CloudsApiService struct {
+	client APIClientHandler
+	cfg Configuration
+}
 /*
 CloudsApiService
 Get a Specific Cloud
@@ -37,7 +40,7 @@ func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
 
@@ -154,7 +157,7 @@ func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, servi
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}/data-stores/{datastore_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}/data-stores/{datastore_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"datastore_id"+"}", fmt.Sprintf("%v", datastoreId), -1)
@@ -275,7 +278,7 @@ func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, se
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}/resource-pools/{resourcepool_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}/resource-pools/{resourcepool_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"resourcepool_id"+"}", fmt.Sprintf("%v", resourcepoolId), -1)
@@ -395,7 +398,7 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}/data-stores"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}/data-stores"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
 
@@ -511,7 +514,7 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, service
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}/resource-pools"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones/{cloud_id}/resource-pools"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
 
@@ -626,7 +629,7 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/zones"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)

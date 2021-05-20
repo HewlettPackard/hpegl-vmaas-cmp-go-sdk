@@ -18,7 +18,10 @@ var (
 	_ context.Context
 )
 
-type PlansApiService service
+type PlansApiService struct {
+	client APIClientHandler
+	cfg Configuration
+}
 /*
 PlansApiService
 Get All Service Plans
@@ -36,7 +39,7 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/service-plans"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/service-plans"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)

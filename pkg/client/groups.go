@@ -20,7 +20,10 @@ var (
 	_ context.Context
 )
 
-type GroupsApiService service
+type GroupsApiService struct {
+	client APIClientHandler
+	cfg Configuration
+}
 /*
 GroupsApiService
 Creates a group
@@ -45,7 +48,7 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId st
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -163,7 +166,7 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
 
@@ -279,7 +282,7 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
 
@@ -396,7 +399,7 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -506,7 +509,7 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}/update-zones"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}/update-zones"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
 
@@ -625,7 +628,7 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/groups/{group_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
 

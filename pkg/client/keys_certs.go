@@ -18,7 +18,10 @@ var (
 	_ context.Context
 )
 
-type KeysCertsApiService service
+type KeysCertsApiService struct {
+	client APIClientHandler
+	cfg Configuration
+}
 /*
 KeysCertsApiService
 Create key-pair. The Public and Private key are stored in encrypted form in the database. 
@@ -43,7 +46,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -188,7 +191,7 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, ser
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates/{certificate_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates/{certificate_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId), -1)
 
@@ -304,7 +307,7 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, service
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs/{keypair_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs/{keypair_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId), -1)
 
@@ -419,7 +422,7 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -530,7 +533,7 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -659,7 +662,7 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, servic
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates/{certificate_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/certificates/{certificate_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId), -1)
 
@@ -775,7 +778,7 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs/{keypair_id}"
+	localVarPath := a.cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/key-pairs/{keypair_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId), -1)
 

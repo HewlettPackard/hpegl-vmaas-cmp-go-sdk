@@ -29,7 +29,20 @@ var (
 	jsonCheck = regexp.MustCompile("(?i:[application|text]/json)")
 	xmlCheck  = regexp.MustCompile("(?i:[application|text]/xml)")
 )
-
+type APIClientHandler interface {
+	ChangeBasePath(path string)
+	prepareRequest(
+		ctx context.Context,
+		path string, method string,
+		postBody interface{},
+		headerParams map[string]string,
+		queryParams url.Values,
+		formParams url.Values,
+		fileName string,
+		fileBytes []byte) (localVarRequest *http.Request, err error)
+	decode(v interface{}, b []byte, contentType string) (err error)
+	callAPI(request *http.Request) (*http.Response, error)
+}
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
@@ -38,7 +51,7 @@ type APIClient struct {
 
 	// API Services
 
-	CloudsApi *CloudsApiService
+	/*CloudsApi *CloudsApiService
 
 	GroupsApi *GroupsApiService
 
@@ -54,7 +67,7 @@ type APIClient struct {
 
 	PoliciesApi *PoliciesApiService
 
-	RolesApi *RolesApiService
+	RolesApi *RolesApiService*/
 }
 
 type service struct {
@@ -73,7 +86,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.CloudsApi = (*CloudsApiService)(&c.common)
+	/*c.CloudsApi = (*CloudsApiService)(&c.common)
 	c.GroupsApi = (*GroupsApiService)(&c.common)
 	c.InstancesApi = (*InstancesApiService)(&c.common)
 	c.KeysCertsApi = (*KeysCertsApiService)(&c.common)
@@ -82,6 +95,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.PlansApi = (*PlansApiService)(&c.common)
 	c.PoliciesApi = (*PoliciesApiService)(&c.common)
 	c.RolesApi = (*RolesApiService)(&c.common)
+	*/
 
 	return c
 }
