@@ -1,5 +1,7 @@
 // (C) Copyright 2021 Hewlett Packard Enterprise Development LP
 
+//go:generate mockgen -source ./Client.go -package Client -destination ./client_mock.go
+
 package client
 
 import (
@@ -21,7 +23,6 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
-
 	//"golang.org/x/oauth2"
 )
 
@@ -29,6 +30,21 @@ var (
 	jsonCheck = regexp.MustCompile("(?i:[application|text]/json)")
 	xmlCheck  = regexp.MustCompile("(?i:[application|text]/xml)")
 )
+
+type APIClientHandler interface {
+	ChangeBasePath(path string)
+	prepareRequest(
+		ctx context.Context,
+		path string, method string,
+		postBody interface{},
+		headerParams map[string]string,
+		queryParams url.Values,
+		formParams url.Values,
+		fileName string,
+		fileBytes []byte) (localVarRequest *http.Request, err error)
+	decode(v interface{}, b []byte, contentType string) (err error)
+	callAPI(request *http.Request) (*http.Response, error)
+}
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
@@ -38,7 +54,7 @@ type APIClient struct {
 
 	// API Services
 
-	CloudsApi *CloudsApiService
+	/*CloudsApi *CloudsApiService
 
 	GroupsApi *GroupsApiService
 
@@ -54,14 +70,14 @@ type APIClient struct {
 
 	PoliciesApi *PoliciesApiService
 
-	RolesApi *RolesApiService
+	RolesApi *RolesApiService*/
 }
 
 type service struct {
 	client *APIClient
 }
 
-// NewAPIClient creates a new API client. Requires a userAgent string describing your application.
+// NewAPIClient creates a new API Client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.HTTPClient == nil {
@@ -73,7 +89,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.CloudsApi = (*CloudsApiService)(&c.common)
+	/*c.CloudsApi = (*CloudsApiService)(&c.common)
 	c.GroupsApi = (*GroupsApiService)(&c.common)
 	c.InstancesApi = (*InstancesApiService)(&c.common)
 	c.KeysCertsApi = (*KeysCertsApiService)(&c.common)
@@ -82,6 +98,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.PlansApi = (*PlansApiService)(&c.common)
 	c.PoliciesApi = (*PoliciesApiService)(&c.common)
 	c.RolesApi = (*RolesApiService)(&c.common)
+	*/
 
 	return c
 }

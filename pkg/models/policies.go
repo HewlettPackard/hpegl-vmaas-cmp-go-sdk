@@ -14,13 +14,13 @@ type CreatePolicyBodyPolicyPolicyType struct {
 
 // CreatePolicyBodyPolicy
 type CreatePolicyBodyPolicy struct {
-	Name string `json:"name,omitempty"`
-	Description string `json:"description,omitempty"`
-	PolicyType *CreatePolicyBodyPolicyPolicyType `json:"policyType,omitempty"`
-	Config *CreatePolicyBodyPolicyConfig `json:"config,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
-	RefId float64 `json:"refId,omitempty"`
-	RefType string `json:"refType,omitempty"`
+	Name        string                            `json:"name,omitempty"`
+	Description string                            `json:"description,omitempty"`
+	PolicyType  *CreatePolicyBodyPolicyPolicyType `json:"policyType,omitempty"`
+	Config      *CreatePolicyBodyPolicyConfig     `json:"config,omitempty"`
+	Enabled     bool                              `json:"enabled,omitempty"`
+	RefId       float64                           `json:"refId,omitempty"`
+	RefType     string                            `json:"refType,omitempty"`
 }
 
 // CreatePolicyBody
@@ -36,14 +36,13 @@ type UpdatePolicyBodyPolicyConfig struct {
 
 // UpdatePolicyBodyPolicy
 type UpdatePolicyBodyPolicy struct {
-	Name string `json:"name,omitempty"`
-	Description string `json:"description,omitempty"`
-	Config *UpdatePolicyBodyPolicyConfig `json:"config,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
+	Name        string                        `json:"name,omitempty"`
+	Description string                        `json:"description,omitempty"`
+	Config      *UpdatePolicyBodyPolicyConfig `json:"config,omitempty"`
+	Enabled     bool                          `json:"enabled,omitempty"`
 }
 
 // UpdatePolicyBody
 type UpdatePolicyBody struct {
 	Policy *UpdatePolicyBodyPolicy `json:"policy"`
 }
-
