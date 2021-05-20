@@ -13,6 +13,7 @@ import (
 
 	"github.com/antihax/optional"
 
+	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
@@ -50,8 +51,8 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId st
 
 	// create path and map variables
 	// Client.greenlake.hpe.com/api/vmaas/
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.GroupsPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -167,9 +168,8 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups/{group_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -282,9 +282,8 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups/{group_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -399,8 +398,8 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.GroupsPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -509,9 +508,8 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups/{group_id}/update-zones"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -627,9 +625,8 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/groups/{group_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"group_id"+"}", fmt.Sprintf("%v", groupId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

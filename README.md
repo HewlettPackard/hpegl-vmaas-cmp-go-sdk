@@ -19,13 +19,13 @@ import (
 func main(){
 	ctx := context.Background()
 	config := client.Configuration{
-		BasePath: "https://vmaas-cmp.intg.hpedevops.net",
+		Host: "https://vmaas-cmp.intg.hpedevops.net",
 	}
 	apiClient := client.NewAPIClient(&config)
-    groupsClient := client.GroupsApiService{
-        Client apiClient
-        Cfg    cfg
-    }
+	groupsClient := client.GroupsApiService{
+		 apiClient,
+		 config,
+	}
 	resp, err := groupsClient.GetASpecificGroup(ctx, "0123456789abcdef", 1)
 	if err != nil {
 		fmt.Printf("List Group Error %v", err)

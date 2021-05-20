@@ -9,16 +9,26 @@ import (
 // CreateInstanceBody
 type CreateInstanceBody struct {
 	// Cloud ID
-	ZoneId            int32                                 `json:"zoneId"`
+	ZoneId            string                                `json:"zoneId"`
 	Instance          *CreateInstanceBodyInstance           `json:"instance"`
 	Volumes           []CreateInstanceBodyVolumes           `json:"volumes"`
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces"`
 	Config            *CreateInstanceBodyConfig             `json:"config"`
+	Copies            int32                                 `json:"copies,omitempty"`
+	Labels            []string                              `json:"labels,omitempty"`
+	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
+}
+
+type CreateInstanceBodyTag struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
 }
 
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
 	Name         string                                  `json:"name"`
+	Cloud        string                                  `json:"cloud"`
+	Type         string                                  `json:"type"`
 	Site         *CreateInstanceBodyInstanceSite         `json:"site"`
 	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
 	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
@@ -28,8 +38,8 @@ type CreateInstanceBodyInstance struct {
 // CreateInstanceBodyConfig
 type CreateInstanceBodyConfig struct {
 	// Virtual Image ID(Required when VMware InstanceType is used)
-	Template       int32  `json:"template,omitempty"`
-	ResourcePoolId string `json:"resourcePoolId"`
+	Template       int32       `json:"template,omitempty"`
+	ResourcePoolId interface{} `json:"resourcePoolId"`
 	// To specify agent install (on/off)
 	NoAgent              string `json:"noAgent,omitempty"`
 	SmbiosAssetTag       string `json:"smbiosAssetTag,omitempty"`
@@ -49,13 +59,13 @@ type CreateInstanceBodyInstanceInstanceType struct {
 // CreateInstanceBodyInstanceLayout
 type CreateInstanceBodyInstanceLayout struct {
 	// The layout id for the instance type that you want to provision.
-	Id int32 `json:"id"`
+	Id string `json:"id"`
 }
 
 // CreateInstanceBodyInstancePlan
 type CreateInstanceBodyInstancePlan struct {
 	// Service Plan ID
-	Id int32 `json:"id"`
+	Id string `json:"id"`
 }
 
 // CreateInstanceBodyInstanceSite
@@ -84,7 +94,7 @@ type CreateInstanceBodyVolumes struct {
 	Size        int32  `json:"size,omitempty"`
 	StorageType int32  `json:"storageType,omitempty"`
 	// The ID of the specific datastore. Auto selection can be specified as auto or autoCluster (for clusters).
-	DatastoreId int32 `json:"datastoreId"`
+	DatastoreId interface{} `json:"datastoreId"`
 }
 
 type Instances struct {

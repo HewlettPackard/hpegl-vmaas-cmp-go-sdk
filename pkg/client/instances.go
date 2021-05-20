@@ -13,6 +13,7 @@ import (
 
 	"github.com/antihax/optional"
 
+	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
@@ -50,9 +51,8 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/clone"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/clone", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -175,9 +175,8 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/clone-image"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/clone-image", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -286,22 +285,17 @@ Create an Instance
 @return models.GetInstanceResponse
 */
 
-type InstancesApiCreateAnInstanceOpts struct {
-	Body optional.Interface
-}
-
-func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInstanceId string, localVarOptionals *InstancesApiCreateAnInstanceOpts) (models.GetInstanceResponse, error) {
+func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInstanceId string, localVarOptionals *models.CreateInstanceBody) (models.GetInstanceResponse, error) {
 	var (
-		localVarHttpMethod  = strings.ToUpper("Post")
-		localVarPostBody    interface{}
-		localVarFileName    string
-		localVarFileBytes   []byte
-		localVarReturnValue models.GetInstanceResponse
+		localVarHttpMethod = strings.ToUpper("Post")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -325,10 +319,12 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInsta
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
-		localVarOptionalBody := localVarOptionals.Body.Value()
-		localVarPostBody = &localVarOptionalBody
+	if localVarOptionals != nil {
+		var err error
+		localVarPostBody, err = json.Marshal(localVarOptionals)
+		if err != nil {
+			return models.GetInstanceResponse{}, err
+		}
 	}
 	if ctx != nil {
 		// API Key Authentication
@@ -358,28 +354,10 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInsta
 		return models.GetInstanceResponse{}, err
 	}
 
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-		if err == nil {
-			return models.GetInstanceResponse{}, err
-		}
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
 			body:  localVarBody,
 			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v models.GetInstanceResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.GetInstanceResponse{}, newErr
-			}
-			newErr.model = v
-			return models.GetInstanceResponse{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
@@ -413,8 +391,11 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInsta
 		}
 		return models.GetInstanceResponse{}, newErr
 	}
-
-	return models.GetInstanceResponse{}, nil
+	var instancesResponse models.GetInstanceResponse
+	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
+		return models.GetInstanceResponse{}, err
+	}
+	return instancesResponse, nil
 }
 
 /*
@@ -432,7 +413,7 @@ type InstancesApiDeleteAnIstanceOpts struct {
 	Force optional.String
 }
 
-func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *InstancesApiDeleteAnIstanceOpts) (*http.Response, error) {
+func (a *InstancesApiService) DeleteAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -441,17 +422,13 @@ func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Force.IsSet() {
-		localVarQueryParams.Add("force", parameterToString(localVarOptionals.Force.Value(), ""))
-	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
@@ -484,18 +461,23 @@ func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstan
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return models.SuccessOrErrorMessage{}, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return models.SuccessOrErrorMessage{}, err
 	}
 
+	// var temp interface{}
+	// json.NewDecoder(localVarHttpResponse.Body).Decode(&temp)
+	// fmt.Println(temp)
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	fmt.Println(string(localVarBody))
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return models.SuccessOrErrorMessage{}, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -508,35 +490,41 @@ func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstan
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return models.SuccessOrErrorMessage{}, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return models.SuccessOrErrorMessage{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return models.SuccessOrErrorMessage{}, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return models.SuccessOrErrorMessage{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return models.SuccessOrErrorMessage{}, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return models.SuccessOrErrorMessage{}, newErr
 		}
-		return localVarHttpResponse, newErr
+		return models.SuccessOrErrorMessage{}, newErr
 	}
 
-	return localVarHttpResponse, nil
+	fmt.Println(string(localVarBody))
+	var instancesResponse models.SuccessOrErrorMessage
+	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
+		fmt.Println(err)
+		return models.SuccessOrErrorMessage{}, err
+	}
+	return instancesResponse, nil
 }
 
 /*
@@ -556,9 +544,8 @@ func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, serviceI
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -686,8 +673,8 @@ func (a *InstancesApiService) GetAllInstanceTypesForProvisioning(ctx context.Con
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instance-types"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstanceTypesPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -821,8 +808,8 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -940,8 +927,8 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/service-plans"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/service-plans", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1074,10 +1061,8 @@ func (a *InstancesApiService) GetEnvVariables(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/envs"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
-
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/envs", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
@@ -1186,9 +1171,8 @@ func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/history"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/history", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1298,9 +1282,8 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/snapshots"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/snapshots", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1410,9 +1393,8 @@ func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instance-types/{instanceType_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instanceType_id"+"}", fmt.Sprintf("%v", instanceTypeId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstanceTypesPath, instanceTypeId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1529,9 +1511,8 @@ func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, se
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/import-snapshot"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/import-snapshot", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1647,9 +1628,8 @@ func (a *InstancesApiService) LockAnInstance(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/lock"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/lock", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1767,9 +1747,8 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/resize"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/resize", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1903,9 +1882,8 @@ func (a *InstancesApiService) RestartAnInstance(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/restart"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/restart", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2022,9 +2000,8 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/snapshot"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/snapshot", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2140,9 +2117,8 @@ func (a *InstancesApiService) StartAnInstance(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/start"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/start", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2252,9 +2228,8 @@ func (a *InstancesApiService) StopAnInstance(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/stop"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/stop", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2364,9 +2339,8 @@ func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/suspend"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/suspend", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2477,9 +2451,8 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, servic
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/cancel-removal"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/cancel-removal", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2607,9 +2580,8 @@ func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, serviceInsta
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/instances/{instance_id}/unlock"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/unlock", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2727,9 +2699,8 @@ func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/instances/{instance_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"instance_id"+"}", fmt.Sprintf("%v", instanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.InstancesPath, instanceId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
