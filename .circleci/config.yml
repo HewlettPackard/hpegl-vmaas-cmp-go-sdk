@@ -41,10 +41,7 @@ workflows:
           <<: *common
           requires:
             - copyright-check
-      - go-lint:
-          <<: *common
-          requires:
-            - go-vendor
+
           
 jobs:
   secret-scanning:
