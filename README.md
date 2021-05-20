@@ -22,7 +22,11 @@ func main(){
 		BasePath: "https://vmaas-cmp.intg.hpedevops.net",
 	}
 	apiClient := client.NewAPIClient(&config)
-	resp, err := apiClient.GroupsApi.GetASpecificGroup(ctx, "0123456789abcdef", 1)
+    groupsClient := client.GroupsApiService{
+        Client apiClient
+        Cfg    cfg
+    }
+	resp, err := groupsClient.GetASpecificGroup(ctx, "0123456789abcdef", 1)
 	if err != nil {
 		fmt.Printf("List Group Error %v", err)
 		os.Exit(1)
