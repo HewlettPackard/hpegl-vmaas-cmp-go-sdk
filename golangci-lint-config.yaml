@@ -2,11 +2,9 @@
 
 run:
   deadline: 240s
-  tests: true
+  tests: false
   skip-dirs:
     - vendor
-    - internal/cmp_client
-    - internal/models
   build-tags: acceptance
 
 linters-settings:
