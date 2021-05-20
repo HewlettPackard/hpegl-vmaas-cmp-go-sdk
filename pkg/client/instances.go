@@ -4,6 +4,7 @@ package client
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -21,6 +22,7 @@ var (
 )
 
 type InstancesApiService service
+
 /*
 InstancesApiService
 Clone an instance and all VM within that instance.
@@ -42,7 +44,6 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstan
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -74,7 +75,7 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstan
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
 
-		localVarOptionalBody:= localVarOptionals.Body.Value()
+		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 	if ctx != nil {
@@ -106,15 +107,14 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstan
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -124,7 +124,7 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -134,7 +134,7 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -147,6 +147,7 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstan
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Creates an image template from an existing instance
@@ -168,7 +169,6 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceI
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -200,7 +200,7 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceI
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
 
-		localVarOptionalBody:= localVarOptionals.Body.Value()
+		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 	if ctx != nil {
@@ -232,15 +232,14 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceI
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -250,7 +249,7 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -260,7 +259,7 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceI
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -273,6 +272,7 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceI
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Create an Instance
@@ -287,12 +287,12 @@ type InstancesApiCreateAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInstanceId string, localVarOptionals *InstancesApiCreateAnInstanceOpts) (models.GetInstanceResponse, *http.Response, error) {
+func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInstanceId string, localVarOptionals *InstancesApiCreateAnInstanceOpts) (models.GetInstanceResponse, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue models.GetInstanceResponse
 	)
 
@@ -324,7 +324,7 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInsta
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
 
-		localVarOptionalBody:= localVarOptionals.Body.Value()
+		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 	if ctx != nil {
@@ -342,78 +342,78 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInsta
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return models.GetInstanceResponse{}, err
 	}
-
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return models.GetInstanceResponse{}, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return models.GetInstanceResponse{}, err
 	}
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
-			return localVarReturnValue, localVarHttpResponse, err
+			return models.GetInstanceResponse{}, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetInstanceResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.GetInstanceResponse{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.GetInstanceResponse{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.GetInstanceResponse{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.GetInstanceResponse{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.GetInstanceResponse{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.GetInstanceResponse{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.GetInstanceResponse{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.GetInstanceResponse{}, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return models.GetInstanceResponse{}, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return models.GetInstanceResponse{}, nil
 }
+
 /*
 InstancesApiService
 Will delete an instance and all associated monitors and backups.
@@ -435,7 +435,6 @@ func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstan
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -496,15 +495,14 @@ func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstan
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -514,7 +512,7 @@ func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -524,7 +522,7 @@ func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -537,6 +535,7 @@ func (a *InstancesApiService) DeleteAnIstance(ctx context.Context, serviceInstan
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Get a Specific Instance
@@ -545,13 +544,12 @@ Get a Specific Instance
  * @param instanceId
 @return models.GetInstanceResponse
 */
-func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.GetInstanceResponse, *http.Response, error) {
+func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.GetInstanceResponse, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue models.GetInstanceResponse
 	)
 
 	// create path and map variables
@@ -595,78 +593,80 @@ func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, serviceI
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return models.GetInstanceResponse{}, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return models.GetInstanceResponse{}, err
 	}
+
+	// var temp interface{}
+	// json.NewDecoder(localVarHttpResponse.Body).Decode(&temp)
+	// fmt.Println(temp)
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil {
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return models.GetInstanceResponse{}, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetInstanceResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.GetInstanceResponse{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.GetInstanceResponse{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.GetInstanceResponse{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.GetInstanceResponse{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.GetInstanceResponse{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.GetInstanceResponse{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.GetInstanceResponse{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.GetInstanceResponse{}, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return models.GetInstanceResponse{}, newErr
 	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
+	var instancesResponse models.GetInstanceResponse
+	//fmt.Println(string(localVarBody))
+	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
+		return models.GetInstanceResponse{}, err
+	}
+	//fmt.Println(instancesResponse)
+	return instancesResponse, nil
 }
+
 /*
 InstancesApiService
 Fetch the list of available instance types
@@ -680,7 +680,6 @@ func (a *InstancesApiService) GetAllInstanceTypesForProvisioning(ctx context.Con
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -737,15 +736,14 @@ func (a *InstancesApiService) GetAllInstanceTypesForProvisioning(ctx context.Con
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -755,7 +753,7 @@ func (a *InstancesApiService) GetAllInstanceTypesForProvisioning(ctx context.Con
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -765,7 +763,7 @@ func (a *InstancesApiService) GetAllInstanceTypesForProvisioning(ctx context.Con
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -778,6 +776,7 @@ func (a *InstancesApiService) GetAllInstanceTypesForProvisioning(ctx context.Con
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Get All Instances
@@ -798,25 +797,24 @@ Get All Instances
 */
 
 type InstancesApiGetAllInstancesOpts struct {
-	Max optional.Int32
-	Name optional.String
-	Phrase optional.String
+	Max          optional.Int32
+	Name         optional.String
+	Phrase       optional.String
 	InstanceType optional.Int32
-	CreatedBy optional.String
-	Status optional.String
-	ShowDeleted optional.Bool
-	Deleted optional.Bool
-	Labels optional.String
-	Tags optional.String
+	CreatedBy    optional.String
+	Status       optional.String
+	ShowDeleted  optional.Bool
+	Deleted      optional.Bool
+	Labels       optional.String
+	Tags         optional.String
 }
 
-func (a *InstancesApiService) GetAllInstances(ctx context.Context, serviceInstanceId string, localVarOptionals *InstancesApiGetAllInstancesOpts) (*http.Response, error) {
+func (a *InstancesApiService) GetAllInstances(ctx context.Context, serviceInstanceId string) (models.Instances, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -827,36 +825,6 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context, serviceInstan
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Max.IsSet() {
-		localVarQueryParams.Add("max", parameterToString(localVarOptionals.Max.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Name.IsSet() {
-		localVarQueryParams.Add("name", parameterToString(localVarOptionals.Name.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Phrase.IsSet() {
-		localVarQueryParams.Add("phrase", parameterToString(localVarOptionals.Phrase.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.InstanceType.IsSet() {
-		localVarQueryParams.Add("instanceType", parameterToString(localVarOptionals.InstanceType.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.CreatedBy.IsSet() {
-		localVarQueryParams.Add("createdBy", parameterToString(localVarOptionals.CreatedBy.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Status.IsSet() {
-		localVarQueryParams.Add("status", parameterToString(localVarOptionals.Status.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ShowDeleted.IsSet() {
-		localVarQueryParams.Add("showDeleted", parameterToString(localVarOptionals.ShowDeleted.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Deleted.IsSet() {
-		localVarQueryParams.Add("deleted", parameterToString(localVarOptionals.Deleted.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Labels.IsSet() {
-		localVarQueryParams.Add("labels", parameterToString(localVarOptionals.Labels.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Tags.IsSet() {
-		localVarQueryParams.Add("tags", parameterToString(localVarOptionals.Tags.Value(), ""))
-	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
@@ -889,51 +857,60 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context, serviceInstan
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return models.Instances{}, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return models.Instances{}, err
 	}
+
+	// uncomment to check the output
+	// var temp interface{}
+	// json.NewDecoder(localVarHttpResponse.Body).Decode(&temp)
+	// fmt.Println(temp)
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return models.Instances{}, err
 	}
-
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return models.Instances{}, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return models.Instances{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return models.Instances{}, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return models.Instances{}, newErr
 		}
-		return localVarHttpResponse, newErr
+		return models.Instances{}, newErr
 	}
-
-	return localVarHttpResponse, nil
+	var InstancesResp models.Instances
+	// fmt.Println(string(localVarBody))
+	if err = json.Unmarshal(localVarBody, &InstancesResp); err != nil {
+		return models.Instances{}, err
+	}
+	return InstancesResp, nil
 }
+
 /*
 InstancesApiService
 This endpoint retrieves all the Service Plans available for the specified cloud and instance layout. The response includes details about the plans and their configuration options. It may be used to get the list of available plans when creating a new instance or resizing an existing instance.
@@ -952,10 +929,10 @@ type InstancesApiGetAvailableServicePlansForAnInstanceOpts struct {
 
 func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.Context, serviceInstanceId string, zoneId int32, layoutId int32, localVarOptionals *InstancesApiGetAvailableServicePlansForAnInstanceOpts) (models.GetServicePlanResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue models.GetServicePlanResponse
 	)
 
@@ -1020,7 +997,7 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1028,12 +1005,12 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetServicePlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1043,7 +1020,7 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1053,7 +1030,7 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1063,7 +1040,7 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1076,6 +1053,7 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 List all environment variables associated with the instance
@@ -1090,7 +1068,6 @@ func (a *InstancesApiService) GetEnvVariables(ctx context.Context, serviceInstan
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -1148,15 +1125,14 @@ func (a *InstancesApiService) GetEnvVariables(ctx context.Context, serviceInstan
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1166,7 +1142,7 @@ func (a *InstancesApiService) GetEnvVariables(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1176,7 +1152,7 @@ func (a *InstancesApiService) GetEnvVariables(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1189,6 +1165,7 @@ func (a *InstancesApiService) GetEnvVariables(ctx context.Context, serviceInstan
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Retrieves the process history for a specific instance
@@ -1203,7 +1180,6 @@ func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, serviceIns
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -1261,15 +1237,14 @@ func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, serviceIns
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1279,7 +1254,7 @@ func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1289,7 +1264,7 @@ func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1302,6 +1277,7 @@ func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, serviceIns
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Lists VMware Snapshot of the instance
@@ -1316,7 +1292,6 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -1374,15 +1349,14 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1392,7 +1366,7 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1402,7 +1376,7 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1415,6 +1389,7 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Fetch an instance type by ID
@@ -1429,7 +1404,6 @@ func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -1487,15 +1461,14 @@ func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1505,7 +1478,7 @@ func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1515,7 +1488,7 @@ func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1528,6 +1501,7 @@ func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 It is possible to import a snapshot of an instance. This creates a Virtual Image of the instance as it currently exists.
@@ -1549,7 +1523,6 @@ func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, se
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -1581,7 +1554,7 @@ func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, se
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
 
-		localVarOptionalBody:= localVarOptionals.Body.Value()
+		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 	if ctx != nil {
@@ -1613,15 +1586,14 @@ func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, se
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1631,7 +1603,7 @@ func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, se
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1641,7 +1613,7 @@ func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, se
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1654,6 +1626,7 @@ func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, se
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 &#x27;This will lock the instance. While locked, instances may not be removed.&#x27;
@@ -1668,7 +1641,6 @@ func (a *InstancesApiService) LockAnInstance(ctx context.Context, serviceInstanc
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -1726,15 +1698,14 @@ func (a *InstancesApiService) LockAnInstance(ctx context.Context, serviceInstanc
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1744,7 +1715,7 @@ func (a *InstancesApiService) LockAnInstance(ctx context.Context, serviceInstanc
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1754,7 +1725,7 @@ func (a *InstancesApiService) LockAnInstance(ctx context.Context, serviceInstanc
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -1767,6 +1738,7 @@ func (a *InstancesApiService) LockAnInstance(ctx context.Context, serviceInstanc
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 It is possible to resize VMs within an instance by increasing their memory plan or storage limit. This is done by assigning a new service plan to the VM.
@@ -1784,10 +1756,10 @@ type InstancesApiResizeAnInstanceOpts struct {
 
 func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *InstancesApiResizeAnInstanceOpts) (models.GetInstanceResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Put")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue models.GetInstanceResponse
 	)
 
@@ -1820,7 +1792,7 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
 
-		localVarOptionalBody:= localVarOptionals.Body.Value()
+		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 	if ctx != nil {
@@ -1854,7 +1826,7 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -1862,12 +1834,12 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetInstanceResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1877,7 +1849,7 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ErrBadRequest
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1887,7 +1859,7 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1897,7 +1869,7 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -1910,6 +1882,7 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Restarts all VM running within an instance
@@ -1924,7 +1897,6 @@ func (a *InstancesApiService) RestartAnInstance(ctx context.Context, serviceInst
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -1982,15 +1954,14 @@ func (a *InstancesApiService) RestartAnInstance(ctx context.Context, serviceInst
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2000,7 +1971,7 @@ func (a *InstancesApiService) RestartAnInstance(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2010,7 +1981,7 @@ func (a *InstancesApiService) RestartAnInstance(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2023,6 +1994,7 @@ func (a *InstancesApiService) RestartAnInstance(ctx context.Context, serviceInst
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Creates VMware Snapshot of the instance
@@ -2044,7 +2016,6 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceIns
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -2076,7 +2047,7 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceIns
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
 
-		localVarOptionalBody:= localVarOptionals.Body.Value()
+		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 	if ctx != nil {
@@ -2108,15 +2079,14 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceIns
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2126,7 +2096,7 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2136,7 +2106,7 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2149,6 +2119,7 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceIns
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Starts all VM running within an instance
@@ -2163,7 +2134,6 @@ func (a *InstancesApiService) StartAnInstance(ctx context.Context, serviceInstan
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -2221,15 +2191,14 @@ func (a *InstancesApiService) StartAnInstance(ctx context.Context, serviceInstan
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2239,7 +2208,7 @@ func (a *InstancesApiService) StartAnInstance(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2249,7 +2218,7 @@ func (a *InstancesApiService) StartAnInstance(ctx context.Context, serviceInstan
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2262,6 +2231,7 @@ func (a *InstancesApiService) StartAnInstance(ctx context.Context, serviceInstan
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Stops all VM running within an instance
@@ -2276,7 +2246,6 @@ func (a *InstancesApiService) StopAnInstance(ctx context.Context, serviceInstanc
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -2334,15 +2303,14 @@ func (a *InstancesApiService) StopAnInstance(ctx context.Context, serviceInstanc
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2352,7 +2320,7 @@ func (a *InstancesApiService) StopAnInstance(ctx context.Context, serviceInstanc
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2362,7 +2330,7 @@ func (a *InstancesApiService) StopAnInstance(ctx context.Context, serviceInstanc
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2375,6 +2343,7 @@ func (a *InstancesApiService) StopAnInstance(ctx context.Context, serviceInstanc
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Suspends all VM running within an instance
@@ -2389,7 +2358,6 @@ func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, serviceInst
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -2447,15 +2415,14 @@ func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, serviceInst
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2465,7 +2432,7 @@ func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2475,7 +2442,7 @@ func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, serviceInst
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2488,6 +2455,7 @@ func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, serviceInst
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Undo the delete of an instance that is in pending removal state
@@ -2498,10 +2466,10 @@ Undo the delete of an instance that is in pending removal state
 */
 func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.GetInstanceResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Put")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue models.GetInstanceResponse
 	)
 
@@ -2562,7 +2530,7 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, servic
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -2570,12 +2538,12 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, servic
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetInstanceResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2585,7 +2553,7 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2595,7 +2563,7 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2605,7 +2573,7 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, servic
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2618,6 +2586,7 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, servic
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Unlocks the instance
@@ -2632,7 +2601,6 @@ func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, serviceInsta
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-
 	)
 
 	// create path and map variables
@@ -2690,15 +2658,14 @@ func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, serviceInsta
 		return localVarHttpResponse, err
 	}
 
-
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2708,7 +2675,7 @@ func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2718,7 +2685,7 @@ func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, serviceInsta
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHttpResponse, newErr
@@ -2731,6 +2698,7 @@ func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, serviceInsta
 
 	return localVarHttpResponse, nil
 }
+
 /*
 InstancesApiService
 Updating an Instance
@@ -2748,10 +2716,10 @@ type InstancesApiUpdatingAnInstanceOpts struct {
 
 func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *InstancesApiUpdatingAnInstanceOpts) (models.GetInstanceResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Put")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue models.GetInstanceResponse
 	)
 
@@ -2784,7 +2752,7 @@ func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceIns
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
 
-		localVarOptionalBody:= localVarOptionals.Body.Value()
+		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 	if ctx != nil {
@@ -2818,7 +2786,7 @@ func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceIns
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -2826,12 +2794,12 @@ func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceIns
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.GetInstanceResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2841,7 +2809,7 @@ func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2851,7 +2819,7 @@ func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
@@ -2861,7 +2829,7 @@ func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceIns
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
