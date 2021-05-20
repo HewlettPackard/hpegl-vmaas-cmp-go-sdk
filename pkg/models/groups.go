@@ -56,17 +56,17 @@ type GroupResp struct {
 
 // Group
 type Group struct {
-	Name        string        `json:"name"`
-	Code        string        `json:"code"`
-	Location    string        `json:"location"`
-	AccountId   int           `json:"accountId"`
-	Zones       []Zones       `json:"zones"`
-	ServerCount int           `json:"serverCount"`
-	Id          int           `json:"id"`
-	Active      bool          `json:"active"`
-	DateCreated string        `json:"dateCreated"`
-	LastUpdated string        `json:"lastUpdated"`
-	Stats       Stats         `json:"stats"`
+	Name        string  `json:"name"`
+	Code        string  `json:"code"`
+	Location    string  `json:"location"`
+	AccountId   int     `json:"accountId"`
+	Zones       []Zones `json:"zones"`
+	ServerCount int     `json:"serverCount"`
+	Id          int     `json:"id"`
+	Active      bool    `json:"active"`
+	DateCreated string  `json:"dateCreated"`
+	LastUpdated string  `json:"lastUpdated"`
+	Stats       Stats   `json:"stats"`
 }
 
 // Zones
@@ -80,4 +80,3 @@ type Stats struct {
 	InstanceCounts InstanceCounts `json:"instanceCounts"`
 	ServerCounts   ServerCounts   `json:"serverCounts"`
 }
-

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
-
 	//"golang.org/x/oauth2"
 )
 
@@ -31,6 +30,7 @@ var (
 	jsonCheck = regexp.MustCompile("(?i:[application|text]/json)")
 	xmlCheck  = regexp.MustCompile("(?i:[application|text]/xml)")
 )
+
 type APIClientHandler interface {
 	ChangeBasePath(path string)
 	prepareRequest(
@@ -45,6 +45,7 @@ type APIClientHandler interface {
 	decode(v interface{}, b []byte, contentType string) (err error)
 	callAPI(request *http.Request) (*http.Response, error)
 }
+
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {

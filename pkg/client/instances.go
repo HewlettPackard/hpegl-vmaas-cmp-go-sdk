@@ -23,7 +23,7 @@ var (
 
 type InstancesApiService struct {
 	client APIClientHandler
-	cfg Configuration
+	cfg    Configuration
 }
 
 /*

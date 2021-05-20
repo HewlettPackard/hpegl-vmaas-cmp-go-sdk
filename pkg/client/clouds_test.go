@@ -22,7 +22,7 @@ func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
 	}
 
 	mockAPIClient := NewMockAPIClientHandler(ctrl)
-	mockAPIClient.EXPECT().prepareRequest(gomock.Any(),gomock.Any(),gomock.Any(),gomock.Any(),gomock.Any(),gomock.Any(),gomock.Any(),gomock.Any(),gomock.Any()).Return(nil, nil)
+	mockAPIClient.EXPECT().prepareRequest(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, nil)
 	mockAPIClient.EXPECT().callAPI(gomock.Any()).Return(mockStatusOk, nil)
 	a := &CloudsApiService{
 		client: mockAPIClient,
