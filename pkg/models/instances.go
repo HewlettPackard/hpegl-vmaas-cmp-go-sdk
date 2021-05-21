@@ -3,6 +3,7 @@
 package models
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -82,7 +83,7 @@ type CreateInstanceBodyNetwork struct {
 // CreateInstanceBodyNetworkInterfaces
 type CreateInstanceBodyNetworkInterfaces struct {
 	Network                *CreateInstanceBodyNetwork `json:"network"`
-	NetworkInterfaceTypeId int32                      `json:"networkInterfaceTypeId"`
+	NetworkInterfaceTypeId json.Number                `json:"networkInterfaceTypeId"`
 }
 
 // CreateInstanceBodyVolumes
