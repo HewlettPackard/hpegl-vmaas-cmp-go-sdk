@@ -10,7 +10,7 @@ import (
 // CreateInstanceBody
 type CreateInstanceBody struct {
 	// Cloud ID
-	ZoneId            string                                `json:"zoneId"`
+	ZoneId            json.Number                           `json:"zoneId"`
 	Instance          *CreateInstanceBodyInstance           `json:"instance"`
 	Volumes           []CreateInstanceBodyVolumes           `json:"volumes"`
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces"`
@@ -40,7 +40,7 @@ type CreateInstanceBodyInstance struct {
 type CreateInstanceBodyConfig struct {
 	// Virtual Image ID(Required when VMware InstanceType is used)
 	Template       int32       `json:"template,omitempty"`
-	ResourcePoolId interface{} `json:"resourcePoolId"`
+	ResourcePoolId json.Number `json:"resourcePoolId"`
 	// To specify agent install (on/off)
 	NoAgent              string `json:"noAgent,omitempty"`
 	SmbiosAssetTag       string `json:"smbiosAssetTag,omitempty"`
@@ -60,13 +60,13 @@ type CreateInstanceBodyInstanceInstanceType struct {
 // CreateInstanceBodyInstanceLayout
 type CreateInstanceBodyInstanceLayout struct {
 	// The layout id for the instance type that you want to provision.
-	Id string `json:"id"`
+	Id json.Number `json:"id"`
 }
 
 // CreateInstanceBodyInstancePlan
 type CreateInstanceBodyInstancePlan struct {
 	// Service Plan ID
-	Id string `json:"id"`
+	Id json.Number `json:"id"`
 }
 
 // CreateInstanceBodyInstanceSite
