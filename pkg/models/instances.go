@@ -81,8 +81,7 @@ type CreateInstanceBodyNetwork struct {
 
 // CreateInstanceBodyNetworkInterfaces
 type CreateInstanceBodyNetworkInterfaces struct {
-	Network                *CreateInstanceBodyNetwork `json:"network"`
-	NetworkInterfaceTypeId int32                      `json:"networkInterfaceTypeId"`
+	Network *CreateInstanceBodyNetwork `json:"network"`
 }
 
 // CreateInstanceBodyVolumes

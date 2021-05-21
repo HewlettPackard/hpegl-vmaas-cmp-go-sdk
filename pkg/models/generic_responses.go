@@ -26,9 +26,8 @@ type ErrUnauthorized struct {
 	Message string `json:"message"`
 }
 
-// SuccessOrErrorMessage the message can either be msg or message
+//Success Or Failure Message
 type SuccessOrErrorMessage struct {
 	Success bool   `json:"success"`
-	Msg     string `json:"msg,omitempty"`
-	Message string `json:"Message,omitempty"`
+	Message string `json:"message,omitempty"`
 }

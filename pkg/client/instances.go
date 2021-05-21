@@ -518,7 +518,6 @@ func (a *InstancesApiService) DeleteAnInstance(ctx context.Context, serviceInsta
 		return models.SuccessOrErrorMessage{}, newErr
 	}
 
-	fmt.Println(string(localVarBody))
 	var instancesResponse models.SuccessOrErrorMessage
 	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
 		fmt.Println(err)
