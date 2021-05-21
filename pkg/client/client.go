@@ -1,6 +1,6 @@
 // (C) Copyright 2021 Hewlett Packard Enterprise Development LP
 
-//go:generate mockgen -source ./Client.go -package Client -destination ./client_mock.go
+//go:generate mockgen -source ./Client.go -package client -destination ./client_mock.go
 
 package client
 
