@@ -373,7 +373,8 @@ type UpdateInstanceBodyInstance struct {
 	// Add or update value of Metadata tags, Array of objects having a name and value
 	AddTags *interface{} `json:"addTags,omitempty"`
 	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed, it must match to be removed
-	RemoveTags *interface{} `json:"removeTags,omitempty"`
+	RemoveTags *interface{}                    `json:"removeTags,omitempty"`
+	Site       *CreateInstanceBodyInstanceSite `json:"site"`
 }
 
 // GetServicePlanResponse

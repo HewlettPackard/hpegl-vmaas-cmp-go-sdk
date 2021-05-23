@@ -895,12 +895,12 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context, serviceInstan
 		}
 		return models.Instances{}, newErr
 	}
-	var InstancesResp models.Instances
+	var instancesResp models.Instances
 	// fmt.Println(string(localVarBody))
-	if err = json.Unmarshal(localVarBody, &InstancesResp); err != nil {
+	if err = json.Unmarshal(localVarBody, &instancesResp); err != nil {
 		return models.Instances{}, err
 	}
-	return InstancesResp, nil
+	return instancesResp, nil
 }
 
 /*
