@@ -3,22 +3,33 @@
 package models
 
 import (
+	"encoding/json"
 	"time"
 )
 
 // CreateInstanceBody
 type CreateInstanceBody struct {
 	// Cloud ID
-	ZoneId            int32                                 `json:"zoneId"`
+	ZoneId            json.Number                           `json:"zoneId"`
 	Instance          *CreateInstanceBodyInstance           `json:"instance"`
 	Volumes           []CreateInstanceBodyVolumes           `json:"volumes"`
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces"`
 	Config            *CreateInstanceBodyConfig             `json:"config"`
+	Copies            int32                                 `json:"copies,omitempty"`
+	Labels            []string                              `json:"labels,omitempty"`
+	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
+}
+
+type CreateInstanceBodyTag struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
 }
 
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
 	Name         string                                  `json:"name"`
+	Cloud        string                                  `json:"cloud"`
+	Type         string                                  `json:"type"`
 	Site         *CreateInstanceBodyInstanceSite         `json:"site"`
 	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
 	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
@@ -28,8 +39,8 @@ type CreateInstanceBodyInstance struct {
 // CreateInstanceBodyConfig
 type CreateInstanceBodyConfig struct {
 	// Virtual Image ID(Required when VMware InstanceType is used)
-	Template       int32  `json:"template,omitempty"`
-	ResourcePoolId string `json:"resourcePoolId"`
+	Template       int32       `json:"template,omitempty"`
+	ResourcePoolId json.Number `json:"resourcePoolId"`
 	// To specify agent install (on/off)
 	NoAgent              string `json:"noAgent,omitempty"`
 	SmbiosAssetTag       string `json:"smbiosAssetTag,omitempty"`
@@ -49,13 +60,13 @@ type CreateInstanceBodyInstanceInstanceType struct {
 // CreateInstanceBodyInstanceLayout
 type CreateInstanceBodyInstanceLayout struct {
 	// The layout id for the instance type that you want to provision.
-	Id int32 `json:"id"`
+	Id json.Number `json:"id"`
 }
 
 // CreateInstanceBodyInstancePlan
 type CreateInstanceBodyInstancePlan struct {
 	// Service Plan ID
-	Id int32 `json:"id"`
+	Id json.Number `json:"id"`
 }
 
 // CreateInstanceBodyInstanceSite
@@ -72,7 +83,7 @@ type CreateInstanceBodyNetwork struct {
 // CreateInstanceBodyNetworkInterfaces
 type CreateInstanceBodyNetworkInterfaces struct {
 	Network                *CreateInstanceBodyNetwork `json:"network"`
-	NetworkInterfaceTypeId int32                      `json:"networkInterfaceTypeId"`
+	NetworkInterfaceTypeId json.Number                `json:"networkInterfaceTypeId"`
 }
 
 // CreateInstanceBodyVolumes
@@ -84,7 +95,7 @@ type CreateInstanceBodyVolumes struct {
 	Size        int32  `json:"size,omitempty"`
 	StorageType int32  `json:"storageType,omitempty"`
 	// The ID of the specific datastore. Auto selection can be specified as auto or autoCluster (for clusters).
-	DatastoreId int32 `json:"datastoreId"`
+	DatastoreId interface{} `json:"datastoreId"`
 }
 
 type Instances struct {
@@ -362,7 +373,8 @@ type UpdateInstanceBodyInstance struct {
 	// Add or update value of Metadata tags, Array of objects having a name and value
 	AddTags *interface{} `json:"addTags,omitempty"`
 	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed, it must match to be removed
-	RemoveTags *interface{} `json:"removeTags,omitempty"`
+	RemoveTags *interface{}                    `json:"removeTags,omitempty"`
+	Site       *CreateInstanceBodyInstanceSite `json:"site"`
 }
 
 // GetServicePlanResponse
