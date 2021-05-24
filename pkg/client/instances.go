@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -294,7 +293,6 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, serviceInsta
 		localVarFileBytes  []byte
 	)
 
-	log.Printf("\n\n[INFO]%+v", localVarOptionals)
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
 		serviceInstanceId, consts.InstancesPath)
