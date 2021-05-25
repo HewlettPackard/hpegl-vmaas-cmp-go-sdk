@@ -389,7 +389,7 @@ This endpoint retrieves all groups and a list of zones associated with the group
  * @param serviceInstanceId
 
 */
-func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId string) (models.Groups, error) {
+func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId string, queryParams map[string]string) (models.Groups, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -403,7 +403,7 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId s
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarFormParams := getUrlValues(queryParams)
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
