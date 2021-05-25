@@ -362,7 +362,7 @@ type ListNetworkRoutersPropertiesType struct {
 // ListNetworksBody
 type ListNetworksBody struct {
 	Networks     []ListNetworksBodyNetworks `json:"networks"`
-	NetworkCount float64                    `json:"networkCount"`
+	NetworkCount int                        `json:"networkCount"`
 	Meta         *ListNetworksBodyMeta      `json:"meta"`
 }
 
@@ -376,7 +376,7 @@ type ListNetworksBodyMeta struct {
 
 // ListNetworksBodyNetworks
 type ListNetworksBodyNetworks struct {
-	Id                      float64                   `json:"id,omitempty"`
+	Id                      int                       `json:"id,omitempty"`
 	Name                    string                    `json:"name,omitempty"`
 	Zone                    *ListNetworksBodyZone     `json:"zone,omitempty"`
 	Type_                   *ListNetworksBodyType     `json:"type,omitempty"`

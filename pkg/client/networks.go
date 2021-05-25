@@ -4,12 +4,14 @@ package client
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
 
+	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 
 	"github.com/antihax/optional"
@@ -1059,21 +1061,26 @@ This endpoint retrieves all Networks associated with the account.
  * @param serviceInstanceId
 @return models.ListNetworksBody
 */
-func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstanceId string) (models.ListNetworksBody, *http.Response, error) {
+func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstanceId string, param map[string]string) (models.ListNetworksBody, error) {
 	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
-		localVarPostBody    interface{}
-		localVarFileName    string
-		localVarFileBytes   []byte
-		localVarReturnValue models.ListNetworksBody
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	// localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks"
+	// localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.NetworksPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
+	for k, v := range param {
+		localVarQueryParams[k] = []string{v}
+	}
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
@@ -1103,31 +1110,23 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 				key = auth.Key
 			}
 			localVarHeaderParams["Authorization"] = key
-
 		}
 	}
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
 
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	fmt.Println(localVarPath)
+	if err != nil {
+		return models.ListNetworksBody{}, err
+	}
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return models.ListNetworksBody{}, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-		if err == nil {
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return models.ListNetworksBody{}, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -1135,50 +1134,44 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v models.ListNetworksBody
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.ListNetworksBody{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.ListNetworksBody{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.ListNetworksBody{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.ListNetworksBody{}, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return models.ListNetworksBody{}, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return models.ListNetworksBody{}, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return models.ListNetworksBody{}, newErr
 	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
+	fmt.Println(string(localVarBody))
+	var networkResponse models.ListNetworksBody
+	if err := json.Unmarshal(localVarBody, &networkResponse); err != nil {
+		return models.ListNetworksBody{}, err
+	}
+	return networkResponse, nil
 }
 
 /*

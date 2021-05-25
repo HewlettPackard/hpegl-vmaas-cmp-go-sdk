@@ -11,4 +11,6 @@ const (
 	InstanceTypesPath = "instance-types"
 	// GroupsPath
 	GroupsPath = "groups"
+	//NetworksPath
+	NetworksPath = "networks"
 )
