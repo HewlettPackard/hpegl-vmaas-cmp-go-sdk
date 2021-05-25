@@ -4,8 +4,9 @@ package models
 
 // ErrBadRequest
 type ErrBadRequest struct {
-	Success bool   `json:"success"`
-	Message string `json:"message"`
+	Success bool        `json:"success"`
+	Message string      `json:"message"`
+	Errors  interface{} `json:"errors,omitempty"`
 }
 
 // ErrInternalError
@@ -30,5 +31,5 @@ type ErrUnauthorized struct {
 type SuccessOrErrorMessage struct {
 	Success bool   `json:"success"`
 	Msg     string `json:"msg,omitempty"`
-	Message string `json:"Message,omitempty"`
+	Message string `json:"message,omitempty"`
 }
