@@ -11,8 +11,10 @@ const (
 	InstanceTypesPath = "instance-types"
 	// GroupsPath
 	GroupsPath = "groups"
-	// LibraryLayoutPath
-	LibraryLayoutPath = "library/layouts"
-	// LibraryInstanceTypesPath
-	LibraryInstanceTypesPath = "library/instance-types"
+	//NetworksPath
+	NetworksPath = "networks"
+  	// LibraryLayoutPath
+  	LibraryLayoutPath = "library/layouts"
+  	// LibraryInstanceTypesPath
+  	LibraryInstanceTypesPath = "library/instance-types"
 )
