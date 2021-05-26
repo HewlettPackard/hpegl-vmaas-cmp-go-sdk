@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"strings"
 
+	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
@@ -386,7 +387,7 @@ Get All Cloud Data Stores
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int, queryParams map[string]string) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -395,12 +396,15 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/zones/{cloud_id}/data-stores"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
+	// localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/zones/{cloud_id}/data-stores"
+	// localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	// localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
+
+	localVarPath := fmt.Sprintf("%s/%s/%s/zones/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, fmt.Sprintf("%v", cloudId), consts.DatstorePath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 	if cloudId < 1 {
 		return nil, reportError("cloudId must be greater than 1")
