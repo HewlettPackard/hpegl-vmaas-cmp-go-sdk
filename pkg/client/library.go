@@ -31,7 +31,7 @@ Get All layouts
  * @param serviceInstanceId
 
 */
-func (a *LibraryApiService) GetAllLayouts(ctx context.Context, serviceInstanceId string) (models.LayoutsResp, error) {
+func (a *LibraryApiService) GetAllLayouts(ctx context.Context, serviceInstanceId string, param map[string]string) (models.LayoutsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -44,7 +44,7 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, serviceInstanceId
 		serviceInstanceId, consts.LibraryLayoutPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
@@ -120,14 +120,14 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, serviceInstanceId
 		}
 		return models.LayoutsResp{}, newErr
 	}
-    var layoutsResp models.LayoutsResp
+	var layoutsResp models.LayoutsResp
 	if err = json.Unmarshal(localVarBody, &layoutsResp); err != nil {
 		return models.LayoutsResp{}, err
 	}
 	return layoutsResp, nil
 }
 
-func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInstanceId string) (models.InstanceTypesResp, error) {
+func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInstanceId string, param map[string]string) (models.InstanceTypesResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -140,7 +140,7 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInst
 		serviceInstanceId, consts.LibraryInstanceTypesPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
