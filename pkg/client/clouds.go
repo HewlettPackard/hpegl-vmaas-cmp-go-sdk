@@ -505,7 +505,7 @@ Get All Cloud Resource Pools
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int32) (models.ResourcePoolsResp, error) {
+func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int, queryParams map[string]string) (models.ResourcePoolsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -518,7 +518,7 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, service
 		serviceInstanceId, consts.CloudsPath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 	var resourcePoolsResp models.ResourcePoolsResp
 	if cloudId < 1 {
