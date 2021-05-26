@@ -469,12 +469,7 @@ func (a *InstancesApiService) DeleteAnInstance(ctx context.Context, serviceInsta
 		return models.SuccessOrErrorMessage{}, err
 	}
 
-	// var temp interface{}
-	// json.NewDecoder(localVarHttpResponse.Body).Decode(&temp)
-	// fmt.Println(temp)
-
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	fmt.Println(string(localVarBody))
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return models.SuccessOrErrorMessage{}, err
@@ -521,7 +516,6 @@ func (a *InstancesApiService) DeleteAnInstance(ctx context.Context, serviceInsta
 	// fmt.Println(string(localVarBody))
 	var instancesResponse models.SuccessOrErrorMessage
 	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
-		fmt.Println(err)
 		return models.SuccessOrErrorMessage{}, err
 	}
 	return instancesResponse, nil
@@ -591,10 +585,6 @@ func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, serviceI
 		return models.GetInstanceResponse{}, err
 	}
 
-	// var temp interface{}
-	// json.NewDecoder(localVarHttpResponse.Body).Decode(&temp)
-	// fmt.Println(temp)
-
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
@@ -649,11 +639,9 @@ func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, serviceI
 		return models.GetInstanceResponse{}, newErr
 	}
 	var instancesResponse models.GetInstanceResponse
-	//fmt.Println(string(localVarBody))
 	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
 		return models.GetInstanceResponse{}, err
 	}
-	//fmt.Println(instancesResponse)
 	return instancesResponse, nil
 }
 
@@ -894,7 +882,6 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context, serviceInstan
 		return models.Instances{}, newErr
 	}
 	var instancesResp models.Instances
-	// fmt.Println(string(localVarBody))
 	if err = json.Unmarshal(localVarBody, &instancesResp); err != nil {
 		return models.Instances{}, err
 	}
@@ -1384,7 +1371,6 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 	}
 	var instanceResponse models.ListSnapshotResponse
 	if err = json.Unmarshal(localVarBody, &instanceResponse); err != nil {
-		fmt.Println("err", err)
 		return models.ListSnapshotResponse{}, err
 	}
 	return instanceResponse, nil
@@ -2094,9 +2080,7 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceIns
 		return models.Instances{}, newErr
 	}
 	var instanceResponse models.Instances
-	fmt.Println(string(localVarBody))
 	if err := json.Unmarshal(localVarBody, &instanceResponse); err != nil {
-		fmt.Println("err", err)
 		return models.Instances{}, err
 	}
 	return instanceResponse, nil

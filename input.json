@@ -1,0 +1,43 @@
+{
+    "zoneId": "7",
+    "instance": {
+      "name": "06abcd-test",
+      "cloud": "HPE GreenLake VMaaS Cloud",
+      "site": {
+        "id": 2
+      },
+      "instanceType": {
+        "code": "vmware"
+      },
+      "layout": {
+        "id": "113"
+      },
+      "plan": {
+        "id": "407"
+      }
+    },
+    "config": {
+      "resourcePoolId": "2",
+      "noAgent": false,
+      "template": 573
+    },
+    "volumes": [
+      {
+        "id": 67,
+        "rootVolume": true,
+        "name": "root",
+        "size": 10,
+        "sizeId": null,
+        "storageType": 1,
+        "datastoreId": "auto"
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "network": {
+          "id": 4
+        },
+        "networkInterfaceTypeId": "4"
+      }
+    ]
+  }
