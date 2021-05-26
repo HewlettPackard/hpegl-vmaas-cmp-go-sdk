@@ -1262,11 +1262,11 @@ Lists VMware Snapshot of the instance
 */
 func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.ListSnapshotResponse, error) {
 	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
-		localVarPostBody    interface{}
-		localVarFileName    string
-		localVarFileBytes   []byte
-		localVarReturnValue models.ListSnapshotResponse
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		snapshotResponse   models.ListSnapshotResponse
 	)
 
 	// create path and map variables
@@ -1309,18 +1309,18 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, err
+		return snapshotResponse, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, err
+		return snapshotResponse, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, err
+		return snapshotResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -1333,48 +1333,47 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, newErr
+				return snapshotResponse, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, newErr
+			return snapshotResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, newErr
+				return snapshotResponse, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, newErr
+			return snapshotResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, newErr
+				return snapshotResponse, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, newErr
+			return snapshotResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, newErr
+				return snapshotResponse, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, newErr
+			return snapshotResponse, newErr
 		}
-		return localVarReturnValue, newErr
+		return snapshotResponse, newErr
 	}
-	var instanceResponse models.ListSnapshotResponse
-	if err = json.Unmarshal(localVarBody, &instanceResponse); err != nil {
-		return localVarReturnValue, err
+	if err = json.Unmarshal(localVarBody, &snapshotResponse); err != nil {
+		return snapshotResponse, err
 	}
-	return instanceResponse, nil
+	return snapshotResponse, nil
 }
 
 /*
@@ -1743,6 +1742,7 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
+		resizeResponse     models.ResizeInstanceResponse
 	)
 
 	// create path and map variables
@@ -1775,7 +1775,7 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 		var err error
 		localVarPostBody, err = json.Marshal(localVarOptionals)
 		if err != nil {
-			return models.ResizeInstanceResponse{}, err
+			return resizeResponse, err
 		}
 	}
 	if ctx != nil {
@@ -1793,18 +1793,18 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return models.ResizeInstanceResponse{}, err
+		return resizeResponse, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return models.ResizeInstanceResponse{}, err
+		return resizeResponse, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return models.ResizeInstanceResponse{}, err
+		return resizeResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -1817,38 +1817,37 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInsta
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return models.ResizeInstanceResponse{}, newErr
+				return resizeResponse, newErr
 			}
 			newErr.model = v
-			return models.ResizeInstanceResponse{}, newErr
+			return resizeResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return models.ResizeInstanceResponse{}, newErr
+				return resizeResponse, newErr
 			}
 			newErr.model = v
-			return models.ResizeInstanceResponse{}, newErr
+			return resizeResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return models.ResizeInstanceResponse{}, newErr
+				return resizeResponse, newErr
 			}
 			newErr.model = v
-			return models.ResizeInstanceResponse{}, newErr
+			return resizeResponse, newErr
 		}
-		return models.ResizeInstanceResponse{}, newErr
+		return resizeResponse, newErr
 	}
-	var instanceResponse models.ResizeInstanceResponse
-	if err = json.Unmarshal(localVarBody, &instanceResponse); err != nil {
-		return models.ResizeInstanceResponse{}, err
+	if err = json.Unmarshal(localVarBody, &resizeResponse); err != nil {
+		return resizeResponse, err
 	}
-	return instanceResponse, nil
+	return resizeResponse, nil
 }
 
 /*
