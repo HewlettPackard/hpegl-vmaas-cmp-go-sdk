@@ -19,4 +19,10 @@ const (
 	LibraryInstanceTypesPath = "library/instance-types"
 	//Service plans path
 	ServicePlansPath = "service-plans"
+	// CloudsPath
+	CloudsPath = "clouds"
+	// ZonePath
+	ZonePath = "zones"
+	// DatstorePath
+	DatstorePath = "data-stores"
 )

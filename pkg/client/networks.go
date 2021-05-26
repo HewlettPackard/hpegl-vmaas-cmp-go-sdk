@@ -1077,10 +1077,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 		serviceInstanceId, consts.NetworksPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	for k, v := range param {
-		localVarQueryParams[k] = []string{v}
-	}
+	localVarQueryParams := getUrlValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
