@@ -13,10 +13,14 @@ const (
 	GroupsPath = "groups"
 	//NetworksPath
 	NetworksPath = "networks"
-  	// LibraryLayoutPath
-  	LibraryLayoutPath = "library/layouts"
-  	// LibraryInstanceTypesPath
-  	LibraryInstanceTypesPath = "library/instance-types"
-  	// CloudsPath
-  	CloudsPath = "clouds"
+	// LibraryLayoutPath
+	LibraryLayoutPath = "library/layouts"
+	// LibraryInstanceTypesPath
+	LibraryInstanceTypesPath = "library/instance-types"
+	// CloudsPath
+	CloudsPath = "clouds"
+	// ZonePath
+	ZonePath = "zones"
+	// DatstorePath
+	DatstorePath = "data-stores"
 )
