@@ -4,12 +4,14 @@ package client
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
 
+	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
@@ -264,7 +266,7 @@ Get a Specific Cloud Resource Pool
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param cloudId The cloud ID
- * @param resourcepoolId The Cloud Resourcepool ID
+ * @param funId The Cloud Resourcepool ID
 
 */
 func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, serviceInstanceId string, cloudId int32, resourcepoolId int32) (*http.Response, error) {
@@ -386,7 +388,7 @@ Get All Cloud Data Stores
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int32) (models.DataStoresResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -395,15 +397,15 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/zones/{cloud_id}/data-stores"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.CloudsPath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	var datastoresResp models.DataStoresResp
 	if cloudId < 1 {
-		return nil, reportError("cloudId must be greater than 1")
+		return datastoresResp, reportError("cloudId must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -438,18 +440,18 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceIns
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return datastoresResp, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return datastoresResp, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return datastoresResp, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -462,35 +464,37 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceIns
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return datastoresResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return datastoresResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return datastoresResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return datastoresResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return datastoresResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return datastoresResp, newErr
 		}
-		return localVarHttpResponse, newErr
+		return datastoresResp, newErr
 	}
-
-	return localVarHttpResponse, nil
+	if err = json.Unmarshal(localVarBody, &datastoresResp); err != nil {
+		return datastoresResp, err
+	}
+	return datastoresResp, nil
 }
 
 /*
@@ -501,7 +505,7 @@ Get All Cloud Resource Pools
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int32) (models.ResourcePoolsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -510,15 +514,15 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, service
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/zones/{cloud_id}/resource-pools"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.CloudsPath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	var resourcePoolsResp models.ResourcePoolsResp
 	if cloudId < 1 {
-		return nil, reportError("cloudId must be greater than 1")
+		return resourcePoolsResp, reportError("cloudId must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -553,18 +557,18 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, service
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return resourcePoolsResp, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return resourcePoolsResp, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return resourcePoolsResp, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -577,35 +581,37 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, service
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return resourcePoolsResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return resourcePoolsResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return resourcePoolsResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return resourcePoolsResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return resourcePoolsResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return resourcePoolsResp, newErr
 		}
-		return localVarHttpResponse, newErr
+		return resourcePoolsResp, newErr
 	}
-
-	return localVarHttpResponse, nil
+	if err = json.Unmarshal(localVarBody, &resourcePoolsResp); err != nil {
+		return resourcePoolsResp, err
+	}
+	return resourcePoolsResp, nil
 }
 
 /*
@@ -615,7 +621,7 @@ Get All Clouds
  * @param serviceInstanceId
 
 */
-func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId string) (*http.Response, error) {
+func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId string) (models.CloudsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -624,8 +630,8 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/zones"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.CloudsPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -661,20 +667,21 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId s
 
 		}
 	}
+	var cloudsResp models.CloudsResp
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return cloudsResp, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return cloudsResp, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return cloudsResp, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -687,23 +694,25 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId s
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return cloudsResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return cloudsResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return cloudsResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return cloudsResp, newErr
 		}
-		return localVarHttpResponse, newErr
+		return cloudsResp, newErr
 	}
-
-	return localVarHttpResponse, nil
+	if err = json.Unmarshal(localVarBody, &cloudsResp); err != nil {
+		return cloudsResp, err
+	}
+	return cloudsResp, nil
 }
