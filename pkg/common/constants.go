@@ -17,6 +17,10 @@ const (
 	LibraryLayoutPath = "library/layouts"
 	// LibraryInstanceTypesPath
 	LibraryInstanceTypesPath = "library/instance-types"
-
+	// CloudsPath
+	CloudsPath = "clouds"
+	// ZonePath
+	ZonePath = "zones"
+	// DatstorePath
 	DatstorePath = "data-stores"
 )
