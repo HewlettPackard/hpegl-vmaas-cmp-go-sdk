@@ -4,12 +4,13 @@ package client
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 
+	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
@@ -30,20 +31,21 @@ Get All Service Plans
  * @param serviceInstanceId
 
 */
-func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanceId string) (*http.Response, error) {
+func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanceId string, param map[string]string) (models.ServicePlans, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFileName     string
+		localVarFileBytes    []byte
+		servicePlansResponse models.ServicePlans
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/service-plans"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		serviceInstanceId, consts.ServicePlansPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
@@ -78,18 +80,18 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanc
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return servicePlansResponse, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return servicePlansResponse, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return servicePlansResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -102,23 +104,25 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanc
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return servicePlansResponse, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return servicePlansResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return servicePlansResponse, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return servicePlansResponse, newErr
 		}
-		return localVarHttpResponse, newErr
+		return servicePlansResponse, newErr
 	}
-
-	return localVarHttpResponse, nil
+	if err := json.Unmarshal(localVarBody, &servicePlansResponse); err != nil {
+		return servicePlansResponse, err
+	}
+	return servicePlansResponse, nil
 }
