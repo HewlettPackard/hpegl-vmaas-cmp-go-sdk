@@ -72,7 +72,8 @@ type CreateInstanceBodyInstancePlan struct {
 // CreateInstanceBodyInstanceSite
 type CreateInstanceBodyInstanceSite struct {
 	// Group ID
-	Id int32 `json:"id"`
+	Id   int32  `json:"id"`
+	Name string `'json:"name,omitempty"`
 }
 
 // CreateInstanceBodyNetwork
@@ -100,6 +101,7 @@ type CreateInstanceBodyVolumes struct {
 
 type Instances struct {
 	Instances []GetInstanceResponseInstance `json:"instances"`
+	Success   bool                          `json:"success,omitempty"`
 }
 
 // GetInstanceResponse
@@ -116,8 +118,8 @@ type GetInstanceResponseInstance struct {
 	InstanceType        *GetInstanceResponseInstanceInstanceType    `json:"instanceType,omitempty"`
 	Group               *GetInstanceResponseInstanceGroup           `json:"group,omitempty"`
 	Cloud               *GetInstanceResponseInstanceCloud           `json:"cloud,omitempty"`
-	Containers          []int32                                     `json:"containers,omitempty"`
-	Servers             []int32                                     `json:"servers,omitempty"`
+	Containers          interface{}                                 `json:"containers,omitempty"`
+	Servers             interface{}                                 `json:"servers,omitempty"`
 	ConnectionInfo      []GetInstanceResponseInstanceConnectionInfo `json:"connectionInfo,omitempty"`
 	Layout              *GetInstanceResponseInstanceLayout          `json:"layout,omitempty"`
 	Plan                *GetInstanceResponseInstancePlan            `json:"plan,omitempty"`
@@ -346,6 +348,27 @@ type ResizeInstanceBodyInstanceVolumes struct {
 	StorageType int32  `json:"storageType,omitempty"`
 	DatastoreId int32  `json:"datastoreId,omitempty"`
 }
+type ResizeInstanceResponse struct {
+	Instance *ResizeInstanceResponseInstance `json:"instance"`
+}
+type ResizeInstanceResponseInstance struct {
+	Id        int32                              `json:"id"`
+	Name      string                             `json:"string"`
+	Cloud     *GetInstanceResponseInstanceCloud  `json:"cloud,omitempty"`
+	Plan      *ResizeInstanceBodyInstancePlan    `json:"plan"`
+	Volumes   []GetInstanceResposeResizeVolumes  `json:"volumes"`
+	AccountId int32                              `json:"accountId,omitempty"`
+	Tenant    *GetInstanceResponseInstanceTenant `json:"tenant,omitempty"`
+}
+
+type GetInstanceResposeResizeVolumes struct {
+	Id          string `json:"id,omitempty"`
+	RootVolume  bool   `json:"rootVolume,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Size        int32  `json:"size,omitempty"`
+	StorageType int32  `json:"storageType,omitempty"`
+	DatastoreId int32  `json:"datastoreId,omitempty"`
+}
 
 // SnapshotBody
 type SnapshotBody struct {
@@ -357,6 +380,32 @@ type SnapshotBodySnapshot struct {
 	// Optional name for the snapshot being created
 	Name        string `json:"name,omitempty"`
 	Description string `json:"description,omitempty"`
+}
+
+type ListSnapshotResponse struct {
+	Snapshots []ListSnapshotResponseInstance `json:"snapshots"`
+}
+type ListSnapshotResponseInstance struct {
+	ID              int32       `json:"id,omitempty"`
+	Name            string      `json:"name,omitempty"`
+	Description     interface{} `json:"description,omitempty"`
+	ExternalID      string      `json:"externalId,omitempty"`
+	Status          string      `json:"status,omitempty"`
+	State           interface{} `json:"state,omitempty"`
+	SnapshotType    string      `json:"snapshotType,omitempty"`
+	SnapshotCreated time.Time   `json:"snapshotCreated,omitempty"`
+	Zone            struct {
+		ID   int    `json:"id"`
+		Name string `json:"name"`
+	} `json:"zone,omitempty"`
+	Datastore       interface{} `json:"datastore,omitempty"`
+	ParentSnapshot  interface{} `json:"parentSnapshot,omitempty"`
+	CurrentlyActive bool        `json:"currentlyActive,omitempty"`
+	DateCreated     time.Time   `json:"dateCreated,omitempty"`
+}
+
+type ImportSnapshotBody struct {
+	StorageProviderId int32 `json:"storageProviderId,omitempty"`
 }
 
 // UpdateInstanceBody
@@ -373,8 +422,26 @@ type UpdateInstanceBodyInstance struct {
 	// Add or update value of Metadata tags, Array of objects having a name and value
 	AddTags *interface{} `json:"addTags,omitempty"`
 	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed, it must match to be removed
-	RemoveTags *interface{}                    `json:"removeTags,omitempty"`
-	Site       *CreateInstanceBodyInstanceSite `json:"site"`
+	RemoveTags        *interface{}                          `json:"removeTags,omitempty"`
+	Site              *CreateInstanceBodyInstanceSite       `json:"site"`
+	Owner             *GetInstanceResponseInstanceCreatedBy `json:"owner,omitempty"`
+	PowerScheduleType json.Number                           `json:"powerScheduleType,omitempty"`
+	Labels            []string                              `json:"labels,omitempty"`
+	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
+	InstanceContext   string                                `json:"instanceContext,omitempty"`
+}
+type UpdateInstanceResponse struct {
+	Instance *UpdateInstanceResponseInstance `json:"instance"`
+}
+type UpdateInstanceResponseInstance struct {
+	Name    string                                `json:"name,omitempty"`
+	ID      int32                                 `json:"id,omitempty"`
+	Group   *CreateInstanceBodyInstanceSite       `json:"group"`
+	Owner   *GetInstanceResponseInstanceCreatedBy `json:"owner,omitempty"`
+	Labels  []string                              `json:"labels,omitempty"`
+	Tags    []CreateInstanceBodyTag               `json:"tags,omitempty"`
+	Cloud   *GetInstanceResponseInstanceCloud     `json:"cloud,omitempty"`
+	Success bool                                  `json:"success"`
 }
 
 // GetServicePlanResponse
