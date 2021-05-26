@@ -388,7 +388,7 @@ Get All Cloud Data Stores
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int32) (models.DataStoresResp, error) {
+func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int, queryParams map[string]string) (models.DataStoresResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -398,10 +398,10 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceIns
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.CloudsPath, cloudId)
+		serviceInstanceId, consts.ZonePath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 	var datastoresResp models.DataStoresResp
 	if cloudId < 1 {
