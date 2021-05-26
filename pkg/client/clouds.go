@@ -505,7 +505,7 @@ Get All Cloud Resource Pools
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int32) (models.ResourcePoolsResp, error) {
+func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int, queryParams map[string]string) (models.ResourcePoolsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -515,10 +515,10 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, service
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.CloudsPath, cloudId)
+		serviceInstanceId, consts.ZonePath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 	var resourcePoolsResp models.ResourcePoolsResp
 	if cloudId < 1 {
@@ -621,7 +621,7 @@ Get All Clouds
  * @param serviceInstanceId
 
 */
-func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId string) (models.CloudsResp, error) {
+func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId string, queryParams map[string]string) (models.CloudsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -631,10 +631,10 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId s
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.CloudsPath)
+		serviceInstanceId, consts.ZonePath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
