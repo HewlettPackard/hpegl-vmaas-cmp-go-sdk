@@ -1262,10 +1262,11 @@ Lists VMware Snapshot of the instance
 */
 func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.ListSnapshotResponse, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue models.ListSnapshotResponse
 	)
 
 	// create path and map variables
@@ -1308,18 +1309,18 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return models.ListSnapshotResponse{}, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return models.ListSnapshotResponse{}, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return models.ListSnapshotResponse{}, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -1332,46 +1333,46 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return models.ListSnapshotResponse{}, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return models.ListSnapshotResponse{}, newErr
+			return localVarReturnValue, newErr
 		}
 		if localVarHttpResponse.StatusCode == 401 {
 			var v models.ErrUnauthorized
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return models.ListSnapshotResponse{}, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return models.ListSnapshotResponse{}, newErr
+			return localVarReturnValue, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return models.ListSnapshotResponse{}, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return models.ListSnapshotResponse{}, newErr
+			return localVarReturnValue, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return models.ListSnapshotResponse{}, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return models.ListSnapshotResponse{}, newErr
+			return localVarReturnValue, newErr
 		}
-		return models.ListSnapshotResponse{}, newErr
+		return localVarReturnValue, newErr
 	}
 	var instanceResponse models.ListSnapshotResponse
 	if err = json.Unmarshal(localVarBody, &instanceResponse); err != nil {
-		return models.ListSnapshotResponse{}, err
+		return localVarReturnValue, err
 	}
 	return instanceResponse, nil
 }
