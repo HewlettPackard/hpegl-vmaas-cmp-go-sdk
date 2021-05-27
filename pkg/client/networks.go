@@ -1073,8 +1073,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 	// localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks"
 	// localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
 
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.NetworksPath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath, consts.NetworksPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(param)
