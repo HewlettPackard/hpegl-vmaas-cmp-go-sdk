@@ -174,7 +174,7 @@ Customizing Blueprint Access
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body models.UpdateBlueprintAccessBody, serviceInstanceId string, roleId int32) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body models.UpdateBlueprintAccessBody, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -318,7 +318,7 @@ Customizing Cloud Access
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body models.UpdateCloudAccessBody, serviceInstanceId string, roleId int32) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body models.UpdateCloudAccessBody, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -462,7 +462,7 @@ Customizing Group Access
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body models.UpdateGroupAccessBody, serviceInstanceId string, roleId int32) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body models.UpdateGroupAccessBody, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -606,7 +606,7 @@ Customizing Instance Type Access
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, body models.UpdateInstancetypeAccessBody, serviceInstanceId string, roleId int32) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, body models.UpdateInstancetypeAccessBody, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -749,7 +749,7 @@ Delete a Role
  * @param roleId
 
 */
-func (a *RolesApiService) DeleteARole(ctx context.Context, serviceInstanceId string, roleId int32) (*http.Response, error) {
+func (a *RolesApiService) DeleteARole(ctx context.Context, serviceInstanceId string, roleId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -861,7 +861,7 @@ Get a Specific Role
  * @param roleId
 @return models.GetRoleResponse
 */
-func (a *RolesApiService) GetASpecificRole(ctx context.Context, serviceInstanceId string, roleId int32) (models.GetRoleResponse, *http.Response, error) {
+func (a *RolesApiService) GetASpecificRole(ctx context.Context, serviceInstanceId string, roleId int) (models.GetRoleResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1093,7 +1093,7 @@ Updating Basic Role Settings
  * @param roleId
 @return models.GetRoleResponse
 */
-func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body models.UpdateRoleBody, serviceInstanceId string, roleId int32) (models.GetRoleResponse, *http.Response, error) {
+func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body models.UpdateRoleBody, serviceInstanceId string, roleId int) (models.GetRoleResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -1237,7 +1237,7 @@ Along with feature access global access for Group, Cloud, Instance Types and Blu
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body models.UpdateRoleFeaturePermission, serviceInstanceId string, roleId int32) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body models.UpdateRoleFeaturePermission, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}

@@ -136,7 +136,7 @@ Delete a Policy
  * @param policyId
 
 */
-func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, serviceInstanceId string, policyId int32) (*http.Response, error) {
+func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, serviceInstanceId string, policyId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}

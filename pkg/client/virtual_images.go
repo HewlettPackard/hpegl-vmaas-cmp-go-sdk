@@ -11,38 +11,38 @@ import (
 	"strings"
 
 	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
-	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
+	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-// Linger please
 var (
 	_ context.Context
 )
 
-type PlansApiService struct {
+type VirtualImagesApiService struct {
 	Client APIClientHandler
 	Cfg    Configuration
 }
 
 /*
-PlansApiService
-Get All Service Plans
+VirtualImageApiService
+Get All Virtual images
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param serviceInstanceId
-
+ * @param name/phrase optional
+@return models.VirtualImages
 */
-func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanceId string, param map[string]string) (models.ServicePlans, error) {
+func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, serviceInstanceId string, param map[string]string) (models.VirtualImages, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFileName     string
 		localVarFileBytes    []byte
-		servicePlansResponse models.ServicePlans
+		virtualImageResponse models.VirtualImages
 	)
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.ServicePlansPath)
+		serviceInstanceId, consts.VirtualImagePath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(param)
@@ -80,18 +80,18 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanc
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return servicePlansResponse, err
+		return virtualImageResponse, err
 	}
 
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return servicePlansResponse, err
+		return virtualImageResponse, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return servicePlansResponse, err
+		return virtualImageResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -104,25 +104,25 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanc
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return servicePlansResponse, newErr
+				return virtualImageResponse, newErr
 			}
 			newErr.model = v
-			return servicePlansResponse, newErr
+			return virtualImageResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return servicePlansResponse, newErr
+				return virtualImageResponse, newErr
 			}
 			newErr.model = v
-			return servicePlansResponse, newErr
+			return virtualImageResponse, newErr
 		}
-		return servicePlansResponse, newErr
+		return virtualImageResponse, newErr
 	}
-	if err := json.Unmarshal(localVarBody, &servicePlansResponse); err != nil {
-		return servicePlansResponse, err
+	if err := json.Unmarshal(localVarBody, &virtualImageResponse); err != nil {
+		return virtualImageResponse, err
 	}
-	return servicePlansResponse, nil
+	return virtualImageResponse, nil
 }

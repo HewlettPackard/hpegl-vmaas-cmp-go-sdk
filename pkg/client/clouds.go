@@ -33,7 +33,7 @@ Get a Specific Cloud
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, serviceInstanceId string, cloudId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, serviceInstanceId string, cloudId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -149,7 +149,7 @@ Get a Specific Cloud Data Store
  * @param datastoreId The cloud datastore ID
 
 */
-func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, serviceInstanceId string, cloudId int32, datastoreId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, serviceInstanceId string, cloudId int, datastoreId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -269,7 +269,7 @@ Get a Specific Cloud Resource Pool
  * @param funId The Cloud Resourcepool ID
 
 */
-func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, serviceInstanceId string, cloudId int32, resourcepoolId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, serviceInstanceId string, cloudId int, resourcepoolId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -388,7 +388,7 @@ Get All Cloud Data Stores
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int32) (models.DataStoresResp, error) {
+func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int, queryParams map[string]string) (models.DataStoresResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -398,10 +398,10 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceIns
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.CloudsPath, cloudId)
+		serviceInstanceId, consts.ZonePath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 	var datastoresResp models.DataStoresResp
 	if cloudId < 1 {
@@ -505,7 +505,7 @@ Get All Cloud Resource Pools
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int32) (models.ResourcePoolsResp, error) {
+func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int, queryParams map[string]string) (models.ResourcePoolsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -515,10 +515,10 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, service
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.CloudsPath, cloudId)
+		serviceInstanceId, consts.ZonePath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 	var resourcePoolsResp models.ResourcePoolsResp
 	if cloudId < 1 {
@@ -621,7 +621,7 @@ Get All Clouds
  * @param serviceInstanceId
 
 */
-func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId string) (models.CloudsResp, error) {
+func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId string, queryParams map[string]string) (models.CloudsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -631,10 +631,10 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId s
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.CloudsPath)
+		serviceInstanceId, consts.ZonePath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header

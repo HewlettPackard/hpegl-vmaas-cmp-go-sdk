@@ -15,7 +15,7 @@ type CreateInstanceBody struct {
 	Volumes           []CreateInstanceBodyVolumes           `json:"volumes"`
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces"`
 	Config            *CreateInstanceBodyConfig             `json:"config"`
-	Copies            int32                                 `json:"copies,omitempty"`
+	Copies            int                                   `json:"copies,omitempty"`
 	Labels            []string                              `json:"labels,omitempty"`
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
 }
@@ -28,8 +28,8 @@ type CreateInstanceBodyTag struct {
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
 	Name         string                                  `json:"name"`
-	Cloud        string                                  `json:"cloud"`
-	Type         string                                  `json:"type"`
+	Cloud        string                                  `json:"cloud,omitempty"`
+	Type         string                                  `json:"type,omitempty"`
 	Site         *CreateInstanceBodyInstanceSite         `json:"site"`
 	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
 	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
@@ -39,7 +39,7 @@ type CreateInstanceBodyInstance struct {
 // CreateInstanceBodyConfig
 type CreateInstanceBodyConfig struct {
 	// Virtual Image ID(Required when VMware InstanceType is used)
-	Template       int32       `json:"template,omitempty"`
+	Template       int         `json:"template,omitempty"`
 	ResourcePoolId json.Number `json:"resourcePoolId"`
 	// To specify agent install (on/off)
 	NoAgent              string `json:"noAgent,omitempty"`
@@ -72,34 +72,36 @@ type CreateInstanceBodyInstancePlan struct {
 // CreateInstanceBodyInstanceSite
 type CreateInstanceBodyInstanceSite struct {
 	// Group ID
-	Id int32 `json:"id"`
+	Id   int     `json:"id"`
+	Name *string `'json:"name,omitempty"`
 }
 
 // CreateInstanceBodyNetwork
 type CreateInstanceBodyNetwork struct {
-	Id int32 `json:"id"`
+	Id int `json:"id"`
 }
 
 // CreateInstanceBodyNetworkInterfaces
 type CreateInstanceBodyNetworkInterfaces struct {
 	Network                *CreateInstanceBodyNetwork `json:"network"`
-	NetworkInterfaceTypeId json.Number                `json:"networkInterfaceTypeId"`
+	NetworkInterfaceTypeId json.Number                `json:"networkInterfaceTypeId,omitempty"`
 }
 
 // CreateInstanceBodyVolumes
 type CreateInstanceBodyVolumes struct {
-	Id         int32 `json:"id,omitempty"`
-	RootVolume bool  `json:"rootVolume,omitempty"`
+	Id         int  `json:"id,omitempty"`
+	RootVolume bool `json:"rootVolume,omitempty"`
 	// Name/type of the LV being created
 	Name        string `json:"name"`
-	Size        int32  `json:"size,omitempty"`
-	StorageType int32  `json:"storageType,omitempty"`
+	Size        int    `json:"size,omitempty"`
+	StorageType int    `json:"storageType,omitempty"`
 	// The ID of the specific datastore. Auto selection can be specified as auto or autoCluster (for clusters).
 	DatastoreId interface{} `json:"datastoreId"`
 }
 
 type Instances struct {
 	Instances []GetInstanceResponseInstance `json:"instances"`
+	Success   bool                          `json:"success,omitempty"`
 }
 
 // GetInstanceResponse
@@ -109,15 +111,15 @@ type GetInstanceResponse struct {
 
 // GetInstanceResponseInstance
 type GetInstanceResponseInstance struct {
-	Id                  int32                                       `json:"id,omitempty"`
+	Id                  int                                         `json:"id,omitempty"`
 	Uuid                string                                      `json:"uuid,omitempty"`
-	AccountId           int32                                       `json:"accountId,omitempty"`
+	AccountId           int                                         `json:"accountId,omitempty"`
 	Tenant              *GetInstanceResponseInstanceTenant          `json:"tenant,omitempty"`
 	InstanceType        *GetInstanceResponseInstanceInstanceType    `json:"instanceType,omitempty"`
 	Group               *GetInstanceResponseInstanceGroup           `json:"group,omitempty"`
 	Cloud               *GetInstanceResponseInstanceCloud           `json:"cloud,omitempty"`
-	Containers          []int32                                     `json:"containers,omitempty"`
-	Servers             []int32                                     `json:"servers,omitempty"`
+	Containers          interface{}                                 `json:"containers,omitempty"`
+	Servers             interface{}                                 `json:"servers,omitempty"`
 	ConnectionInfo      []GetInstanceResponseInstanceConnectionInfo `json:"connectionInfo,omitempty"`
 	Layout              *GetInstanceResponseInstanceLayout          `json:"layout,omitempty"`
 	Plan                *GetInstanceResponseInstancePlan            `json:"plan,omitempty"`
@@ -134,7 +136,7 @@ type GetInstanceResponseInstance struct {
 	Evars               []GetInstanceResponseInstanceEvars          `json:"evars,omitempty"`
 	MaxMemory           int64                                       `json:"maxMemory,omitempty"`
 	MaxStorage          int64                                       `json:"maxStorage,omitempty"`
-	MaxCores            int32                                       `json:"maxCores,omitempty"`
+	MaxCores            int                                         `json:"maxCores,omitempty"`
 	HourlyCost          float64                                     `json:"hourlyCost,omitempty"`
 	HourlyPrice         float64                                     `json:"hourlyPrice,omitempty"`
 	DateCreated         time.Time                                   `json:"dateCreated,omitempty"`
@@ -146,9 +148,11 @@ type GetInstanceResponseInstance struct {
 	Locked              bool                                        `json:"locked,omitempty"`
 	Status              string                                      `json:"status,omitempty"`
 	StatusDate          string                                      `json:"statusDate,omitempty"`
-	ExpireCount         int32                                       `json:"expireCount,omitempty"`
+	StatusMessage       string                                      `json:"statusMessage,omitempty"`
+	ErrorMessage        string                                      `json:"errorMessage,omitempty"`
+	ExpireCount         int                                         `json:"expireCount,omitempty"`
 	ExpireWarningSent   bool                                        `json:"expireWarningSent,omitempty"`
-	ShutdownCount       int32                                       `json:"shutdownCount,omitempty"`
+	ShutdownCount       int                                         `json:"shutdownCount,omitempty"`
 	ShutdownWarningSent bool                                        `json:"shutdownWarningSent,omitempty"`
 	CreatedBy           *GetInstanceResponseInstanceCreatedBy       `json:"createdBy,omitempty"`
 	Owner               *GetInstanceResponseInstanceCreatedBy       `json:"owner,omitempty"`
@@ -156,7 +160,7 @@ type GetInstanceResponseInstance struct {
 
 //GetInstanceResponseInstanceCloud
 type GetInstanceResponseInstanceCloud struct {
-	Id   int32  `json:"id,omitempty"`
+	Id   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
@@ -188,7 +192,7 @@ type GetInstanceResponseInstanceConfig struct {
 
 // GetInstanceResponseInstanceConfigBackup
 type GetInstanceResponseInstanceConfigBackup struct {
-	ProviderBackupType int32  `json:"providerBackupType,omitempty"`
+	ProviderBackupType int    `json:"providerBackupType,omitempty"`
 	JobAction          string `json:"jobAction,omitempty"`
 	JobName            string `json:"jobName,omitempty"`
 	Name               string `json:"name,omitempty"`
@@ -196,12 +200,12 @@ type GetInstanceResponseInstanceConfigBackup struct {
 
 // GetInstanceResponseInstanceConfigRemovalOptions
 type GetInstanceResponseInstanceConfigRemovalOptions struct {
-	Force           bool  `json:"force,omitempty"`
-	KeepBackups     bool  `json:"keepBackups,omitempty"`
-	ReleaseEIPs     bool  `json:"releaseEIPs,omitempty"`
-	RemoveVolumes   bool  `json:"removeVolumes,omitempty"`
-	RemoveResources bool  `json:"removeResources,omitempty"`
-	UserId          int32 `json:"userId,omitempty"`
+	Force           bool `json:"force,omitempty"`
+	KeepBackups     bool `json:"keepBackups,omitempty"`
+	ReleaseEIPs     bool `json:"releaseEIPs,omitempty"`
+	RemoveVolumes   bool `json:"removeVolumes,omitempty"`
+	RemoveResources bool `json:"removeResources,omitempty"`
+	UserId          int  `json:"userId,omitempty"`
 }
 
 // GetInstanceResponseInstanceConnectionInfo
@@ -211,7 +215,7 @@ type GetInstanceResponseInstanceConnectionInfo struct {
 
 // GetInstanceResponseInstanceCreatedBy
 type GetInstanceResponseInstanceCreatedBy struct {
-	Id       int32  `json:"id,omitempty"`
+	Id       int    `json:"id,omitempty"`
 	Username string `json:"username,omitempty"`
 }
 
@@ -225,13 +229,13 @@ type GetInstanceResponseInstanceEvars struct {
 
 // GetInstanceResponseInstanceGroup
 type GetInstanceResponseInstanceGroup struct {
-	Id   int32  `json:"id,omitempty"`
+	Id   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
 // GetInstanceResponseInstanceInstanceType
 type GetInstanceResponseInstanceInstanceType struct {
-	Id       int32  `json:"id,omitempty"`
+	Id       int    `json:"id,omitempty"`
 	Code     string `json:"code,omitempty"`
 	Category string `json:"category,omitempty"`
 	Name     string `json:"name,omitempty"`
@@ -245,14 +249,14 @@ type GetInstanceResponseInstanceInterfaces struct {
 
 // GetInstanceResponseInstanceLayout
 type GetInstanceResponseInstanceLayout struct {
-	Id                int32  `json:"id,omitempty"`
+	Id                int    `json:"id,omitempty"`
 	Name              string `json:"name,omitempty"`
 	ProvisionTypeCode string `json:"provisionTypeCode,omitempty"`
 }
 
 // GetInstanceResponseInstanceNetwork
 type GetInstanceResponseInstanceNetwork struct {
-	Id                     int32                                   `json:"id,omitempty"`
+	Id                     int                                     `json:"id,omitempty"`
 	Subnet                 string                                  `json:"subnet,omitempty"`
 	Group                  string                                  `json:"group,omitempty"`
 	DhcpServer             bool                                    `json:"dhcpServer,omitempty"`
@@ -260,38 +264,38 @@ type GetInstanceResponseInstanceNetwork struct {
 	Pool                   *GetInstanceResponseInstanceNetworkPool `json:"pool,omitempty"`
 	IpAddress              string                                  `json:"ipAddress,omitempty"`
 	IpMode                 string                                  `json:"ipMode,omitempty"`
-	NetworkInterfaceTypeId int32                                   `json:"networkInterfaceTypeId,omitempty"`
+	NetworkInterfaceTypeId int                                     `json:"networkInterfaceTypeId,omitempty"`
 }
 
 // GetInstanceResponseInstanceNetworkPool
 type GetInstanceResponseInstanceNetworkPool struct {
-	Id   int32  `json:"id,omitempty"`
+	Id   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
 // GetInstanceResponseInstancePlan
 type GetInstanceResponseInstancePlan struct {
-	Id   int32  `json:"id,omitempty"`
+	Id   int    `json:"id,omitempty"`
 	Code string `json:"code,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
 // GetInstanceResponseInstanceTags
 type GetInstanceResponseInstanceTags struct {
-	Id    int32  `json:"id,omitempty"`
+	Id    int    `json:"id,omitempty"`
 	Name  string `json:"name,omitempty"`
 	Value string `json:"value,omitempty"`
 }
 
 // GetInstanceResponseInstanceTenant
 type GetInstanceResponseInstanceTenant struct {
-	Id   int32  `json:"id,omitempty"`
+	Id   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
 // GetInstanceResponseInstanceVolumes
 type GetInstanceResponseInstanceVolumes struct {
-	Size              int32   `json:"size,omitempty"`
+	Size              int     `json:"size,omitempty"`
 	Name              string  `json:"name,omitempty"`
 	RootVolume        bool    `json:"rootVolume,omitempty"`
 	Id                int     `json:"id,omitempty"`
@@ -324,7 +328,7 @@ type ResizeInstanceBody struct {
 // ResizeInstanceBodyInstance
 type ResizeInstanceBodyInstance struct {
 	// Instance ID
-	Id   int32                           `json:"id,omitempty"`
+	Id   int                             `json:"id,omitempty"`
 	Plan *ResizeInstanceBodyInstancePlan `json:"plan,omitempty"`
 	// Can be used to grow just the logical volume of the instance instead of choosing a plan
 	Volumes               []ResizeInstanceBodyInstanceVolumes `json:"volumes,omitempty"`
@@ -334,17 +338,38 @@ type ResizeInstanceBodyInstance struct {
 // ResizeInstanceBodyInstancePlan
 type ResizeInstanceBodyInstancePlan struct {
 	// Service Plan ID
-	Id int32 `json:"id,omitempty"`
+	Id int `json:"id,omitempty"`
 }
 
 // ResizeInstanceBodyInstanceVolumes
 type ResizeInstanceBodyInstanceVolumes struct {
-	Id          int32  `json:"id,omitempty"`
+	Id          int    `json:"id,omitempty"`
 	RootVolume  bool   `json:"rootVolume,omitempty"`
 	Name        string `json:"name,omitempty"`
-	Size        int32  `json:"size,omitempty"`
-	StorageType int32  `json:"storageType,omitempty"`
-	DatastoreId int32  `json:"datastoreId,omitempty"`
+	Size        int    `json:"size,omitempty"`
+	StorageType int    `json:"storageType,omitempty"`
+	DatastoreId int    `json:"datastoreId,omitempty"`
+}
+type ResizeInstanceResponse struct {
+	Instance *ResizeInstanceResponseInstance `json:"instance"`
+}
+type ResizeInstanceResponseInstance struct {
+	Id        int                                `json:"id"`
+	Name      string                             `json:"string"`
+	Cloud     *GetInstanceResponseInstanceCloud  `json:"cloud,omitempty"`
+	Plan      *ResizeInstanceBodyInstancePlan    `json:"plan"`
+	Volumes   []GetInstanceResposeResizeVolumes  `json:"volumes"`
+	AccountId int                                `json:"accountId,omitempty"`
+	Tenant    *GetInstanceResponseInstanceTenant `json:"tenant,omitempty"`
+}
+
+type GetInstanceResposeResizeVolumes struct {
+	Id          string `json:"id,omitempty"`
+	RootVolume  bool   `json:"rootVolume,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Size        int    `json:"size,omitempty"`
+	StorageType int    `json:"storageType,omitempty"`
+	DatastoreId int    `json:"datastoreId,omitempty"`
 }
 
 // SnapshotBody
@@ -357,6 +382,32 @@ type SnapshotBodySnapshot struct {
 	// Optional name for the snapshot being created
 	Name        string `json:"name,omitempty"`
 	Description string `json:"description,omitempty"`
+}
+
+type ListSnapshotResponse struct {
+	Snapshots []ListSnapshotResponseInstance `json:"snapshots"`
+}
+type ListSnapshotResponseInstance struct {
+	ID              int         `json:"id,omitempty"`
+	Name            string      `json:"name,omitempty"`
+	Description     interface{} `json:"description,omitempty"`
+	ExternalID      string      `json:"externalId,omitempty"`
+	Status          string      `json:"status,omitempty"`
+	State           interface{} `json:"state,omitempty"`
+	SnapshotType    string      `json:"snapshotType,omitempty"`
+	SnapshotCreated time.Time   `json:"snapshotCreated,omitempty"`
+	Zone            struct {
+		ID   int    `json:"id"`
+		Name string `json:"name"`
+	} `json:"zone,omitempty"`
+	Datastore       interface{} `json:"datastore,omitempty"`
+	ParentSnapshot  interface{} `json:"parentSnapshot,omitempty"`
+	CurrentlyActive bool        `json:"currentlyActive,omitempty"`
+	DateCreated     time.Time   `json:"dateCreated,omitempty"`
+}
+
+type ImportSnapshotBody struct {
+	StorageProviderId int `json:"storageProviderId,omitempty"`
 }
 
 // UpdateInstanceBody
@@ -373,8 +424,26 @@ type UpdateInstanceBodyInstance struct {
 	// Add or update value of Metadata tags, Array of objects having a name and value
 	AddTags *interface{} `json:"addTags,omitempty"`
 	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed, it must match to be removed
-	RemoveTags *interface{}                    `json:"removeTags,omitempty"`
-	Site       *CreateInstanceBodyInstanceSite `json:"site"`
+	RemoveTags        *interface{}                          `json:"removeTags,omitempty"`
+	Site              *CreateInstanceBodyInstanceSite       `json:"site"`
+	Owner             *GetInstanceResponseInstanceCreatedBy `json:"owner,omitempty"`
+	PowerScheduleType json.Number                           `json:"powerScheduleType,omitempty"`
+	Labels            []string                              `json:"labels,omitempty"`
+	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
+	InstanceContext   string                                `json:"instanceContext,omitempty"`
+}
+type UpdateInstanceResponse struct {
+	Instance *UpdateInstanceResponseInstance `json:"instance"`
+}
+type UpdateInstanceResponseInstance struct {
+	Name    string                                `json:"name,omitempty"`
+	ID      int                                   `json:"id,omitempty"`
+	Group   *CreateInstanceBodyInstanceSite       `json:"group"`
+	Owner   *GetInstanceResponseInstanceCreatedBy `json:"owner,omitempty"`
+	Labels  []string                              `json:"labels,omitempty"`
+	Tags    []CreateInstanceBodyTag               `json:"tags,omitempty"`
+	Cloud   *GetInstanceResponseInstanceCloud     `json:"cloud,omitempty"`
+	Success bool                                  `json:"success"`
 }
 
 // GetServicePlanResponse
@@ -384,13 +453,13 @@ type GetServicePlanResponse struct {
 
 // GetServicePlanResponsePlans
 type GetServicePlanResponsePlans struct {
-	Id                    int32                                `json:"id,omitempty"`
+	Id                    int                                  `json:"id,omitempty"`
 	Name                  string                               `json:"name,omitempty"`
-	Value                 int32                                `json:"value,omitempty"`
+	Value                 int                                  `json:"value,omitempty"`
 	Code                  string                               `json:"code,omitempty"`
-	MaxStorage            int32                                `json:"maxStorage,omitempty"`
-	MaxMemory             int32                                `json:"maxMemory,omitempty"`
-	MaxCores              int32                                `json:"maxCores,omitempty"`
+	MaxStorage            int                                  `json:"maxStorage,omitempty"`
+	MaxMemory             int                                  `json:"maxMemory,omitempty"`
+	MaxCores              int                                  `json:"maxCores,omitempty"`
 	CustomCpu             bool                                 `json:"customCpu,omitempty"`
 	CustomMaxMemory       bool                                 `json:"customMaxMemory,omitempty"`
 	CustomMaxStorage      bool                                 `json:"customMaxStorage,omitempty"`
@@ -403,7 +472,7 @@ type GetServicePlanResponsePlans struct {
 	RootDiskCustomizable  bool                                 `json:"rootDiskCustomizable,omitempty"`
 	NoDisks               bool                                 `json:"noDisks,omitempty"`
 	HasDatastore          bool                                 `json:"hasDatastore,omitempty"`
-	MinDisk               int32                                `json:"minDisk,omitempty"`
+	MinDisk               int                                  `json:"minDisk,omitempty"`
 	LvmSupported          bool                                 `json:"lvmSupported,omitempty"`
 	Datastores            *GetServicePlanResponseDatastores    `json:"datastores,omitempty"`
 	SupportsAutoDatastore bool                                 `json:"supportsAutoDatastore,omitempty"`
@@ -414,16 +483,16 @@ type GetServicePlanResponsePlans struct {
 	RootCustomSizeOptions *interface{}                         `json:"rootCustomSizeOptions,omitempty"`
 	CustomSizeOptions     *interface{}                         `json:"customSizeOptions,omitempty"`
 	CustomCores           bool                                 `json:"customCores,omitempty"`
-	MaxDisks              int32                                `json:"maxDisks,omitempty"`
+	MaxDisks              int                                  `json:"maxDisks,omitempty"`
 	MemorySizeType        string                               `json:"memorySizeType,omitempty"`
 }
 
 // GetServicePlanResponseStorageTypes
 type GetServicePlanResponseStorageTypes struct {
-	Id               int32    `json:"id,omitempty"`
+	Id               int      `json:"id,omitempty"`
 	Editable         bool     `json:"editable,omitempty"`
 	OptionTypes      []string `json:"optionTypes,omitempty"`
-	DisplayOrder     int32    `json:"displayOrder,omitempty"`
+	DisplayOrder     int      `json:"displayOrder,omitempty"`
 	Code             string   `json:"code,omitempty"`
 	VolumeType       string   `json:"volumeType,omitempty"`
 	Deletable        bool     `json:"deletable,omitempty"`
