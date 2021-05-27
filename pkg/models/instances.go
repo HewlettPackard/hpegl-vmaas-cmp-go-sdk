@@ -72,8 +72,8 @@ type CreateInstanceBodyInstancePlan struct {
 // CreateInstanceBodyInstanceSite
 type CreateInstanceBodyInstanceSite struct {
 	// Group ID
-	Id   int32  `json:"id"`
-	Name string `'json:"name,omitempty"`
+	Id   int32   `json:"id"`
+	Name *string `'json:"name,omitempty"`
 }
 
 // CreateInstanceBodyNetwork
