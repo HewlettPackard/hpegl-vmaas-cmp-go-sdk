@@ -41,7 +41,7 @@ type GroupsApiCreateGroupOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId string, localVarOptionals *GroupsApiCreateGroupOpts) (*http.Response, error) {
+func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *GroupsApiCreateGroupOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -51,8 +51,8 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, serviceInstanceId st
 
 	// create path and map variables
 	// Client.greenlake.hpe.com/api/vmaas/
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.GroupsPath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.GroupsPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -159,7 +159,7 @@ If a group has zones or servers still tied to it, a delete action will fail
  * @param groupId The Group ID
 
 */
-func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId string, groupId int) (*http.Response, error) {
+func (a *GroupsApiService) DeleteAGroup(ctx context.Context, groupId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -168,8 +168,8 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.GroupsPath, groupId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -273,7 +273,7 @@ Get a Specific Group
  * @param groupId The Group ID
 
 */
-func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanceId string, groupId int) (models.GroupResp, error) {
+func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, groupId int) (models.GroupResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -282,8 +282,8 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.GroupsPath, groupId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -389,7 +389,7 @@ This endpoint retrieves all groups and a list of zones associated with the group
  * @param serviceInstanceId
 
 */
-func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId string, queryParams map[string]string) (models.Groups, error) {
+func (a *GroupsApiService) GetAllGroups(ctx context.Context, queryParams map[string]string) (models.Groups, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -398,8 +398,8 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.GroupsPath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.GroupsPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -499,7 +499,7 @@ type GroupsApiGroupZoneUpdateOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceId string, groupId int, localVarOptionals *GroupsApiGroupZoneUpdateOpts) (*http.Response, error) {
+func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int, localVarOptionals *GroupsApiGroupZoneUpdateOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -508,8 +508,8 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.GroupsPath, groupId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -616,7 +616,7 @@ type GroupsApiUpdatingAGroupNameOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstanceId string, groupId int, localVarOptionals *GroupsApiUpdatingAGroupNameOpts) (*http.Response, error) {
+func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, groupId int, localVarOptionals *GroupsApiUpdatingAGroupNameOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -625,8 +625,8 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstan
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.GroupsPath, groupId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

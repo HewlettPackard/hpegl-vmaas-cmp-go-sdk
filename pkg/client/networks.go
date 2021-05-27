@@ -41,7 +41,7 @@ type NetworksApiCreateNetworkPoolOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInstanceId string, localVarOptionals *NetworksApiCreateNetworkPoolOpts) (models.GetNetworkPoolsResponse, *http.Response, error) {
+func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, localVarOptionals *NetworksApiCreateNetworkPoolOpts) (models.GetNetworkPoolsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -51,8 +51,7 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, serviceInsta
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/pools"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -193,7 +192,7 @@ type NetworksApiCreateNetworkProxyOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInstanceId string, localVarOptionals *NetworksApiCreateNetworkProxyOpts) (models.CreateNetworkProxyResponse, *http.Response, error) {
+func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, localVarOptionals *NetworksApiCreateNetworkProxyOpts) (models.CreateNetworkProxyResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -203,8 +202,7 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/proxies"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -339,7 +337,7 @@ Will delete a Network from the system and make it no longer usable.
  * @param networkId The network ID
 
 */
-func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstanceId string, networkId int) (*http.Response, error) {
+func (a *NetworksApiService) DeleteANetwork(ctx context.Context, networkId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -348,8 +346,7 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/{network_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -454,7 +451,7 @@ Delete a network router
  * @param routerId The network router ID
 
 */
-func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceInstanceId string, routerId int) (*http.Response, error) {
+func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, routerId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -463,8 +460,7 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceIn
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers/{router_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/routers/{router_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"router_id"+"}", fmt.Sprintf("%v", routerId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -569,7 +565,7 @@ Will delete a Network Pool from the system and make it no longer usable.
  * @param poolId The network pool ID
 
 */
-func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInstanceId string, poolId int) (*http.Response, error) {
+func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, poolId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -578,8 +574,7 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInsta
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/pools/{pool_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -684,7 +679,7 @@ Delete Network Proxy
  * @param proxyId The network proxy ID
 
 */
-func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int) (*http.Response, error) {
+func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, proxyId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -693,8 +688,7 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies/{proxy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/proxies/{proxy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -799,7 +793,7 @@ This endpoint retrieves a specific network router.
  * @param routerId The network router ID
 @return models.GetNetworkRouter
 */
-func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serviceInstanceId string, routerId int) (models.GetNetworkRouter, *http.Response, error) {
+func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, routerId int) (models.GetNetworkRouter, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -809,8 +803,7 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serv
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers/{router_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/routers/{router_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"router_id"+"}", fmt.Sprintf("%v", routerId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -932,7 +925,7 @@ This endpoint retrieves all Network Proxies associated with the account.
  * @param serviceInstanceId
 @return models.ListNetworkProxies
 */
-func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInstanceId string) (models.ListNetworkProxies, *http.Response, error) {
+func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context) (models.ListNetworkProxies, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -942,8 +935,7 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/proxies"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1061,7 +1053,7 @@ This endpoint retrieves all Networks associated with the account.
  * @param serviceInstanceId
 @return models.ListNetworksBody
 */
-func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstanceId string, param map[string]string) (models.ListNetworksBody, error) {
+func (a *NetworksApiService) GetAllNetworks(ctx context.Context, param map[string]string) (models.ListNetworksBody, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -1070,8 +1062,8 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	// localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks"
-	// localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	// localVarPath := a.Cfg.BasePath + "/v1/networks"
+	// localVarPath =
 
 	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath, consts.NetworksPath)
 
@@ -1177,7 +1169,7 @@ Get All GLPC Network services Information. This endpoint retrieves all Network S
  * @param serviceInstanceId
 
 */
-func (a *NetworksApiService) GetNetworkServices(ctx context.Context, serviceInstanceId string) (*http.Response, error) {
+func (a *NetworksApiService) GetNetworkServices(ctx context.Context) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -1186,8 +1178,7 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/services"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/services"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1288,7 +1279,7 @@ This endpoint retrieves a specific Network.
  * @param networkId The network ID
 @return models.GetNetworkBody
 */
-func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInstanceId string, networkId int) (models.GetNetworkBody, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, networkId int) (models.GetNetworkBody, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1298,8 +1289,7 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/{network_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1422,7 +1412,7 @@ Get Specific Network Pool
  * @param poolId The network pool ID
 @return models.GetNetworkPoolResposeBody
 */
-func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, serviceInstanceId string, poolId int) (models.GetNetworkPoolResposeBody, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, poolId int) (models.GetNetworkPoolResposeBody, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1432,8 +1422,7 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, service
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/pools/{pool_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1556,7 +1545,7 @@ Get Specific Network Proxy
  * @param proxyId The network proxy ID
 @return models.GetNetworkProxy
 */
-func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int) (models.GetNetworkProxy, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, proxyId int) (models.GetNetworkProxy, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1566,8 +1555,7 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, servic
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/proxies/{proxy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/proxies/{proxy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1689,7 +1677,7 @@ Get All Network Pools. List all Network Pools associated with the account
  * @param serviceInstanceId
 @return models.GetNetworkPoolsRespose
 */
-func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceInstanceId string) (models.GetNetworkPoolsResponse, *http.Response, error) {
+func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context) (models.GetNetworkPoolsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1699,8 +1687,7 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/pools"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1818,7 +1805,7 @@ Get GLPC Network router Information
  * @param serviceInstanceId
 @return models.ListNetworkRouters
 */
-func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInstanceId string) (models.ListNetworkRouters, *http.Response, error) {
+func (a *NetworksApiService) ListNetworkRouters(ctx context.Context) (models.ListNetworkRouters, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1828,8 +1815,7 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/routers"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/routers"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1955,7 +1941,7 @@ type NetworksApiUpdateNetworkOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceId string, networkId int, localVarOptionals *NetworksApiUpdateNetworkOpts) (models.UpdateNetworkRespose, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetwork(ctx context.Context, networkId int, localVarOptionals *NetworksApiUpdateNetworkOpts) (models.UpdateNetworkRespose, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -1965,8 +1951,7 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/{network_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/{network_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2102,7 +2087,7 @@ type NetworksApiUpdateNetworkPoolOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInstanceId string, poolId int, localVarOptionals *NetworksApiUpdateNetworkPoolOpts) (models.CreateNetworkPoolResponseBody, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, poolId int, localVarOptionals *NetworksApiUpdateNetworkPoolOpts) (models.CreateNetworkPoolResponseBody, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -2112,8 +2097,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInsta
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/networks/pools/{pool_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/pools/{pool_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2259,7 +2243,7 @@ type NetworksApiUpdateNetworkProxyOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int, localVarOptionals *NetworksApiUpdateNetworkProxyOpts) (models.UpdateNetworkProxyResponse, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, proxyId int, localVarOptionals *NetworksApiUpdateNetworkProxyOpts) (models.UpdateNetworkProxyResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -2269,8 +2253,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/networks/proxies/{proxy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/networks/proxies/{proxy_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
 
 	localVarHeaderParams := make(map[string]string)

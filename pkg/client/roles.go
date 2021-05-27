@@ -31,7 +31,7 @@ Create a Role
  * @param serviceInstanceId
 @return models.GetRoleResponse
 */
-func (a *RolesApiService) CreateARole(ctx context.Context, body models.CreateRoleBody, serviceInstanceId string) (models.GetRoleResponse, *http.Response, error) {
+func (a *RolesApiService) CreateARole(ctx context.Context, body models.CreateRoleBody) (models.GetRoleResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -41,8 +41,7 @@ func (a *RolesApiService) CreateARole(ctx context.Context, body models.CreateRol
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -174,7 +173,7 @@ Customizing Blueprint Access
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body models.UpdateBlueprintAccessBody, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body models.UpdateBlueprintAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -184,8 +183,7 @@ func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body m
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-blueprint"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-blueprint"
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -318,7 +316,7 @@ Customizing Cloud Access
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body models.UpdateCloudAccessBody, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body models.UpdateCloudAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -328,8 +326,7 @@ func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body model
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-cloud"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-cloud"
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -462,7 +459,7 @@ Customizing Group Access
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body models.UpdateGroupAccessBody, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body models.UpdateGroupAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -472,8 +469,7 @@ func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body model
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-group"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-group"
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -606,7 +602,7 @@ Customizing Instance Type Access
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, body models.UpdateInstancetypeAccessBody, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, body models.UpdateInstancetypeAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -616,8 +612,7 @@ func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, bod
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}/update-instance-type"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-instance-type"
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -749,7 +744,7 @@ Delete a Role
  * @param roleId
 
 */
-func (a *RolesApiService) DeleteARole(ctx context.Context, serviceInstanceId string, roleId int) (*http.Response, error) {
+func (a *RolesApiService) DeleteARole(ctx context.Context, roleId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -758,8 +753,7 @@ func (a *RolesApiService) DeleteARole(ctx context.Context, serviceInstanceId str
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -861,7 +855,7 @@ Get a Specific Role
  * @param roleId
 @return models.GetRoleResponse
 */
-func (a *RolesApiService) GetASpecificRole(ctx context.Context, serviceInstanceId string, roleId int) (models.GetRoleResponse, *http.Response, error) {
+func (a *RolesApiService) GetASpecificRole(ctx context.Context, roleId int) (models.GetRoleResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -871,8 +865,7 @@ func (a *RolesApiService) GetASpecificRole(ctx context.Context, serviceInstanceI
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -991,7 +984,7 @@ Get All Roles
  * @param serviceInstanceId
 
 */
-func (a *RolesApiService) GetAllRoles(ctx context.Context, serviceInstanceId string) (*http.Response, error) {
+func (a *RolesApiService) GetAllRoles(ctx context.Context) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -1000,8 +993,7 @@ func (a *RolesApiService) GetAllRoles(ctx context.Context, serviceInstanceId str
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1093,7 +1085,7 @@ Updating Basic Role Settings
  * @param roleId
 @return models.GetRoleResponse
 */
-func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body models.UpdateRoleBody, serviceInstanceId string, roleId int) (models.GetRoleResponse, *http.Response, error) {
+func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body models.UpdateRoleBody, roleId int) (models.GetRoleResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -1103,8 +1095,7 @@ func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body mo
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/api/v1/vmaas/{service_instance_id}/roles/{role_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1237,7 +1228,7 @@ Along with feature access global access for Group, Cloud, Instance Types and Blu
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body models.UpdateRoleFeaturePermission, serviceInstanceId string, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body models.UpdateRoleFeaturePermission, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -1247,8 +1238,7 @@ func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body mode
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/roles/{role_id}/update-permission"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-permission"
 	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
 
 	localVarHeaderParams := make(map[string]string)

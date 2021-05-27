@@ -29,6 +29,6 @@ func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
 		Client: mockAPIClient,
 		Cfg:    Configuration{},
 	}
-	_, err := a.GetASpecificCloud(context.Background(), "", 1)
+	_, err := a.GetASpecificCloud(context.Background(), 1)
 	assert.Nil(t, err)
 }

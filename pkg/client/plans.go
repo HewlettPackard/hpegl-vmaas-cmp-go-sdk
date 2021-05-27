@@ -31,7 +31,7 @@ Get All Service Plans
  * @param serviceInstanceId
 
 */
-func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanceId string, param map[string]string) (models.ServicePlans, error) {
+func (a *PlansApiService) GetAllServicePlans(ctx context.Context, param map[string]string) (models.ServicePlans, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -41,8 +41,8 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.ServicePlansPath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.ServicePlansPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(param)

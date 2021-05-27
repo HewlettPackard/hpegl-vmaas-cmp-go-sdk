@@ -33,7 +33,7 @@ Get a Specific Cloud
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, serviceInstanceId string, cloudId int) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, cloudId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -42,8 +42,7 @@ func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, serviceInstanc
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/zones/{cloud_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/zones/{cloud_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -149,7 +148,7 @@ Get a Specific Cloud Data Store
  * @param datastoreId The cloud datastore ID
 
 */
-func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, serviceInstanceId string, cloudId int, datastoreId int) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, cloudId int, datastoreId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -158,8 +157,7 @@ func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, servi
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/zones/{cloud_id}/data-stores/{datastore_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/zones/{cloud_id}/data-stores/{datastore_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"datastore_id"+"}", fmt.Sprintf("%v", datastoreId), -1)
 
@@ -269,7 +267,7 @@ Get a Specific Cloud Resource Pool
  * @param funId The Cloud Resourcepool ID
 
 */
-func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, serviceInstanceId string, cloudId int, resourcepoolId int) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, cloudId int, resourcepoolId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -278,8 +276,7 @@ func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, se
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/zones/{cloud_id}/resource-pools/{resourcepool_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/zones/{cloud_id}/resource-pools/{resourcepool_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"resourcepool_id"+"}", fmt.Sprintf("%v", resourcepoolId), -1)
 
@@ -388,7 +385,7 @@ Get All Cloud Data Stores
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceInstanceId string, cloudId int, queryParams map[string]string) (models.DataStoresResp, error) {
+func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, cloudId int, queryParams map[string]string) (models.DataStoresResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -397,8 +394,8 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.ZonePath, cloudId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.ZonePath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(queryParams)
@@ -505,7 +502,7 @@ Get All Cloud Resource Pools
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, serviceInstanceId string, cloudId int, queryParams map[string]string) (models.ResourcePoolsResp, error) {
+func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, cloudId int, queryParams map[string]string) (models.ResourcePoolsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -514,8 +511,8 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, service
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.ZonePath, cloudId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.ZonePath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(queryParams)
@@ -621,7 +618,7 @@ Get All Clouds
  * @param serviceInstanceId
 
 */
-func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId string, queryParams map[string]string) (models.CloudsResp, error) {
+func (a *CloudsApiService) GetAllClouds(ctx context.Context, queryParams map[string]string) (models.CloudsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -630,8 +627,8 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, serviceInstanceId s
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.ZonePath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.ZonePath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(queryParams)
