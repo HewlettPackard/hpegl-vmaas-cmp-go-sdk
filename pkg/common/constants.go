@@ -26,5 +26,5 @@ const (
 	// DatstorePath
 	DatstorePath = "data-stores"
 	//Virtual-Images Path
-	VirtualImage = "virtual-images"
+	VirtualImagePath = "virtual-images"
 )

@@ -14,7 +14,6 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-// Linger please
 var (
 	_ context.Context
 )
@@ -26,11 +25,11 @@ type VirtualImagesApiService struct {
 
 /*
 VirtualImageApiService
-Get a Specific Virtual image
+Get All Virtual images
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param serviceInstanceId
- * @param instanceId
-@return models.GetInstanceResponse
+ * @param name/phrase optional
+@return models.VirtualImages
 */
 func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, serviceInstanceId string, param map[string]string) (models.VirtualImages, error) {
 	var (
@@ -43,7 +42,7 @@ func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, servi
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.VirtualImage)
+		serviceInstanceId, consts.VirtualImagePath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(param)
