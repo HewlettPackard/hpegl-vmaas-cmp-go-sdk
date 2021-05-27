@@ -31,7 +31,7 @@ Get All Virtual images
  * @param name/phrase optional
 @return models.VirtualImages
 */
-func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, serviceInstanceId string, param map[string]string) (models.VirtualImages, error) {
+func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, param map[string]string) (models.VirtualImages, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -41,8 +41,8 @@ func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, servi
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.VirtualImagePath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.VirtualImagePath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(param)

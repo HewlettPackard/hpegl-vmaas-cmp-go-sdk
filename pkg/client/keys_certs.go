@@ -38,7 +38,7 @@ type KeysCertsApiCreateKeyPairOpts struct {
 	Body optional.Interface
 }
 
-func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstanceId string, localVarOptionals *KeysCertsApiCreateKeyPairOpts) (models.CreateKeyPairResponseBody, *http.Response, error) {
+func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, localVarOptionals *KeysCertsApiCreateKeyPairOpts) (models.CreateKeyPairResponseBody, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -48,8 +48,7 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/key-pairs"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/key-pairs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -184,7 +183,7 @@ Delete Specific Certificate
  * @param certificateId The certificate ID
 
 */
-func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, serviceInstanceId string, certificateId int) (*http.Response, error) {
+func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, certificateId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -193,8 +192,7 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, ser
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/certificates/{certificate_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/certificates/{certificate_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -299,7 +297,7 @@ Delete Specific keypair. If a key pair is actively in use, a delete will fail
  * @param keypairId The keypair ID
 
 */
-func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, serviceInstanceId string, keypairId int) (*http.Response, error) {
+func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, keypairId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -308,8 +306,7 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, service
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/key-pairs/{keypair_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/key-pairs/{keypair_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -413,7 +410,7 @@ Get All Certificates
  * @param serviceInstanceId
 
 */
-func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context, serviceInstanceId string) (*http.Response, error) {
+func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -422,8 +419,7 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/certificates"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/certificates"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -523,7 +519,7 @@ Get All Key-Pair
  * @param serviceInstanceId
 @return ListAllKeyPair
 */
-func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstanceId string) (models.ListAllKeyPair, *http.Response, error) {
+func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context) (models.ListAllKeyPair, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -533,8 +529,7 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context, serviceInstance
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/key-pairs"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/key-pairs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -653,7 +648,7 @@ Get Specific Certificate
  * @param certificateId The certificate ID
 
 */
-func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, serviceInstanceId string, certificateId int) (*http.Response, error) {
+func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, certificateId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -662,8 +657,7 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, servic
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/certificates/{certificate_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/certificates/{certificate_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -768,7 +762,7 @@ Get Specific Keypair
  * @param keypairId The keypair ID
 
 */
-func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, serviceInstanceId string, keypairId int) (*http.Response, error) {
+func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, keypairId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -777,8 +771,7 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, serviceIns
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/v1/{service_instance_id}/key-pairs/{keypair_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_instance_id"+"}", fmt.Sprintf("%v", serviceInstanceId), -1)
+	localVarPath := a.Cfg.BasePath + "/v1/key-pairs/{keypair_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId), -1)
 
 	localVarHeaderParams := make(map[string]string)

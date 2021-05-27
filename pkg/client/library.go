@@ -31,7 +31,7 @@ Get All layouts
  * @param serviceInstanceId
 
 */
-func (a *LibraryApiService) GetAllLayouts(ctx context.Context, serviceInstanceId string, param map[string]string) (models.LayoutsResp, error) {
+func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]string) (models.LayoutsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -40,8 +40,8 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, serviceInstanceId
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.LibraryLayoutPath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.LibraryLayoutPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(param)
@@ -127,7 +127,7 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, serviceInstanceId
 	return layoutsResp, nil
 }
 
-func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInstanceId string, param map[string]string) (models.InstanceTypesResp, error) {
+func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, param map[string]string) (models.InstanceTypesResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -136,8 +136,8 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, serviceInst
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		serviceInstanceId, consts.LibraryInstanceTypesPath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.LibraryInstanceTypesPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(param)
