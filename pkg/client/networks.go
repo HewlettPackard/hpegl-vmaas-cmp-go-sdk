@@ -1102,7 +1102,6 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, param map[strin
 	}
 
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	fmt.Println(localVarPath)
 	if err != nil {
 		return models.ListNetworksBody{}, err
 	}
@@ -1154,7 +1153,6 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, param map[strin
 		}
 		return models.ListNetworksBody{}, newErr
 	}
-	fmt.Println(string(localVarBody))
 	var networkResponse models.ListNetworksBody
 	if err := json.Unmarshal(localVarBody, &networkResponse); err != nil {
 		return models.ListNetworksBody{}, err
