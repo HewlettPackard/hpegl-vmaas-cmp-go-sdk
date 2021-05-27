@@ -449,12 +449,12 @@ type UpdateNetworkBodyNetwork struct {
 
 // UpdateNetworkBodyNetworkNetworkProxy
 type UpdateNetworkBodyNetworkNetworkProxy struct {
-	Id int32 `json:"id,omitempty"`
+	Id int `json:"id,omitempty"`
 }
 
 // UpdateNetworkBodyNetworkPool
 type UpdateNetworkBodyNetworkPool struct {
-	Id int32 `json:"id,omitempty"`
+	Id int `json:"id,omitempty"`
 }
 
 // UpdateNetworkBodyNetworkResourcePermissions
@@ -465,7 +465,7 @@ type UpdateNetworkBodyNetworkResourcePermissions struct {
 
 // UpdateNetworkBodyNetworkResourcePermissionsSites
 type UpdateNetworkBodyNetworkResourcePermissionsSites struct {
-	Id int32 `json:"id,omitempty"`
+	Id int `json:"id,omitempty"`
 }
 
 // UpdateNetworkIpPoolBody

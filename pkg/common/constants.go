@@ -25,4 +25,6 @@ const (
 	ZonePath = "zones"
 	// DatstorePath
 	DatstorePath = "data-stores"
+	//Virtual-Images Path
+	VirtualImagePath = "virtual-images"
 )
