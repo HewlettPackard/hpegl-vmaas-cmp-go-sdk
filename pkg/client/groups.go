@@ -159,7 +159,7 @@ If a group has zones or servers still tied to it, a delete action will fail
  * @param groupId The Group ID
 
 */
-func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId string, groupId int32) (*http.Response, error) {
+func (a *GroupsApiService) DeleteAGroup(ctx context.Context, serviceInstanceId string, groupId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -273,7 +273,7 @@ Get a Specific Group
  * @param groupId The Group ID
 
 */
-func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanceId string, groupId int32) (models.GroupResp, error) {
+func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, serviceInstanceId string, groupId int) (models.GroupResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -499,7 +499,7 @@ type GroupsApiGroupZoneUpdateOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceId string, groupId int32, localVarOptionals *GroupsApiGroupZoneUpdateOpts) (*http.Response, error) {
+func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, serviceInstanceId string, groupId int, localVarOptionals *GroupsApiGroupZoneUpdateOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -616,7 +616,7 @@ type GroupsApiUpdatingAGroupNameOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstanceId string, groupId int32, localVarOptionals *GroupsApiUpdatingAGroupNameOpts) (*http.Response, error) {
+func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, serviceInstanceId string, groupId int, localVarOptionals *GroupsApiUpdatingAGroupNameOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}

@@ -339,7 +339,7 @@ Will delete a Network from the system and make it no longer usable.
  * @param networkId The network ID
 
 */
-func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstanceId string, networkId int32) (*http.Response, error) {
+func (a *NetworksApiService) DeleteANetwork(ctx context.Context, serviceInstanceId string, networkId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -454,7 +454,7 @@ Delete a network router
  * @param routerId The network router ID
 
 */
-func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceInstanceId string, routerId int32) (*http.Response, error) {
+func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, serviceInstanceId string, routerId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -569,7 +569,7 @@ Will delete a Network Pool from the system and make it no longer usable.
  * @param poolId The network pool ID
 
 */
-func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInstanceId string, poolId int32) (*http.Response, error) {
+func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, serviceInstanceId string, poolId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -684,7 +684,7 @@ Delete Network Proxy
  * @param proxyId The network proxy ID
 
 */
-func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int32) (*http.Response, error) {
+func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -799,7 +799,7 @@ This endpoint retrieves a specific network router.
  * @param routerId The network router ID
 @return models.GetNetworkRouter
 */
-func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serviceInstanceId string, routerId int32) (models.GetNetworkRouter, *http.Response, error) {
+func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, serviceInstanceId string, routerId int) (models.GetNetworkRouter, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1289,7 +1289,7 @@ This endpoint retrieves a specific Network.
  * @param networkId The network ID
 @return models.GetNetworkBody
 */
-func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInstanceId string, networkId int32) (models.GetNetworkBody, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, serviceInstanceId string, networkId int) (models.GetNetworkBody, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1423,7 +1423,7 @@ Get Specific Network Pool
  * @param poolId The network pool ID
 @return models.GetNetworkPoolResposeBody
 */
-func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, serviceInstanceId string, poolId int32) (models.GetNetworkPoolResposeBody, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, serviceInstanceId string, poolId int) (models.GetNetworkPoolResposeBody, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1557,7 +1557,7 @@ Get Specific Network Proxy
  * @param proxyId The network proxy ID
 @return models.GetNetworkProxy
 */
-func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int32) (models.GetNetworkProxy, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int) (models.GetNetworkProxy, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1956,7 +1956,7 @@ type NetworksApiUpdateNetworkOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceId string, networkId int32, localVarOptionals *NetworksApiUpdateNetworkOpts) (models.UpdateNetworkRespose, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetwork(ctx context.Context, serviceInstanceId string, networkId int, localVarOptionals *NetworksApiUpdateNetworkOpts) (models.UpdateNetworkRespose, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -2103,7 +2103,7 @@ type NetworksApiUpdateNetworkPoolOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInstanceId string, poolId int32, localVarOptionals *NetworksApiUpdateNetworkPoolOpts) (models.CreateNetworkPoolResponseBody, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, serviceInstanceId string, poolId int, localVarOptionals *NetworksApiUpdateNetworkPoolOpts) (models.CreateNetworkPoolResponseBody, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -2260,7 +2260,7 @@ type NetworksApiUpdateNetworkProxyOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int32, localVarOptionals *NetworksApiUpdateNetworkProxyOpts) (models.UpdateNetworkProxyResponse, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, serviceInstanceId string, proxyId int, localVarOptionals *NetworksApiUpdateNetworkProxyOpts) (models.UpdateNetworkProxyResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}

@@ -42,7 +42,7 @@ type InstancesApiCloneAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *InstancesApiCloneAnInstanceOpts) (*http.Response, error) {
+func (a *InstancesApiService) CloneAnInstance(ctx context.Context, serviceInstanceId string, instanceId int, localVarOptionals *InstancesApiCloneAnInstanceOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -166,7 +166,7 @@ type InstancesApiCloneToImageOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *InstancesApiCloneToImageOpts) (*http.Response, error) {
+func (a *InstancesApiService) CloneToImage(ctx context.Context, serviceInstanceId string, instanceId int, localVarOptionals *InstancesApiCloneToImageOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -413,7 +413,7 @@ type InstancesApiDeleteAnIstanceOpts struct {
 	Force optional.String
 }
 
-func (a *InstancesApiService) DeleteAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.SuccessOrErrorMessage, error) {
+func (a *InstancesApiService) DeleteAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -529,7 +529,7 @@ Get a Specific Instance
  * @param instanceId
 @return models.GetInstanceResponse
 */
-func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.GetInstanceResponse, error) {
+func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, serviceInstanceId string, instanceId int) (models.GetInstanceResponse, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -904,7 +904,7 @@ type InstancesApiGetAvailableServicePlansForAnInstanceOpts struct {
 	SiteId optional.Int32
 }
 
-func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.Context, serviceInstanceId string, zoneId int32, layoutId int32, localVarOptionals *InstancesApiGetAvailableServicePlansForAnInstanceOpts) (models.GetServicePlanResponse, *http.Response, error) {
+func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.Context, serviceInstanceId string, zoneId int, layoutId int, localVarOptionals *InstancesApiGetAvailableServicePlansForAnInstanceOpts) (models.GetServicePlanResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1039,7 +1039,7 @@ List all environment variables associated with the instance
  * @param instanceId
 
 */
-func (a *InstancesApiService) GetEnvVariables(ctx context.Context, serviceInstanceId string, instanceId int32) (*http.Response, error) {
+func (a *InstancesApiService) GetEnvVariables(ctx context.Context, serviceInstanceId string, instanceId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -1149,7 +1149,7 @@ Retrieves the process history for a specific instance
  * @param instanceId
 
 */
-func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, serviceInstanceId string, instanceId int32) (*http.Response, error) {
+func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, serviceInstanceId string, instanceId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -1260,7 +1260,7 @@ Lists VMware Snapshot of the instance
  * @param instanceId
 
 */
-func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.ListSnapshotResponse, error) {
+func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (models.ListSnapshotResponse, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -1384,7 +1384,7 @@ Fetch an instance type by ID
  * @param instanceTypeId
 
 */
-func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context.Context, serviceInstanceId string, instanceTypeId int32) (*http.Response, error) {
+func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context.Context, serviceInstanceId string, instanceTypeId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -1498,7 +1498,7 @@ It is possible to import a snapshot of an instance. This creates a Virtual Image
 
 */
 
-func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *models.ImportSnapshotBody) (models.SuccessOrErrorMessage, error) {
+func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, serviceInstanceId string, instanceId int, localVarOptionals *models.ImportSnapshotBody) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1622,7 +1622,7 @@ InstancesApiService
  * @param instanceId
 
 */
-func (a *InstancesApiService) LockAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (*http.Response, error) {
+func (a *InstancesApiService) LockAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1736,7 +1736,7 @@ It is possible to resize VMs within an instance by increasing their memory plan 
 @return models.GetInstanceResponse
 */
 
-func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
+func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, serviceInstanceId string, instanceId int, localVarOptionals *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1858,7 +1858,7 @@ Restarts all VM running within an instance
  * @param instanceId
 
 */
-func (a *InstancesApiService) RestartAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (*http.Response, error) {
+func (a *InstancesApiService) RestartAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1972,7 +1972,7 @@ Creates VMware Snapshot of the instance
 
 */
 
-func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *models.SnapshotBody) (models.Instances, error) {
+func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, serviceInstanceId string, instanceId int, localVarOptionals *models.SnapshotBody) (models.Instances, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
@@ -2094,7 +2094,7 @@ Starts all VM running within an instance
  * @param instanceId
 
 */
-func (a *InstancesApiService) StartAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (*http.Response, error) {
+func (a *InstancesApiService) StartAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -2205,7 +2205,7 @@ Stops all VM running within an instance
  * @param instanceId
 
 */
-func (a *InstancesApiService) StopAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (*http.Response, error) {
+func (a *InstancesApiService) StopAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -2316,7 +2316,7 @@ Suspends all VM running within an instance
  * @param instanceId
 
 */
-func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (*http.Response, error) {
+func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -2427,7 +2427,7 @@ Undo the delete of an instance that is in pending removal state
  * @param instanceId
 @return models.GetInstanceResponse
 */
-func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (models.GetInstanceResponse, *http.Response, error) {
+func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (models.GetInstanceResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -2557,7 +2557,7 @@ Unlocks the instance
  * @param instanceId
 
 */
-func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32) (*http.Response, error) {
+func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, serviceInstanceId string, instanceId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -2675,7 +2675,7 @@ type InstancesApiUpdatingAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceInstanceId string, instanceId int32, localVarOptionals *models.UpdateInstanceBody) (models.UpdateInstanceResponse, error) {
+func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, serviceInstanceId string, instanceId int, localVarOptionals *models.UpdateInstanceBody) (models.UpdateInstanceResponse, error) {
 	var (
 		localVarHttpMethod     = strings.ToUpper("Put")
 		localVarPostBody       interface{}

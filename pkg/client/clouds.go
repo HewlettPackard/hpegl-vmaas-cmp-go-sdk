@@ -33,7 +33,7 @@ Get a Specific Cloud
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, serviceInstanceId string, cloudId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, serviceInstanceId string, cloudId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -149,7 +149,7 @@ Get a Specific Cloud Data Store
  * @param datastoreId The cloud datastore ID
 
 */
-func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, serviceInstanceId string, cloudId int32, datastoreId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, serviceInstanceId string, cloudId int, datastoreId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -269,7 +269,7 @@ Get a Specific Cloud Resource Pool
  * @param funId The Cloud Resourcepool ID
 
 */
-func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, serviceInstanceId string, cloudId int32, resourcepoolId int32) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, serviceInstanceId string, cloudId int, resourcepoolId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
