@@ -30,5 +30,6 @@ func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
 		Cfg:    Configuration{},
 	}
 	_, err := a.GetASpecificCloud(context.Background(), 1)
+
 	assert.Nil(t, err)
 }
