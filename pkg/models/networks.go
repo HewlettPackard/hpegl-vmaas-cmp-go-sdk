@@ -378,6 +378,7 @@ type ListNetworksBodyMeta struct {
 type ListNetworksBodyNetworks struct {
 	Id                      int                       `json:"id,omitempty"`
 	Name                    string                    `json:"name,omitempty"`
+	DisplayName             string                    `json:"displayName,omitempty"`
 	Zone                    *ListNetworksBodyZone     `json:"zone,omitempty"`
 	Type_                   *ListNetworksBodyType     `json:"type,omitempty"`
 	Owner                   *ListNetworksBodyOwner    `json:"owner,omitempty"`
