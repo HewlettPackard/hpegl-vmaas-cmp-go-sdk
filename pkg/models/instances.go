@@ -28,8 +28,8 @@ type CreateInstanceBodyTag struct {
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
 	Name         string                                  `json:"name"`
-	Cloud        string                                  `json:"cloud"`
-	Type         string                                  `json:"type"`
+	Cloud        string                                  `json:"cloud,omitempty"`
+	Type         string                                  `json:"type,omitempty"`
 	Site         *CreateInstanceBodyInstanceSite         `json:"site"`
 	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
 	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
@@ -84,7 +84,7 @@ type CreateInstanceBodyNetwork struct {
 // CreateInstanceBodyNetworkInterfaces
 type CreateInstanceBodyNetworkInterfaces struct {
 	Network                *CreateInstanceBodyNetwork `json:"network"`
-	NetworkInterfaceTypeId json.Number                `json:"networkInterfaceTypeId"`
+	NetworkInterfaceTypeId json.Number                `json:"networkInterfaceTypeId,omitempty"`
 }
 
 // CreateInstanceBodyVolumes
@@ -148,6 +148,8 @@ type GetInstanceResponseInstance struct {
 	Locked              bool                                        `json:"locked,omitempty"`
 	Status              string                                      `json:"status,omitempty"`
 	StatusDate          string                                      `json:"statusDate,omitempty"`
+	StatusMessage       string                                      `json:"statusMessage,omitempty"`
+	ErrorMessage        string                                      `json:"errorMessage,omitempty"`
 	ExpireCount         int32                                       `json:"expireCount,omitempty"`
 	ExpireWarningSent   bool                                        `json:"expireWarningSent,omitempty"`
 	ShutdownCount       int32                                       `json:"shutdownCount,omitempty"`
