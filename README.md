@@ -26,7 +26,7 @@ func main(){
 		 apiClient,
 		 config,
 	}
-	resp, err := groupsClient.GetASpecificGroup(ctx, "0123456789abcdef", 1)
+	resp, err := groupsClient.GetASpecificGroup(ctx, 1)
 	if err != nil {
 		fmt.Printf("List Group Error %v", err)
 		os.Exit(1)
