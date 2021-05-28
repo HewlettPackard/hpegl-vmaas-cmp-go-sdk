@@ -18,8 +18,14 @@ import (
 
 func main(){
 	ctx := context.Background()
+	localVarHeaderParams := map[string]string{
+		"location":      <location_name>,
+		"space":         <space_name>,
+		"Authorization": <iam_token>,
+	}
 	config := client.Configuration{
 		Host: "https://vmaas-cmp.intg.hpedevops.net",
+		DefaultHeader: localVarHeaderParams,
 	}
 	apiClient := client.NewAPIClient(&config)
 	groupsClient := client.GroupsApiService{
