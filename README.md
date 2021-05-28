@@ -18,15 +18,21 @@ import (
 
 func main(){
 	ctx := context.Background()
+	Headers := map[string]string{
+		"location":      <location_name>,
+		"space":         <space_name>,
+		"Authorization": <iam_token>,
+	}
 	config := client.Configuration{
 		Host: "https://vmaas-cmp.intg.hpedevops.net",
+		DefaultHeaders: Headers,
 	}
 	apiClient := client.NewAPIClient(&config)
 	groupsClient := client.GroupsApiService{
 		 apiClient,
 		 config,
 	}
-	resp, err := groupsClient.GetASpecificGroup(ctx, "0123456789abcdef", 1)
+	resp, err := groupsClient.GetASpecificGroup(ctx, 1)
 	if err != nil {
 		fmt.Printf("List Group Error %v", err)
 		os.Exit(1)
