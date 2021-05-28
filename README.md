@@ -25,7 +25,7 @@ func main(){
 	}
 	config := client.Configuration{
 		Host: "https://vmaas-cmp.intg.hpedevops.net",
-		DefaultHeader: Headers,
+		DefaultHeaders: Headers,
 	}
 	apiClient := client.NewAPIClient(&config)
 	groupsClient := client.GroupsApiService{
