@@ -11,7 +11,7 @@ type ErrBadRequest struct {
 
 // ErrInternalError
 type ErrInternalError struct {
-	Success string `json:"success"`
+	Success bool   `json:"success"`
 	Message string `json:"message"`
 }
 
