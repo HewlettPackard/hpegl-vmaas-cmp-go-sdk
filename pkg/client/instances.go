@@ -1795,14 +1795,13 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, instanceId i
 	if err != nil {
 		return resizeResponse, err
 	}
-
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
 		return resizeResponse, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return resizeResponse, err
 	}

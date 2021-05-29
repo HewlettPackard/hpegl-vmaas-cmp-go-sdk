@@ -322,33 +322,32 @@ type GetInstanceResponseInstanceController struct {
 
 // ResizeInstanceBody
 type ResizeInstanceBody struct {
-	Instance *ResizeInstanceBodyInstance `json:"instance,omitempty"`
+	// Instance ID
+	Id                    int                                 `json:"id,omitempty"`
+	Instance              *ResizeInstanceBodyInstance         `json:"instance"`
+	Volumes               []ResizeInstanceBodyInstanceVolumes `json:"volumes"`
+	DeleteOriginalVolumes bool                                `json:"deleteOriginalVolumes,omitempty"`
 }
 
-// ResizeInstanceBodyInstance
 type ResizeInstanceBodyInstance struct {
-	// Instance ID
-	Id   int                             `json:"id,omitempty"`
-	Plan *ResizeInstanceBodyInstancePlan `json:"plan,omitempty"`
-	// Can be used to grow just the logical volume of the instance instead of choosing a plan
-	Volumes               []ResizeInstanceBodyInstanceVolumes `json:"volumes,omitempty"`
-	DeleteOriginalVolumes bool                                `json:"deleteOriginalVolumes,omitempty"`
+	Plan *ResizeInstanceBodyInstancePlan `json:"plan"`
 }
 
 // ResizeInstanceBodyInstancePlan
 type ResizeInstanceBodyInstancePlan struct {
 	// Service Plan ID
-	Id int `json:"id,omitempty"`
+	Id int `json:"id"`
 }
 
 // ResizeInstanceBodyInstanceVolumes
 type ResizeInstanceBodyInstanceVolumes struct {
-	Id          int    `json:"id,omitempty"`
-	RootVolume  bool   `json:"rootVolume,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Size        int    `json:"size,omitempty"`
-	StorageType int    `json:"storageType,omitempty"`
-	DatastoreId int    `json:"datastoreId,omitempty"`
+	Id          json.Number `json:"id"`
+	RootVolume  bool        `json:"rootVolume"`
+	Name        string      `json:"name"`
+	Size        int         `json:"size"`
+	SizeId      interface{} `json:"sizeId,omitempty"`
+	StorageType interface{} `json:"storageType,omitempty"`
+	DatastoreId interface{} `json:"datastoreId,omitempty"`
 }
 type ResizeInstanceResponse struct {
 	Instance *ResizeInstanceResponseInstance `json:"instance"`
@@ -364,12 +363,12 @@ type ResizeInstanceResponseInstance struct {
 }
 
 type GetInstanceResposeResizeVolumes struct {
-	Id          string `json:"id,omitempty"`
-	RootVolume  bool   `json:"rootVolume,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Size        int    `json:"size,omitempty"`
-	StorageType int    `json:"storageType,omitempty"`
-	DatastoreId int    `json:"datastoreId,omitempty"`
+	Id          json.Number `json:"id,omitempty"`
+	RootVolume  interface{} `json:"rootVolume,omitempty"`
+	Name        string      `json:"name,omitempty"`
+	Size        json.Number `json:"size,omitempty"`
+	StorageType json.Number `json:"storageType,omitempty"`
+	DatastoreId interface{} `json:"datastoreId,omitempty"`
 }
 
 // SnapshotBody
