@@ -176,7 +176,7 @@ type GetInstanceResponseInstanceConfig struct {
 	Nestedvirtualization interface{}   `json:"nestedVirtualization,omitempty"`
 	Vmwarefolderid       interface{}   `json:"vmwareFolderId,omitempty"`
 	Expose               []interface{} `json:"expose,omitempty"`
-	Noagent              string        `json:"noAgent,omitempty"`
+	Noagent              interface{}   `json:"noAgent,omitempty"`
 	Customoptions        interface{}   `json:"customOptions,omitempty"`
 	Createbackup         bool          `json:"createBackup,omitempty"`
 	Memorydisplay        string        `json:"memoryDisplay,omitempty"`
