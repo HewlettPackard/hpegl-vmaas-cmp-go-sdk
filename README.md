@@ -5,7 +5,7 @@ This package provides the official [Go](https://golang.org/) library for the [CM
 This is being developed in conjunction with the [VMaaS Terraform Provider](https://github.com/hpe-hcss/vmaas-terraform-resources).
 
 ## Sample Usage
-```
+```go
 package main
 
 import (
@@ -18,14 +18,14 @@ import (
 
 func main(){
 	ctx := context.Background()
-	Headers := map[string]string{
-		"location":      <location_name>,
-		"space":         <space_name>,
-		"Authorization": <iam_token>,
+	headers := map[string]string{
+		"location":      "<location_name>",
+		"space":         "<space_name>",
+		"Authorization": "<iam_token>",
 	}
 	config := client.Configuration{
 		Host: "https://vmaas-cmp.intg.hpedevops.net",
-		DefaultHeaders: Headers,
+		DefaultHeader: headers,
 	}
 	apiClient := client.NewAPIClient(&config)
 	groupsClient := client.GroupsApiService{
@@ -34,7 +34,7 @@ func main(){
 	}
 	resp, err := groupsClient.GetASpecificGroup(ctx, 1)
 	if err != nil {
-		fmt.Printf("List Group Error %v", err)
+		fmt.Printf("Get Group Error %v", err)
 		os.Exit(1)
 	}
 	fmt.Printf("Group Name: %v | Group Location: %v", resp.Group.Name, resp.Group.Location)
