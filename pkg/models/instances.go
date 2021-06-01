@@ -295,13 +295,13 @@ type GetInstanceResponseInstanceTenant struct {
 
 // GetInstanceResponseInstanceVolumes
 type GetInstanceResponseInstanceVolumes struct {
-	Size              int     `json:"size,omitempty"`
-	Name              string  `json:"name,omitempty"`
-	RootVolume        bool    `json:"rootVolume,omitempty"`
-	Id                int     `json:"id,omitempty"`
-	DatastoreId       string  `json:"datastoreId,omitempty"`
-	MaxStorage        float64 `json:"maxStorage,omitempty"`
-	DeviceDisplayName string  `json:"deviceDisplayName,omitempty"`
+	Size              int         `json:"size,omitempty"`
+	Name              string      `json:"name,omitempty"`
+	RootVolume        bool        `json:"rootVolume,omitempty"`
+	Id                int         `json:"id,omitempty"`
+	DatastoreId       interface{} `json:"datastoreId,omitempty"`
+	MaxStorage        float64     `json:"maxStorage,omitempty"`
+	DeviceDisplayName string      `json:"deviceDisplayName,omitempty"`
 }
 
 type GetInstanceResponseInstanceController struct {
