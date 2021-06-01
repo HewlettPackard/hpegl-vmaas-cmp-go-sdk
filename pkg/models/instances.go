@@ -50,6 +50,7 @@ type CreateInstanceBodyConfig struct {
 	VmwareCustomSpec     string `json:"vmwareCustomSpec,omitempty"`
 	NestedVirtualization string `json:"nestedVirtualization,omitempty"`
 	CreateUser           bool   `json:"createUser,omitempty"`
+	VMwareFolderId       string `json:"vmwareFolderId,omitempty"`
 }
 
 // CreateInstanceBodyInstanceInstanceType
