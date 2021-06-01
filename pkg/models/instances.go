@@ -18,6 +18,7 @@ type CreateInstanceBody struct {
 	Copies            int                                   `json:"copies,omitempty"`
 	Labels            []string                              `json:"labels,omitempty"`
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
+	LayoutSize        int                                   `json:"layoutSize,omitempty"`
 }
 
 type CreateInstanceBodyTag struct {
