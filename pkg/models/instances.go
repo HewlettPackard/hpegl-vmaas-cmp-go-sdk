@@ -19,6 +19,7 @@ type CreateInstanceBody struct {
 	Labels            []string                              `json:"labels,omitempty"`
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
 	LayoutSize        int                                   `json:"layoutSize,omitempty"`
+	CloneVMName       string                                `json:"name,omitempty"`
 }
 
 type CreateInstanceBodyTag struct {
@@ -28,7 +29,7 @@ type CreateInstanceBodyTag struct {
 
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
-	Name         string                                  `json:"name"`
+	Name         string                                  `json:"name,omitempty"`
 	Cloud        string                                  `json:"cloud,omitempty"`
 	Type         string                                  `json:"type,omitempty"`
 	Site         *CreateInstanceBodyInstanceSite         `json:"site"`

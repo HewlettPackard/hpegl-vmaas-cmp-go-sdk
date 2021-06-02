@@ -42,7 +42,7 @@ type InstancesApiCloneAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId int, localVarOptionals *models.CreateInstanceBody) (models.GetInstanceResponse, error) {
+func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId int, localVarOptionals *models.CreateInstanceBody) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -50,7 +50,7 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 		localVarFileBytes  []byte
 	)
 
-	var cloneResp models.GetInstanceResponse
+	var cloneResp models.SuccessOrErrorMessage
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/clone", a.Cfg.Host, consts.VmaasCmpApiBasePath,
 		consts.InstancesPath, instanceId)
@@ -789,7 +789,7 @@ type InstancesApiGetAllInstancesOpts struct {
 	Tags         optional.String
 }
 
-func (a *InstancesApiService) GetAllInstances(ctx context.Context) (models.Instances, error) {
+func (a *InstancesApiService) GetAllInstances(ctx context.Context, queryParams map[string]string) (models.Instances, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -803,7 +803,7 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context) (models.Insta
 		consts.InstancesPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
