@@ -724,7 +724,7 @@ func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, query
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		consts.ZonePath, cloudId, "folders")
+		consts.ZonePath, cloudId, consts.FolderPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(queryParams)

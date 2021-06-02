@@ -42,7 +42,7 @@ type InstancesApiCloneAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId int, localVarOptionals *InstancesApiCloneAnInstanceOpts) (*http.Response, error) {
+func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId int, localVarOptionals *models.CreateInstanceBody) (models.GetInstanceResponse, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -50,6 +50,7 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 		localVarFileBytes  []byte
 	)
 
+	var cloneResp models.GetInstanceResponse
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/clone", a.Cfg.Host, consts.VmaasCmpApiBasePath,
 		consts.InstancesPath, instanceId)
@@ -76,11 +77,11 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
+	// if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
 
-		localVarOptionalBody := localVarOptionals.Body.Value()
-		localVarPostBody = &localVarOptionalBody
-	}
+	// 	localVarOptionalBody := localVarOptionals.Body.Value()
+	// 	localVarPostBody = &localVarOptionalBody
+	// }
 	if ctx != nil {
 		// API Key Authentication
 		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
@@ -96,20 +97,21 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return cloneResp, err
 	}
-
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return cloneResp, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return cloneResp, err
 	}
-
+	if err := json.Unmarshal(localVarBody, &cloneResp); err != nil {
+		return cloneResp, err
+	}
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
 			body:  localVarBody,
@@ -120,35 +122,35 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return cloneResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return cloneResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return cloneResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return cloneResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return cloneResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return cloneResp, newErr
 		}
-		return localVarHttpResponse, newErr
+		return cloneResp, newErr
 	}
 
-	return localVarHttpResponse, nil
+	return cloneResp, nil
 }
 
 /*
@@ -350,7 +352,7 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, localVarOpti
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return createInstanceResponse, err
 	}

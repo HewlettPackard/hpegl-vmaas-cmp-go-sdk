@@ -27,4 +27,6 @@ const (
 	DatstorePath = "data-stores"
 	//Virtual-Images Path
 	VirtualImagePath = "virtual-images"
+	FolderPath       = "folders"
+	ConfigOptionPath = "config-options"
 )
