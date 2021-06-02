@@ -19,7 +19,7 @@ type CreateInstanceBody struct {
 	Labels            []string                              `json:"labels,omitempty"`
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
 	LayoutSize        int                                   `json:"layoutSize,omitempty"`
-	CloneVMName       string                                `json:"name,omitempty"`
+	Name              string                                `json:"name,omitempty"`
 	Group             Group                                 `json:"group,omitempty"`
 }
 
