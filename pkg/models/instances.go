@@ -20,6 +20,7 @@ type CreateInstanceBody struct {
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
 	LayoutSize        int                                   `json:"layoutSize,omitempty"`
 	CloneVMName       string                                `json:"name,omitempty"`
+	Group             Group                                 `json:"group,omitempty"`
 }
 
 type CreateInstanceBodyTag struct {
