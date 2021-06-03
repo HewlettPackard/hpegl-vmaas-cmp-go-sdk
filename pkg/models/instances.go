@@ -245,7 +245,7 @@ type GetInstanceResponseInstanceInstanceType struct {
 
 // GetInstanceResponseInstanceInterfaces
 type GetInstanceResponseInstanceInterfaces struct {
-	Id      string                              `json:"id,omitempty"`
+	Id      json.Number                         `json:"id,omitempty"`
 	Network *GetInstanceResponseInstanceNetwork `json:"network,omitempty"`
 }
 

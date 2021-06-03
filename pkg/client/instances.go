@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -108,7 +107,6 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	log.Printf("[INFO] %v", string(localVarBody))
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return cloneResp, err
