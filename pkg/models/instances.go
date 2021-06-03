@@ -19,8 +19,7 @@ type CreateInstanceBody struct {
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
 	LayoutSize        int                                   `json:"layoutSize,omitempty"`
 	CloneName         string                                `json:"name,omitempty"`
-	HostName          string                                `json:"hostName,omitempty"`
-	InstanceContext   string                                `json:"instanceContext,omitempty"`
+	Context           string                                `json:"Context,omitempty"`
 }
 
 type CreateInstanceBodyTag struct {
@@ -37,6 +36,7 @@ type CreateInstanceBodyInstance struct {
 	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
 	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
 	Plan         *CreateInstanceBodyInstancePlan         `json:"plan"`
+	HostName     string                                  `json:"hostName,omitempty"`
 }
 
 // CreateInstanceBodyConfig

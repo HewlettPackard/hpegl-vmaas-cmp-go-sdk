@@ -29,4 +29,5 @@ const (
 	VirtualImagePath = "virtual-images"
 	FolderPath       = "folders"
 	ConfigOptionPath = "config-options"
+	PowerSchedulPath = "power-schedules"
 )
