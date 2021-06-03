@@ -78,11 +78,13 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	// if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
-	// 	localVarOptionalBody := localVarOptionals.Body.Value()
-	// 	localVarPostBody = &localVarOptionalBody
-	// }
+	if localVarOptionals != nil {
+		var err error
+		localVarPostBody, err = json.Marshal(localVarOptionals)
+		if err != nil {
+			return cloneResp, err
+		}
+	}
 	if ctx != nil {
 		// API Key Authentication
 		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {

@@ -15,12 +15,10 @@ type CreateInstanceBody struct {
 	Volumes           []CreateInstanceBodyVolumes           `json:"volumes"`
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces"`
 	Config            *CreateInstanceBodyConfig             `json:"config"`
-	Copies            int                                   `json:"copies,omitempty"`
 	Labels            []string                              `json:"labels,omitempty"`
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
 	LayoutSize        int                                   `json:"layoutSize,omitempty"`
-	Name              string                                `json:"name,omitempty"`
-	Group             Group                                 `json:"group,omitempty"`
+	CloneName         string                                `json:"name,omitempty"`
 }
 
 type CreateInstanceBodyTag struct {
@@ -260,7 +258,7 @@ type GetInstanceResponseInstanceLayout struct {
 
 // GetInstanceResponseInstanceNetwork
 type GetInstanceResponseInstanceNetwork struct {
-	Id                     int                                     `json:"id,omitempty"`
+	Id                     json.Number                             `json:"id,omitempty"`
 	Subnet                 string                                  `json:"subnet,omitempty"`
 	Group                  string                                  `json:"group,omitempty"`
 	DhcpServer             bool                                    `json:"dhcpServer,omitempty"`
