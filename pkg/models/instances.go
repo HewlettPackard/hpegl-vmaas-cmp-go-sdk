@@ -38,17 +38,17 @@ type CreateInstanceBodyInstance struct {
 
 // CreateInstanceBodyConfig
 type CreateInstanceBodyConfig struct {
-	// Virtual Image ID(Required when VMware InstanceType is used)
-	Template       int         `json:"template,omitempty"`
-	ResourcePoolId json.Number `json:"resourcePoolId"`
 	// To specify agent install (on/off)
-	NoAgent              string `json:"noAgent,omitempty"`
-	SmbiosAssetTag       string `json:"smbiosAssetTag,omitempty"`
-	HostId               string `json:"hostId,omitempty"`
-	VmwareDomainName     string `json:"vmwareDomainName,omitempty"`
-	VmwareCustomSpec     string `json:"vmwareCustomSpec,omitempty"`
-	NestedVirtualization string `json:"nestedVirtualization,omitempty"`
-	CreateUser           bool   `json:"createUser,omitempty"`
+	Noagent interface{} `json:"noAgent,omitempty"`
+	// Virtual Image ID(Required when VMware InstanceType is used)
+	Template             int         `json:"template,omitempty"`
+	ResourcePoolId       json.Number `json:"resourcePoolId"`
+	SmbiosAssetTag       string      `json:"smbiosAssetTag,omitempty"`
+	HostId               string      `json:"hostId,omitempty"`
+	VmwareDomainName     string      `json:"vmwareDomainName,omitempty"`
+	VmwareCustomSpec     string      `json:"vmwareCustomSpec,omitempty"`
+	NestedVirtualization string      `json:"nestedVirtualization,omitempty"`
+	CreateUser           bool        `json:"createUser,omitempty"`
 }
 
 // CreateInstanceBodyInstanceInstanceType
@@ -322,14 +322,13 @@ type GetInstanceResponseInstanceController struct {
 
 // ResizeInstanceBody
 type ResizeInstanceBody struct {
-	// Instance ID
-	Id                    int                                 `json:"id,omitempty"`
 	Instance              *ResizeInstanceBodyInstance         `json:"instance"`
 	Volumes               []ResizeInstanceBodyInstanceVolumes `json:"volumes"`
 	DeleteOriginalVolumes bool                                `json:"deleteOriginalVolumes,omitempty"`
 }
 
 type ResizeInstanceBodyInstance struct {
+	Id   int                             `json:"id,omitempty"`
 	Plan *ResizeInstanceBodyInstancePlan `json:"plan"`
 }
 
@@ -421,9 +420,9 @@ type UpdateInstanceBodyInstance struct {
 	// Optional description field
 	Description string `json:"description,omitempty"`
 	// Add or update value of Metadata tags, Array of objects having a name and value
-	AddTags *interface{} `json:"addTags,omitempty"`
+	AddTags []CreateInstanceBodyTag `json:"addTags,omitempty"`
 	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed, it must match to be removed
-	RemoveTags        *interface{}                          `json:"removeTags,omitempty"`
+	RemoveTags        []CreateInstanceBodyTag               `json:"removeTags,omitempty"`
 	Site              *CreateInstanceBodyInstanceSite       `json:"site"`
 	Owner             *GetInstanceResponseInstanceCreatedBy `json:"owner,omitempty"`
 	PowerScheduleType json.Number                           `json:"powerScheduleType,omitempty"`
