@@ -29,14 +29,18 @@ type CreateInstanceBodyTag struct {
 
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
-	Name         string                                  `json:"name,omitempty"`
-	Cloud        string                                  `json:"cloud,omitempty"`
-	Type         string                                  `json:"type,omitempty"`
-	Site         *CreateInstanceBodyInstanceSite         `json:"site"`
-	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
-	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
-	Plan         *CreateInstanceBodyInstancePlan         `json:"plan"`
-	HostName     string                                  `json:"hostName,omitempty"`
+	Name string `json:"name,omitempty"`
+	// Cloud             string                                  `json:"cloud,omitempty"`
+	Type              string                                  `json:"type,omitempty"`
+	Site              *CreateInstanceBodyInstanceSite         `json:"site"`
+	InstanceType      *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
+	Layout            *CreateInstanceBodyInstanceLayout       `json:"layout"`
+	Plan              *CreateInstanceBodyInstancePlan         `json:"plan"`
+	HostName          string                                  `json:"hostName,omitempty"`
+	PowerScheduleType json.Number                             `json:"powerScheduleType,omitempty"`
+	ShutdownDays      string                                  `json:"shutdownDays,omitempty"`
+	ExpireDays        string                                  `json:"expireDays,omitempty"`
+	Tags              string                                  `json:"tags,omitempty"`
 }
 
 // CreateInstanceBodyConfig
