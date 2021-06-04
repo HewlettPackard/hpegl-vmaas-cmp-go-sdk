@@ -47,8 +47,7 @@ type CreateInstanceBodyInstance struct {
 // CreateInstanceBodyConfig
 type CreateInstanceBodyConfig struct {
 	// To specify agent install (on/off)
-	NoAgent string `json:"noAgent,omitempty"`
-	// Virtual Image ID(Required when VMware InstanceType is used)
+	NoAgent              string      `json:"noAgent,omitempty"`
 	Template             int         `json:"template,omitempty"`
 	ResourcePoolId       json.Number `json:"resourcePoolId"`
 	SmbiosAssetTag       string      `json:"smbiosAssetTag,omitempty"`
