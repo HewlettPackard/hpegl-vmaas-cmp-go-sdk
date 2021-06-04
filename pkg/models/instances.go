@@ -15,9 +15,11 @@ type CreateInstanceBody struct {
 	Volumes           []CreateInstanceBodyVolumes           `json:"volumes"`
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces"`
 	Config            *CreateInstanceBodyConfig             `json:"config"`
-	Copies            int                                   `json:"copies,omitempty"`
 	Labels            []string                              `json:"labels,omitempty"`
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
+	LayoutSize        int                                   `json:"layoutSize,omitempty"`
+	CloneName         string                                `json:"name,omitempty"`
+	Context           string                                `json:"Context,omitempty"`
 }
 
 type CreateInstanceBodyTag struct {
@@ -27,13 +29,19 @@ type CreateInstanceBodyTag struct {
 
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
-	Name         string                                  `json:"name"`
-	Cloud        string                                  `json:"cloud,omitempty"`
-	Type         string                                  `json:"type,omitempty"`
-	Site         *CreateInstanceBodyInstanceSite         `json:"site"`
-	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
-	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
-	Plan         *CreateInstanceBodyInstancePlan         `json:"plan"`
+	Name              string                                  `json:"name,omitempty"`
+	Template          int                                     `json:"template,omitempty"`
+	Type              string                                  `json:"type,omitempty"`
+	Site              *CreateInstanceBodyInstanceSite         `json:"site"`
+	InstanceType      *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
+	Layout            *CreateInstanceBodyInstanceLayout       `json:"layout"`
+	Plan              *CreateInstanceBodyInstancePlan         `json:"plan"`
+	HostName          string                                  `json:"hostName,omitempty"`
+	PowerScheduleType json.Number                             `json:"powerScheduleType,omitempty"`
+	ShutdownDays      json.Number                             `json:"shutdownDays,omitempty"`
+	ExpireDays        json.Number                             `json:"expireDays,omitempty"`
+	Tags              string                                  `json:"tags,omitempty"`
+	Copies            int                                     `json:"copies,omitempty"`
 }
 
 // CreateInstanceBodyConfig
@@ -49,6 +57,7 @@ type CreateInstanceBodyConfig struct {
 	VmwareCustomSpec     string `json:"vmwareCustomSpec,omitempty"`
 	NestedVirtualization string `json:"nestedVirtualization,omitempty"`
 	CreateUser           bool   `json:"createUser,omitempty"`
+	VMwareFolderId       string `json:"vmwareFolderId,omitempty"`
 }
 
 // CreateInstanceBodyInstanceInstanceType
@@ -176,7 +185,7 @@ type GetInstanceResponseInstanceConfig struct {
 	Nestedvirtualization interface{}   `json:"nestedVirtualization,omitempty"`
 	Vmwarefolderid       interface{}   `json:"vmwareFolderId,omitempty"`
 	Expose               []interface{} `json:"expose,omitempty"`
-	Noagent              bool          `json:"noAgent,omitempty"`
+	Noagent              interface{}   `json:"noAgent,omitempty"`
 	Customoptions        interface{}   `json:"customOptions,omitempty"`
 	Createbackup         bool          `json:"createBackup,omitempty"`
 	Memorydisplay        string        `json:"memoryDisplay,omitempty"`
@@ -243,7 +252,7 @@ type GetInstanceResponseInstanceInstanceType struct {
 
 // GetInstanceResponseInstanceInterfaces
 type GetInstanceResponseInstanceInterfaces struct {
-	Id      string                              `json:"id,omitempty"`
+	Id      json.Number                         `json:"id,omitempty"`
 	Network *GetInstanceResponseInstanceNetwork `json:"network,omitempty"`
 }
 
@@ -256,7 +265,7 @@ type GetInstanceResponseInstanceLayout struct {
 
 // GetInstanceResponseInstanceNetwork
 type GetInstanceResponseInstanceNetwork struct {
-	Id                     int                                     `json:"id,omitempty"`
+	Id                     json.Number                             `json:"id,omitempty"`
 	Subnet                 string                                  `json:"subnet,omitempty"`
 	Group                  string                                  `json:"group,omitempty"`
 	DhcpServer             bool                                    `json:"dhcpServer,omitempty"`
@@ -295,13 +304,13 @@ type GetInstanceResponseInstanceTenant struct {
 
 // GetInstanceResponseInstanceVolumes
 type GetInstanceResponseInstanceVolumes struct {
-	Size              int     `json:"size,omitempty"`
-	Name              string  `json:"name,omitempty"`
-	RootVolume        bool    `json:"rootVolume,omitempty"`
-	Id                int     `json:"id,omitempty"`
-	DatastoreId       string  `json:"datastoreId,omitempty"`
-	MaxStorage        float64 `json:"maxStorage,omitempty"`
-	DeviceDisplayName string  `json:"deviceDisplayName,omitempty"`
+	Size              int         `json:"size,omitempty"`
+	Name              string      `json:"name,omitempty"`
+	RootVolume        bool        `json:"rootVolume,omitempty"`
+	Id                int         `json:"id,omitempty"`
+	DatastoreId       interface{} `json:"datastoreId,omitempty"`
+	MaxStorage        float64     `json:"maxStorage,omitempty"`
+	DeviceDisplayName string      `json:"deviceDisplayName,omitempty"`
 }
 
 type GetInstanceResponseInstanceController struct {

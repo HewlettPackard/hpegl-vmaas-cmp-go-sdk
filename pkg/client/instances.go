@@ -42,7 +42,7 @@ type InstancesApiCloneAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId int, localVarOptionals *InstancesApiCloneAnInstanceOpts) (*http.Response, error) {
+func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId int, localVarOptionals *models.CreateInstanceBody) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -50,6 +50,7 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 		localVarFileBytes  []byte
 	)
 
+	var cloneResp models.SuccessOrErrorMessage
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/clone", a.Cfg.Host, consts.VmaasCmpApiBasePath,
 		consts.InstancesPath, instanceId)
@@ -76,10 +77,12 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
-		localVarOptionalBody := localVarOptionals.Body.Value()
-		localVarPostBody = &localVarOptionalBody
+	if localVarOptionals != nil {
+		var err error
+		localVarPostBody, err = json.Marshal(localVarOptionals)
+		if err != nil {
+			return cloneResp, err
+		}
 	}
 	if ctx != nil {
 		// API Key Authentication
@@ -96,20 +99,21 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 	}
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return cloneResp, err
 	}
-
 	localVarHttpResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return cloneResp, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return cloneResp, err
 	}
-
+	if err := json.Unmarshal(localVarBody, &cloneResp); err != nil {
+		return cloneResp, err
+	}
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
 			body:  localVarBody,
@@ -120,35 +124,35 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return cloneResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return cloneResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
 			var v models.ErrNotFound
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return cloneResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return cloneResp, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
 			var v models.ErrInternalError
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
+				return cloneResp, newErr
 			}
 			newErr.model = v
-			return localVarHttpResponse, newErr
+			return cloneResp, newErr
 		}
-		return localVarHttpResponse, newErr
+		return cloneResp, newErr
 	}
 
-	return localVarHttpResponse, nil
+	return cloneResp, nil
 }
 
 /*
@@ -350,7 +354,7 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, localVarOpti
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return createInstanceResponse, err
 	}
@@ -787,7 +791,7 @@ type InstancesApiGetAllInstancesOpts struct {
 	Tags         optional.String
 }
 
-func (a *InstancesApiService) GetAllInstances(ctx context.Context) (models.Instances, error) {
+func (a *InstancesApiService) GetAllInstances(ctx context.Context, queryParams map[string]string) (models.Instances, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -801,7 +805,7 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context) (models.Insta
 		consts.InstancesPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := getUrlValues(queryParams)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header

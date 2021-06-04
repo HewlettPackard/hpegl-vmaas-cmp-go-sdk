@@ -713,3 +713,99 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, queryParams map[str
 	}
 	return cloudsResp, nil
 }
+
+func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, queryParams map[string]string) (models.GetFolders, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+	)
+
+	// create path and map variables
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.ZonePath, cloudId, consts.FolderPath)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := getUrlValues(queryParams)
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	if ctx != nil {
+		// API Key Authentication
+		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
+			var key string
+			if auth.Prefix != "" {
+				key = auth.Prefix + " " + auth.Key
+			} else {
+				key = auth.Key
+			}
+			localVarHeaderParams["Authorization"] = key
+
+		}
+	}
+	var folderResp models.GetFolders
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return folderResp, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return folderResp, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return folderResp, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		if localVarHttpResponse.StatusCode == 401 {
+			var v models.ErrUnauthorized
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return folderResp, newErr
+			}
+			newErr.model = v
+			return folderResp, newErr
+		}
+		if localVarHttpResponse.StatusCode == 500 {
+			var v models.ErrInternalError
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return folderResp, newErr
+			}
+			newErr.model = v
+			return folderResp, newErr
+		}
+		return folderResp, newErr
+	}
+	if err = json.Unmarshal(localVarBody, &folderResp); err != nil {
+		return folderResp, err
+	}
+	return folderResp, nil
+}
