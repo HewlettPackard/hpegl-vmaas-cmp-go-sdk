@@ -17,6 +17,7 @@ type CreateInstanceBody struct {
 	Config            *CreateInstanceBodyConfig             `json:"config"`
 	Labels            []string                              `json:"labels,omitempty"`
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
+	Evars             []GetInstanceResponseInstanceEvars    `json:"evars,omitempty"`
 	LayoutSize        int                                   `json:"layoutSize,omitempty"`
 	CloneName         string                                `json:"name,omitempty"`
 	Context           string                                `json:"Context,omitempty"`
@@ -40,7 +41,6 @@ type CreateInstanceBodyInstance struct {
 	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
 	Plan         *CreateInstanceBodyInstancePlan         `json:"plan"`
 	HostName     string                                  `json:"hostName,omitempty"`
-	Tags         string                                  `json:"tags,omitempty"`
 	Copies       int                                     `json:"copies,omitempty"`
 }
 
