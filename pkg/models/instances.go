@@ -17,9 +17,13 @@ type CreateInstanceBody struct {
 	Config            *CreateInstanceBodyConfig             `json:"config"`
 	Labels            []string                              `json:"labels,omitempty"`
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
+	Evars             []GetInstanceResponseInstanceEvars    `json:"evars,omitempty"`
 	LayoutSize        int                                   `json:"layoutSize,omitempty"`
 	CloneName         string                                `json:"name,omitempty"`
 	Context           string                                `json:"Context,omitempty"`
+	PowerScheduleType json.Number                           `json:"powerScheduleType,omitempty"`
+	ShutdownDays      json.Number                           `json:"shutdownDays,omitempty"`
+	ExpireDays        json.Number                           `json:"expireDays,omitempty"`
 }
 
 type CreateInstanceBodyTag struct {
@@ -29,19 +33,15 @@ type CreateInstanceBodyTag struct {
 
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
-	Name              string                                  `json:"name,omitempty"`
-	Template          int                                     `json:"template,omitempty"`
-	Type              string                                  `json:"type,omitempty"`
-	Site              *CreateInstanceBodyInstanceSite         `json:"site"`
-	InstanceType      *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
-	Layout            *CreateInstanceBodyInstanceLayout       `json:"layout"`
-	Plan              *CreateInstanceBodyInstancePlan         `json:"plan"`
-	HostName          string                                  `json:"hostName,omitempty"`
-	PowerScheduleType json.Number                             `json:"powerScheduleType,omitempty"`
-	ShutdownDays      json.Number                             `json:"shutdownDays,omitempty"`
-	ExpireDays        json.Number                             `json:"expireDays,omitempty"`
-	Tags              string                                  `json:"tags,omitempty"`
-	Copies            int                                     `json:"copies,omitempty"`
+	Name         string                                  `json:"name,omitempty"`
+	Template     int                                     `json:"template,omitempty"`
+	Type         string                                  `json:"type,omitempty"`
+	Site         *CreateInstanceBodyInstanceSite         `json:"site"`
+	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
+	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
+	Plan         *CreateInstanceBodyInstancePlan         `json:"plan"`
+	HostName     string                                  `json:"hostName,omitempty"`
+	Copies       int                                     `json:"copies,omitempty"`
 }
 
 // CreateInstanceBodyConfig
