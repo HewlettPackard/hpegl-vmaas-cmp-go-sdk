@@ -24,8 +24,14 @@ type CreateInstanceBody struct {
 	PowerScheduleType json.Number                           `json:"powerScheduleType,omitempty"`
 	ShutdownDays      json.Number                           `json:"shutdownDays,omitempty"`
 	ExpireDays        json.Number                           `json:"expireDays,omitempty"`
+	Ports             []CreateInstancePorts                 `json:"ports,omitempty"`
 }
 
+type CreateInstancePorts struct {
+	Name string `json:"name,omitempty"`
+	Port string `json:"port,omitempty"`
+	Lb   string `json:"lb,omitempty"`
+}
 type CreateInstanceBodyTag struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
@@ -33,15 +39,16 @@ type CreateInstanceBodyTag struct {
 
 // CreateInstanceBodyInstance
 type CreateInstanceBodyInstance struct {
-	Name         string                                  `json:"name,omitempty"`
-	Template     int                                     `json:"template,omitempty"`
-	Type         string                                  `json:"type,omitempty"`
-	Site         *CreateInstanceBodyInstanceSite         `json:"site"`
-	InstanceType *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
-	Layout       *CreateInstanceBodyInstanceLayout       `json:"layout"`
-	Plan         *CreateInstanceBodyInstancePlan         `json:"plan"`
-	HostName     string                                  `json:"hostName,omitempty"`
-	Copies       int                                     `json:"copies,omitempty"`
+	Name              string                                  `json:"name,omitempty"`
+	Template          int                                     `json:"template,omitempty"`
+	Type              string                                  `json:"type,omitempty"`
+	Site              *CreateInstanceBodyInstanceSite         `json:"site"`
+	InstanceType      *CreateInstanceBodyInstanceInstanceType `json:"instanceType"`
+	Layout            *CreateInstanceBodyInstanceLayout       `json:"layout"`
+	Plan              *CreateInstanceBodyInstancePlan         `json:"plan"`
+	HostName          string                                  `json:"hostName,omitempty"`
+	Copies            int                                     `json:"copies,omitempty"`
+	EnvironmentPrefix string                                  `json:"environmentPrefix,omitempty"`
 }
 
 // CreateInstanceBodyConfig
