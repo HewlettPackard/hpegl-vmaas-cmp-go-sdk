@@ -236,10 +236,10 @@ type GetInstanceResponseInstanceCreatedBy struct {
 
 // GetInstanceResponseInstanceEvars
 type GetInstanceResponseInstanceEvars struct {
-	Name   string `json:"name,omitempty"`
-	Value  string `json:"value,omitempty"`
-	Export bool   `json:"export,omitempty"`
-	Masked bool   `json:"masked,omitempty"`
+	Name   string      `json:"name,omitempty"`
+	Value  interface{} `json:"value,omitempty"`
+	Export bool        `json:"export,omitempty"`
+	Masked bool        `json:"masked,omitempty"`
 }
 
 // GetInstanceResponseInstanceGroup
