@@ -30,4 +30,5 @@ const (
 	FolderPath       = "folders"
 	ConfigOptionPath = "config-options"
 	PowerSchedulPath = "power-schedules"
+	EnvironmentPath  = "environments"
 )
