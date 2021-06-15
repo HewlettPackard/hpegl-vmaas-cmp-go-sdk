@@ -22,7 +22,6 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	"unicode/utf8"
 	//"golang.org/x/oauth2"
 )
 
@@ -478,10 +477,6 @@ func CacheExpires(r *http.Response) time.Time {
 		}
 	}
 	return expires
-}
-
-func strlen(s string) int {
-	return utf8.RuneCountInString(s)
 }
 
 // GenericSwaggerError Provides access to the body, error and model on returned errors.

@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
@@ -574,4 +575,80 @@ func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, query
 		return folderResp, err
 	}
 	return folderResp, nil
+}
+
+func (a *CloudsApiService) GetAllCloudNetworks(ctx context.Context, cloudId, provisionTypeId int) (models.GetAllCloudNetworks, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+	)
+
+	// create path and map variables
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+		consts.OptionsPath, consts.ZoneNetworkOptionsPath)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := getUrlValues(map[string]string{
+		"zoneId":          strconv.Itoa(cloudId),
+		"provisionTypeId": strconv.Itoa(provisionTypeId),
+	})
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	if ctx != nil {
+		// API Key Authentication
+		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
+			var key string
+			if auth.Prefix != "" {
+				key = auth.Prefix + " " + auth.Key
+			} else {
+				key = auth.Key
+			}
+			localVarHeaderParams["Authorization"] = key
+
+		}
+	}
+	var networkResp models.GetAllCloudNetworks
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return networkResp, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return networkResp, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return networkResp, ParseError(localVarHttpResponse)
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return networkResp, err
+	}
+
+	if err = json.Unmarshal(localVarBody, &networkResp); err != nil {
+		return networkResp, err
+	}
+	return networkResp, nil
 }
