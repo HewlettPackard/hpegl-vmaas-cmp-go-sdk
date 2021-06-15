@@ -106,6 +106,10 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 		return cloneResp, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return cloneResp, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
@@ -113,43 +117,6 @@ func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId in
 	}
 	if err := json.Unmarshal(localVarBody, &cloneResp); err != nil {
 		return cloneResp, err
-	}
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return cloneResp, newErr
-			}
-			newErr.model = v
-			return cloneResp, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return cloneResp, newErr
-			}
-			newErr.model = v
-			return cloneResp, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return cloneResp, newErr
-			}
-			newErr.model = v
-			return cloneResp, newErr
-		}
-		return cloneResp, newErr
 	}
 
 	return cloneResp, nil
@@ -232,48 +199,8 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, instanceId int, 
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -352,6 +279,9 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, localVarOpti
 	if err != nil || localVarHttpResponse == nil {
 		return createInstanceResponse, err
 	}
+	if localVarHttpResponse.StatusCode >= 300 {
+		return createInstanceResponse, ParseError(localVarHttpResponse)
+	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
@@ -359,43 +289,6 @@ func (a *InstancesApiService) CreateAnInstance(ctx context.Context, localVarOpti
 		return createInstanceResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 400 {
-			var v models.ErrBadRequest
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return createInstanceResponse, newErr
-			}
-			newErr.model = v
-			return createInstanceResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return createInstanceResponse, newErr
-			}
-			newErr.model = v
-			return createInstanceResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return createInstanceResponse, newErr
-			}
-			newErr.model = v
-			return createInstanceResponse, newErr
-		}
-		return createInstanceResponse, newErr
-	}
 	if err = json.Unmarshal(localVarBody, &createInstanceResponse); err != nil {
 		return createInstanceResponse, err
 	}
@@ -473,48 +366,14 @@ func (a *InstancesApiService) DeleteAnInstance(ctx context.Context, instanceId i
 		return models.SuccessOrErrorMessage{}, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return models.SuccessOrErrorMessage{}, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return models.SuccessOrErrorMessage{}, err
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.SuccessOrErrorMessage{}, newErr
-			}
-			newErr.model = v
-			return models.SuccessOrErrorMessage{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.SuccessOrErrorMessage{}, newErr
-			}
-			newErr.model = v
-			return models.SuccessOrErrorMessage{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.SuccessOrErrorMessage{}, newErr
-			}
-			newErr.model = v
-			return models.SuccessOrErrorMessage{}, newErr
-		}
-		return models.SuccessOrErrorMessage{}, newErr
 	}
 
 	// fmt.Println(string(localVarBody))
@@ -590,59 +449,16 @@ func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, instance
 		return getInstanceResponse, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return getInstanceResponse, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return getInstanceResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v models.GetInstanceResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return getInstanceResponse, newErr
-			}
-			newErr.model = v
-			return getInstanceResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return getInstanceResponse, newErr
-			}
-			newErr.model = v
-			return getInstanceResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return getInstanceResponse, newErr
-			}
-			newErr.model = v
-			return getInstanceResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return getInstanceResponse, newErr
-			}
-			newErr.model = v
-			return getInstanceResponse, newErr
-		}
-		return getInstanceResponse, newErr
-	}
 	if err = json.Unmarshal(localVarBody, &getInstanceResponse); err != nil {
 		return getInstanceResponse, err
 	}
@@ -712,48 +528,8 @@ func (a *InstancesApiService) GetAllInstanceTypesForProvisioning(ctx context.Con
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -848,10 +624,9 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context, queryParams m
 		return instancesResponse, err
 	}
 
-	// uncomment to check the output
-	// var temp interface{}
-	// json.NewDecoder(localVarHttpResponse.Body).Decode(&temp)
-	// fmt.Println(temp)
+	if localVarHttpResponse.StatusCode >= 300 {
+		return instancesResponse, ParseError(localVarHttpResponse)
+	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
@@ -859,33 +634,6 @@ func (a *InstancesApiService) GetAllInstances(ctx context.Context, queryParams m
 		return instancesResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return instancesResponse, newErr
-			}
-			newErr.model = v
-			return instancesResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return instancesResponse, newErr
-			}
-			newErr.model = v
-			return instancesResponse, newErr
-		}
-		return instancesResponse, newErr
-	}
 	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
 		return instancesResponse, err
 	}
@@ -970,6 +718,10 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 		return localVarReturnValue, localVarHttpResponse, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return localVarReturnValue, localVarHttpResponse, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
@@ -982,54 +734,6 @@ func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v models.GetServicePlanResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
@@ -1098,48 +802,8 @@ func (a *InstancesApiService) GetEnvVariables(ctx context.Context, instanceId in
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -1209,48 +873,8 @@ func (a *InstancesApiService) GetInstanceHistory(ctx context.Context, instanceId
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -1321,58 +945,14 @@ func (a *InstancesApiService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 		return snapshotResponse, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return snapshotResponse, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return snapshotResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 400 {
-			var v models.ErrBadRequest
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return snapshotResponse, newErr
-			}
-			newErr.model = v
-			return snapshotResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return snapshotResponse, newErr
-			}
-			newErr.model = v
-			return snapshotResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return snapshotResponse, newErr
-			}
-			newErr.model = v
-			return snapshotResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return snapshotResponse, newErr
-			}
-			newErr.model = v
-			return snapshotResponse, newErr
-		}
-		return snapshotResponse, newErr
 	}
 	if err = json.Unmarshal(localVarBody, &snapshotResponse); err != nil {
 		return snapshotResponse, err
@@ -1444,50 +1024,9 @@ func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
-
 	return localVarHttpResponse, nil
 }
 
@@ -1566,49 +1105,14 @@ func (a *InstancesApiService) ImportSnapshotOfAnInstance(ctx context.Context, in
 	if err != nil || localVarHttpResponse == nil {
 		return models.SuccessOrErrorMessage{}, err
 	}
+	if localVarHttpResponse.StatusCode >= 300 {
+		return models.SuccessOrErrorMessage{}, ParseError(localVarHttpResponse)
+	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
 		return models.SuccessOrErrorMessage{}, err
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.SuccessOrErrorMessage{}, newErr
-			}
-			newErr.model = v
-			return models.SuccessOrErrorMessage{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.SuccessOrErrorMessage{}, newErr
-			}
-			newErr.model = v
-			return models.SuccessOrErrorMessage{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.SuccessOrErrorMessage{}, newErr
-			}
-			newErr.model = v
-			return models.SuccessOrErrorMessage{}, newErr
-		}
-		return models.SuccessOrErrorMessage{}, newErr
 	}
 
 	var instanceResponse models.SuccessOrErrorMessage
@@ -1682,48 +1186,8 @@ func (a *InstancesApiService) LockAnInstance(ctx context.Context, instanceId int
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -1804,49 +1268,16 @@ func (a *InstancesApiService) ResizeAnInstance(ctx context.Context, instanceId i
 		return resizeResponse, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return resizeResponse, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return resizeResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 400 {
-			var v models.ErrBadRequest
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return resizeResponse, newErr
-			}
-			newErr.model = v
-			return resizeResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return resizeResponse, newErr
-			}
-			newErr.model = v
-			return resizeResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return resizeResponse, newErr
-			}
-			newErr.model = v
-			return resizeResponse, newErr
-		}
-		return resizeResponse, newErr
-	}
 	if err = json.Unmarshal(localVarBody, &resizeResponse); err != nil {
 		return resizeResponse, err
 	}
@@ -1917,48 +1348,8 @@ func (a *InstancesApiService) RestartAnInstance(ctx context.Context, instanceId 
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -2040,49 +1431,16 @@ func (a *InstancesApiService) SnapshotAnInstance(ctx context.Context, instanceId
 		return snapshotInstanceresp, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return snapshotInstanceresp, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
 		return snapshotInstanceresp, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return snapshotInstanceresp, newErr
-			}
-			newErr.model = v
-			return snapshotInstanceresp, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return snapshotInstanceresp, newErr
-			}
-			newErr.model = v
-			return snapshotInstanceresp, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return snapshotInstanceresp, newErr
-			}
-			newErr.model = v
-			return snapshotInstanceresp, newErr
-		}
-		return snapshotInstanceresp, newErr
-	}
 	if err := json.Unmarshal(localVarBody, &snapshotInstanceresp); err != nil {
 		return snapshotInstanceresp, err
 	}
@@ -2152,49 +1510,8 @@ func (a *InstancesApiService) StartAnInstance(ctx context.Context, instanceId in
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -2263,49 +1580,8 @@ func (a *InstancesApiService) StopAnInstance(ctx context.Context, instanceId int
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -2374,49 +1650,8 @@ func (a *InstancesApiService) SuspendAnInstance(ctx context.Context, instanceId 
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -2486,6 +1721,9 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, instan
 	if err != nil || localVarHttpResponse == nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
+	if localVarHttpResponse.StatusCode >= 300 {
+		return localVarReturnValue, localVarHttpResponse, ParseError(localVarHttpResponse)
+	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
@@ -2499,54 +1737,6 @@ func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, instan
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v models.GetInstanceResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
@@ -2615,49 +1805,8 @@ func (a *InstancesApiService) UnlockAnInstance(ctx context.Context, instanceId i
 	if err != nil || localVarHttpResponse == nil {
 		return localVarHttpResponse, err
 	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -2742,48 +1891,14 @@ func (a *InstancesApiService) UpdatingAnInstance(ctx context.Context, instanceId
 		return updateInstanceResponse, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return updateInstanceResponse, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return updateInstanceResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return updateInstanceResponse, newErr
-			}
-			newErr.model = v
-			return updateInstanceResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return updateInstanceResponse, newErr
-			}
-			newErr.model = v
-			return updateInstanceResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return updateInstanceResponse, newErr
-			}
-			newErr.model = v
-			return updateInstanceResponse, newErr
-		}
-		return updateInstanceResponse, newErr
 	}
 	if err = json.Unmarshal(localVarBody, &updateInstanceResponse); err != nil {
 		return updateInstanceResponse, err

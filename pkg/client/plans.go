@@ -88,39 +88,16 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, param map[stri
 		return servicePlansResponse, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return servicePlansResponse, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return servicePlansResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return servicePlansResponse, newErr
-			}
-			newErr.model = v
-			return servicePlansResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return servicePlansResponse, newErr
-			}
-			newErr.model = v
-			return servicePlansResponse, newErr
-		}
-		return servicePlansResponse, newErr
-	}
 	if err := json.Unmarshal(localVarBody, &servicePlansResponse); err != nil {
 		return servicePlansResponse, err
 	}

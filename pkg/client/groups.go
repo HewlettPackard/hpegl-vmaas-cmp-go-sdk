@@ -104,48 +104,8 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *G
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 400 {
-			var v models.ErrBadRequest
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -218,48 +178,8 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, groupId int) (*http
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -332,49 +252,16 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, groupId int) (
 		return models.GroupResp{}, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return models.GroupResp{}, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return models.GroupResp{}, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.GroupResp{}, newErr
-			}
-			newErr.model = v
-			return models.GroupResp{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 404 {
-			var v models.ErrNotFound
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.GroupResp{}, newErr
-			}
-			newErr.model = v
-			return models.GroupResp{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.GroupResp{}, newErr
-			}
-			newErr.model = v
-			return models.GroupResp{}, newErr
-		}
-		return models.GroupResp{}, newErr
-	}
 	var groupResp models.GroupResp
 	if err = json.Unmarshal(localVarBody, &groupResp); err != nil {
 		return models.GroupResp{}, err
@@ -445,38 +332,16 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, queryParams map[str
 		return models.Groups{}, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return models.Groups{}, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return models.Groups{}, err
 	}
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.Groups{}, newErr
-			}
-			newErr.model = v
-			return models.Groups{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.Groups{}, newErr
-			}
-			newErr.model = v
-			return models.Groups{}, newErr
-		}
-		return models.Groups{}, newErr
-	}
+
 	var groupsResp models.Groups
 	if err = json.Unmarshal(localVarBody, &groupsResp); err != nil {
 		return models.Groups{}, err
@@ -564,38 +429,8 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int, loc
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
@@ -681,48 +516,8 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, groupId int, 
 		return localVarHttpResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
 	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 400 {
-			var v models.ErrBadRequest
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarHttpResponse, newErr
-		}
-		return localVarHttpResponse, newErr
+		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
 
 	return localVarHttpResponse, nil
