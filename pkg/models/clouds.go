@@ -132,9 +132,8 @@ type ResourcePoolRespBody struct {
 	Defaultpool bool        `json:"defaultPool"`
 	Active      bool        `json:"active"`
 	Status      string      `json:"status"`
-	Config      struct {
-	} `json:"config"`
-	Tenants []struct {
+	Config      struct{}    `json:"config"`
+	Tenants     []struct {
 		ID   int    `json:"id"`
 		Name string `json:"name"`
 	} `json:"tenants"`
@@ -188,4 +187,18 @@ type GetFolders struct {
 type Folder struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
+}
+
+type GetNetworkInterface struct {
+	Data DataGetNetworkInterface `json:"data"`
+}
+
+type DataGetNetworkInterface struct {
+	NetworkTypes []GetNetworkInterfaceNetworkTypes `json:"networkTypes"`
+}
+
+type GetNetworkInterfaceNetworkTypes struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Code string `json:"code"`
 }

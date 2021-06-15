@@ -11,13 +11,13 @@ const (
 	InstanceTypesPath = "instance-types"
 	// GroupsPath
 	GroupsPath = "groups"
-	//NetworksPath
+	// NetworksPath
 	NetworksPath = "networks"
 	// LibraryLayoutPath
 	LibraryLayoutPath = "library/layouts"
 	// LibraryInstanceTypesPath
 	LibraryInstanceTypesPath = "library/instance-types"
-	//Service plans path
+	// Service plans path
 	ServicePlansPath = "service-plans"
 	// CloudsPath
 	CloudsPath = "clouds"
@@ -25,10 +25,12 @@ const (
 	ZonePath = "zones"
 	// DatstorePath
 	DatstorePath = "data-stores"
-	//Virtual-Images Path
-	VirtualImagePath = "virtual-images"
-	FolderPath       = "folders"
-	ConfigOptionPath = "config-options"
-	PowerSchedulPath = "power-schedules"
-	EnvironmentPath  = "environments"
+	// Virtual-Images Path
+	VirtualImagePath       = "virtual-images"
+	FolderPath             = "folders"
+	ConfigOptionPath       = "config-options"
+	PowerSchedulPath       = "power-schedules"
+	EnvironmentPath        = "environments"
+	OptionsPath            = "options"
+	ZoneNetworkOptionsPath = "zoneNetworkOptions"
 )
