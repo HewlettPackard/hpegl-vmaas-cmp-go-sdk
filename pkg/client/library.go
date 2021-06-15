@@ -87,39 +87,16 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]
 		return models.LayoutsResp{}, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return models.LayoutsResp{}, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
 		return models.LayoutsResp{}, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.LayoutsResp{}, newErr
-			}
-			newErr.model = v
-			return models.LayoutsResp{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.LayoutsResp{}, newErr
-			}
-			newErr.model = v
-			return models.LayoutsResp{}, newErr
-		}
-		return models.LayoutsResp{}, newErr
-	}
 	var layoutsResp models.LayoutsResp
 	if err = json.Unmarshal(localVarBody, &layoutsResp); err != nil {
 		return models.LayoutsResp{}, err
@@ -182,39 +159,14 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, param map[s
 	if err != nil || localVarHttpResponse == nil {
 		return models.InstanceTypesResp{}, err
 	}
+	if localVarHttpResponse.StatusCode >= 300 {
+		return models.InstanceTypesResp{}, ParseError(localVarHttpResponse)
+	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
 		return models.InstanceTypesResp{}, err
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.InstanceTypesResp{}, newErr
-			}
-			newErr.model = v
-			return models.InstanceTypesResp{}, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return models.InstanceTypesResp{}, newErr
-			}
-			newErr.model = v
-			return models.InstanceTypesResp{}, newErr
-		}
-		return models.InstanceTypesResp{}, newErr
 	}
 	var instanceTypesResp models.InstanceTypesResp
 	if err = json.Unmarshal(localVarBody, &instanceTypesResp); err != nil {

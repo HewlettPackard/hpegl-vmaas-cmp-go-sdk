@@ -88,39 +88,16 @@ func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, param
 		return virtualImageResponse, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return virtualImageResponse, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return virtualImageResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return virtualImageResponse, newErr
-			}
-			newErr.model = v
-			return virtualImageResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return virtualImageResponse, newErr
-			}
-			newErr.model = v
-			return virtualImageResponse, newErr
-		}
-		return virtualImageResponse, newErr
-	}
 	if err := json.Unmarshal(localVarBody, &virtualImageResponse); err != nil {
 		return virtualImageResponse, err
 	}

@@ -87,6 +87,9 @@ func (a *PowerSchedulesApiService) GetAllPowerSchedules(ctx context.Context, par
 	if err != nil || localVarHttpResponse == nil {
 		return powerSchedulePath, err
 	}
+	if localVarHttpResponse.StatusCode >= 300 {
+		return powerSchedulePath, ParseError(localVarHttpResponse)
+	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
@@ -94,33 +97,6 @@ func (a *PowerSchedulesApiService) GetAllPowerSchedules(ctx context.Context, par
 		return powerSchedulePath, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return powerSchedulePath, newErr
-			}
-			newErr.model = v
-			return powerSchedulePath, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return powerSchedulePath, newErr
-			}
-			newErr.model = v
-			return powerSchedulePath, newErr
-		}
-		return powerSchedulePath, newErr
-	}
 	if err := json.Unmarshal(localVarBody, &powerSchedulePath); err != nil {
 		return powerSchedulePath, err
 	}
