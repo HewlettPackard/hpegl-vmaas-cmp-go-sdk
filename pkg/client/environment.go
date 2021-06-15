@@ -14,9 +14,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-var (
-	_ context.Context
-)
+var _ context.Context
 
 type EnvironmentApiService struct {
 	Client APIClientHandler
@@ -80,39 +78,16 @@ func (e *EnvironmentApiService) GetAllEnvironment(ctx context.Context, param map
 		return environmentResponse, err
 	}
 
+	if localVarHttpResponse.StatusCode >= 300 {
+		return environmentResponse, ParseError(localVarHttpResponse)
+	}
+
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	defer localVarHttpResponse.Body.Close()
 	if err != nil {
 		return environmentResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 401 {
-			var v models.ErrUnauthorized
-			err = e.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return environmentResponse, newErr
-			}
-			newErr.model = v
-			return environmentResponse, newErr
-		}
-		if localVarHttpResponse.StatusCode == 500 {
-			var v models.ErrInternalError
-			err = e.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return environmentResponse, newErr
-			}
-			newErr.model = v
-			return environmentResponse, newErr
-		}
-		return environmentResponse, newErr
-	}
 	if err := json.Unmarshal(localVarBody, &environmentResponse); err != nil {
 		return environmentResponse, err
 	}
