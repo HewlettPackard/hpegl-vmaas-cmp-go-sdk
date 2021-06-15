@@ -189,7 +189,7 @@ type Folder struct {
 	Name string `json:"name"`
 }
 
-type GetNetworkInterface struct {
+type GetAllCloudNetworks struct {
 	Data DataGetNetworkInterface `json:"data"`
 }
 

@@ -577,7 +577,7 @@ func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, query
 	return folderResp, nil
 }
 
-func (a *CloudsApiService) GetAllNetworkInterfaces(ctx context.Context, cloudId, provisionTypeId int) (models.GetNetworkInterface, error) {
+func (a *CloudsApiService) GetAllCloudNetworks(ctx context.Context, cloudId, provisionTypeId int) (models.GetAllCloudNetworks, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -626,7 +626,7 @@ func (a *CloudsApiService) GetAllNetworkInterfaces(ctx context.Context, cloudId,
 
 		}
 	}
-	var networkResp models.GetNetworkInterface
+	var networkResp models.GetAllCloudNetworks
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return networkResp, err
