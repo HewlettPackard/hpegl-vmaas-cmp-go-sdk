@@ -25,6 +25,7 @@ type CreateInstanceBody struct {
 	ShutdownDays      json.Number                           `json:"shutdownDays,omitempty"`
 	ExpireDays        json.Number                           `json:"expireDays,omitempty"`
 	Ports             []CreateInstancePorts                 `json:"ports,omitempty"`
+	Environment       string                                `json:"environment,omitempty"`
 }
 
 type CreateInstancePorts struct {
