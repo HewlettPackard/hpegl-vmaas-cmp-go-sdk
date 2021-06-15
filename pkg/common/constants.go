@@ -33,4 +33,5 @@ const (
 	EnvironmentPath        = "environments"
 	OptionsPath            = "options"
 	ZoneNetworkOptionsPath = "zoneNetworkOptions"
+	ProvisionTypesPath     = "provision-types"
 )
