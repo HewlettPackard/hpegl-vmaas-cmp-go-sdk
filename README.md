@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/hpe-hcss/vmaas-cmp-go-sdk.svg?style=svg&circle-token=18e112d5ef6c20a7dc516fc320b8cd2e329af629)](https://circleci.com/gh/hpe-hcss/vmaas-cmp-go-sdk)
+
 # vmaas-cmp-go-sdk
 
 This package provides the official [Go](https://golang.org/) library for the [CMP API](https://docs.greenlake.hpe.com/docs/greenlake/services/private-cloud/internal/openapi/private-cloud-cmp-latest/overview/).
