@@ -4,7 +4,6 @@ package client
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/url"
 )
@@ -18,32 +17,33 @@ func getUrlValues(query map[string]string) url.Values {
 }
 
 type customError struct {
-	error      string
-	body       map[string]interface{}
-	statusCode int
+	Errors             string                 `json:"error,omitempty"`
+	Body               map[string]interface{} `json:"body,omitempty"`
+	StatusCode         int                    `json:"statuscode,omitempty"`
+	RecommendedActions string                 `json:"recommendedActions,omitempty"`
 }
 
 func (c customError) Error() string {
-	if c.error != "" {
-		return fmt.Sprintf("status code: %d. Error: %s", c.statusCode, c.error)
+	jsonObj, err := json.Marshal(c)
+	if err != nil {
+		return err.Error()
 	}
-	details := "{"
-	for k, v := range c.body {
-		details = fmt.Sprintf("%s %s: %v,", details, k, v)
-	}
-	details = details[:len(details)-1] + "}"
-	return fmt.Sprintf("status code: %d. Details: %v", c.statusCode, details)
+	return string(jsonObj)
 }
 
 func ParseError(resp *http.Response) error {
 	customErr := customError{
-		statusCode: resp.StatusCode,
+		StatusCode: resp.StatusCode,
 	}
-	err := json.NewDecoder(resp.Body).Decode(&customErr.body)
+	err := json.NewDecoder(resp.Body).Decode(&customErr.Body)
 	if err != nil {
-		customErr.error = err.Error()
-	} else if len(customErr.body) == 0 {
-		customErr.error = "No additional information is available"
+		customErr.Errors = err.Error()
+	} else if len(customErr.Body) == 0 {
+		customErr.Errors = "No additional information is available"
+	}
+	if raction, ok := customErr.Body["recommendedActions"]; ok {
+		delete(customErr.Body, "recommendedActions")
+		customErr.RecommendedActions = raction.(string)
 	}
 	return customErr
 }
