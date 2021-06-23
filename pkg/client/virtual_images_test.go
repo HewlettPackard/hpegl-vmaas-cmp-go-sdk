@@ -1,0 +1,145 @@
+// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+
+package client
+
+import (
+	"bytes"
+	"context"
+	"errors"
+	"io/ioutil"
+	"net/http"
+	"net/url"
+	"reflect"
+	"testing"
+
+	gomock "github.com/golang/mock/gomock"
+	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
+)
+
+func TestVirtualImagesApiService_GetAllVirtualImages(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	templateName := "test_template"
+
+	tests := []struct {
+		name  string
+		param map[string]string
+		// All expectaion captures here
+		given   func(m *MockAPIClientHandler)
+		want    models.VirtualImages
+		wantErr bool
+	}{
+		{
+			name: "Normal Test case 1: Get all virtual machine",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/virtual-images"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"virtualImages": [{
+							"id": 1,
+							"name": "test_template"
+						}]
+					}
+				`)))
+				// mock the context only since it is not validated in this function
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
+					"name": templateName,
+				}), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+
+			},
+			want: models.VirtualImages{
+				VirtualImages: []models.VirtualImage{
+					{
+						ID:   1,
+						Name: "test_template",
+					},
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Failed test case 2: Error in call prepare request",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/virtual-images"
+				method := "GET"
+				headers := getDefaultHeaders()
+				// mock the context only since it is not validated in this function
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
+					"name": templateName,
+				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+
+			},
+			want:    models.VirtualImages{},
+			wantErr: true,
+		},
+		{
+			name: "Failed test case 3: error in callAPI",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/virtual-images"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				// mock the context only since it is not validated in this function
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
+					"name": templateName,
+				}), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+
+			},
+			want:    models.VirtualImages{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			a := VirtualImagesApiService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+
+			tt.given(mockAPIClient)
+			got, err := a.GetAllVirtualImages(ctx, tt.param)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("VirtualImagesApiService.GetAllVirtualImages() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("VirtualImagesApiService.GetAllVirtualImages() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
