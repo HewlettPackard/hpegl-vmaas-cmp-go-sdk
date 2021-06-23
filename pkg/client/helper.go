@@ -16,14 +16,14 @@ func getUrlValues(query map[string]string) url.Values {
 	return m
 }
 
-type customError struct {
+type CustomError struct {
 	Errors             string                 `json:"error,omitempty"`
 	Body               map[string]interface{} `json:"body,omitempty"`
 	StatusCode         int                    `json:"statuscode,omitempty"`
-	RecommendedActions string                 `json:"recommendedActions,omitempty"`
+	RecommendedActions []string               `json:"recommendedActions,omitempty"`
 }
 
-func (c customError) Error() string {
+func (c CustomError) Error() string {
 	jsonObj, err := json.Marshal(c)
 	if err != nil {
 		return err.Error()
@@ -32,7 +32,7 @@ func (c customError) Error() string {
 }
 
 func ParseError(resp *http.Response) error {
-	customErr := customError{
+	customErr := CustomError{
 		StatusCode: resp.StatusCode,
 	}
 	err := json.NewDecoder(resp.Body).Decode(&customErr.Body)
@@ -41,9 +41,14 @@ func ParseError(resp *http.Response) error {
 	} else if len(customErr.Body) == 0 {
 		customErr.Errors = "No additional information is available"
 	}
-	if raction, ok := customErr.Body["recommendedActions"]; ok {
+
+	if rAction, ok := customErr.Body["recommendedActions"]; ok {
 		delete(customErr.Body, "recommendedActions")
-		customErr.RecommendedActions = raction.(string)
+		rActions := rAction.([]interface{})
+		customErr.RecommendedActions = make([]string, 0, len(rActions))
+		for _, a := range rActions {
+			customErr.RecommendedActions = append(customErr.RecommendedActions, a.(string))
+		}
 	}
 	return customErr
 }
