@@ -29,7 +29,7 @@ workflows:
           # for AWS creds to download image
           <<: *common-context
 
-  build_terraform:
+  unit_test:
     jobs:
       - checkout-workspace:
           <<: *filters
@@ -41,8 +41,11 @@ workflows:
           <<: *common
           requires:
             - copyright-check
+      - go-unit-test:
+          <<: *common
+          requires:
+            - go-vendor
 
-          
 jobs:
   secret-scanning:
     docker:
@@ -106,3 +109,14 @@ jobs:
           name: go-lint
           command: |
             make lint
+
+  go-unit-test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - <<: *restore_cache
+      - run:
+          name: go-unit-test
+          command: |
+            make test

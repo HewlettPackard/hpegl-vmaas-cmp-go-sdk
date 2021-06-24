@@ -4,10 +4,6 @@
 
 NAME=$(shell find cmd -name ".gitkeep_provider" -exec dirname {} \; | sort -u | sed -e 's|cmd/||')
 VERSION=0.0.1
-# Change DUMMY_PROVIDER below to reflect the name of the service under development.  The
-# value of this variable is used in LOCAL_LOCATION, and is also used in the
-DUMMY_PROVIDER=vmaas
-LOCAL_LOCATION=~/.local/share/terraform/plugins/terraform.example.com/$(DUMMY_PROVIDER)/hpegl/$(VERSION)/linux_amd64/
 
 # Stuff that needs to be installed globally (not in vendor)
 DEPEND=
@@ -65,6 +61,7 @@ lint: vendor golangci-lint-config.yaml
 
 testreport_dir := test-reports
 test:
+	go generate -v ./...
 	go test -v ./...
 .PHONY: test
 
@@ -76,17 +73,9 @@ coverage: vendor
 	@echo "Generated $(coverage_dir)/html/main.html";
 .PHONY: coverage
 
-acceptance:
-	TF_ACC=true go test -v -timeout=120s -cover ./...
-
 build: vendor $(NAME)
 .PHONY: build
 
-install: build $(NAME)
-	# terraform >= v0.13
-	mkdir -p $(LOCAL_LOCATION)
-	cp build/$(NAME) $(LOCAL_LOCATION)
-.PHONY: install
 
 all: lint test
 .PHONY: all
