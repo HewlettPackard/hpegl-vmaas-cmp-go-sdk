@@ -1,6 +1,6 @@
 // (C) Copyright 2021 Hewlett Packard Enterprise Development LP
 
-//go:generate mockgen -source ./client.go -package client -destination ./client_mock.go
+//go:generate go run github.com/golang/mock/mockgen -source ./client.go -package client -destination ./client_mock.go
 
 package client
 
@@ -22,7 +22,6 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	//"golang.org/x/oauth2"
 )
 
 var (
