@@ -126,3 +126,238 @@ func TestInstancesApiService_GetASpecificInstance(t *testing.T) {
 		})
 	}
 }
+
+func TestInstancesApiService_GetAllInstances(t *testing.T) {
+
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	templateName := "test_all_instances"
+	tests := []struct {
+		name    string
+		param   map[string]string
+		given   func(m *MockAPIClientHandler)
+		want    models.Instances
+		wantErr bool
+	}{
+		{
+			name: "Normal Test case 1: Get all instances",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"instances": [{
+							"id": 1,
+							"name": "test_all_instances"
+						}],
+						"success": true
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
+					"name": templateName,
+				}), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+
+			},
+			want: models.Instances{
+				Instances: []models.GetInstanceResponseInstance{
+					{
+						Id:   1,
+						Name: "test_all_instances",
+					},
+				},
+				Success: true,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Failed test case 2: Error in call prepare request",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances"
+				method := "GET"
+				headers := getDefaultHeaders()
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
+					"name": templateName,
+				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+
+			},
+			want:    models.Instances{},
+			wantErr: true,
+		},
+		{
+			name: "Failed test case 3: error in callAPI",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
+					"name": templateName,
+				}), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+
+			},
+			want:    models.Instances{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			a := InstancesApiService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+
+			tt.given(mockAPIClient)
+			got, err := a.GetAllInstances(ctx, tt.param)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("InstancesApiService.GetAllInstances() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InstancesApiService.GetAllInstances() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestInstancesApiService_GetListOfSnapshotsForAnInstance(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name       string
+		instanceId int
+		given      func(m *MockAPIClientHandler)
+		want       models.ListSnapshotResponse
+		wantErr    bool
+	}{
+		{
+			name:       "Normal Test case 1: Get list of snapshots for an instance",
+			instanceId: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/snapshots"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"snapshots": [{
+							"id": 1,
+							"name": "test_snapshots_for_instance"
+						}]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+
+			},
+			want: models.ListSnapshotResponse{
+				Snapshots: []models.ListSnapshotResponseInstance{
+					{
+						ID:   1,
+						Name: "test_snapshots_for_instance",
+					},
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name:       "Failed test case 2: Error in call prepare request",
+			instanceId: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/snapshots"
+				method := "GET"
+				headers := getDefaultHeaders()
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+
+			},
+			want:    models.ListSnapshotResponse{},
+			wantErr: true,
+		},
+		{
+			name:       "Failed test case 3: error in callAPI",
+			instanceId: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/snapshots"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+
+			},
+			want:    models.ListSnapshotResponse{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			a := InstancesApiService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := a.GetListOfSnapshotsForAnInstance(ctx, tt.instanceId)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("InstancesApiService.GetListOfSnapshotsForAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InstancesApiService.GetListOfSnapshotsForAnInstance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
