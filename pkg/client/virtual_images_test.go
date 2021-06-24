@@ -64,7 +64,7 @@ func TestVirtualImagesApiService_GetAllVirtualImages(t *testing.T) {
 				VirtualImages: []models.VirtualImage{
 					{
 						ID:   1,
-						Name: "test_template",
+						Name: templateName,
 					},
 				},
 			},
