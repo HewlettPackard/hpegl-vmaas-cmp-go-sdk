@@ -29,7 +29,7 @@ workflows:
           # for AWS creds to download image
           <<: *common-context
 
-  build_terraform:
+  unit_test:
     jobs:
       - checkout-workspace:
           <<: *filters
@@ -41,10 +41,10 @@ workflows:
           <<: *common
           requires:
             - copyright-check
-  unit_test:
-    jobs:
       - go-unit-test:
           <<: *common
+          requires:
+            - go-vendor
 
 jobs:
   secret-scanning:
