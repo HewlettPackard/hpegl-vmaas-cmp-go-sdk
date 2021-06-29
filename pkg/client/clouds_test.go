@@ -112,7 +112,7 @@ func TestCloudsApiService_GetAllCloudDataStores(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Normal Test case 1: Get all cloud datastore",
+			name: "Failed Test case 3: Error in callAPI",
 			param: map[string]string{
 				"name": templateName,
 			},
@@ -500,7 +500,7 @@ func TestCloudsApiService_GetAllFolders(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Failed Test case 1: Error in callAPI",
+			name: "Failed Test case 3: Error in callAPI",
 			param: map[string]string{
 				"name": templateName,
 			},
