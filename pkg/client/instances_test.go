@@ -423,3 +423,637 @@ func TestInstancesApiService_DeleteAnInstance(t *testing.T) {
 		})
 	}
 }
+func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name       string
+		instanceId int
+		param      models.ImportSnapshotBody
+		given      func(m *MockAPIClientHandler)
+		want       models.SuccessOrErrorMessage
+		wantErr    bool
+	}{
+		{
+			name:       "Normal Test case 1: Import Snapshot Of an Instance",
+			instanceId: 1,
+			param: models.ImportSnapshotBody{
+				StorageProviderId: 1,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/import-snapshot"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+					"storageProviderId" : 1
+				}`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"success": true,
+					"message": "Successfully imported a snapshot of an instance"
+				}
+				`)))
+				pBody, _ := json.Marshal(models.ImportSnapshotBody{
+					StorageProviderId: 1,
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
+				Message: "Successfully imported a snapshot of an instance",
+			},
+			wantErr: false,
+		},
+		{
+			name:       "Failed test case 2: Error in call prepare request",
+			instanceId: 1,
+			param: models.ImportSnapshotBody{
+				StorageProviderId: 1,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/import-snapshot"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				pBody, _ := json.Marshal(models.ImportSnapshotBody{
+					StorageProviderId: 1,
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+			},
+			want:    models.SuccessOrErrorMessage{},
+			wantErr: true,
+		},
+		{
+			name:       "Failed test case 3: error in callAPI",
+			instanceId: 1,
+			param: models.ImportSnapshotBody{
+				StorageProviderId: 1,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/import-snapshot"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+					"storageProviderId" : 1
+				}`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				pBody, _ := json.Marshal(models.ImportSnapshotBody{
+					StorageProviderId: 1,
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+			},
+			want:    models.SuccessOrErrorMessage{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			a := InstancesApiService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := a.ImportSnapshotOfAnInstance(ctx, tt.instanceId, &tt.param)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("InstancesApiService.ImportSnapshotOfAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InstancesApiService.ImportSnapshotOfAnInstance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name       string
+		instanceId int
+		param      models.ResizeInstanceBody
+		given      func(m *MockAPIClientHandler)
+		want       models.ResizeInstanceResponse
+		wantErr    bool
+	}{
+		{
+			name:       "Normal Test case 1: Resize an Instance",
+			instanceId: 1,
+			param: models.ResizeInstanceBody{
+				Instance: &models.ResizeInstanceBodyInstance{
+					Id: 1,
+				},
+				Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
+					Id:   "1",
+					Name: "test_instance_volume",
+				}},
+				DeleteOriginalVolumes: false,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/resize"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"instance" : {"id": 1},
+					"volumes" : [{"id": 1, "name": "test_instance_volume" }],
+					"deleteOriginalVolumes" : false
+				}`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+					"instance": {
+						"id": 1,
+						"string": "test_instance_response"
+					}
+				}`)))
+				pBody, _ := json.Marshal(models.ResizeInstanceBody{
+					Instance: &models.ResizeInstanceBodyInstance{
+						Id: 1,
+					},
+					Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
+						Id:   "1",
+						Name: "test_instance_volume",
+					}},
+					DeleteOriginalVolumes: false,
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.ResizeInstanceResponse{
+				Instance: &models.ResizeInstanceResponseInstance{
+					Id:   1,
+					Name: "test_instance_response",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name:       "Failed test case 2: error in prepare request",
+			instanceId: 1,
+			param: models.ResizeInstanceBody{
+				Instance: &models.ResizeInstanceBodyInstance{
+					Id: 1,
+				},
+				Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
+					Id:   "1",
+					Name: "test_instance_volume",
+				}},
+				DeleteOriginalVolumes: false,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/resize"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				pBody, _ := json.Marshal(models.ResizeInstanceBody{
+					Instance: &models.ResizeInstanceBodyInstance{
+						Id: 1,
+					},
+					Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
+						Id:   "1",
+						Name: "test_instance_volume",
+					}},
+					DeleteOriginalVolumes: false,
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+			},
+			want:    models.ResizeInstanceResponse{},
+			wantErr: true,
+		},
+		{
+			name:       "Failed test case 3: error in callAPI",
+			instanceId: 1,
+			param: models.ResizeInstanceBody{
+				Instance: &models.ResizeInstanceBodyInstance{
+					Id: 1,
+				},
+				Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
+					Id:   "1",
+					Name: "test_instance_volume",
+				}},
+				DeleteOriginalVolumes: false,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/resize"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"instance" : {"id": 1},
+					"volumes" : [{"id": 1, "name": "test_instance_volume" }],
+					"deleteOriginalVolumes" : false
+				}`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				pBody, _ := json.Marshal(models.ResizeInstanceBody{
+					Instance: &models.ResizeInstanceBodyInstance{
+						Id: 1,
+					},
+					Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
+						Id:   "1",
+						Name: "test_instance_volume",
+					}},
+					DeleteOriginalVolumes: false,
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+			},
+			want:    models.ResizeInstanceResponse{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			a := InstancesApiService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := a.ResizeAnInstance(ctx, tt.instanceId, &tt.param)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("InstancesApiService.ResizeAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InstancesApiService.ResizeAnInstance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestInstancesApiService_SnapshotAnInstance(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	tests := []struct {
+		name       string
+		instanceId int
+		param      models.SnapshotBody
+		given      func(m *MockAPIClientHandler)
+		want       models.Instances
+		wantErr    bool
+	}{
+		{
+			name:       "Normal Test case 1: Resize an Instance",
+			instanceId: 1,
+			param: models.SnapshotBody{
+				Snapshot: &models.SnapshotBodySnapshot{
+					Name:        "test_snapshot_name",
+					Description: "test_snapshot_description",
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/snapshot"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"snapshot": {
+						"name": "test_snapshot_name",
+						"description" : "test_snapshot_description"
+					}
+				}`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+					"instances": [{
+						"id": 1,
+						"name": "test_snapshot_name"
+					}],
+					"success" : true
+				}`)))
+				pBody, _ := json.Marshal(models.SnapshotBody{
+					Snapshot: &models.SnapshotBodySnapshot{
+						Name:        "test_snapshot_name",
+						Description: "test_snapshot_description",
+					},
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.Instances{
+				Instances: []models.GetInstanceResponseInstance{{
+					Id:   1,
+					Name: "test_snapshot_name",
+				}},
+				Success: true,
+			},
+			wantErr: false,
+		},
+		{
+			name:       "Failed test case 2: error in prepare request",
+			instanceId: 1,
+			param: models.SnapshotBody{
+				Snapshot: &models.SnapshotBodySnapshot{
+					Name:        "test_snapshot_name",
+					Description: "test_snapshot_description",
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/snapshot"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				pBody, _ := json.Marshal(models.SnapshotBody{
+					Snapshot: &models.SnapshotBodySnapshot{
+						Name:        "test_snapshot_name",
+						Description: "test_snapshot_description",
+					},
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+			},
+			want:    models.Instances{},
+			wantErr: true,
+		},
+		{
+			name:       "Failed test case 3: error in callAPII",
+			instanceId: 1,
+			param: models.SnapshotBody{
+				Snapshot: &models.SnapshotBodySnapshot{
+					Name:        "test_snapshot_name",
+					Description: "test_snapshot_description",
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/snapshot"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"snapshot": {
+						"name": "test_snapshot_name",
+						"description" : "test_snapshot_description"
+					}
+				}`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				pBody, _ := json.Marshal(models.SnapshotBody{
+					Snapshot: &models.SnapshotBodySnapshot{
+						Name:        "test_snapshot_name",
+						Description: "test_snapshot_description",
+					},
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+			},
+			want:    models.Instances{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			a := InstancesApiService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := a.SnapshotAnInstance(ctx, tt.instanceId, &tt.param)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("InstancesApiService.SnapshotAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InstancesApiService.SnapshotAnInstance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestInstancesApiService_UpdatingAnInstance(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	tests := []struct {
+		name       string
+		instanceId int
+		param      models.UpdateInstanceBody
+		given      func(m *MockAPIClientHandler)
+		want       models.UpdateInstanceResponse
+		wantErr    bool
+	}{
+		{
+			name:       "Normal Test case 1: Update an Instance",
+			instanceId: 1,
+			param: models.UpdateInstanceBody{
+				Instance: &models.UpdateInstanceBodyInstance{
+					Name:        "test_update_instance_name",
+					Description: "test_update_instance_description",
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"snapshot": {
+						"name": "test_update_instance_name",
+						"description" : "test_update_instance_description"
+					}
+				}`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+					"instance": {
+						"id": 1,
+						"name": "test_update_instance_name"
+					}
+				}`)))
+				pBody, _ := json.Marshal(models.UpdateInstanceBody{
+					Instance: &models.UpdateInstanceBodyInstance{
+						Name:        "test_update_instance_name",
+						Description: "test_update_instance_description",
+					},
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.UpdateInstanceResponse{
+				Instance: &models.UpdateInstanceResponseInstance{
+					Name: "test_update_instance_name",
+					ID:   1,
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name:       "Failed test case 2: error in prepare request",
+			instanceId: 1,
+			param: models.UpdateInstanceBody{
+				Instance: &models.UpdateInstanceBodyInstance{
+					Name:        "test_update_instance_name",
+					Description: "test_update_instance_description",
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+
+				pBody, _ := json.Marshal(models.UpdateInstanceBody{
+					Instance: &models.UpdateInstanceBodyInstance{
+						Name:        "test_update_instance_name",
+						Description: "test_update_instance_description",
+					},
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+			},
+			want:    models.UpdateInstanceResponse{},
+			wantErr: true,
+		},
+		{
+			name:       "Failed test case 3: error in callAPI",
+			instanceId: 1,
+			param: models.UpdateInstanceBody{
+				Instance: &models.UpdateInstanceBodyInstance{
+					Name:        "test_update_instance_name",
+					Description: "test_update_instance_description",
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1"
+				method := "PUT"
+				headers := map[string]string{
+					"Accept":       "application/json",
+					"Content-Type": "application/json",
+				}
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"snapshot": {
+						"name": "test_update_instance_name",
+						"description" : "test_update_instance_description"
+					}
+				}`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				}`)))
+				pBody, _ := json.Marshal(models.UpdateInstanceBody{
+					Instance: &models.UpdateInstanceBodyInstance{
+						Name:        "test_update_instance_name",
+						Description: "test_update_instance_description",
+					},
+				})
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+			},
+			want:    models.UpdateInstanceResponse{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			a := InstancesApiService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := a.UpdatingAnInstance(ctx, tt.instanceId, &tt.param)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("InstancesApiService.UpdatingAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InstancesApiService.UpdatingAnInstance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
