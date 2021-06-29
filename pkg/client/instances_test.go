@@ -21,6 +21,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
+	//templateName := "test_clone_an_instance"
 	tests := []struct {
 		name       string
 		param      models.CreateInstanceBody
@@ -39,6 +40,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
+				//headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -61,7 +63,9 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 					ZoneId:    "1",
 					CloneName: "Instance_Clone",
 				})
+				//pBody := []byte(`{"ZoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
 					Body:       respBody,
@@ -93,6 +97,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 					ZoneId:    "1",
 					CloneName: "Instance_Clone",
 				})
+				//pBody := []byte(`{"ZoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.SuccessOrErrorMessage{},
@@ -108,6 +113,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
+				//headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -133,6 +139,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 					CloneName: "Instance_Clone",
 				})
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
 					Body:       respBody,
@@ -185,6 +192,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances"
 				method := "POST"
+				//headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -210,10 +218,12 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 				})
 
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
+
 			},
 			want: models.GetInstanceResponse{
 				Instance: &models.GetInstanceResponseInstance{
@@ -232,6 +242,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances"
 				method := "POST"
+				//headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -241,6 +252,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 					ZoneId:    "1",
 					CloneName: "Instance_Create",
 				})
+				//pBody := []byte(`{"ZoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 
 			},
@@ -256,6 +268,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances"
 				method := "POST"
+				//headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -281,10 +294,12 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 					CloneName: "Instance_Create",
 				})
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
+
 			},
 			want:    models.GetInstanceResponse{},
 			wantErr: true,
@@ -338,6 +353,7 @@ func TestInstancesApiService_DeleteAnInstance(t *testing.T) {
 				}
 				`)))
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
 					Body:       respBody,
