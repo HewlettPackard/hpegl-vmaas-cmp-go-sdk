@@ -283,30 +283,14 @@ func (c *APIClient) prepareRequest(
 		localVarRequest.Header = headers
 	}
 
-	// Override request host, if applicable
-	// if c.cfg.Host != "" {
-	// 	localVarRequest.Host = c.cfg.Host
-	// }
-
 	// Add the user agent to the request.
 	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
 
+	// Add the Authentication Token to header.
 	if ctx != nil {
 		// add context to the request
 		localVarRequest = localVarRequest.WithContext(ctx)
 
-		// Walk through any authentication.
-
-		// OAuth2 authentication
-		//if tok, ok := ctx.Value(ContextOAuth2).(oauth2.TokenSource); ok {
-		//	// We were able to grab an oauth2 token from the context
-		//	var latestToken *oauth2.Token
-		//	if latestToken, err = tok.Token(); err != nil {
-		//		return nil, err
-		//	}
-		//
-		//	latestToken.SetAuthHeader(localVarRequest)
-		//}
 
 		// Basic HTTP Authentication
 		if auth, ok := ctx.Value(ContextBasicAuth).(BasicAuth); ok {
@@ -315,12 +299,14 @@ func (c *APIClient) prepareRequest(
 
 		// AccessToken Authentication
 		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
-			localVarRequest.Header.Add("Authorization", "Bearer "+auth)
+			localVarRequest.Header.Set("Authorization", "Bearer "+auth)
 		}
 	}
 
 	for header, value := range c.cfg.DefaultHeader {
-		localVarRequest.Header.Add(header, value)
+		if value != "" && value != " "{
+			localVarRequest.Header.Add(header, value)
+		}
 	}
 
 	return localVarRequest, nil
