@@ -16,7 +16,7 @@ import (
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
+func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -108,7 +108,7 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := GroupsApiService{
+			a := GroupsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -118,17 +118,17 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetASpecificGroup(ctx, tt.groupId)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GroupsApiService.GetASpecificGroup() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GroupsAPIService.GetASpecificGroup() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GroupsApiService.GetASpecificGroup() = %v, want %v", got, tt.want)
+				t.Errorf("GroupsAPIService.GetASpecificGroup() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestGroupsApiService_GetAllGroups(t *testing.T) {
+func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -234,7 +234,7 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := GroupsApiService{
+			a := GroupsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -244,11 +244,11 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllGroups(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GroupsApiService.GetAllGroups() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GroupsAPIService.GetAllGroups() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GroupsApiService.GetAllGroups() = %v, want %v", got, tt.want)
+				t.Errorf("GroupsAPIService.GetAllGroups() = %v, want %v", got, tt.want)
 			}
 		})
 	}

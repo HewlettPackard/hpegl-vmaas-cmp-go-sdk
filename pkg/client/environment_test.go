@@ -16,7 +16,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestEnvironmentApiService_GetAllEnvironment(t *testing.T) {
+func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -120,7 +120,7 @@ func TestEnvironmentApiService_GetAllEnvironment(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			e := EnvironmentApiService{
+			e := EnvironmentAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -129,11 +129,11 @@ func TestEnvironmentApiService_GetAllEnvironment(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := e.GetAllEnvironment(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("EnvironmentApiService.GetAllEnvironment() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("EnvironmentAPIService.GetAllEnvironment() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("EnvironmentApiService.GetAllEnvironment() = %v, want %v", got, tt.want)
+				t.Errorf("EnvironmentAPIService.GetAllEnvironment() = %v, want %v", got, tt.want)
 			}
 		})
 	}

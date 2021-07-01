@@ -18,7 +18,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
+func TestCloudsAPIService_GetASpecificCloud(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -31,7 +31,7 @@ func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
 	mockAPIClient.EXPECT().prepareRequest(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(),
 		gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, nil)
 	mockAPIClient.EXPECT().callAPI(gomock.Any()).Return(mockStatusOk, nil)
-	a := &CloudsApiService{
+	a := &CloudsAPIService{
 		Client: mockAPIClient,
 		Cfg:    Configuration{},
 	}
@@ -40,7 +40,7 @@ func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-func TestCloudsApiService_GetAllCloudDataStores(t *testing.T) {
+func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -161,7 +161,7 @@ func TestCloudsApiService_GetAllCloudDataStores(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := CloudsApiService{
+			a := CloudsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -170,17 +170,17 @@ func TestCloudsApiService_GetAllCloudDataStores(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllCloudDataStores(ctx, tt.cloudId, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("CloudsApiService.GetAllCloudDataStores() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CloudsAPIService.GetAllCloudDataStores() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CloudsApiService.GetAllCloudDataStores() = %v, want %v", got, tt.want)
+				t.Errorf("CloudsAPIService.GetAllCloudDataStores() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestCloudsApiService_GetAllCloudResourcePools(t *testing.T) {
+func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -298,7 +298,7 @@ func TestCloudsApiService_GetAllCloudResourcePools(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := CloudsApiService{
+			a := CloudsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -307,17 +307,17 @@ func TestCloudsApiService_GetAllCloudResourcePools(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllCloudResourcePools(ctx, tt.cloudId, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("CloudsApiService.GetAllCloudResourcePools() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CloudsAPIService.GetAllCloudResourcePools() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CloudsApiService.GetAllCloudResourcePools() = %v, want %v", got, tt.want)
+				t.Errorf("CloudsAPIService.GetAllCloudResourcePools() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestCloudsApiService_GetAllClouds(t *testing.T) {
+func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -421,7 +421,7 @@ func TestCloudsApiService_GetAllClouds(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := CloudsApiService{
+			a := CloudsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -430,17 +430,17 @@ func TestCloudsApiService_GetAllClouds(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllClouds(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("CloudsApiService.GetAllClouds() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CloudsAPIService.GetAllClouds() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CloudsApiService.GetAllClouds() = %v, want %v", got, tt.want)
+				t.Errorf("CloudsAPIService.GetAllClouds() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestCloudsApiService_GetAllFolders(t *testing.T) {
+func TestCloudsAPIService_GetAllFolders(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -548,7 +548,7 @@ func TestCloudsApiService_GetAllFolders(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := CloudsApiService{
+			a := CloudsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -557,17 +557,17 @@ func TestCloudsApiService_GetAllFolders(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllFolders(ctx, tt.cloudId, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("CloudsApiService.GetAllFolders() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CloudsAPIService.GetAllFolders() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CloudsApiService.GetAllFolders() = %v, want %v", got, tt.want)
+				t.Errorf("CloudsAPIService.GetAllFolders() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestCloudsApiService_GetAllCloudNetworks(t *testing.T) {
+func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -676,7 +676,7 @@ func TestCloudsApiService_GetAllCloudNetworks(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := CloudsApiService{
+			a := CloudsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -685,11 +685,11 @@ func TestCloudsApiService_GetAllCloudNetworks(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllCloudNetworks(ctx, tt.cloudId, tt.provisionTypeId)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("CloudsApiService.GetAllCloudNetworks() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CloudsAPIService.GetAllCloudNetworks() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CloudsApiService.GetAllCloudNetworks() = %v, want %v", got, tt.want)
+				t.Errorf("CloudsAPIService.GetAllCloudNetworks() = %v, want %v", got, tt.want)
 			}
 		})
 	}

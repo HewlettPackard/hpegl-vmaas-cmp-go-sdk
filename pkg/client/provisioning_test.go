@@ -16,7 +16,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestProvisioningApiService_GetAllProvisioningTypes(t *testing.T) {
+func TestProvisioningAPIService_GetAllProvisioningTypes(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -118,7 +118,7 @@ func TestProvisioningApiService_GetAllProvisioningTypes(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := ProvisioningApiService{
+			a := ProvisioningAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -127,11 +127,11 @@ func TestProvisioningApiService_GetAllProvisioningTypes(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllProvisioningTypes(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ProvisioningApiService.GetAllProvisioningTypes() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("ProvisioningAPIService.GetAllProvisioningTypes() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ProvisioningApiService.GetAllProvisioningTypes() = %v, want %v", got, tt.want)
+				t.Errorf("ProvisioningAPIService.GetAllProvisioningTypes() = %v, want %v", got, tt.want)
 			}
 		})
 	}

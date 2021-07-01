@@ -16,7 +16,7 @@ import (
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestLibraryApiService_GetAllLayouts(t *testing.T) {
+func TestLibraryAPIService_GetAllLayouts(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -125,7 +125,7 @@ func TestLibraryApiService_GetAllLayouts(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := LibraryApiService{
+			a := LibraryAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -135,17 +135,17 @@ func TestLibraryApiService_GetAllLayouts(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllLayouts(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("LibraryApiService.GetAllLayouts() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LibraryAPIService.GetAllLayouts() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("LibraryApiService.GetAllLayouts() = %v, want %v", got, tt.want)
+				t.Errorf("LibraryAPIService.GetAllLayouts() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestLibraryApiService_GetAllInstanceTypes(t *testing.T) {
+func TestLibraryAPIService_GetAllInstanceTypes(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -250,7 +250,7 @@ func TestLibraryApiService_GetAllInstanceTypes(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := LibraryApiService{
+			a := LibraryAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -260,11 +260,11 @@ func TestLibraryApiService_GetAllInstanceTypes(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllInstanceTypes(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("LibraryApiService.GetAllInstanceTypes() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LibraryAPIService.GetAllInstanceTypes() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("LibraryApiService.GetAllInstanceTypes() = %v, want %v", got, tt.want)
+				t.Errorf("LibraryAPIService.GetAllInstanceTypes() = %v, want %v", got, tt.want)
 			}
 		})
 	}

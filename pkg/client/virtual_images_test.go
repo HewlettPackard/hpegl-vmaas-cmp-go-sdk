@@ -16,7 +16,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestVirtualImagesApiService_GetAllVirtualImages(t *testing.T) {
+func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -127,7 +127,7 @@ func TestVirtualImagesApiService_GetAllVirtualImages(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := VirtualImagesApiService{
+			a := VirtualImagesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -137,11 +137,11 @@ func TestVirtualImagesApiService_GetAllVirtualImages(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllVirtualImages(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("VirtualImagesApiService.GetAllVirtualImages() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("VirtualImagesAPIService.GetAllVirtualImages() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("VirtualImagesApiService.GetAllVirtualImages() = %v, want %v", got, tt.want)
+				t.Errorf("VirtualImagesAPIService.GetAllVirtualImages() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -17,7 +17,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestInstancesApiService_CloneAnInstance(t *testing.T) {
+func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -155,7 +155,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -164,17 +164,17 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.CloneAnInstance(ctx, tt.instanceId, &tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.CloneAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.CloneAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.CloneAnInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.CloneAnInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestInstancesApiService_CreateAnInstance(t *testing.T) {
+func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -314,7 +314,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -323,17 +323,17 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.CreateAnInstance(ctx, &tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.CreateAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.CreateAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.CreateAnInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.CreateAnInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestInstancesApiService_DeleteAnInstance(t *testing.T) {
+func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -414,7 +414,7 @@ func TestInstancesApiService_DeleteAnInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -423,16 +423,16 @@ func TestInstancesApiService_DeleteAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.DeleteAnInstance(ctx, tt.instanceId)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.DeleteAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.DeleteAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.DeleteAnInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.DeleteAnInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
-func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
+func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -547,7 +547,7 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -556,17 +556,17 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.ImportSnapshotOfAnInstance(ctx, tt.instanceId, &tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.ImportSnapshotOfAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.ImportSnapshotOfAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.ImportSnapshotOfAnInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.ImportSnapshotOfAnInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
+func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -732,7 +732,7 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -741,17 +741,17 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.ResizeAnInstance(ctx, tt.instanceId, &tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.ResizeAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.ResizeAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.ResizeAnInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.ResizeAnInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestInstancesApiService_SnapshotAnInstance(t *testing.T) {
+func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -896,7 +896,7 @@ func TestInstancesApiService_SnapshotAnInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -905,17 +905,17 @@ func TestInstancesApiService_SnapshotAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.SnapshotAnInstance(ctx, tt.instanceId, &tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.SnapshotAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.SnapshotAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.SnapshotAnInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.SnapshotAnInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestInstancesApiService_UpdatingAnInstance(t *testing.T) {
+func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -1059,7 +1059,7 @@ func TestInstancesApiService_UpdatingAnInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -1068,16 +1068,16 @@ func TestInstancesApiService_UpdatingAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.UpdatingAnInstance(ctx, tt.instanceId, &tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.UpdatingAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.UpdatingAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.UpdatingAnInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.UpdatingAnInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
-func TestInstancesApiService_GetASpecificInstance(t *testing.T) {
+func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -1171,7 +1171,7 @@ func TestInstancesApiService_GetASpecificInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -1181,17 +1181,17 @@ func TestInstancesApiService_GetASpecificInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetASpecificInstance(ctx, tt.instanceId)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.GetASpecificInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.GetASpecificInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.GetASpecificInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.GetASpecificInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestInstancesApiService_GetAllInstances(t *testing.T) {
+func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
@@ -1300,7 +1300,7 @@ func TestInstancesApiService_GetAllInstances(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -1310,17 +1310,17 @@ func TestInstancesApiService_GetAllInstances(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllInstances(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.GetAllInstances() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesAPIService.GetAllInstances() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.GetAllInstances() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.GetAllInstances() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestInstancesApiService_GetListOfSnapshotsForAnInstance(t *testing.T) {
+func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -1413,7 +1413,7 @@ func TestInstancesApiService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := InstancesApiService{
+			a := InstancesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -1422,12 +1422,12 @@ func TestInstancesApiService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetListOfSnapshotsForAnInstance(ctx, tt.instanceId)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.GetListOfSnapshotsForAnInstance() error = %v, wantErr %v",
+				t.Errorf("InstancesAPIService.GetListOfSnapshotsForAnInstance() error = %v, wantErr %v",
 					err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InstancesApiService.GetListOfSnapshotsForAnInstance() = %v, want %v", got, tt.want)
+				t.Errorf("InstancesAPIService.GetListOfSnapshotsForAnInstance() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -285,12 +285,12 @@ type ListNetworkRoutersProperties struct {
 
 // ListNetworkRoutersPropertiesInterfaces
 type ListNetworkRoutersPropertiesInterfaces struct {
-	Id              float64               `json:"id,omitempty"`
+	ID              float64               `json:"id,omitempty"`
 	Name            string                `json:"name,omitempty"`
 	Code            string                `json:"code,omitempty"`
 	InterfaceType   string                `json:"interfaceType,omitempty"`
 	NetworkPosition string                `json:"networkPosition,omitempty"`
-	IpAddress       string                `json:"ipAddress,omitempty"`
+	IPAddress       string                `json:"ipAddress,omitempty"`
 	Cidr            string                `json:"cidr,omitempty"`
 	ExternalLink    string                `json:"externalLink,omitempty"`
 	Enabled         bool                  `json:"enabled,omitempty"`
@@ -299,14 +299,14 @@ type ListNetworkRoutersPropertiesInterfaces struct {
 
 // ListNetworkRoutersPropertiesNetworkServer
 type ListNetworkRoutersPropertiesNetworkServer struct {
-	Id          float64                                               `json:"id"`
+	ID          float64                                               `json:"id"`
 	Name        string                                                `json:"name"`
 	Integration *ListNetworkRoutersPropertiesNetworkServerIntegration `json:"integration"`
 }
 
 // ListNetworkRoutersPropertiesNetworkServerIntegration
 type ListNetworkRoutersPropertiesNetworkServerIntegration struct {
-	Id              float64                                                              `json:"id"`
+	ID              float64                                                              `json:"id"`
 	Name            string                                                               `json:"name"`
 	Enabled         bool                                                                 `json:"enabled"`
 	Status          string                                                               `json:"status"`
@@ -316,7 +316,7 @@ type ListNetworkRoutersPropertiesNetworkServerIntegration struct {
 
 // ListNetworkRoutersPropertiesNetworkServerIntegrationIntegrationType
 type ListNetworkRoutersPropertiesNetworkServerIntegrationIntegrationType struct {
-	Id   float64 `json:"id"`
+	ID   float64 `json:"id"`
 	Code string  `json:"code"`
 	Name string  `json:"name"`
 }
@@ -328,7 +328,7 @@ type ListNetworkRoutersPropertiesPermissions struct {
 
 // ListNetworkRoutersPropertiesRoutes
 type ListNetworkRoutersPropertiesRoutes struct {
-	Id                float64 `json:"id,omitempty"`
+	ID                float64 `json:"id,omitempty"`
 	Code              string  `json:"code,omitempty"`
 	RouteType         string  `json:"routeType,omitempty"`
 	Source            string  `json:"source,omitempty"`
@@ -337,14 +337,14 @@ type ListNetworkRoutersPropertiesRoutes struct {
 	DestinationType   string  `json:"destinationType,omitempty"`
 	DefaultRoute      bool    `json:"defaultRoute,omitempty"`
 	ExternalInterface string  `json:"externalInterface,omitempty"`
-	ExternalId        string  `json:"externalId,omitempty"`
+	ExternalID        string  `json:"externalId,omitempty"`
 	Enabled           bool    `json:"enabled,omitempty"`
 	Visible           bool    `json:"visible,omitempty"`
 }
 
 // ListNetworkRoutersPropertiesType
 type ListNetworkRoutersPropertiesType struct {
-	Id               float64  `json:"id"`
+	ID               float64  `json:"id"`
 	Code             string   `json:"code"`
 	Name             string   `json:"name"`
 	Description      string   `json:"description"`
@@ -376,11 +376,11 @@ type ListNetworksBodyMeta struct {
 
 // ListNetworksBodyNetworks
 type ListNetworksBodyNetworks struct {
-	Id                      int                       `json:"id,omitempty"`
+	ID                      int                       `json:"id,omitempty"`
 	Name                    string                    `json:"name,omitempty"`
 	DisplayName             string                    `json:"displayName,omitempty"`
 	Zone                    *ListNetworksBodyZone     `json:"zone,omitempty"`
-	Type_                   *ListNetworksBodyType     `json:"type,omitempty"`
+	Type                    *ListNetworksBodyType     `json:"type,omitempty"`
 	Owner                   *ListNetworksBodyOwner    `json:"owner,omitempty"`
 	Code                    string                    `json:"code,omitempty"`
 	Category                string                    `json:"category,omitempty"`

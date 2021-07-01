@@ -119,7 +119,7 @@ type UpdateRoleFeaturePermission struct {
 
 // UpdateBlueprintAccessBody
 type UpdateBlueprintAccessBody struct {
-	AppTemplateId float64 `json:"appTemplateId"`
+	AppTemplateID float64 `json:"appTemplateId"`
 	Access        string  `json:"access"`
 }
 
