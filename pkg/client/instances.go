@@ -163,7 +163,6 @@ func (a *InstancesApiService) CloneToImage(ctx context.Context, instanceId int, 
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -595,7 +594,8 @@ type InstancesApiGetAvailableServicePlansForAnInstanceOpts struct {
 }
 
 func (a *InstancesApiService) GetAvailableServicePlansForAnInstance(ctx context.Context, zoneId int, layoutId int,
-	localVarOptionals *InstancesApiGetAvailableServicePlansForAnInstanceOpts) (models.GetServicePlanResponse, *http.Response, error) {
+	localVarOptionals *InstancesApiGetAvailableServicePlansForAnInstanceOpts) (models.GetServicePlanResponse,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}

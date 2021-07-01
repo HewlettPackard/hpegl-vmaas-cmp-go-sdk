@@ -23,8 +23,8 @@ type CreateKeyPairResponseBody struct {
 
 // CreateKeyPairResponseBodyKeyPair
 type CreateKeyPairResponseBodyKeyPair struct {
-	Id            float64 `json:"id"`
-	AccountId     float64 `json:"accountId"`
+	ID            float64 `json:"id"`
+	AccountID     float64 `json:"accountId"`
 	HasPrivateKey bool    `json:"hasPrivateKey"`
 	DateCreated   string  `json:"dateCreated"`
 	LastUpdated   string  `json:"lastUpdated"`
@@ -38,8 +38,8 @@ type ListAllKeyPair struct {
 
 // ListAllKeyPairKeyPairs
 type ListAllKeyPairKeyPairs struct {
-	Id            float64 `json:"id,omitempty"`
-	AccountId     float64 `json:"accountId,omitempty"`
+	ID            float64 `json:"id,omitempty"`
+	AccountID     float64 `json:"accountId,omitempty"`
 	HasPrivateKey bool    `json:"hasPrivateKey,omitempty"`
 	DateCreated   string  `json:"dateCreated,omitempty"`
 	LastUpdated   string  `json:"lastUpdated,omitempty"`

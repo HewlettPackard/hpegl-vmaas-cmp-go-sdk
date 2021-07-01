@@ -27,7 +27,8 @@ type KeysCertsApiService struct {
 /*
 KeysCertsApiService
 Create key-pair. The Public and Private key are stored in encrypted form in the database.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param optional nil or *KeysCertsApiCreateKeyPairOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CreateKeyPair) -
@@ -38,7 +39,9 @@ type KeysCertsApiCreateKeyPairOpts struct {
 	Body optional.Interface
 }
 
-func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, localVarOptionals *KeysCertsApiCreateKeyPairOpts) (models.CreateKeyPairResponseBody, *http.Response, error) {
+func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context,
+	localVarOptionals *KeysCertsApiCreateKeyPairOpts) (models.CreateKeyPairResponseBody,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -77,7 +80,8 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, localVarOptiona
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -110,7 +114,8 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, localVarOptiona
 /*
 KeysCertsApiService
 Delete Specific Certificate
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param certificateId The certificate ID
 
@@ -152,7 +157,8 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, cer
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +178,8 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, cer
 /*
 KeysCertsApiService
 Delete Specific keypair. If a key pair is actively in use, a delete will fail
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param keypairId The keypair ID
 
@@ -214,7 +221,8 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, keypair
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +242,8 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, keypair
 /*
 KeysCertsApiService
 Get All Certificates
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 
 */
@@ -271,7 +280,8 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context) (*http.Res
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -291,7 +301,8 @@ func (a *KeysCertsApiService) GetAllCertificates(ctx context.Context) (*http.Res
 /*
 KeysCertsApiService
 Get All Key-Pair
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 @return ListAllKeyPair
 */
@@ -329,7 +340,8 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context) (models.ListAll
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -363,7 +375,8 @@ func (a *KeysCertsApiService) GetAllKeyPair(ctx context.Context) (models.ListAll
 /*
 KeysCertsApiService
 Get Specific Certificate
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param certificateId The certificate ID
 
@@ -405,7 +418,8 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, certif
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -424,7 +438,8 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, certif
 /*
 KeysCertsApiService
 Get Specific Keypair
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param keypairId The keypair ID
 
@@ -466,7 +481,8 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, keypairId 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}

@@ -30,7 +30,8 @@ type NetworksApiService struct {
 /*
 NetworksApiService
 Create Network Pool
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param optional nil or *NetworksApiCreateNetworkPoolOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CreateNetworkIpPoolBody) -
@@ -41,7 +42,8 @@ type NetworksApiCreateNetworkPoolOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, localVarOptionals *NetworksApiCreateNetworkPoolOpts) (models.GetNetworkPoolsResponse, *http.Response, error) {
+func (a *NetworksApiService) CreateNetworkPool(ctx context.Context,
+	localVarOptionals *NetworksApiCreateNetworkPoolOpts) (models.GetNetworkPoolsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -80,7 +82,8 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, localVarOpti
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -110,7 +113,8 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, localVarOpti
 /*
 NetworksApiService
 Create Network Proxy
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param optional nil or *NetworksApiCreateNetworkProxyOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CreateNetworkProxyBody) -
@@ -121,7 +125,8 @@ type NetworksApiCreateNetworkProxyOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, localVarOptionals *NetworksApiCreateNetworkProxyOpts) (models.CreateNetworkProxyResponse, *http.Response, error) {
+func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context,
+	localVarOptionals *NetworksApiCreateNetworkProxyOpts) (models.CreateNetworkProxyResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -160,7 +165,8 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, localVarOpt
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -194,7 +200,8 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, localVarOpt
 /*
 NetworksApiService
 Will delete a Network from the system and make it no longer usable.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param networkId The network ID
 
@@ -236,7 +243,8 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, networkId int) 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +264,8 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, networkId int) 
 /*
 NetworksApiService
 Delete a network router
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param routerId The network router ID
 
@@ -298,7 +307,8 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, routerId 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -318,7 +328,8 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, routerId 
 /*
 NetworksApiService
 Will delete a Network Pool from the system and make it no longer usable.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param poolId The network pool ID
 
@@ -360,7 +371,8 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, poolId int) 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +392,8 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, poolId int) 
 /*
 NetworksApiService
 Delete Network Proxy
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param proxyId The network proxy ID
 
@@ -422,7 +435,8 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, proxyId int
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -442,12 +456,14 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, proxyId int
 /*
 NetworksApiService
 This endpoint retrieves a specific network router.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param routerId The network router ID
 @return models.GetNetworkRouter
 */
-func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, routerId int) (models.GetNetworkRouter, *http.Response, error) {
+func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, routerId int) (models.GetNetworkRouter,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -485,7 +501,8 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, rout
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -518,7 +535,8 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, rout
 /*
 NetworksApiService
 This endpoint retrieves all Network Proxies associated with the account.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 @return models.ListNetworkProxies
 */
@@ -590,11 +608,13 @@ func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context) (models.Lis
 /*
 NetworksApiService
 This endpoint retrieves all Networks associated with the account.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 @return models.ListNetworksBody
 */
-func (a *NetworksApiService) GetAllNetworks(ctx context.Context, param map[string]string) (models.ListNetworksBody, error) {
+func (a *NetworksApiService) GetAllNetworks(ctx context.Context,
+	param map[string]string) (models.ListNetworksBody, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -630,7 +650,8 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, param map[strin
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.ListNetworksBody{}, err
 	}
@@ -698,7 +719,8 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context) (*http.Resp
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -718,12 +740,14 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context) (*http.Resp
 /*
 NetworksApiService
 This endpoint retrieves a specific Network.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param networkId The network ID
 @return models.GetNetworkBody
 */
-func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, networkId int) (models.GetNetworkBody, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, networkId int) (models.GetNetworkBody,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -761,7 +785,8 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, networkId i
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -795,12 +820,14 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, networkId i
 /*
 NetworksApiService
 Get Specific Network Pool
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param poolId The network pool ID
 @return models.GetNetworkPoolResposeBody
 */
-func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, poolId int) (models.GetNetworkPoolResposeBody, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, poolId int) (models.GetNetworkPoolResposeBody,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -838,7 +865,8 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, poolId 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -871,12 +899,14 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, poolId 
 /*
 NetworksApiService
 Get Specific Network Proxy
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param proxyId The network proxy ID
 @return models.GetNetworkProxy
 */
-func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, proxyId int) (models.GetNetworkProxy, *http.Response, error) {
+func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, proxyId int) (models.GetNetworkProxy,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -914,7 +944,8 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, proxyI
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -948,11 +979,13 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, proxyI
 /*
 NetworksApiService
 Get All Network Pools. List all Network Pools associated with the account
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 @return models.GetNetworkPoolsRespose
 */
-func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context) (models.GetNetworkPoolsResponse, *http.Response, error) {
+func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context) (models.GetNetworkPoolsResponse,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -986,7 +1019,8 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context) (models.Ge
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1019,7 +1053,8 @@ func (a *NetworksApiService) ListAllNetworkPools(ctx context.Context) (models.Ge
 /*
 NetworksApiService
 Get GLPC Network router Information
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 @return models.ListNetworkRouters
 */
@@ -1057,7 +1092,8 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context) (models.Lis
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1091,7 +1127,8 @@ func (a *NetworksApiService) ListNetworkRouters(ctx context.Context) (models.Lis
 /*
 NetworksApiService
 Update Network
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param networkId The network ID
  * @param optional nil or *NetworksApiUpdateNetworkOpts - Optional Parameters:
@@ -1103,7 +1140,8 @@ type NetworksApiUpdateNetworkOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetwork(ctx context.Context, networkId int, localVarOptionals *NetworksApiUpdateNetworkOpts) (models.UpdateNetworkRespose, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetwork(ctx context.Context, networkId int,
+	localVarOptionals *NetworksApiUpdateNetworkOpts) (models.UpdateNetworkRespose, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -1146,7 +1184,8 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, networkId int, l
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1179,7 +1218,8 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, networkId int, l
 /*
 NetworksApiService
 Update Network Pool
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param poolId The network pool ID
  * @param optional nil or *NetworksApiUpdateNetworkPoolOpts - Optional Parameters:
@@ -1191,7 +1231,8 @@ type NetworksApiUpdateNetworkPoolOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, poolId int, localVarOptionals *NetworksApiUpdateNetworkPoolOpts) (models.CreateNetworkPoolResponseBody, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, poolId int,
+	localVarOptionals *NetworksApiUpdateNetworkPoolOpts) (models.CreateNetworkPoolResponseBody, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -1234,7 +1275,8 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, poolId int, 
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1268,7 +1310,8 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, poolId int, 
 /*
 NetworksApiService
 Update Network Proxy
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param proxyId The network proxy ID
  * @param optional nil or *NetworksApiUpdateNetworkProxyOpts - Optional Parameters:
@@ -1280,7 +1323,8 @@ type NetworksApiUpdateNetworkProxyOpts struct {
 	Body optional.Interface
 }
 
-func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, proxyId int, localVarOptionals *NetworksApiUpdateNetworkProxyOpts) (models.UpdateNetworkProxyResponse, *http.Response, error) {
+func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, proxyId int,
+	localVarOptionals *NetworksApiUpdateNetworkProxyOpts) (models.UpdateNetworkProxyResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -1323,7 +1367,8 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, proxyId int
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}

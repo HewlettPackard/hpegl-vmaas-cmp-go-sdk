@@ -79,7 +79,6 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context,
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -367,7 +366,6 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int, loc
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -444,7 +442,6 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, groupId int, 
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}

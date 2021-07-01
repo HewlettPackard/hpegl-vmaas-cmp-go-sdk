@@ -101,7 +101,7 @@ type CreateInstanceBodyNetwork struct {
 // CreateInstanceBodyNetworkInterfaces
 type CreateInstanceBodyNetworkInterfaces struct {
 	Network                *CreateInstanceBodyNetwork `json:"network"`
-	NetworkInterfaceTypeId json.Number                `json:"networkInterfaceTypeId,omitempty"`
+	NetworkInterfaceTypeID json.Number                `json:"networkInterfaceTypeId,omitempty"`
 }
 
 // CreateInstanceBodyVolumes
@@ -480,7 +480,7 @@ type GetServicePlanResponsePlans struct {
 	MaxStorage            int                                  `json:"maxStorage,omitempty"`
 	MaxMemory             int                                  `json:"maxMemory,omitempty"`
 	MaxCores              int                                  `json:"maxCores,omitempty"`
-	CustomCpu             bool                                 `json:"customCpu,omitempty"`
+	CustomCPU             bool                                 `json:"customCpu,omitempty"`
 	CustomMaxMemory       bool                                 `json:"customMaxMemory,omitempty"`
 	CustomMaxStorage      bool                                 `json:"customMaxStorage,omitempty"`
 	CustomMaxDataStorage  bool                                 `json:"customMaxDataStorage,omitempty"`
@@ -497,7 +497,7 @@ type GetServicePlanResponsePlans struct {
 	Datastores            *GetServicePlanResponseDatastores    `json:"datastores,omitempty"`
 	SupportsAutoDatastore bool                                 `json:"supportsAutoDatastore,omitempty"`
 	AutoOptions           string                               `json:"autoOptions,omitempty"`
-	CpuOptions            string                               `json:"cpuOptions,omitempty"`
+	CPUOptions            string                               `json:"cpuOptions,omitempty"`
 	CoreOptions           string                               `json:"coreOptions,omitempty"`
 	MemoryOptions         string                               `json:"memoryOptions,omitempty"`
 	RootCustomSizeOptions *interface{}                         `json:"rootCustomSizeOptions,omitempty"`
@@ -509,7 +509,7 @@ type GetServicePlanResponsePlans struct {
 
 // GetServicePlanResponseStorageTypes
 type GetServicePlanResponseStorageTypes struct {
-	Id               int      `json:"id,omitempty"`
+	ID               int      `json:"id,omitempty"`
 	Editable         bool     `json:"editable,omitempty"`
 	OptionTypes      []string `json:"optionTypes,omitempty"`
 	DisplayOrder     int      `json:"displayOrder,omitempty"`

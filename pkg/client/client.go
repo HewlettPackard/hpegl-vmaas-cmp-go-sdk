@@ -211,7 +211,8 @@ func (c *APIClient) prepareRequest(
 						return nil, err
 					}
 				} else { // form value
-					if err := w.WriteField(k, iv); err != nil {
+					err := w.WriteField(k, iv)
+					if err != nil {
 						continue
 					}
 				}
@@ -420,6 +421,7 @@ func parseCacheControl(headers http.Header) cacheControl {
 			cc[part] = ""
 		}
 	}
+
 	return cc
 }
 

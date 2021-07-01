@@ -27,7 +27,8 @@ type LibraryApiService struct {
 /*
 LibrariesApiService
 Get All layouts
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 
 */
@@ -65,7 +66,8 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.LayoutsResp{}, err
 	}
@@ -93,7 +95,8 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]
 	return layoutsResp, nil
 }
 
-func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, param map[string]string) (models.InstanceTypesResp, error) {
+func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context,
+	param map[string]string) (models.InstanceTypesResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -127,7 +130,8 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, param map[s
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.InstanceTypesResp{}, err
 	}
