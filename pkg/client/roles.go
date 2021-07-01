@@ -29,7 +29,7 @@ Create a Role
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param body
- * @param serviceInstanceId
+ * @param serviceInstanceID
 @return models.GetRoleResponse
 */
 func (a *RolesAPIService) CreateARole(ctx context.Context, body models.CreateRoleBody) (models.GetRoleResponse,
@@ -107,12 +107,12 @@ Customizing Blueprint Access
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param body
- * @param serviceInstanceId
- * @param roleId
+ * @param serviceInstanceID
+ * @param roleID
 @return models.CommonRoleUpdateResp
 */
 func (a *RolesAPIService) CustomizingBlueprintAccess(ctx context.Context,
-	body models.UpdateBlueprintAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+	body models.UpdateBlueprintAccessBody, roleID int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -123,7 +123,7 @@ func (a *RolesAPIService) CustomizingBlueprintAccess(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-blueprint"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -187,12 +187,12 @@ Customizing Cloud Access
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param body
- * @param serviceInstanceId
- * @param roleId
+ * @param serviceInstanceID
+ * @param roleID
 @return models.CommonRoleUpdateResp
 */
 func (a *RolesAPIService) CustomizingCloudAccess(ctx context.Context, body models.UpdateCloudAccessBody,
-	roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+	roleID int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -203,7 +203,7 @@ func (a *RolesAPIService) CustomizingCloudAccess(ctx context.Context, body model
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-cloud"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -267,12 +267,12 @@ Customizing Group Access
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param body
- * @param serviceInstanceId
- * @param roleId
+ * @param serviceInstanceID
+ * @param roleID
 @return models.CommonRoleUpdateResp
 */
 func (a *RolesAPIService) CustomizingGroupAccess(ctx context.Context,
-	body models.UpdateGroupAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+	body models.UpdateGroupAccessBody, roleID int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -283,7 +283,7 @@ func (a *RolesAPIService) CustomizingGroupAccess(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-group"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -347,12 +347,12 @@ Customizing Instance Type Access
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param body
- * @param serviceInstanceId
- * @param roleId
+ * @param serviceInstanceID
+ * @param roleID
 @return models.CommonRoleUpdateResp
 */
 func (a *RolesAPIService) CustomizingInstanceTypeAccess(ctx context.Context,
-	body models.UpdateInstancetypeAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+	body models.UpdateInstancetypeAccessBody, roleID int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -363,7 +363,7 @@ func (a *RolesAPIService) CustomizingInstanceTypeAccess(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-instance-type"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -426,11 +426,11 @@ RolesAPIService
 Delete a Role
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param roleId
+ * @param serviceInstanceID
+ * @param roleID
 
 */
-func (a *RolesAPIService) DeleteARole(ctx context.Context, roleId int) (*http.Response, error) {
+func (a *RolesAPIService) DeleteARole(ctx context.Context, roleID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -440,7 +440,7 @@ func (a *RolesAPIService) DeleteARole(ctx context.Context, roleId int) (*http.Re
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -487,11 +487,11 @@ RolesAPIService
 Get a Specific Role
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param roleId
+ * @param serviceInstanceID
+ * @param roleID
 @return models.GetRoleResponse
 */
-func (a *RolesAPIService) GetASpecificRole(ctx context.Context, roleId int) (models.GetRoleResponse,
+func (a *RolesAPIService) GetASpecificRole(ctx context.Context, roleID int) (models.GetRoleResponse,
 	*http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Get")
@@ -503,7 +503,7 @@ func (a *RolesAPIService) GetASpecificRole(ctx context.Context, roleId int) (mod
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -563,7 +563,7 @@ RolesAPIService
 Get All Roles
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *RolesAPIService) GetAllRoles(ctx context.Context) (*http.Response, error) {
@@ -622,12 +622,12 @@ Updating Basic Role Settings
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param body
- * @param serviceInstanceId
- * @param roleId
+ * @param serviceInstanceID
+ * @param roleID
 @return models.GetRoleResponse
 */
 func (a *RolesAPIService) UpdatingBasicRoleSettings(ctx context.Context, body models.UpdateRoleBody,
-	roleId int) (models.GetRoleResponse, *http.Response, error) {
+	roleID int) (models.GetRoleResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -638,7 +638,7 @@ func (a *RolesAPIService) UpdatingBasicRoleSettings(ctx context.Context, body mo
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -701,12 +701,12 @@ using this API.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param body
- * @param serviceInstanceId
- * @param roleId
+ * @param serviceInstanceID
+ * @param roleID
 @return models.CommonRoleUpdateResp
 */
 func (a *RolesAPIService) UpdatingRolePermissions(ctx context.Context, body models.UpdateRoleFeaturePermission,
-	roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+	roleID int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -717,7 +717,7 @@ func (a *RolesAPIService) UpdatingRolePermissions(ctx context.Context, body mode
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-permission"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

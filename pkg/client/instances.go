@@ -32,18 +32,18 @@ InstancesAPIService
 Clone an instance and all VM within that instance.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
- * @param optional nil or *InstancesApiCloneAnInstanceOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param instanceID
+ * @param optional nil or *InstancesAPICloneAnInstanceOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CloneInstanceBody) -
 
 */
 
-type InstancesApiCloneAnInstanceOpts struct {
+type InstancesAPICloneAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceId int,
+func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.CreateInstanceBody) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
@@ -55,7 +55,7 @@ func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceId in
 	var cloneResp models.SuccessOrErrorMessage
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/clone", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -118,19 +118,19 @@ InstancesAPIService
 Creates an image template from an existing instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
- * @param optional nil or *InstancesApiCloneToImageOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param instanceID
+ * @param optional nil or *InstancesAPICloneToImageOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CloneToImage) -
 
 */
 
-type InstancesApiCloneToImageOpts struct {
+type InstancesAPICloneToImageOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesAPIService) CloneToImage(ctx context.Context, instanceId int,
-	localVarOptionals *InstancesApiCloneToImageOpts) (*http.Response, error) {
+func (a *InstancesAPIService) CloneToImage(ctx context.Context, instanceID int,
+	localVarOptionals *InstancesAPICloneToImageOpts) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -140,7 +140,7 @@ func (a *InstancesAPIService) CloneToImage(ctx context.Context, instanceId int,
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/clone-image", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -192,8 +192,8 @@ InstancesAPIService
 Create an Instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param optional nil or *InstancesApiCreateAnInstanceOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param optional nil or *InstancesAPICreateAnInstanceOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CreateInstanceBody) -
 @return models.GetInstanceResponse
 */
@@ -273,19 +273,19 @@ InstancesAPIService
 Will delete an instance and all associated monitors and backups.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
- * @param optional nil or *InstancesApiDeleteAnIstanceOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param instanceID
+ * @param optional nil or *InstancesAPIDeleteAnIstanceOpts - Optional Parameters:
      * @param "Force" (optional.String) -
 
 */
 
-type InstancesApiDeleteAnIstanceOpts struct {
+type InstancesAPIDeleteAnIstanceOpts struct {
 	Force optional.String
 }
 
 func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
-	instanceId int) (models.SuccessOrErrorMessage, error) {
+	instanceID int) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -295,7 +295,7 @@ func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -354,12 +354,12 @@ InstancesAPIService
 Get a Specific Instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 @return models.GetInstanceResponse
 */
 func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
-	instanceId int) (models.GetInstanceResponse, error) {
+	instanceID int) (models.GetInstanceResponse, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -370,7 +370,7 @@ func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -427,7 +427,7 @@ InstancesAPIService
 Fetch the list of available instance types
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *InstancesAPIService) GetAllInstanceTypesForProvisioning(ctx context.Context) (*http.Response, error) {
@@ -487,8 +487,8 @@ InstancesAPIService
 Get All Instances
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param optional nil or *InstancesApiGetAllInstancesOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param optional nil or *InstancesAPIGetAllInstancesOpts - Optional Parameters:
      * @param "Max" (optional.Int32) -  Max number of results to return
      * @param "Name" (optional.String) -  Filter by name
      * @param "Phrase" (optional.String) -  Filter by wildcard search of name and description
@@ -502,7 +502,7 @@ Get All Instances
 
 */
 
-type InstancesApiGetAllInstancesOpts struct {
+type InstancesAPIGetAllInstancesOpts struct {
 	Max          optional.Int32
 	Name         optional.String
 	Phrase       optional.String
@@ -586,20 +586,20 @@ The response includes details about the plans and their configuration options. I
 the list of available plans when creating a new instance or resizing an existing instance.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param zoneId Cloud ID
- * @param layoutId Instance Layout ID
- * @param optional nil or *InstancesApiGetAvailableServicePlansForAnInstanceOpts - Optional Parameters:
-     * @param "SiteId" (optional.Int32) -  Group ID
+ * @param serviceInstanceID
+ * @param zoneID Cloud ID
+ * @param layoutID Instance Layout ID
+ * @param optional nil or *InstancesAPIGetAvailableServicePlansForAnInstanceOpts - Optional Parameters:
+     * @param "SiteID" (optional.Int32) -  Group ID
 @return models.GetServicePlanResponse
 */
 
-type InstancesApiGetAvailableServicePlansForAnInstanceOpts struct {
-	SiteId optional.Int32
+type InstancesAPIGetAvailableServicePlansForAnInstanceOpts struct {
+	SiteID optional.Int32
 }
 
-func (a *InstancesAPIService) GetAvailableServicePlansForAnInstance(ctx context.Context, zoneId int, layoutId int,
-	localVarOptionals *InstancesApiGetAvailableServicePlansForAnInstanceOpts) (models.GetServicePlanResponse,
+func (a *InstancesAPIService) GetAvailableServicePlansForAnInstance(ctx context.Context, zoneID int, layoutID int,
+	localVarOptionals *InstancesAPIGetAvailableServicePlansForAnInstanceOpts) (models.GetServicePlanResponse,
 	*http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Get")
@@ -617,10 +617,10 @@ func (a *InstancesAPIService) GetAvailableServicePlansForAnInstance(ctx context.
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarQueryParams.Add("zoneId", parameterToString(zoneId, ""))
-	localVarQueryParams.Add("layoutId", parameterToString(layoutId, ""))
-	if localVarOptionals != nil && localVarOptionals.SiteId.IsSet() {
-		localVarQueryParams.Add("siteId", parameterToString(localVarOptionals.SiteId.Value(), ""))
+	localVarQueryParams.Add("zoneId", parameterToString(zoneID, ""))
+	localVarQueryParams.Add("layoutId", parameterToString(layoutID, ""))
+	if localVarOptionals != nil && localVarOptionals.SiteID.IsSet() {
+		localVarQueryParams.Add("siteId", parameterToString(localVarOptionals.SiteID.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -677,11 +677,11 @@ InstancesAPIService
 List all environment variables associated with the instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
-func (a *InstancesAPIService) GetEnvVariables(ctx context.Context, instanceId int) (*http.Response, error) {
+func (a *InstancesAPIService) GetEnvVariables(ctx context.Context, instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -691,7 +691,7 @@ func (a *InstancesAPIService) GetEnvVariables(ctx context.Context, instanceId in
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/envs", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
@@ -737,11 +737,11 @@ InstancesAPIService
 Retrieves the process history for a specific instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
-func (a *InstancesAPIService) GetInstanceHistory(ctx context.Context, instanceId int) (*http.Response, error) {
+func (a *InstancesAPIService) GetInstanceHistory(ctx context.Context, instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -751,7 +751,7 @@ func (a *InstancesAPIService) GetInstanceHistory(ctx context.Context, instanceId
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/history", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -798,12 +798,12 @@ InstancesAPIService
 Lists VMware Snapshot of the instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
 func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Context,
-	instanceId int) (models.ListSnapshotResponse, error) {
+	instanceID int) (models.ListSnapshotResponse, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -814,7 +814,7 @@ func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/snapshots", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -870,12 +870,12 @@ InstancesAPIService
 Fetch an instance type by ID
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceTypeId
+ * @param serviceInstanceID
+ * @param instanceTypeID
 
 */
 func (a *InstancesAPIService) GetSpecificInstanceTypeForProvisioning(ctx context.Context,
-	instanceTypeId int) (*http.Response, error) {
+	instanceTypeID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -885,7 +885,7 @@ func (a *InstancesAPIService) GetSpecificInstanceTypeForProvisioning(ctx context
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstanceTypesPath, instanceTypeId)
+		consts.InstanceTypesPath, instanceTypeID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -933,14 +933,14 @@ It is possible to import a snapshot of an instance. This creates a Virtual Image
 it currently exists.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
- * @param optional nil or *InstancesApiImportSnapshotOfAnInstanceOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param instanceID
+ * @param optional nil or *InstancesAPIImportSnapshotOfAnInstanceOpts - Optional Parameters:
      * @param "Body" (optional.Interface of ImportSnapshotBody) -
 
 */
 
-func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, instanceId int,
+func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.ImportSnapshotBody) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
@@ -951,7 +951,7 @@ func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, in
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/import-snapshot", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1016,11 +1016,11 @@ InstancesAPIService
 &#x27;This will lock the instance. While locked, instances may not be removed.&#x27;
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
-func (a *InstancesAPIService) LockAnInstance(ctx context.Context, instanceId int) (*http.Response, error) {
+func (a *InstancesAPIService) LockAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1030,7 +1030,7 @@ func (a *InstancesAPIService) LockAnInstance(ctx context.Context, instanceId int
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/lock", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1078,14 +1078,14 @@ It is possible to resize VMs within an instance by increasing their memory plan 
 This is done by assigning a new service plan to the VM.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
- * @param optional nil or *InstancesApiResizeAnInstanceOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param instanceID
+ * @param optional nil or *InstancesAPIResizeAnInstanceOpts - Optional Parameters:
      * @param "Body" (optional.Interface of ResizeInstanceBody) -
 @return models.GetInstanceResponse
 */
 
-func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceId int,
+func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
@@ -1097,7 +1097,7 @@ func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceId i
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/resize", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1161,11 +1161,11 @@ InstancesAPIService
 Restarts all VM running within an instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
-func (a *InstancesAPIService) RestartAnInstance(ctx context.Context, instanceId int) (*http.Response, error) {
+func (a *InstancesAPIService) RestartAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1175,7 +1175,7 @@ func (a *InstancesAPIService) RestartAnInstance(ctx context.Context, instanceId 
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/restart", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1222,14 +1222,14 @@ InstancesAPIService
 Creates VMware Snapshot of the instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
- * @param optional nil or *InstancesApiSnapshotAnInstanceOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param instanceID
+ * @param optional nil or *InstancesAPISnapshotAnInstanceOpts - Optional Parameters:
      * @param "Body" (optional.Interface of SnapshotBody) -
 
 */
 
-func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceId int,
+func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.SnapshotBody) (models.Instances, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Put")
@@ -1241,7 +1241,7 @@ func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceId
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/snapshot", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1306,11 +1306,11 @@ InstancesAPIService
 Starts all VM running within an instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
-func (a *InstancesAPIService) StartAnInstance(ctx context.Context, instanceId int) (*http.Response, error) {
+func (a *InstancesAPIService) StartAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1320,7 +1320,7 @@ func (a *InstancesAPIService) StartAnInstance(ctx context.Context, instanceId in
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/start", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1366,11 +1366,11 @@ InstancesAPIService
 Stops all VM running within an instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
-func (a *InstancesAPIService) StopAnInstance(ctx context.Context, instanceId int) (*http.Response, error) {
+func (a *InstancesAPIService) StopAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1380,7 +1380,7 @@ func (a *InstancesAPIService) StopAnInstance(ctx context.Context, instanceId int
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/stop", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1426,11 +1426,11 @@ InstancesAPIService
 Suspends all VM running within an instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
-func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context, instanceId int) (*http.Response, error) {
+func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1440,7 +1440,7 @@ func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context, instanceId 
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/suspend", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1486,12 +1486,12 @@ InstancesAPIService
 Undo the delete of an instance that is in pending removal state
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 @return models.GetInstanceResponse
 */
 func (a *InstancesAPIService) UndoDeleteOfAnInstance(ctx context.Context,
-	instanceId int) (models.GetInstanceResponse,
+	instanceID int) (models.GetInstanceResponse,
 	*http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Put")
@@ -1503,7 +1503,7 @@ func (a *InstancesAPIService) UndoDeleteOfAnInstance(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/cancel-removal", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1563,11 +1563,11 @@ InstancesAPIService
 Unlocks the instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
+ * @param serviceInstanceID
+ * @param instanceID
 
 */
-func (a *InstancesAPIService) UnlockAnInstance(ctx context.Context, instanceId int) (*http.Response, error) {
+func (a *InstancesAPIService) UnlockAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1577,7 +1577,7 @@ func (a *InstancesAPIService) UnlockAnInstance(ctx context.Context, instanceId i
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d/unlock", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1623,18 +1623,18 @@ InstancesAPIService
 Updating an Instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param instanceId
- * @param optional nil or *InstancesApiUpdatingAnInstanceOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param instanceID
+ * @param optional nil or *InstancesAPIUpdatingAnInstanceOpts - Optional Parameters:
      * @param "Body" (optional.Interface of UpdateInstanceBody) -
 @return models.GetInstanceResponse
 */
 
-type InstancesApiUpdatingAnInstanceOpts struct {
+type InstancesAPIUpdatingAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesAPIService) UpdatingAnInstance(ctx context.Context, instanceId int,
+func (a *InstancesAPIService) UpdatingAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.UpdateInstanceBody) (models.UpdateInstanceResponse, error) {
 	var (
 		localVarHTTPMethod     = strings.ToUpper("Put")
@@ -1646,7 +1646,7 @@ func (a *InstancesAPIService) UpdatingAnInstance(ctx context.Context, instanceId
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceId)
+		consts.InstancesPath, instanceID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

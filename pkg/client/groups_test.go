@@ -25,14 +25,14 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 
 	tests := []struct {
 		name    string
-		groupId int
+		groupID int
 		given   func(m *MockAPIClientHandler)
 		want    models.GroupResp
 		wantErr bool
 	}{
 		{
 			name:    "Normal Test case 1: Get a specific group",
-			groupId: 1,
+			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/groups/1"
 				method := "GET"
@@ -65,7 +65,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 		},
 		{
 			name:    "Failed Test case 2: Error in prepare requst",
-			groupId: 1,
+			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/groups/1"
 				method := "GET"
@@ -78,7 +78,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 		},
 		{
 			name:    "Failed Test case 3: Error in callAPI",
-			groupId: 1,
+			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/groups/1"
 				method := "GET"
@@ -116,7 +116,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 			}
 
 			tt.given(mockAPIClient)
-			got, err := a.GetASpecificGroup(ctx, tt.groupId)
+			got, err := a.GetASpecificGroup(ctx, tt.groupID)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GroupsAPIService.GetASpecificGroup() error = %v, wantErr %v", err, tt.wantErr)
 				return

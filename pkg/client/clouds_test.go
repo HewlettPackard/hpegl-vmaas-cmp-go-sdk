@@ -47,7 +47,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 	templateName := "test_template_cloud_datastore"
 	tests := []struct {
 		name    string
-		cloudId int
+		cloudID int
 		param   map[string]string
 		// All expectaion captures here
 		given   func(m *MockAPIClientHandler)
@@ -59,7 +59,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/data-stores"
 				method := "GET"
@@ -100,7 +100,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/data-stores"
 				method := "GET"
@@ -119,7 +119,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/data-stores"
 				method := "GET"
@@ -148,11 +148,11 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Failed Test case 4: Cloud Id can not be less than 1",
+			name: "Failed Test case 4: Cloud ID can not be less than 1",
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 0,
+			cloudID: 0,
 			given:   func(m *MockAPIClientHandler) {},
 			want:    models.DataStoresResp{},
 			wantErr: true,
@@ -168,7 +168,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.GetAllCloudDataStores(ctx, tt.cloudId, tt.param)
+			got, err := a.GetAllCloudDataStores(ctx, tt.cloudID, tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CloudsAPIService.GetAllCloudDataStores() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -187,7 +187,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 	templateName := "test_template_cloud_resource_pools"
 	tests := []struct {
 		name    string
-		cloudId int
+		cloudID int
 		param   map[string]string
 		given   func(m *MockAPIClientHandler)
 		want    models.ResourcePoolsResp
@@ -198,7 +198,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/resource-pools"
 				method := "GET"
@@ -238,7 +238,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/resource-pools"
 				method := "GET"
@@ -256,7 +256,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/resource-pools"
 				method := "GET"
@@ -285,11 +285,11 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Failed Test case 4: Cloud Id can not be less than 1",
+			name: "Failed Test case 4: Cloud ID can not be less than 1",
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 0,
+			cloudID: 0,
 			given:   func(m *MockAPIClientHandler) {},
 			want:    models.ResourcePoolsResp{},
 			wantErr: true,
@@ -305,7 +305,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.GetAllCloudResourcePools(ctx, tt.cloudId, tt.param)
+			got, err := a.GetAllCloudResourcePools(ctx, tt.cloudID, tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CloudsAPIService.GetAllCloudResourcePools() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -447,7 +447,7 @@ func TestCloudsAPIService_GetAllFolders(t *testing.T) {
 	templateName := "test_template_get_all_folders"
 	tests := []struct {
 		name    string
-		cloudId int
+		cloudID int
 		param   map[string]string
 		given   func(m *MockAPIClientHandler)
 		want    models.GetFolders
@@ -458,7 +458,7 @@ func TestCloudsAPIService_GetAllFolders(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/folders"
 				method := "GET"
@@ -498,7 +498,7 @@ func TestCloudsAPIService_GetAllFolders(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/folders"
 				method := "GET"
@@ -516,7 +516,7 @@ func TestCloudsAPIService_GetAllFolders(t *testing.T) {
 			param: map[string]string{
 				"name": templateName,
 			},
-			cloudId: 1,
+			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/zones/1/folders"
 				method := "GET"
@@ -555,7 +555,7 @@ func TestCloudsAPIService_GetAllFolders(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.GetAllFolders(ctx, tt.cloudId, tt.param)
+			got, err := a.GetAllFolders(ctx, tt.cloudID, tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CloudsAPIService.GetAllFolders() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -574,16 +574,16 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 	templateName := "test_template_all_cloud_networks"
 	tests := []struct {
 		name            string
-		cloudId         int
-		provisionTypeId int
+		cloudID         int
+		provisionTypeID int
 		given           func(m *MockAPIClientHandler)
 		want            models.GetAllCloudNetworks
 		wantErr         bool
 	}{
 		{
 			name:            "Normal Test case 1: Get all cloud networks",
-			cloudId:         1,
-			provisionTypeId: 1,
+			cloudID:         1,
+			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/options/zoneNetworkOptions"
 				method := "GET"
@@ -625,8 +625,8 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 		},
 		{
 			name:            "Failed Test case 2: Error in prepare request",
-			cloudId:         1,
-			provisionTypeId: 1,
+			cloudID:         1,
+			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/options/zoneNetworkOptions"
 				method := "GET"
@@ -642,8 +642,8 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 		},
 		{
 			name:            "Failed Test case 3: error in callAPI",
-			cloudId:         1,
-			provisionTypeId: 1,
+			cloudID:         1,
+			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/options/zoneNetworkOptions"
 				method := "GET"
@@ -683,7 +683,7 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.GetAllCloudNetworks(ctx, tt.cloudId, tt.provisionTypeId)
+			got, err := a.GetAllCloudNetworks(ctx, tt.cloudID, tt.provisionTypeID)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CloudsAPIService.GetAllCloudNetworks() error = %v, wantErr %v", err, tt.wantErr)
 				return

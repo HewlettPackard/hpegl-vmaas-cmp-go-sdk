@@ -30,7 +30,7 @@ Create a Policy
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param body
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *PoliciesAPIService) CreateAPolicy(ctx context.Context,
@@ -92,11 +92,11 @@ PoliciesAPIService
 Delete a Policy
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param policyId
+ * @param serviceInstanceID
+ * @param policyID
 
 */
-func (a *PoliciesAPIService) DeleteAPolicy(ctx context.Context, policyId int) (*http.Response, error) {
+func (a *PoliciesAPIService) DeleteAPolicy(ctx context.Context, policyID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -106,13 +106,13 @@ func (a *PoliciesAPIService) DeleteAPolicy(ctx context.Context, policyId int) (*
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/policies/{policy_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if policyId < 1 {
-		return nil, reportError("policyId must be greater than 1")
+	if policyID < 1 {
+		return nil, reportError("policyID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -156,12 +156,12 @@ PoliciesAPIService
 Get a Specific Policy
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param policyId
+ * @param serviceInstanceID
+ * @param policyID
 
 */
 func (a *PoliciesAPIService) GetASpecificPolicy(ctx context.Context,
-	policyId string) (*http.Response, error) {
+	policyID string) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -171,7 +171,7 @@ func (a *PoliciesAPIService) GetASpecificPolicy(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/policies/{policy_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -218,7 +218,7 @@ PoliciesAPIService
 Get All Policies
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *PoliciesAPIService) GetAllPolicies(ctx context.Context) (*http.Response, error) {
@@ -276,19 +276,19 @@ PoliciesAPIService
 Update a Policy
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param policyId
- * @param optional nil or *PoliciesApiUpdateAPolicyOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param policyID
+ * @param optional nil or *PoliciesAPIUpdateAPolicyOpts - Optional Parameters:
      * @param "Body" (optional.Interface of UpdatePolicyBody) -
 
 */
 
-type PoliciesApiUpdateAPolicyOpts struct {
+type PoliciesAPIUpdateAPolicyOpts struct {
 	Body optional.Interface
 }
 
-func (a *PoliciesAPIService) UpdateAPolicy(ctx context.Context, policyId string,
-	localVarOptionals *PoliciesApiUpdateAPolicyOpts) (*http.Response, error) {
+func (a *PoliciesAPIService) UpdateAPolicy(ctx context.Context, policyID string,
+	localVarOptionals *PoliciesAPIUpdateAPolicyOpts) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -298,7 +298,7 @@ func (a *PoliciesAPIService) UpdateAPolicy(ctx context.Context, policyId string,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/policies/{policy_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

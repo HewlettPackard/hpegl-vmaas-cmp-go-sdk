@@ -29,7 +29,7 @@ PlansAPIService
 Get All Service Plans
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *PlansAPIService) GetAllServicePlans(ctx context.Context,

@@ -25,11 +25,11 @@ type LibraryAPIService struct {
 }
 
 /*
-LibrariesApiService
+LibrariesAPIService
 Get All layouts
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *LibraryAPIService) GetAllLayouts(ctx context.Context,

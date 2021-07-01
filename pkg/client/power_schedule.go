@@ -26,7 +26,7 @@ VirtualImageApiService
 Get All Virtual images
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
  * @param name/phrase optional
 @return models.VirtualImages
 */

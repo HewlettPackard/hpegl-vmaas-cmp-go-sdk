@@ -25,7 +25,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 	tests := []struct {
 		name       string
 		param      models.CreateInstanceBody
-		instanceId int
+		instanceID int
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
 		wantErr    bool
@@ -36,7 +36,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				ZoneID:    "1",
 				CloneName: "Instance_Clone",
 			},
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
@@ -84,7 +84,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				ZoneID:    "1",
 				CloneName: "Instance_Clone",
 			},
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
@@ -111,7 +111,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				ZoneID:    "1",
 				CloneName: "Instance_Clone",
 			},
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
@@ -162,7 +162,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.CloneAnInstance(ctx, tt.instanceId, &tt.param)
+			got, err := a.CloneAnInstance(ctx, tt.instanceID, &tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.CloneAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -339,14 +339,14 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceId int
+		instanceID int
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
 		wantErr    bool
 	}{
 		{
 			name:       "Normal Test case 1: Delete an Instance",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "DELETE"
@@ -374,7 +374,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 2: Error in call prepare request",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "DELETE"
@@ -386,7 +386,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 			wantErr: true,
 		}, {
 			name:       "Failed test case 3: error in callAPI",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "DELETE"
@@ -421,7 +421,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.DeleteAnInstance(ctx, tt.instanceId)
+			got, err := a.DeleteAnInstance(ctx, tt.instanceID)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.DeleteAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -439,7 +439,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceId int
+		instanceID int
 		param      models.ImportSnapshotBody
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
@@ -447,7 +447,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 	}{
 		{
 			name:       "Normal Test case 1: Import Snapshot Of an Instance",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.ImportSnapshotBody{
 				StorageProviderID: 1,
 			},
@@ -486,7 +486,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 2: Error in call prepare request",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.ImportSnapshotBody{
 				StorageProviderID: 1,
 			},
@@ -507,7 +507,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 3: error in callAPI",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.ImportSnapshotBody{
 				StorageProviderID: 1,
 			},
@@ -554,7 +554,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.ImportSnapshotOfAnInstance(ctx, tt.instanceId, &tt.param)
+			got, err := a.ImportSnapshotOfAnInstance(ctx, tt.instanceID, &tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.ImportSnapshotOfAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -573,7 +573,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceId int
+		instanceID int
 		param      models.ResizeInstanceBody
 		given      func(m *MockAPIClientHandler)
 		want       models.ResizeInstanceResponse
@@ -581,7 +581,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 	}{
 		{
 			name:       "Normal Test case 1: Resize an Instance",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.ResizeInstanceBody{
 				Instance: &models.ResizeInstanceBodyInstance{
 					ID: 1,
@@ -639,7 +639,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 2: error in prepare request",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.ResizeInstanceBody{
 				Instance: &models.ResizeInstanceBodyInstance{
 					ID: 1,
@@ -675,7 +675,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 3: error in callAPI",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.ResizeInstanceBody{
 				Instance: &models.ResizeInstanceBodyInstance{
 					ID: 1,
@@ -739,7 +739,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.ResizeAnInstance(ctx, tt.instanceId, &tt.param)
+			got, err := a.ResizeAnInstance(ctx, tt.instanceID, &tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.ResizeAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -757,7 +757,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceId int
+		instanceID int
 		param      models.SnapshotBody
 		given      func(m *MockAPIClientHandler)
 		want       models.Instances
@@ -765,7 +765,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 	}{
 		{
 			name:       "Normal Test case 1: Resize an Instance",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.SnapshotBody{
 				Snapshot: &models.SnapshotBodySnapshot{
 					Name:        "test_snapshot_name",
@@ -818,7 +818,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 2: error in prepare request",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.SnapshotBody{
 				Snapshot: &models.SnapshotBodySnapshot{
 					Name:        "test_snapshot_name",
@@ -846,7 +846,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 3: error in callAPII",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.SnapshotBody{
 				Snapshot: &models.SnapshotBodySnapshot{
 					Name:        "test_snapshot_name",
@@ -903,7 +903,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.SnapshotAnInstance(ctx, tt.instanceId, &tt.param)
+			got, err := a.SnapshotAnInstance(ctx, tt.instanceID, &tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.SnapshotAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -921,7 +921,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceId int
+		instanceID int
 		param      models.UpdateInstanceBody
 		given      func(m *MockAPIClientHandler)
 		want       models.UpdateInstanceResponse
@@ -929,7 +929,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 	}{
 		{
 			name:       "Normal Test case 1: Update an Instance",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.UpdateInstanceBody{
 				Instance: &models.UpdateInstanceBodyInstance{
 					Name:        "test_update_instance_name",
@@ -980,7 +980,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 2: error in prepare request",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.UpdateInstanceBody{
 				Instance: &models.UpdateInstanceBodyInstance{
 					Name:        "test_update_instance_name",
@@ -1009,7 +1009,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 3: error in callAPI",
-			instanceId: 1,
+			instanceID: 1,
 			param: models.UpdateInstanceBody{
 				Instance: &models.UpdateInstanceBodyInstance{
 					Name:        "test_update_instance_name",
@@ -1066,7 +1066,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.UpdatingAnInstance(ctx, tt.instanceId, &tt.param)
+			got, err := a.UpdatingAnInstance(ctx, tt.instanceID, &tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.UpdatingAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -1083,7 +1083,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceId int
+		instanceID int
 		// All expectaion captures here
 		given   func(m *MockAPIClientHandler)
 		want    models.GetInstanceResponse
@@ -1091,7 +1091,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 	}{
 		{
 			name:       "Normal Test case 1: Get a specific instance",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "GET"
@@ -1125,7 +1125,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 2: Error in call prepare request",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "GET"
@@ -1140,7 +1140,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 3: error in callAPI",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "GET"
@@ -1179,7 +1179,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 			}
 
 			tt.given(mockAPIClient)
-			got, err := a.GetASpecificInstance(ctx, tt.instanceId)
+			got, err := a.GetASpecificInstance(ctx, tt.instanceID)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.GetASpecificInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -1327,14 +1327,14 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceId int
+		instanceID int
 		given      func(m *MockAPIClientHandler)
 		want       models.ListSnapshotResponse
 		wantErr    bool
 	}{
 		{
 			name:       "Normal Test case 1: Get list of snapshots for an instance",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/snapshots"
 				method := "GET"
@@ -1369,7 +1369,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 2: Error in call prepare request",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/snapshots"
 				method := "GET"
@@ -1383,7 +1383,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 		},
 		{
 			name:       "Failed test case 3: error in callAPI",
-			instanceId: 1,
+			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/snapshots"
 				method := "GET"
@@ -1420,7 +1420,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.GetListOfSnapshotsForAnInstance(ctx, tt.instanceId)
+			got, err := a.GetListOfSnapshotsForAnInstance(ctx, tt.instanceID)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.GetListOfSnapshotsForAnInstance() error = %v, wantErr %v",
 					err, tt.wantErr)

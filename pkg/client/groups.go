@@ -32,7 +32,7 @@ GroupsAPIService
 Creates a group
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
  * @param optional nil or *GroupsAPICreateGroupOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CreateGroupBody) -
 
@@ -106,11 +106,11 @@ GroupsAPIService
 If a group has zones or servers still tied to it, a delete action will fail
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param groupId The Group ID
+ * @param serviceInstanceID
+ * @param groupID The Group ID
 
 */
-func (a *GroupsAPIService) DeleteAGroup(ctx context.Context, groupId int) (*http.Response, error) {
+func (a *GroupsAPIService) DeleteAGroup(ctx context.Context, groupID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -120,13 +120,13 @@ func (a *GroupsAPIService) DeleteAGroup(ctx context.Context, groupId int) (*http
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.GroupsPath, groupId)
+		consts.GroupsPath, groupID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if groupId < 1 {
-		return nil, reportError("groupId must be greater than 1")
+	if groupID < 1 {
+		return nil, reportError("groupID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -170,11 +170,11 @@ GroupsAPIService
 Get a Specific Group
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param groupId The Group ID
+ * @param serviceInstanceID
+ * @param groupID The Group ID
 
 */
-func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context, groupId int) (models.GroupResp, error) {
+func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context, groupID int) (models.GroupResp, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -184,13 +184,13 @@ func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context, groupId int) (
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.GroupsPath, groupId)
+		consts.GroupsPath, groupID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if groupId < 1 {
-		return models.GroupResp{}, reportError("groupId must be greater than 1")
+	if groupID < 1 {
+		return models.GroupResp{}, reportError("groupID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -245,7 +245,7 @@ GroupsAPIService
 This endpoint retrieves all groups and a list of zones associated with the group by id.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *GroupsAPIService) GetAllGroups(ctx context.Context,
@@ -318,19 +318,19 @@ This will update the zones(clouds) that are assigned to the group. Any zones tha
 the zones parameter will be removed from the group.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param groupId The Group ID
- * @param optional nil or *GroupsApiGroupZoneUpdateOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param groupID The Group ID
+ * @param optional nil or *GroupsAPIGroupZoneUpdateOpts - Optional Parameters:
      * @param "Body" (optional.Interface of UpdateGroupZone) -
 
 */
 
-type GroupsApiGroupZoneUpdateOpts struct {
+type GroupsAPIGroupZoneUpdateOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsAPIService) GroupZoneUpdate(ctx context.Context, groupId int,
-	localVarOptionals *GroupsApiGroupZoneUpdateOpts) (*http.Response, error) {
+func (a *GroupsAPIService) GroupZoneUpdate(ctx context.Context, groupID int,
+	localVarOptionals *GroupsAPIGroupZoneUpdateOpts) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -340,13 +340,13 @@ func (a *GroupsAPIService) GroupZoneUpdate(ctx context.Context, groupId int,
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.GroupsPath, groupId)
+		consts.GroupsPath, groupID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if groupId < 1 {
-		return nil, reportError("groupId must be greater than 1")
+	if groupID < 1 {
+		return nil, reportError("groupID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -395,19 +395,19 @@ GroupsAPIService
 Updating a group name
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param groupId The Group ID
- * @param optional nil or *GroupsApiUpdatingAGroupNameOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param groupID The Group ID
+ * @param optional nil or *GroupsAPIUpdatingAGroupNameOpts - Optional Parameters:
      * @param "Body" (optional.Interface of UpdateGroupName) -
 
 */
 
-type GroupsApiUpdatingAGroupNameOpts struct {
+type GroupsAPIUpdatingAGroupNameOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsAPIService) UpdatingAGroupName(ctx context.Context, groupId int,
-	localVarOptionals *GroupsApiUpdatingAGroupNameOpts) (*http.Response, error) {
+func (a *GroupsAPIService) UpdatingAGroupName(ctx context.Context, groupID int,
+	localVarOptionals *GroupsAPIUpdatingAGroupNameOpts) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -417,13 +417,13 @@ func (a *GroupsAPIService) UpdatingAGroupName(ctx context.Context, groupId int,
 
 	// create path and map variables
 	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.GroupsPath, groupId)
+		consts.GroupsPath, groupID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if groupId < 1 {
-		return nil, reportError("groupId must be greater than 1")
+	if groupID < 1 {
+		return nil, reportError("groupID must be greater than 1")
 	}
 
 	// to determine the Content-Type header

@@ -29,18 +29,18 @@ KeysCertsAPIService
 Create key-pair. The Public and Private key are stored in encrypted form in the database.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param optional nil or *KeysCertsApiCreateKeyPairOpts - Optional Parameters:
+ * @param serviceInstanceID
+ * @param optional nil or *KeysCertsAPICreateKeyPairOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CreateKeyPair) -
 @return models.CreateKeyPairResponseBody
 */
 
-type KeysCertsApiCreateKeyPairOpts struct {
+type KeysCertsAPICreateKeyPairOpts struct {
 	Body optional.Interface
 }
 
 func (a *KeysCertsAPIService) CreateKeyPair(ctx context.Context,
-	localVarOptionals *KeysCertsApiCreateKeyPairOpts) (models.CreateKeyPairResponseBody,
+	localVarOptionals *KeysCertsAPICreateKeyPairOpts) (models.CreateKeyPairResponseBody,
 	*http.Response, error) {
 	var (
 		localVarHTTPMethod  = strings.ToUpper("Post")
@@ -116,12 +116,12 @@ KeysCertsAPIService
 Delete Specific Certificate
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param certificateId The certificate ID
+ * @param serviceInstanceID
+ * @param certificateID The certificate ID
 
 */
 func (a *KeysCertsAPIService) DeleteSpecificCertificate(ctx context.Context,
-	certificateId int) (*http.Response, error) {
+	certificateID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -131,13 +131,13 @@ func (a *KeysCertsAPIService) DeleteSpecificCertificate(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/certificates/{certificate_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if certificateId < 1 {
-		return nil, reportError("certificateId must be greater than 1")
+	if certificateID < 1 {
+		return nil, reportError("certificateID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -181,12 +181,12 @@ KeysCertsAPIService
 Delete Specific keypair. If a key pair is actively in use, a delete will fail
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param keypairId The keypair ID
+ * @param serviceInstanceID
+ * @param keypairID The keypair ID
 
 */
 func (a *KeysCertsAPIService) DeleteSpecificKeypair(ctx context.Context,
-	keypairId int) (*http.Response, error) {
+	keypairID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -196,13 +196,13 @@ func (a *KeysCertsAPIService) DeleteSpecificKeypair(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/key-pairs/{keypair_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if keypairId < 1 {
-		return nil, reportError("keypairId must be greater than 1")
+	if keypairID < 1 {
+		return nil, reportError("keypairID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -246,7 +246,7 @@ KeysCertsAPIService
 Get All Certificates
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *KeysCertsAPIService) GetAllCertificates(ctx context.Context) (*http.Response, error) {
@@ -305,7 +305,7 @@ KeysCertsAPIService
 Get All Key-Pair
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 @return ListAllKeyPair
 */
 func (a *KeysCertsAPIService) GetAllKeyPair(ctx context.Context) (models.ListAllKeyPair, *http.Response, error) {
@@ -379,12 +379,12 @@ KeysCertsAPIService
 Get Specific Certificate
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param certificateId The certificate ID
+ * @param serviceInstanceID
+ * @param certificateID The certificate ID
 
 */
 func (a *KeysCertsAPIService) GetSpecificCertificate(ctx context.Context,
-	certificateId int) (*http.Response, error) {
+	certificateID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -394,13 +394,13 @@ func (a *KeysCertsAPIService) GetSpecificCertificate(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/certificates/{certificate_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if certificateId < 1 {
-		return nil, reportError("certificateId must be greater than 1")
+	if certificateID < 1 {
+		return nil, reportError("certificateID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
@@ -443,12 +443,12 @@ KeysCertsAPIService
 Get Specific Keypair
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param keypairId The keypair ID
+ * @param serviceInstanceID
+ * @param keypairID The keypair ID
 
 */
 func (a *KeysCertsAPIService) GetSpecificKeypair(ctx context.Context,
-	keypairId int) (*http.Response, error) {
+	keypairID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -458,13 +458,13 @@ func (a *KeysCertsAPIService) GetSpecificKeypair(ctx context.Context,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/key-pairs/{keypair_id}"
-	localVarPath = strings.ReplaceAll(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairID))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if keypairId < 1 {
-		return nil, reportError("keypairId must be greater than 1")
+	if keypairID < 1 {
+		return nil, reportError("keypairID must be greater than 1")
 	}
 
 	// to determine the Content-Type header

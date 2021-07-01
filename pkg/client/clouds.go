@@ -27,11 +27,11 @@ type CloudsAPIService struct {
 }
 
 /*
-CloudsApiService
+CloudsAPIService
 Get a Specific Cloud
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
  * @param cloudID The cloud ID
 
 */
@@ -91,11 +91,11 @@ func (a *CloudsAPIService) GetASpecificCloud(ctx context.Context, cloudID int) (
 }
 
 /*
-CloudsApiService
+CloudsAPIService
 Get a Specific Cloud Data Store
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
  * @param cloudID The cloud ID
  * @param datastoreID The cloud datastore ID
 
@@ -160,13 +160,13 @@ func (a *CloudsAPIService) GetASpecificCloudDataStore(ctx context.Context, cloud
 }
 
 /*
-CloudsApiService
+CloudsAPIService
 Get a Specific Cloud Resource Pool
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
 	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
  * @param cloudID The cloud ID
- * @param funId The Cloud Resourcepool ID
+ * @param funID The Cloud Resourcepool ID
 
 */
 func (a *CloudsAPIService) GetASpecificCloudResourcePool(ctx context.Context, cloudID int,
@@ -230,11 +230,11 @@ func (a *CloudsAPIService) GetASpecificCloudResourcePool(ctx context.Context, cl
 }
 
 /*
-CloudsApiService
+CloudsAPIService
 Get All Cloud Data Stores
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
  * @param cloudID The cloud ID
 
 */
@@ -306,11 +306,11 @@ func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID in
 }
 
 /*
-CloudsApiService
+CloudsAPIService
 Get All Cloud Resource Pools
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
  * @param cloudID The cloud ID
 
 */
@@ -382,11 +382,11 @@ func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID
 }
 
 /*
-CloudsApiService
+CloudsAPIService
 Get All Clouds
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param serviceInstanceID
 
 */
 func (a *CloudsAPIService) GetAllClouds(ctx context.Context,
@@ -518,7 +518,7 @@ func (a *CloudsAPIService) GetAllFolders(ctx context.Context, cloudID int,
 }
 
 func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
-	provisionTypeId int) (models.GetAllCloudNetworks, error) {
+	provisionTypeID int) (models.GetAllCloudNetworks, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -533,7 +533,7 @@ func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(map[string]string{
 		"zoneId":          strconv.Itoa(cloudID),
-		"provisionTypeId": strconv.Itoa(provisionTypeId),
+		"provisionTypeId": strconv.Itoa(provisionTypeID),
 	})
 	localVarFormParams := url.Values{}
 

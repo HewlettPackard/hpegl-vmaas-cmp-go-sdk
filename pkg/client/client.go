@@ -52,23 +52,23 @@ type APIClient struct {
 
 	// API Services
 
-	/*CloudsApi *CloudsApiService
+	/*CloudsAPI *CloudsAPIService
 
-	GroupsApi *GroupsApiService
+	GroupsAPI *GroupsAPIService
 
-	InstancesApi *InstancesApiService
+	InstancesAPI *InstancesAPIService
 
-	KeysCertsApi *KeysCertsApiService
+	KeysCertsAPI *KeysCertsAPIService
 
-	LibraryApi *LibraryApiService
+	LibraryAPI *LibraryAPIService
 
-	NetworksApi *NetworksApiService
+	NetworksAPI *NetworksAPIService
 
-	PlansApi *PlansApiService
+	PlansAPI *PlansAPIService
 
-	PoliciesApi *PoliciesApiService
+	PoliciesAPI *PoliciesAPIService
 
-	RolesApi *RolesApiService*/
+	RolesAPI *RolesAPIService*/
 }
 
 type service struct {
@@ -90,15 +90,15 @@ func NewAPIClient(cfg *Configuration, secure bool) *APIClient {
 	c.common.client = c
 
 	// API Services
-	/*c.CloudsApi = (*CloudsApiService)(&c.common)
-	c.GroupsApi = (*GroupsApiService)(&c.common)
-	c.InstancesApi = (*InstancesApiService)(&c.common)
-	c.KeysCertsApi = (*KeysCertsApiService)(&c.common)
-	c.LibraryApi = (*LibraryApiService)(&c.common)
-	c.NetworksApi = (*NetworksApiService)(&c.common)
-	c.PlansApi = (*PlansApiService)(&c.common)
-	c.PoliciesApi = (*PoliciesApiService)(&c.common)
-	c.RolesApi = (*RolesApiService)(&c.common)
+	/*c.CloudsAPI = (*CloudsAPIService)(&c.common)
+	c.GroupsAPI = (*GroupsAPIService)(&c.common)
+	c.InstancesAPI = (*InstancesAPIService)(&c.common)
+	c.KeysCertsAPI = (*KeysCertsAPIService)(&c.common)
+	c.LibraryAPI = (*LibraryAPIService)(&c.common)
+	c.NetworksAPI = (*NetworksAPIService)(&c.common)
+	c.PlansAPI = (*PlansAPIService)(&c.common)
+	c.PoliciesAPI = (*PoliciesAPIService)(&c.common)
+	c.RolesAPI = (*RolesAPIService)(&c.common)
 	*/
 
 	return c
