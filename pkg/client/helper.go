@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-func getUrlValues(query map[string]string) url.Values {
+func getURLValues(query map[string]string) url.Values {
 	m := make(map[string][]string)
 	for k, v := range query {
 		m[k] = []string{v}

@@ -632,7 +632,7 @@ func (a *NetworksAPIService) GetAllNetworks(ctx context.Context,
 	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(param)
+	localVarQueryParams := getURLValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header

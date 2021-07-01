@@ -252,7 +252,7 @@ func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID in
 		consts.ZonePath, cloudID)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(queryParams)
+	localVarQueryParams := getURLValues(queryParams)
 	localVarFormParams := url.Values{}
 	var datastoresResp models.DataStoresResp
 	if cloudID < 1 {
@@ -328,7 +328,7 @@ func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID
 		consts.ZonePath, cloudID)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(queryParams)
+	localVarQueryParams := getURLValues(queryParams)
 	localVarFormParams := url.Values{}
 	var resourcePoolsResp models.ResourcePoolsResp
 	if cloudID < 1 {
@@ -403,7 +403,7 @@ func (a *CloudsAPIService) GetAllClouds(ctx context.Context,
 		consts.ZonePath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(queryParams)
+	localVarQueryParams := getURLValues(queryParams)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
@@ -467,7 +467,7 @@ func (a *CloudsAPIService) GetAllFolders(ctx context.Context, cloudID int,
 		consts.ZonePath, cloudID, consts.FolderPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(queryParams)
+	localVarQueryParams := getURLValues(queryParams)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
@@ -531,7 +531,7 @@ func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
 		consts.OptionsPath, consts.ZoneNetworkOptionsPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(map[string]string{
+	localVarQueryParams := getURLValues(map[string]string{
 		"zoneId":          strconv.Itoa(cloudID),
 		"provisionTypeId": strconv.Itoa(provisionTypeID),
 	})

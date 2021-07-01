@@ -50,7 +50,7 @@ func TestLibraryAPIService_GetAllLayouts(t *testing.T) {
 				`)))
 				// mock the context only since it is not validated in this function
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(req, nil)
 
@@ -80,7 +80,7 @@ func TestLibraryAPIService_GetAllLayouts(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 
@@ -108,7 +108,7 @@ func TestLibraryAPIService_GetAllLayouts(t *testing.T) {
 				`)))
 				// mock the context only since it is not validated in this function
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(req, nil)
 
@@ -178,7 +178,7 @@ func TestLibraryAPIService_GetAllInstanceTypes(t *testing.T) {
 					}
 				`)))
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(req, nil)
 
@@ -208,7 +208,7 @@ func TestLibraryAPIService_GetAllInstanceTypes(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -234,7 +234,7 @@ func TestLibraryAPIService_GetAllInstanceTypes(t *testing.T) {
 					}
 				`)))
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(req, nil)
 

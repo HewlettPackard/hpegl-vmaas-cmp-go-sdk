@@ -45,7 +45,7 @@ func (a *PowerSchedulesAPIService) GetAllPowerSchedules(ctx context.Context,
 		consts.PowerSchedulPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(param)
+	localVarQueryParams := getURLValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header

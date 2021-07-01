@@ -47,7 +47,7 @@ func (a *PlansAPIService) GetAllServicePlans(ctx context.Context,
 		consts.ServicePlansPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(param)
+	localVarQueryParams := getURLValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header

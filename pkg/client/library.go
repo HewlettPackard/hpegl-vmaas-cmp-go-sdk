@@ -46,7 +46,7 @@ func (a *LibraryAPIService) GetAllLayouts(ctx context.Context,
 		consts.LibraryLayoutPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(param)
+	localVarQueryParams := getURLValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
@@ -110,7 +110,7 @@ func (a *LibraryAPIService) GetAllInstanceTypes(ctx context.Context,
 		consts.LibraryInstanceTypesPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(param)
+	localVarQueryParams := getURLValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header

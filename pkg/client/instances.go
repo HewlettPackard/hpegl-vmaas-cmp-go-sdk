@@ -530,7 +530,7 @@ func (a *InstancesAPIService) GetAllInstances(ctx context.Context,
 		consts.InstancesPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(queryParams)
+	localVarQueryParams := getURLValues(queryParams)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header

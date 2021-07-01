@@ -263,7 +263,7 @@ func (a *GroupsAPIService) GetAllGroups(ctx context.Context,
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
-	localVarFormParams := getUrlValues(queryParams)
+	localVarFormParams := getURLValues(queryParams)
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

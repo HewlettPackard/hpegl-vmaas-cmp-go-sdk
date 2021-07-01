@@ -49,7 +49,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 					}
 				`)))
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -78,7 +78,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -104,7 +104,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 					}
 				`)))
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getUrlValues(map[string]string{
+					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{

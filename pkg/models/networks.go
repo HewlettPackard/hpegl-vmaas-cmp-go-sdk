@@ -11,11 +11,11 @@ type CreateNetworkIPPoolBody struct {
 type CreateNetworkIPPoolBodyNetworkpool struct {
 	Name     string                                       `json:"name,omitempty"`
 	Type     *CreateNetworkIPPoolBodyNetworkpoolType      `json:"type,omitempty"`
-	IPRanges []CreateNetworkIPPoolBodyNetworkpoolIpRanges `json:"ipRanges,omitempty"`
+	IPRanges []CreateNetworkIPPoolBodyNetworkpoolIPRanges `json:"ipRanges,omitempty"`
 }
 
 // CreateNetworkIpPoolBodyNetworkpoolIpRanges
-type CreateNetworkIPPoolBodyNetworkpoolIpRanges struct {
+type CreateNetworkIPPoolBodyNetworkpoolIPRanges struct {
 	StartAddress string `json:"startAddress,omitempty"`
 	EndAddress   string `json:"endAddress,omitempty"`
 }
@@ -272,7 +272,7 @@ type ListNetworkRoutersProperties struct {
 	Enabled         bool                                                                 `json:"enabled"`
 	ExternalIP      string                                                               `json:"externalIp"`
 	ProviderID      string                                                               `json:"providerId"`
-	Type_           *ListNetworkRoutersPropertiesType                                    `json:"type"`
+	Type            *ListNetworkRoutersPropertiesType                                    `json:"type"`
 	NetworkServer   *ListNetworkRoutersPropertiesNetworkServer                           `json:"networkServer"`
 	Zone            *ListNetworkRoutersPropertiesNetworkServerIntegrationIntegrationType `json:"zone"`
 	ExternalNetwork *ListNetworkRoutersPropertiesNetworkServerIntegrationIntegrationType `json:"externalNetwork"`
