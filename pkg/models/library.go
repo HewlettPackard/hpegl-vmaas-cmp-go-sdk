@@ -226,7 +226,7 @@ type LayoutRespBody struct {
 	} `json:"permissions"`
 }
 
-type LayoutsResp struct{
+type LayoutsResp struct {
 	InstanceTypeLayouts []LayoutRespBody `json:"instanceTypeLayouts"`
 }
 

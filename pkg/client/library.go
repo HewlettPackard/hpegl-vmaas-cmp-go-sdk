@@ -40,7 +40,7 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.LibraryLayoutPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -89,6 +89,7 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]
 	if err = json.Unmarshal(localVarBody, &layoutsResp); err != nil {
 		return models.LayoutsResp{}, err
 	}
+
 	return layoutsResp, nil
 }
 
@@ -101,7 +102,7 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, param map[s
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.LibraryInstanceTypesPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -148,5 +149,6 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, param map[s
 	if err = json.Unmarshal(localVarBody, &instanceTypesResp); err != nil {
 		return models.InstanceTypesResp{}, err
 	}
+
 	return instanceTypesResp, nil
 }

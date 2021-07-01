@@ -29,7 +29,8 @@ type CloudsApiService struct {
 /*
 CloudsApiService
 Get a Specific Cloud
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param cloudId The cloud ID
 
@@ -44,7 +45,7 @@ func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, cloudId int) (
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/zones/{cloud_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -71,7 +72,8 @@ func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, cloudId int) (
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +93,8 @@ func (a *CloudsApiService) GetASpecificCloud(ctx context.Context, cloudId int) (
 /*
 CloudsApiService
 Get a Specific Cloud Data Store
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param cloudId The cloud ID
  * @param datastoreId The cloud datastore ID
@@ -107,8 +110,8 @@ func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, cloud
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/zones/{cloud_id}/data-stores/{datastore_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"datastore_id"+"}", fmt.Sprintf("%v", datastoreId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"datastore_id"+"}", fmt.Sprintf("%v", datastoreId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -138,7 +141,8 @@ func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, cloud
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +161,8 @@ func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, cloud
 /*
 CloudsApiService
 Get a Specific Cloud Resource Pool
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param cloudId The cloud ID
  * @param funId The Cloud Resourcepool ID
@@ -173,8 +178,8 @@ func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, cl
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/zones/{cloud_id}/resource-pools/{resourcepool_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourcepool_id"+"}", fmt.Sprintf("%v", resourcepoolId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"cloud_id"+"}", fmt.Sprintf("%v", cloudId))
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"resourcepool_id"+"}", fmt.Sprintf("%v", resourcepoolId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -204,7 +209,8 @@ func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, cl
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -217,13 +223,15 @@ func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, cl
 	if localVarHttpResponse.StatusCode >= 300 {
 		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
+
 	return localVarHttpResponse, nil
 }
 
 /*
 CloudsApiService
 Get All Cloud Data Stores
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param cloudId The cloud ID
 
@@ -237,7 +245,7 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, cloudId in
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.ZonePath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
@@ -266,7 +274,8 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, cloudId in
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return datastoresResp, err
 	}
@@ -289,13 +298,15 @@ func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, cloudId in
 	if err = json.Unmarshal(localVarBody, &datastoresResp); err != nil {
 		return datastoresResp, err
 	}
+
 	return datastoresResp, nil
 }
 
 /*
 CloudsApiService
 Get All Cloud Resource Pools
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param cloudId The cloud ID
 
@@ -309,7 +320,7 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, cloudId
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.ZonePath, cloudId)
 
 	localVarHeaderParams := make(map[string]string)
@@ -338,7 +349,8 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, cloudId
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return resourcePoolsResp, err
 	}
@@ -361,13 +373,15 @@ func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, cloudId
 	if err = json.Unmarshal(localVarBody, &resourcePoolsResp); err != nil {
 		return resourcePoolsResp, err
 	}
+
 	return resourcePoolsResp, nil
 }
 
 /*
 CloudsApiService
 Get All Clouds
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 
 */
@@ -380,7 +394,7 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, queryParams map[str
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.ZonePath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -406,7 +420,8 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, queryParams map[str
 	}
 
 	var cloudsResp models.CloudsResp
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return cloudsResp, err
 	}
@@ -429,6 +444,7 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, queryParams map[str
 	if err = json.Unmarshal(localVarBody, &cloudsResp); err != nil {
 		return cloudsResp, err
 	}
+
 	return cloudsResp, nil
 }
 
@@ -441,7 +457,7 @@ func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, query
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.ZonePath, cloudId, consts.FolderPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -467,7 +483,8 @@ func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, query
 	}
 
 	var folderResp models.GetFolders
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return folderResp, err
 	}
@@ -490,6 +507,7 @@ func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, query
 	if err = json.Unmarshal(localVarBody, &folderResp); err != nil {
 		return folderResp, err
 	}
+
 	return folderResp, nil
 }
 
@@ -502,7 +520,7 @@ func (a *CloudsApiService) GetAllCloudNetworks(ctx context.Context, cloudId, pro
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.OptionsPath, consts.ZoneNetworkOptionsPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -531,7 +549,8 @@ func (a *CloudsApiService) GetAllCloudNetworks(ctx context.Context, cloudId, pro
 	}
 
 	var networkResp models.GetAllCloudNetworks
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return networkResp, err
 	}
@@ -554,5 +573,6 @@ func (a *CloudsApiService) GetAllCloudNetworks(ctx context.Context, cloudId, pro
 	if err = json.Unmarshal(localVarBody, &networkResp); err != nil {
 		return networkResp, err
 	}
+
 	return networkResp, nil
 }

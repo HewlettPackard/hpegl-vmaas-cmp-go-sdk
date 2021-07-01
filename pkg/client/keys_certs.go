@@ -73,7 +73,6 @@ func (a *KeysCertsApiService) CreateKeyPair(ctx context.Context, localVarOptiona
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -126,7 +125,7 @@ func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, cer
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/certificates/{certificate_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -188,7 +187,7 @@ func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, keypair
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/key-pairs/{keypair_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -379,7 +378,7 @@ func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, certif
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/certificates/{certificate_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"certificate_id"+"}", fmt.Sprintf("%v", certificateId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -440,7 +439,7 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, keypairId 
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/key-pairs/{keypair_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"keypair_id"+"}", fmt.Sprintf("%v", keypairId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -480,5 +479,6 @@ func (a *KeysCertsApiService) GetSpecificKeypair(ctx context.Context, keypairId 
 	if localVarHttpResponse.StatusCode >= 300 {
 		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
+
 	return localVarHttpResponse, nil
 }

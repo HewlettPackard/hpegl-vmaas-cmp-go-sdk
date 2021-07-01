@@ -33,7 +33,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 		{
 			name: "Normal Test case 1: Clone an Instance",
 			param: models.CreateInstanceBody{
-				ZoneId:    "1",
+				ZoneID:    "1",
 				CloneName: "Instance_Clone",
 			},
 			instanceId: 1,
@@ -60,10 +60,10 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 				`)))
 				// mock the context only since it is not validated in this function
 				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneId:    "1",
+					ZoneID:    "1",
 					CloneName: "Instance_Clone",
 				})
-				//pBody := []byte(`{"ZoneId":"1","CloneName":"Instance_Clone"}`)
+				//pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -80,7 +80,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 		{
 			name: "Failed test case 2: Error in call prepare request",
 			param: models.CreateInstanceBody{
-				ZoneId:    "1",
+				ZoneID:    "1",
 				CloneName: "Instance_Clone",
 			},
 			instanceId: 1,
@@ -94,10 +94,10 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 				}
 				// mock the context only since it is not validated in this function
 				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneId:    "1",
+					ZoneID:    "1",
 					CloneName: "Instance_Clone",
 				})
-				//pBody := []byte(`{"ZoneId":"1","CloneName":"Instance_Clone"}`)
+				//pBody := []byte(`{"ZoneID":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.SuccessOrErrorMessage{},
@@ -106,7 +106,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 		{
 			name: "Failed test case 3: error in callAPI",
 			param: models.CreateInstanceBody{
-				ZoneId:    "1",
+				ZoneID:    "1",
 				CloneName: "Instance_Clone",
 			},
 			instanceId: 1,
@@ -135,7 +135,7 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 				`)))
 				// mock the context only since it is not validated in this function
 				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneId:    "1",
+					ZoneID:    "1",
 					CloneName: "Instance_Clone",
 				})
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
@@ -186,7 +186,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 		{
 			name: "Normal Test case 1: Create an Instance",
 			param: models.CreateInstanceBody{
-				ZoneId:    "1",
+				ZoneID:    "1",
 				CloneName: "Instance_Create",
 			},
 			given: func(m *MockAPIClientHandler) {
@@ -213,7 +213,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 				}
 				`)))
 				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneId:    "1",
+					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				})
 
@@ -227,7 +227,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 			},
 			want: models.GetInstanceResponse{
 				Instance: &models.GetInstanceResponseInstance{
-					Id:   1,
+					ID:   1,
 					Name: "test_create_an_instance",
 				},
 			},
@@ -236,7 +236,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 		{
 			name: "Failed test case 2: Error in call prepare request",
 			param: models.CreateInstanceBody{
-				ZoneId:    "1",
+				ZoneID:    "1",
 				CloneName: "Instance_Create",
 			},
 			given: func(m *MockAPIClientHandler) {
@@ -249,10 +249,10 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 				}
 				// mock the context only since it is not validated in this function
 				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneId:    "1",
+					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				})
-				//pBody := []byte(`{"ZoneId":"1","CloneName":"Instance_Clone"}`)
+				//pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 
 			},
@@ -262,7 +262,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 		{
 			name: "Failed test case 3: error in callAPI",
 			param: models.CreateInstanceBody{
-				ZoneId:    "1",
+				ZoneID:    "1",
 				CloneName: "Instance_Create",
 			},
 			given: func(m *MockAPIClientHandler) {
@@ -290,7 +290,7 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 				`)))
 				// mock the context only since it is not validated in this function
 				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneId:    "1",
+					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				})
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
@@ -440,7 +440,7 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 			name:       "Normal Test case 1: Import Snapshot Of an Instance",
 			instanceId: 1,
 			param: models.ImportSnapshotBody{
-				StorageProviderId: 1,
+				StorageProviderID: 1,
 			},
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/import-snapshot"
@@ -460,7 +460,7 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 				}
 				`)))
 				pBody, _ := json.Marshal(models.ImportSnapshotBody{
-					StorageProviderId: 1,
+					StorageProviderID: 1,
 				})
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -478,7 +478,7 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceId: 1,
 			param: models.ImportSnapshotBody{
-				StorageProviderId: 1,
+				StorageProviderID: 1,
 			},
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/import-snapshot"
@@ -488,8 +488,7 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 					"Content-Type": "application/json",
 				}
 				pBody, _ := json.Marshal(models.ImportSnapshotBody{
-					StorageProviderId: 1,
-				})
+					StorageProviderID: 1})
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.SuccessOrErrorMessage{},
@@ -499,7 +498,7 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceId: 1,
 			param: models.ImportSnapshotBody{
-				StorageProviderId: 1,
+				StorageProviderID: 1,
 			},
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/import-snapshot"
@@ -521,7 +520,7 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 					}
 				`)))
 				pBody, _ := json.Marshal(models.ImportSnapshotBody{
-					StorageProviderId: 1,
+					StorageProviderID: 1,
 				})
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -573,10 +572,10 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 			instanceId: 1,
 			param: models.ResizeInstanceBody{
 				Instance: &models.ResizeInstanceBodyInstance{
-					Id: 1,
+					ID: 1,
 				},
 				Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
-					Id:   "1",
+					ID:   "1",
 					Name: "test_instance_volume",
 				}},
 				DeleteOriginalVolumes: false,
@@ -603,10 +602,10 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 				}`)))
 				pBody, _ := json.Marshal(models.ResizeInstanceBody{
 					Instance: &models.ResizeInstanceBodyInstance{
-						Id: 1,
+						ID: 1,
 					},
 					Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
-						Id:   "1",
+						ID:   "1",
 						Name: "test_instance_volume",
 					}},
 					DeleteOriginalVolumes: false,
@@ -619,7 +618,7 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 			},
 			want: models.ResizeInstanceResponse{
 				Instance: &models.ResizeInstanceResponseInstance{
-					Id:   1,
+					ID:   1,
 					Name: "test_instance_response",
 				},
 			},
@@ -630,10 +629,10 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 			instanceId: 1,
 			param: models.ResizeInstanceBody{
 				Instance: &models.ResizeInstanceBodyInstance{
-					Id: 1,
+					ID: 1,
 				},
 				Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
-					Id:   "1",
+					ID:   "1",
 					Name: "test_instance_volume",
 				}},
 				DeleteOriginalVolumes: false,
@@ -647,10 +646,10 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 				}
 				pBody, _ := json.Marshal(models.ResizeInstanceBody{
 					Instance: &models.ResizeInstanceBodyInstance{
-						Id: 1,
+						ID: 1,
 					},
 					Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
-						Id:   "1",
+						ID:   "1",
 						Name: "test_instance_volume",
 					}},
 					DeleteOriginalVolumes: false,
@@ -665,10 +664,10 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 			instanceId: 1,
 			param: models.ResizeInstanceBody{
 				Instance: &models.ResizeInstanceBodyInstance{
-					Id: 1,
+					ID: 1,
 				},
 				Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
-					Id:   "1",
+					ID:   "1",
 					Name: "test_instance_volume",
 				}},
 				DeleteOriginalVolumes: false,
@@ -697,10 +696,10 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 				`)))
 				pBody, _ := json.Marshal(models.ResizeInstanceBody{
 					Instance: &models.ResizeInstanceBodyInstance{
-						Id: 1,
+						ID: 1,
 					},
 					Volumes: []models.ResizeInstanceBodyInstanceVolumes{{
-						Id:   "1",
+						ID:   "1",
 						Name: "test_instance_volume",
 					}},
 					DeleteOriginalVolumes: false,
@@ -794,7 +793,7 @@ func TestInstancesApiService_SnapshotAnInstance(t *testing.T) {
 			},
 			want: models.Instances{
 				Instances: []models.GetInstanceResponseInstance{{
-					Id:   1,
+					ID:   1,
 					Name: "test_snapshot_name",
 				}},
 				Success: true,
@@ -1096,7 +1095,7 @@ func TestInstancesApiService_GetASpecificInstance(t *testing.T) {
 			},
 			want: models.GetInstanceResponse{
 				Instance: &models.GetInstanceResponseInstance{
-					Id:   1,
+					ID:   1,
 					Name: "test_instance",
 				},
 			},
@@ -1214,7 +1213,7 @@ func TestInstancesApiService_GetAllInstances(t *testing.T) {
 			want: models.Instances{
 				Instances: []models.GetInstanceResponseInstance{
 					{
-						Id:   1,
+						ID:   1,
 						Name: "test_all_instances",
 					},
 				},

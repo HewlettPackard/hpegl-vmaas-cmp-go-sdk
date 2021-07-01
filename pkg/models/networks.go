@@ -91,9 +91,9 @@ type GetNetworkBodyNetwork struct {
 
 // GetNetworkBodyNetworkResourcePermission
 type GetNetworkBodyNetworkResourcePermission struct {
+	AllPlans bool     `json:"allPlans"`
 	All      bool     `json:"all"`
 	Sites    []string `json:"sites"`
-	AllPlans bool     `json:"allPlans"`
 	Plans    []string `json:"plans"`
 }
 
@@ -527,9 +527,9 @@ type UpdateNetworkResposeNetwork struct {
 
 // UpdateNetworkResposeNetworkResourcePermission
 type UpdateNetworkResposeNetworkResourcePermission struct {
+	AllPlans bool                                                 `json:"allPlans"`
 	All      bool                                                 `json:"all"`
 	Sites    []UpdateNetworkResposeNetworkResourcePermissionSites `json:"sites"`
-	AllPlans bool                                                 `json:"allPlans"`
 	Plans    []interface{}                                        `json:"plans"`
 }
 

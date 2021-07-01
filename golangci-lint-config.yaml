@@ -38,6 +38,7 @@ linters:
     - testpackage
     - nolintlint
     - dupl
+    - maligned
     # Temporarily disabling paralleltest
     # - paralleltest
     #Temporarily disabling wrapcheck

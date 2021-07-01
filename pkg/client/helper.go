@@ -13,6 +13,7 @@ func getUrlValues(query map[string]string) url.Values {
 	for k, v := range query {
 		m[k] = []string{v}
 	}
+
 	return m
 }
 
@@ -28,6 +29,7 @@ func (c CustomError) Error() string {
 	if err != nil {
 		return err.Error()
 	}
+
 	return string(jsonObj)
 }
 
@@ -50,5 +52,6 @@ func ParseError(resp *http.Response) error {
 			customErr.RecommendedActions = append(customErr.RecommendedActions, a.(string))
 		}
 	}
+
 	return customErr
 }

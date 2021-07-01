@@ -21,7 +21,8 @@ type EnvironmentApiService struct {
 	Cfg    Configuration
 }
 
-func (e *EnvironmentApiService) GetAllEnvironment(ctx context.Context, param map[string]string) (models.GetAllEnvironment, error) {
+func (e *EnvironmentApiService) GetAllEnvironment(ctx context.Context,
+	param map[string]string) (models.GetAllEnvironment, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -31,7 +32,7 @@ func (e *EnvironmentApiService) GetAllEnvironment(ctx context.Context, param map
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", e.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", e.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.EnvironmentPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -56,7 +57,8 @@ func (e *EnvironmentApiService) GetAllEnvironment(ctx context.Context, param map
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := e.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := e.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return environmentResponse, err
 	}
@@ -79,5 +81,6 @@ func (e *EnvironmentApiService) GetAllEnvironment(ctx context.Context, param map
 	if err := json.Unmarshal(localVarBody, &environmentResponse); err != nil {
 		return environmentResponse, err
 	}
+
 	return environmentResponse, nil
 }

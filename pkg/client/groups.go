@@ -30,7 +30,8 @@ type GroupsApiService struct {
 /*
 GroupsApiService
 Creates a group
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param optional nil or *GroupsApiCreateGroupOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CreateGroupBody) -
@@ -41,7 +42,8 @@ type GroupsApiCreateGroupOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *GroupsApiCreateGroupOpts) (*http.Response, error) {
+func (a *GroupsApiService) CreateGroup(ctx context.Context,
+	localVarOptionals *GroupsApiCreateGroupOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -51,7 +53,7 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *G
 
 	// create path and map variables
 	// Client.greenlake.hpe.com/api/vmaas/
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.GroupsPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -82,7 +84,8 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *G
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +105,8 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *G
 /*
 GroupsApiService
 If a group has zones or servers still tied to it, a delete action will fail
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param groupId The Group ID
 
@@ -116,7 +120,7 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, groupId int) (*http
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
@@ -144,7 +148,8 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, groupId int) (*http
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +169,8 @@ func (a *GroupsApiService) DeleteAGroup(ctx context.Context, groupId int) (*http
 /*
 GroupsApiService
 Get a Specific Group
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param groupId The Group ID
 
@@ -178,7 +184,7 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, groupId int) (
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
@@ -206,7 +212,8 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, groupId int) (
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.GroupResp{}, err
 	}
@@ -230,13 +237,15 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, groupId int) (
 	if err = json.Unmarshal(localVarBody, &groupResp); err != nil {
 		return models.GroupResp{}, err
 	}
+
 	return groupResp, nil
 }
 
 /*
 GroupsApiService
 This endpoint retrieves all groups and a list of zones associated with the group by id.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 
 */
@@ -249,7 +258,7 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, queryParams map[str
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.GroupsPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -274,7 +283,8 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, queryParams map[str
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.Groups{}, err
 	}
@@ -298,13 +308,16 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, queryParams map[str
 	if err = json.Unmarshal(localVarBody, &groupsResp); err != nil {
 		return models.Groups{}, err
 	}
+
 	return groupsResp, nil
 }
 
 /*
 GroupsApiService
-This will update the zones(clouds) that are assigned to the group. Any zones that are not passed in the zones parameter will be removed from the group.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+This will update the zones(clouds) that are assigned to the group. Any zones that are not passed in
+the zones parameter will be removed from the group.
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param groupId The Group ID
  * @param optional nil or *GroupsApiGroupZoneUpdateOpts - Optional Parameters:
@@ -325,7 +338,7 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int, loc
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
@@ -359,7 +372,8 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int, loc
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -379,7 +393,8 @@ func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int, loc
 /*
 GroupsApiService
 Updating a group name
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param groupId The Group ID
  * @param optional nil or *GroupsApiUpdatingAGroupNameOpts - Optional Parameters:
@@ -400,7 +415,7 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, groupId int, 
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.GroupsPath, groupId)
 
 	localVarHeaderParams := make(map[string]string)
@@ -434,7 +449,8 @@ func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, groupId int, 
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams,
+		localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}

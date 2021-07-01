@@ -56,7 +56,7 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 			},
 			want: models.GroupResp{
 				Group: &models.Group{
-					Id:   1,
+					ID:   1,
 					Name: templateName,
 				},
 			},
@@ -170,7 +170,7 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 			want: models.Groups{
 				Groups: &[]models.Group{
 					{
-						Id:   1,
+						ID:   1,
 						Name: templateName,
 					},
 				},

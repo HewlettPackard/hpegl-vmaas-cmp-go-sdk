@@ -102,7 +102,7 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, policyId int) (*
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/policies/{policy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -164,7 +164,7 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, policyId st
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/policies/{policy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -257,6 +257,7 @@ func (a *PoliciesApiService) GetAllPolicies(ctx context.Context) (*http.Response
 	if localVarHttpResponse.StatusCode >= 300 {
 		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
+
 	return localVarHttpResponse, nil
 }
 
@@ -285,7 +286,7 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, policyId string,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/policies/{policy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"policy_id"+"}", fmt.Sprintf("%v", policyId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -310,7 +311,6 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, policyId string,
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -328,5 +328,6 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, policyId string,
 	if localVarHttpResponse.StatusCode >= 300 {
 		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
+
 	return localVarHttpResponse, nil
 }

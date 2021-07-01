@@ -118,7 +118,7 @@ func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body m
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-blueprint"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -195,7 +195,7 @@ func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body model
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-cloud"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -272,7 +272,7 @@ func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body model
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-group"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -349,7 +349,7 @@ func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, bod
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-instance-type"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -424,7 +424,7 @@ func (a *RolesApiService) DeleteARole(ctx context.Context, roleId int) (*http.Re
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -484,7 +484,7 @@ func (a *RolesApiService) GetASpecificRole(ctx context.Context, roleId int) (mod
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -614,7 +614,7 @@ func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body mo
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -689,7 +689,7 @@ func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body mode
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/roles/{role_id}/update-permission"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"role_id"+"}", fmt.Sprintf("%v", roleId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -29,7 +29,9 @@ type CreatePolicyBody struct {
 }
 
 // UpdatePolicyBodyPolicyConfig
-// Supported config types: ['maxVms', 'maxMemory', 'maxCores', 'maxStorage', 'maxHosts', 'serverNaming', 'delayedRemoval', 'hostNaming', 'naming', 'maxNetworks', 'powerSchedule', 'provisionApproval', 'maxRouters', 'shutdown', 'tags', 'createUser', 'createUserGroup', 'workflow']
+// Supported config types: ['maxVms', 'maxMemory', 'maxCores', 'maxStorage', 'maxHosts', 'serverNaming', 'delayedRemoval',
+// 'hostNaming', 'naming', 'maxNetworks', 'powerSchedule', 'provisionApproval', 'maxRouters', 'shutdown', 'tags', 'createUser',
+// 'createUserGroup', 'workflow']
 type UpdatePolicyBodyPolicyConfig struct {
 	MaxVms float64 `json:"maxVms"`
 }

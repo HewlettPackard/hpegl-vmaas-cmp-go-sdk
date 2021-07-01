@@ -14,9 +14,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-var (
-	_ context.Context
-)
+var _ context.Context
 
 type VirtualImagesApiService struct {
 	Client APIClientHandler
@@ -41,7 +39,7 @@ func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, param
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.VirtualImagePath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -88,5 +86,6 @@ func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, param
 	if err := json.Unmarshal(localVarBody, &virtualImageResponse); err != nil {
 		return virtualImageResponse, err
 	}
+
 	return virtualImageResponse, nil
 }

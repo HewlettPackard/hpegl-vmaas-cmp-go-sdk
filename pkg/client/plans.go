@@ -41,7 +41,7 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, param map[stri
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.ServicePlansPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -89,5 +89,6 @@ func (a *PlansApiService) GetAllServicePlans(ctx context.Context, param map[stri
 	if err := json.Unmarshal(localVarBody, &servicePlansResponse); err != nil {
 		return servicePlansResponse, err
 	}
+
 	return servicePlansResponse, nil
 }

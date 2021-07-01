@@ -31,7 +31,7 @@ func (a *ProvisioningApiService) GetAllProvisioningTypes(ctx context.Context, pa
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.ProvisionTypesPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -79,5 +79,6 @@ func (a *ProvisioningApiService) GetAllProvisioningTypes(ctx context.Context, pa
 	if err := json.Unmarshal(localVarBody, &provisions); err != nil {
 		return provisions, err
 	}
+
 	return provisions, nil
 }

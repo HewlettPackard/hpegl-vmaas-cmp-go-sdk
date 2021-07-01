@@ -57,6 +57,7 @@ func NewConfiguration() *Configuration {
 		DefaultHeader: make(map[string]string),
 		UserAgent:     "Swagger-Codegen/1.0.0/go",
 	}
+
 	return cfg
 }
 

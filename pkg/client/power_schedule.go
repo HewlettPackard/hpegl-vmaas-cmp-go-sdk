@@ -14,9 +14,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-var (
-	_ context.Context
-)
+var _ context.Context
 
 type PowerSchedulesApiService struct {
 	Client APIClientHandler
@@ -41,7 +39,7 @@ func (a *PowerSchedulesApiService) GetAllPowerSchedules(ctx context.Context, par
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.PowerSchedulPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -88,5 +86,6 @@ func (a *PowerSchedulesApiService) GetAllPowerSchedules(ctx context.Context, par
 	if err := json.Unmarshal(localVarBody, &powerSchedulePath); err != nil {
 		return powerSchedulePath, err
 	}
+
 	return powerSchedulePath, nil
 }

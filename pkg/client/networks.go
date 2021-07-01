@@ -76,7 +76,6 @@ func (a *NetworksApiService) CreateNetworkPool(ctx context.Context, localVarOpti
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -157,7 +156,6 @@ func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context, localVarOpt
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -211,7 +209,7 @@ func (a *NetworksApiService) DeleteANetwork(ctx context.Context, networkId int) 
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/{network_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -273,7 +271,7 @@ func (a *NetworksApiService) DeleteANetworkRouter(ctx context.Context, routerId 
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/routers/{router_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"router_id"+"}", fmt.Sprintf("%v", routerId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"router_id"+"}", fmt.Sprintf("%v", routerId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -335,7 +333,7 @@ func (a *NetworksApiService) DeleteNetworkPool(ctx context.Context, poolId int) 
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/pools/{pool_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -397,7 +395,7 @@ func (a *NetworksApiService) DeleteNetworkProxy(ctx context.Context, proxyId int
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/proxies/{proxy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -460,7 +458,7 @@ func (a *NetworksApiService) GetASpecificNetworkRouter(ctx context.Context, rout
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/routers/{router_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"router_id"+"}", fmt.Sprintf("%v", routerId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"router_id"+"}", fmt.Sprintf("%v", routerId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -608,7 +606,7 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, param map[strin
 	// localVarPath := a.Cfg.BasePath + "/v1/networks"
 	// localVarPath =
 
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath, consts.NetworksPath)
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := getUrlValues(param)
@@ -655,13 +653,15 @@ func (a *NetworksApiService) GetAllNetworks(ctx context.Context, param map[strin
 	if err := json.Unmarshal(localVarBody, &networkResponse); err != nil {
 		return models.ListNetworksBody{}, err
 	}
+
 	return networkResponse, nil
 }
 
 /*
 NetworksApiService
 Get All GLPC Network services Information. This endpoint retrieves all Network Services associated with the account.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 
 */
@@ -711,6 +711,7 @@ func (a *NetworksApiService) GetNetworkServices(ctx context.Context) (*http.Resp
 	if localVarHttpResponse.StatusCode >= 300 {
 		return localVarHttpResponse, ParseError(localVarHttpResponse)
 	}
+
 	return localVarHttpResponse, nil
 }
 
@@ -733,7 +734,7 @@ func (a *NetworksApiService) GetSpecificNetwork(ctx context.Context, networkId i
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/{network_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -810,7 +811,7 @@ func (a *NetworksApiService) GetSpecificNetworkPool(ctx context.Context, poolId 
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/pools/{pool_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -886,7 +887,7 @@ func (a *NetworksApiService) GetSpecificNetworkProxy(ctx context.Context, proxyI
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/proxies/{proxy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1113,7 +1114,7 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, networkId int, l
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/{network_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"network_id"+"}", fmt.Sprintf("%v", networkId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1141,7 +1142,6 @@ func (a *NetworksApiService) UpdateNetwork(ctx context.Context, networkId int, l
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -1202,7 +1202,7 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, poolId int, 
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/pools/{pool_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"pool_id"+"}", fmt.Sprintf("%v", poolId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1230,7 +1230,6 @@ func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, poolId int, 
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -1292,7 +1291,7 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, proxyId int
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/v1/networks/proxies/{proxy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId), -1)
+	localVarPath = strings.ReplaceAll(localVarPath, "{"+"proxy_id"+"}", fmt.Sprintf("%v", proxyId))
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1320,7 +1319,6 @@ func (a *NetworksApiService) UpdateNetworkProxy(ctx context.Context, proxyId int
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}

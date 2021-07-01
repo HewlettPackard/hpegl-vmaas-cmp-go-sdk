@@ -112,6 +112,7 @@ func selectHeaderContentType(contentTypes []string) string {
 	if contains(contentTypes, "application/json") {
 		return "application/json"
 	}
+
 	return contentTypes[0] // use the first content type specified in 'consumes'
 }
 
@@ -131,10 +132,11 @@ func selectHeaderAccept(accepts []string) string {
 // contains is a case insenstive match, finding needle in a haystack
 func contains(haystack []string, needle string) bool {
 	for _, a := range haystack {
-		if strings.EqualFold(a,needle) {
+		if strings.EqualFold(a, needle) {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -154,7 +156,7 @@ func parameterToString(obj interface{}, collectionFormat string) string {
 	}
 
 	if reflect.TypeOf(obj).Kind() == reflect.Slice {
-		return strings.Trim(strings.Replace(fmt.Sprint(obj), " ", delimiter, -1), "[]")
+		return strings.Trim(strings.ReplaceAll(fmt.Sprint(obj), " ", delimiter), "[]")
 	}
 
 	return fmt.Sprintf("%v", obj)
@@ -180,9 +182,7 @@ func (c *APIClient) prepareRequest(
 	formParams url.Values,
 	fileName string,
 	fileBytes []byte) (localVarRequest *http.Request, err error) {
-
 	var body *bytes.Buffer
-
 	// Detect postBody type and post.
 	if postBody != nil {
 		contentType := headerParams["Content-Type"]
@@ -190,21 +190,19 @@ func (c *APIClient) prepareRequest(
 			contentType = detectContentType(postBody)
 			headerParams["Content-Type"] = contentType
 		}
-
 		body, err = setBody(postBody, contentType)
 		if err != nil {
 			return nil, err
 		}
 	}
-
 	// add form parameters and file if available.
-	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 || (len(fileBytes) > 0 && fileName != "") {
+	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 ||
+		(len(fileBytes) > 0 && fileName != "") {
 		if body != nil {
 			return nil, errors.New("cannot specify postBody and multipart form at the same time")
 		}
 		body = &bytes.Buffer{}
 		w := multipart.NewWriter(body)
-
 		for k, v := range formParams {
 			for _, iv := range v {
 				if strings.HasPrefix(k, "@") { // file
@@ -213,13 +211,15 @@ func (c *APIClient) prepareRequest(
 						return nil, err
 					}
 				} else { // form value
-					w.WriteField(k, iv)
+					if err := w.WriteField(k, iv); err != nil {
+						continue
+					}
 				}
 			}
 		}
 		if len(fileBytes) > 0 && fileName != "" {
 			w.Boundary()
-			//_, fileNm := filepath.Split(fileName)
+			// _, fileNm := filepath.Split(fileName)
 			part, err := w.CreateFormFile("file", filepath.Base(fileName))
 			if err != nil {
 				return nil, err
@@ -231,7 +231,6 @@ func (c *APIClient) prepareRequest(
 			// Set the Boundary in the Content-Type
 			headerParams["Content-Type"] = w.FormDataContentType()
 		}
-
 		// Set Content-Length
 		headerParams["Content-Length"] = fmt.Sprintf("%d", body.Len())
 		w.Close()
@@ -290,13 +289,10 @@ func (c *APIClient) prepareRequest(
 	if ctx != nil {
 		// add context to the request
 		localVarRequest = localVarRequest.WithContext(ctx)
-
-
 		// Basic HTTP Authentication
 		if auth, ok := ctx.Value(ContextBasicAuth).(BasicAuth); ok {
 			localVarRequest.SetBasicAuth(auth.UserName, auth.Password)
 		}
-
 		// AccessToken Authentication
 		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
 			localVarRequest.Header.Set("Authorization", "Bearer "+auth)
@@ -304,7 +300,7 @@ func (c *APIClient) prepareRequest(
 	}
 
 	for header, value := range c.cfg.DefaultHeader {
-		if value != "" && value != " "{
+		if value != "" && value != " " {
 			localVarRequest.Header.Add(header, value)
 		}
 	}
@@ -317,13 +313,16 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		if err = xml.Unmarshal(b, v); err != nil {
 			return err
 		}
+
 		return nil
 	} else if strings.Contains(contentType, "application/json") {
 		if err = json.Unmarshal(b, v); err != nil {
 			return err
 		}
+
 		return nil
 	}
+
 	return errors.New("undefined response type")
 }
 
@@ -366,7 +365,7 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 	} else if jsonCheck.MatchString(contentType) {
 		err = json.NewEncoder(bodyBuf).Encode(body)
 	} else if xmlCheck.MatchString(contentType) {
-		xml.NewEncoder(bodyBuf).Encode(body)
+		err = xml.NewEncoder(bodyBuf).Encode(body)
 	}
 
 	if err != nil {
@@ -375,8 +374,10 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 
 	if bodyBuf.Len() == 0 {
 		err = fmt.Errorf("invalid body type %s", contentType)
+
 		return nil, err
 	}
+
 	return bodyBuf, nil
 }
 
@@ -447,6 +448,7 @@ func CacheExpires(r *http.Response) time.Time {
 			}
 		}
 	}
+
 	return expires
 }
 

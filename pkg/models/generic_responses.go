@@ -23,11 +23,11 @@ type ErrNotFound struct {
 
 // ErrUnauthorized
 type ErrUnauthorized struct {
-	Error_  string `json:"error"`
+	Errors  string `json:"error"`
 	Message string `json:"message"`
 }
 
-//Success Or Failure Message
+// Success Or Failure Message
 type SuccessOrErrorMessage struct {
 	Success bool        `json:"success"`
 	Msg     string      `json:"msg,omitempty"`
