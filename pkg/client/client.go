@@ -443,7 +443,6 @@ func CacheExpires(r *http.Response) time.Time {
 		} else {
 			expires = now.Add(lifetime)
 		}
-
 	} else {
 		expiresHeader := r.Header.Get("Expires")
 		if expiresHeader != "" {

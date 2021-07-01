@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/antihax/optional"
+
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
