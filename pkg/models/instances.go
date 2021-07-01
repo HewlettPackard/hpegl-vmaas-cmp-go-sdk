@@ -441,7 +441,8 @@ type UpdateInstanceBodyInstance struct {
 	Description string `json:"description,omitempty"`
 	// Add or update value of Metadata tags, Array of objects having a name and value
 	AddTags []CreateInstanceBodyTag `json:"addTags,omitempty"`
-	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed, it must match to be removed
+	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed,
+	// it must match to be removed
 	RemoveTags        []CreateInstanceBodyTag               `json:"removeTags,omitempty"`
 	Site              *CreateInstanceBodyInstanceSite       `json:"site"`
 	Owner             *GetInstanceResponseInstanceCreatedBy `json:"owner,omitempty"`

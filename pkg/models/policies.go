@@ -19,7 +19,7 @@ type CreatePolicyBodyPolicy struct {
 	PolicyType  *CreatePolicyBodyPolicyPolicyType `json:"policyType,omitempty"`
 	Config      *CreatePolicyBodyPolicyConfig     `json:"config,omitempty"`
 	Enabled     bool                              `json:"enabled,omitempty"`
-	RefId       float64                           `json:"refId,omitempty"`
+	RefID       float64                           `json:"refId,omitempty"`
 	RefType     string                            `json:"refType,omitempty"`
 }
 
@@ -30,8 +30,8 @@ type CreatePolicyBody struct {
 
 // UpdatePolicyBodyPolicyConfig
 // Supported config types: ['maxVms', 'maxMemory', 'maxCores', 'maxStorage', 'maxHosts', 'serverNaming', 'delayedRemoval',
-// 'hostNaming', 'naming', 'maxNetworks', 'powerSchedule', 'provisionApproval', 'maxRouters', 'shutdown', 'tags', 'createUser',
-// 'createUserGroup', 'workflow']
+// 'hostNaming', 'naming', 'maxNetworks', 'powerSchedule', 'provisionApproval', 'maxRouters', 'shutdown', 'tags',
+// 'createUser','createUserGroup', 'workflow']
 type UpdatePolicyBodyPolicyConfig struct {
 	MaxVms float64 `json:"maxVms"`
 }

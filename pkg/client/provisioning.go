@@ -21,7 +21,8 @@ type ProvisioningApiService struct {
 	Cfg    Configuration
 }
 
-func (a *ProvisioningApiService) GetAllProvisioningTypes(ctx context.Context, param map[string]string) (models.GetAllProvisioningTypes, error) {
+func (a *ProvisioningApiService) GetAllProvisioningTypes(ctx context.Context,
+	param map[string]string) (models.GetAllProvisioningTypes, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -56,7 +57,8 @@ func (a *ProvisioningApiService) GetAllProvisioningTypes(ctx context.Context, pa
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return provisions, err
 	}

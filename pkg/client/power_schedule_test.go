@@ -48,9 +48,10 @@ func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -77,9 +78,10 @@ func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
 				path := mockHost + "/v1/power-schedules"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
 			want:    models.GetAllPowerSchedules{},
 			wantErr: true,
@@ -102,9 +104,10 @@ func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,

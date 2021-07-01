@@ -237,7 +237,8 @@ func (c *APIClient) prepareRequest(
 		w.Close()
 	}
 
-	if strings.HasPrefix(headerParams["Content-Type"], "application/x-www-form-urlencoded") && len(formParams) > 0 {
+	if strings.HasPrefix(headerParams["Content-Type"], "application/x-www-form-urlencoded") &&
+		len(formParams) > 0 {
 		if body != nil {
 			return nil, errors.New("cannot specify postBody and x-www-form-urlencoded form at the same time")
 		}

@@ -64,7 +64,8 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 					CloneName: "Instance_Clone",
 				})
 				//pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -98,7 +99,8 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 					CloneName: "Instance_Clone",
 				})
 				//pBody := []byte(`{"ZoneID":"1","CloneName":"Instance_Clone"}`)
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.SuccessOrErrorMessage{},
 			wantErr: true,
@@ -138,7 +140,8 @@ func TestInstancesApiService_CloneAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Clone",
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -217,7 +220,8 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 					CloneName: "Instance_Create",
 				})
 
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -253,7 +257,8 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 					CloneName: "Instance_Create",
 				})
 				//pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 
 			},
 			want:    models.GetInstanceResponse{},
@@ -293,7 +298,8 @@ func TestInstancesApiService_CreateAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -352,7 +358,8 @@ func TestInstancesApiService_DeleteAnInstance(t *testing.T) {
 					"message": "Successfully Deleted the instance"
 				}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -372,7 +379,8 @@ func TestInstancesApiService_DeleteAnInstance(t *testing.T) {
 				path := mockHost + "/v1/instances/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(ctx, path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(ctx, path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.SuccessOrErrorMessage{},
 			wantErr: true,
@@ -392,7 +400,8 @@ func TestInstancesApiService_DeleteAnInstance(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(ctx, path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(ctx, path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
 					Body:       respBody,
@@ -462,7 +471,8 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 				pBody, _ := json.Marshal(models.ImportSnapshotBody{
 					StorageProviderID: 1,
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
 					Body:       respBody,
@@ -489,7 +499,8 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 				}
 				pBody, _ := json.Marshal(models.ImportSnapshotBody{
 					StorageProviderID: 1})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.SuccessOrErrorMessage{},
 			wantErr: true,
@@ -522,7 +533,8 @@ func TestInstancesApiService_ImportSnapshotOfAnInstance(t *testing.T) {
 				pBody, _ := json.Marshal(models.ImportSnapshotBody{
 					StorageProviderID: 1,
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
 					Body:       respBody,
@@ -610,7 +622,8 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 					}},
 					DeleteOriginalVolumes: false,
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
 					Body:       respBody,
@@ -654,7 +667,8 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 					}},
 					DeleteOriginalVolumes: false,
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.ResizeInstanceResponse{},
 			wantErr: true,
@@ -704,7 +718,8 @@ func TestInstancesApiService_ResizeAnInstance(t *testing.T) {
 					}},
 					DeleteOriginalVolumes: false,
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
 					Body:       respBody,
@@ -785,7 +800,8 @@ func TestInstancesApiService_SnapshotAnInstance(t *testing.T) {
 						Description: "test_snapshot_description",
 					},
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
 					Body:       respBody,
@@ -822,7 +838,8 @@ func TestInstancesApiService_SnapshotAnInstance(t *testing.T) {
 						Description: "test_snapshot_description",
 					},
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.Instances{},
 			wantErr: true,
@@ -865,7 +882,8 @@ func TestInstancesApiService_SnapshotAnInstance(t *testing.T) {
 						Description: "test_snapshot_description",
 					},
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
 					Body:       respBody,
@@ -945,7 +963,8 @@ func TestInstancesApiService_UpdatingAnInstance(t *testing.T) {
 						Description: "test_update_instance_description",
 					},
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
 					Body:       respBody,
@@ -982,7 +1001,8 @@ func TestInstancesApiService_UpdatingAnInstance(t *testing.T) {
 						Description: "test_update_instance_description",
 					},
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.UpdateInstanceResponse{},
 			wantErr: true,
@@ -1025,7 +1045,8 @@ func TestInstancesApiService_UpdatingAnInstance(t *testing.T) {
 						Description: "test_update_instance_description",
 					},
 				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
 					Body:       respBody,
@@ -1085,7 +1106,8 @@ func TestInstancesApiService_GetASpecificInstance(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -1109,7 +1131,8 @@ func TestInstancesApiService_GetASpecificInstance(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 
 			},
 			want:    models.GetInstanceResponse{},
@@ -1132,7 +1155,8 @@ func TestInstancesApiService_GetASpecificInstance(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -1200,9 +1224,10 @@ func TestInstancesApiService_GetAllInstances(t *testing.T) {
 						"success": true
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -1230,9 +1255,10 @@ func TestInstancesApiService_GetAllInstances(t *testing.T) {
 				path := mockHost + "/v1/instances"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 
 			},
 			want:    models.Instances{},
@@ -1256,9 +1282,10 @@ func TestInstancesApiService_GetAllInstances(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -1321,7 +1348,8 @@ func TestInstancesApiService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -1346,7 +1374,8 @@ func TestInstancesApiService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 				path := mockHost + "/v1/instances/1/snapshots"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 
 			},
 			want:    models.ListSnapshotResponse{},
@@ -1368,7 +1397,8 @@ func TestInstancesApiService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -1392,7 +1422,8 @@ func TestInstancesApiService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetListOfSnapshotsForAnInstance(ctx, tt.instanceId)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("InstancesApiService.GetListOfSnapshotsForAnInstance() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("InstancesApiService.GetListOfSnapshotsForAnInstance() error = %v, wantErr %v",
+					err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {

@@ -12,7 +12,7 @@ type CommonRoleUpdateResp struct {
 type CreateRoleBodyRole struct {
 	Authority   string  `json:"authority"`
 	Description string  `json:"description"`
-	BaseRoleId  float64 `json:"baseRoleId,omitempty"`
+	BaseRoleID  float64 `json:"baseRoleId,omitempty"`
 	RoleType    string  `json:"roleType"`
 }
 
@@ -23,14 +23,14 @@ type CreateRoleBody struct {
 
 // GetRoleResponseAppTemplatePermissions
 type GetRoleResponseAppTemplatePermissions struct {
-	Id     float64 `json:"id,omitempty"`
+	ID     float64 `json:"id,omitempty"`
 	Name   string  `json:"name,omitempty"`
 	Access string  `json:"access,omitempty"`
 }
 
 // GetRoleResponseFeaturePermissions
 type GetRoleResponseFeaturePermissions struct {
-	Id     float64 `json:"id,omitempty"`
+	ID     float64 `json:"id,omitempty"`
 	Code   string  `json:"code,omitempty"`
 	Name   string  `json:"name,omitempty"`
 	Access string  `json:"access,omitempty"`
@@ -38,7 +38,7 @@ type GetRoleResponseFeaturePermissions struct {
 
 // GetRoleResponseInstanceTypePermissions
 type GetRoleResponseInstanceTypePermissions struct {
-	Id     float64 `json:"id,omitempty"`
+	ID     float64 `json:"id,omitempty"`
 	Code   string  `json:"code,omitempty"`
 	Name   string  `json:"name,omitempty"`
 	Access string  `json:"access,omitempty"`
@@ -46,13 +46,13 @@ type GetRoleResponseInstanceTypePermissions struct {
 
 // GetRoleResponseRoleOwner
 type GetRoleResponseRoleOwner struct {
-	Id   float64 `json:"id,omitempty"`
+	ID   float64 `json:"id,omitempty"`
 	Name string  `json:"name,omitempty"`
 }
 
 // GetRoleResponseRole
 type GetRoleResponseRole struct {
-	Id          float64 `json:"id,omitempty"`
+	ID          float64 `json:"id,omitempty"`
 	Authority   string  `json:"authority,omitempty"`
 	Description string  `json:"description,omitempty"`
 	// Account
@@ -61,9 +61,9 @@ type GetRoleResponseRole struct {
 	RoleType          string                    `json:"roleType,omitempty"`
 	Multitenant       bool                      `json:"multitenant,omitempty"`
 	MultitenantLocked bool                      `json:"multitenantLocked,omitempty"`
-	ParentRoleId      float64                   `json:"parentRoleId,omitempty"`
+	ParentRoleID      float64                   `json:"parentRoleId,omitempty"`
 	Diverged          bool                      `json:"diverged,omitempty"`
-	OwnerId           float64                   `json:"ownerId,omitempty"`
+	OwnerID           float64                   `json:"ownerId,omitempty"`
 	Owner             *GetRoleResponseRoleOwner `json:"owner,omitempty"`
 	DateCreated       string                    `json:"dateCreated,omitempty"`
 	LastUpdated       string                    `json:"lastUpdated,omitempty"`
@@ -71,14 +71,14 @@ type GetRoleResponseRole struct {
 
 // GetRoleResponseSites
 type GetRoleResponseSites struct {
-	Id     float64 `json:"id,omitempty"`
+	ID     float64 `json:"id,omitempty"`
 	Name   string  `json:"name,omitempty"`
 	Access string  `json:"access,omitempty"`
 }
 
 // GetRoleResponseZones
 type GetRoleResponseZones struct {
-	Id     float64 `json:"id,omitempty"`
+	ID     float64 `json:"id,omitempty"`
 	Name   string  `json:"name,omitempty"`
 	Access string  `json:"access,omitempty"`
 }
@@ -125,18 +125,18 @@ type UpdateBlueprintAccessBody struct {
 
 // UpdateInstancetypeAccessBody
 type UpdateInstancetypeAccessBody struct {
-	InstanceTypeId float64 `json:"instanceTypeId"`
+	InstanceTypeID float64 `json:"instanceTypeId"`
 	Access         string  `json:"access"`
 }
 
 // UpdateGroupAccessBody
 type UpdateGroupAccessBody struct {
-	GroupId float64 `json:"groupId"`
+	GroupID float64 `json:"groupId"`
 	Access  string  `json:"access"`
 }
 
 // UpdateCloudAccessBody
 type UpdateCloudAccessBody struct {
-	CloudId float64 `json:"cloudId"`
+	CloudID float64 `json:"cloudId"`
 	Access  string  `json:"access"`
 }

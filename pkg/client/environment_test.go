@@ -48,9 +48,10 @@ func TestEnvironmentApiService_GetAllEnvironment(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
 					Body:       respBody,
@@ -76,9 +77,10 @@ func TestEnvironmentApiService_GetAllEnvironment(t *testing.T) {
 				path := mockHost + "/v1/environments"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.GetAllEnvironment{},
 			wantErr: true,
@@ -101,9 +103,10 @@ func TestEnvironmentApiService_GetAllEnvironment(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
 					Body:       respBody,

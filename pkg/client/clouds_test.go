@@ -28,7 +28,8 @@ func TestCloudsApiService_GetASpecificCloud(t *testing.T) {
 	}
 
 	mockAPIClient := NewMockAPIClientHandler(ctrl)
-	mockAPIClient.EXPECT().prepareRequest(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, nil)
+	mockAPIClient.EXPECT().prepareRequest(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(),
+		gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, nil)
 	mockAPIClient.EXPECT().callAPI(gomock.Any()).Return(mockStatusOk, nil)
 	a := &CloudsApiService{
 		Client: mockAPIClient,
@@ -73,9 +74,10 @@ func TestCloudsApiService_GetAllCloudDataStores(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -103,9 +105,10 @@ func TestCloudsApiService_GetAllCloudDataStores(t *testing.T) {
 				path := mockHost + "/v1/zones/1/data-stores"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 
 			},
 			want:    models.DataStoresResp{},
@@ -131,9 +134,10 @@ func TestCloudsApiService_GetAllCloudDataStores(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -208,9 +212,10 @@ func TestCloudsApiService_GetAllCloudResourcePools(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -238,9 +243,10 @@ func TestCloudsApiService_GetAllCloudResourcePools(t *testing.T) {
 				path := mockHost + "/v1/zones/1/resource-pools"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.ResourcePoolsResp{},
 			wantErr: true,
@@ -264,9 +270,10 @@ func TestCloudsApiService_GetAllCloudResourcePools(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -340,9 +347,10 @@ func TestCloudsApiService_GetAllClouds(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -369,9 +377,10 @@ func TestCloudsApiService_GetAllClouds(t *testing.T) {
 				path := mockHost + "/v1/zones"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.CloudsResp{},
 			wantErr: true,
@@ -394,9 +403,10 @@ func TestCloudsApiService_GetAllClouds(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -462,9 +472,10 @@ func TestCloudsApiService_GetAllFolders(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -492,9 +503,10 @@ func TestCloudsApiService_GetAllFolders(t *testing.T) {
 				path := mockHost + "/v1/zones/1/folders"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
 			want:    models.GetFolders{},
 			wantErr: true,
@@ -518,9 +530,10 @@ func TestCloudsApiService_GetAllFolders(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -586,10 +599,11 @@ func TestCloudsApiService_GetAllCloudNetworks(t *testing.T) {
 						}
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"zoneId":          strconv.Itoa(1),
-					"provisionTypeId": strconv.Itoa(1),
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"zoneId":          strconv.Itoa(1),
+						"provisionTypeId": strconv.Itoa(1),
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -617,10 +631,11 @@ func TestCloudsApiService_GetAllCloudNetworks(t *testing.T) {
 				path := mockHost + "/v1/options/zoneNetworkOptions"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"zoneId":          strconv.Itoa(1),
-					"provisionTypeId": strconv.Itoa(1),
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"zoneId":          strconv.Itoa(1),
+						"provisionTypeId": strconv.Itoa(1),
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.GetAllCloudNetworks{},
 			wantErr: true,
@@ -642,10 +657,11 @@ func TestCloudsApiService_GetAllCloudNetworks(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"zoneId":          strconv.Itoa(1),
-					"provisionTypeId": strconv.Itoa(1),
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getUrlValues(map[string]string{
+						"zoneId":          strconv.Itoa(1),
+						"provisionTypeId": strconv.Itoa(1),
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,

@@ -27,12 +27,14 @@ type PoliciesApiService struct {
 /*
 PoliciesApiService
 Create a Policy
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param body
  * @param serviceInstanceId
 
 */
-func (a *PoliciesApiService) CreateAPolicy(ctx context.Context, body models.CreatePolicyBody) (*http.Response, error) {
+func (a *PoliciesApiService) CreateAPolicy(ctx context.Context,
+	body models.CreatePolicyBody) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -67,7 +69,8 @@ func (a *PoliciesApiService) CreateAPolicy(ctx context.Context, body models.Crea
 	// body params
 	localVarPostBody = &body
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +90,8 @@ func (a *PoliciesApiService) CreateAPolicy(ctx context.Context, body models.Crea
 /*
 PoliciesApiService
 Delete a Policy
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param policyId
 
@@ -129,7 +133,8 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, policyId int) (*
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -149,7 +154,8 @@ func (a *PoliciesApiService) DeleteAPolicy(ctx context.Context, policyId int) (*
 /*
 PoliciesApiService
 Get a Specific Policy
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param policyId
 
@@ -188,7 +194,8 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, policyId st
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +215,8 @@ func (a *PoliciesApiService) GetASpecificPolicy(ctx context.Context, policyId st
 /*
 PoliciesApiService
 Get All Policies
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 
 */
@@ -245,7 +253,8 @@ func (a *PoliciesApiService) GetAllPolicies(ctx context.Context) (*http.Response
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -264,7 +273,8 @@ func (a *PoliciesApiService) GetAllPolicies(ctx context.Context) (*http.Response
 /*
 PoliciesApiService
 Update a Policy
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param policyId
  * @param optional nil or *PoliciesApiUpdateAPolicyOpts - Optional Parameters:
@@ -276,7 +286,8 @@ type PoliciesApiUpdateAPolicyOpts struct {
 	Body optional.Interface
 }
 
-func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, policyId string, localVarOptionals *PoliciesApiUpdateAPolicyOpts) (*http.Response, error) {
+func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, policyId string,
+	localVarOptionals *PoliciesApiUpdateAPolicyOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -315,7 +326,8 @@ func (a *PoliciesApiService) UpdateAPolicy(ctx context.Context, policyId string,
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}

@@ -126,7 +126,8 @@ type NetworksApiCreateNetworkProxyOpts struct {
 }
 
 func (a *NetworksApiService) CreateNetworkProxy(ctx context.Context,
-	localVarOptionals *NetworksApiCreateNetworkProxyOpts) (models.CreateNetworkProxyResponse, *http.Response, error) {
+	localVarOptionals *NetworksApiCreateNetworkProxyOpts) (models.CreateNetworkProxyResponse,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -540,7 +541,8 @@ This endpoint retrieves all Network Proxies associated with the account.
  * @param serviceInstanceId
 @return models.ListNetworkProxies
 */
-func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context) (models.ListNetworkProxies, *http.Response, error) {
+func (a *NetworksApiService) GetAllNetworkProxy(ctx context.Context) (models.ListNetworkProxies,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -1232,7 +1234,8 @@ type NetworksApiUpdateNetworkPoolOpts struct {
 }
 
 func (a *NetworksApiService) UpdateNetworkPool(ctx context.Context, poolId int,
-	localVarOptionals *NetworksApiUpdateNetworkPoolOpts) (models.CreateNetworkPoolResponseBody, *http.Response, error) {
+	localVarOptionals *NetworksApiUpdateNetworkPoolOpts) (models.CreateNetworkPoolResponseBody,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}

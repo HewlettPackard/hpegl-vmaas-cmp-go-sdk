@@ -100,7 +100,8 @@ Get a Specific Cloud Data Store
  * @param datastoreId The cloud datastore ID
 
 */
-func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, cloudId int, datastoreId int) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloudDataStore(ctx context.Context, cloudId int,
+	datastoreId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -168,7 +169,8 @@ Get a Specific Cloud Resource Pool
  * @param funId The Cloud Resourcepool ID
 
 */
-func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, cloudId int, resourcepoolId int) (*http.Response, error) {
+func (a *CloudsApiService) GetASpecificCloudResourcePool(ctx context.Context, cloudId int,
+	resourcepoolId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -236,7 +238,8 @@ Get All Cloud Data Stores
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, cloudId int, queryParams map[string]string) (models.DataStoresResp, error) {
+func (a *CloudsApiService) GetAllCloudDataStores(ctx context.Context, cloudId int,
+	queryParams map[string]string) (models.DataStoresResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -311,7 +314,8 @@ Get All Cloud Resource Pools
  * @param cloudId The cloud ID
 
 */
-func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, cloudId int, queryParams map[string]string) (models.ResourcePoolsResp, error) {
+func (a *CloudsApiService) GetAllCloudResourcePools(ctx context.Context, cloudId int,
+	queryParams map[string]string) (models.ResourcePoolsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -385,7 +389,8 @@ Get All Clouds
  * @param serviceInstanceId
 
 */
-func (a *CloudsApiService) GetAllClouds(ctx context.Context, queryParams map[string]string) (models.CloudsResp, error) {
+func (a *CloudsApiService) GetAllClouds(ctx context.Context,
+	queryParams map[string]string) (models.CloudsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -448,7 +453,8 @@ func (a *CloudsApiService) GetAllClouds(ctx context.Context, queryParams map[str
 	return cloudsResp, nil
 }
 
-func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, queryParams map[string]string) (models.GetFolders, error) {
+func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int,
+	queryParams map[string]string) (models.GetFolders, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -511,7 +517,8 @@ func (a *CloudsApiService) GetAllFolders(ctx context.Context, cloudId int, query
 	return folderResp, nil
 }
 
-func (a *CloudsApiService) GetAllCloudNetworks(ctx context.Context, cloudId, provisionTypeId int) (models.GetAllCloudNetworks, error) {
+func (a *CloudsApiService) GetAllCloudNetworks(ctx context.Context, cloudId,
+	provisionTypeId int) (models.GetAllCloudNetworks, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}

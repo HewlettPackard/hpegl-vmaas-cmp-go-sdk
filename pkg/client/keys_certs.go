@@ -120,7 +120,8 @@ Delete Specific Certificate
  * @param certificateId The certificate ID
 
 */
-func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context, certificateId int) (*http.Response, error) {
+func (a *KeysCertsApiService) DeleteSpecificCertificate(ctx context.Context,
+	certificateId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -184,7 +185,8 @@ Delete Specific keypair. If a key pair is actively in use, a delete will fail
  * @param keypairId The keypair ID
 
 */
-func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context, keypairId int) (*http.Response, error) {
+func (a *KeysCertsApiService) DeleteSpecificKeypair(ctx context.Context,
+	keypairId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -381,7 +383,8 @@ Get Specific Certificate
  * @param certificateId The certificate ID
 
 */
-func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context, certificateId int) (*http.Response, error) {
+func (a *KeysCertsApiService) GetSpecificCertificate(ctx context.Context,
+	certificateId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}

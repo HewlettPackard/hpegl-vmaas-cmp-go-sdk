@@ -26,12 +26,14 @@ type RolesApiService struct {
 /*
 RolesApiService
 Create a Role
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param body
  * @param serviceInstanceId
 @return models.GetRoleResponse
 */
-func (a *RolesApiService) CreateARole(ctx context.Context, body models.CreateRoleBody) (models.GetRoleResponse, *http.Response, error) {
+func (a *RolesApiService) CreateARole(ctx context.Context, body models.CreateRoleBody) (models.GetRoleResponse,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -67,7 +69,8 @@ func (a *RolesApiService) CreateARole(ctx context.Context, body models.CreateRol
 	// body params
 	localVarPostBody = &body
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -101,13 +104,15 @@ func (a *RolesApiService) CreateARole(ctx context.Context, body models.CreateRol
 /*
 RolesApiService
 Customizing Blueprint Access
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param body
  * @param serviceInstanceId
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body models.UpdateBlueprintAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context,
+	body models.UpdateBlueprintAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -144,7 +149,8 @@ func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body m
 	// body params
 	localVarPostBody = &body
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -178,13 +184,15 @@ func (a *RolesApiService) CustomizingBlueprintAccess(ctx context.Context, body m
 /*
 RolesApiService
 Customizing Cloud Access
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param body
  * @param serviceInstanceId
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body models.UpdateCloudAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body models.UpdateCloudAccessBody,
+	roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -221,7 +229,8 @@ func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body model
 	// body params
 	localVarPostBody = &body
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -255,13 +264,15 @@ func (a *RolesApiService) CustomizingCloudAccess(ctx context.Context, body model
 /*
 RolesApiService
 Customizing Group Access
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param body
  * @param serviceInstanceId
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body models.UpdateGroupAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context,
+	body models.UpdateGroupAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -298,7 +309,8 @@ func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body model
 	// body params
 	localVarPostBody = &body
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -332,13 +344,15 @@ func (a *RolesApiService) CustomizingGroupAccess(ctx context.Context, body model
 /*
 RolesApiService
 Customizing Instance Type Access
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param body
  * @param serviceInstanceId
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, body models.UpdateInstancetypeAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context,
+	body models.UpdateInstancetypeAccessBody, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -375,7 +389,8 @@ func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, bod
 	// body params
 	localVarPostBody = &body
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -409,7 +424,8 @@ func (a *RolesApiService) CustomizingInstanceTypeAccess(ctx context.Context, bod
 /*
 RolesApiService
 Delete a Role
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param roleId
 
@@ -448,7 +464,8 @@ func (a *RolesApiService) DeleteARole(ctx context.Context, roleId int) (*http.Re
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -468,12 +485,14 @@ func (a *RolesApiService) DeleteARole(ctx context.Context, roleId int) (*http.Re
 /*
 RolesApiService
 Get a Specific Role
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param roleId
 @return models.GetRoleResponse
 */
-func (a *RolesApiService) GetASpecificRole(ctx context.Context, roleId int) (models.GetRoleResponse, *http.Response, error) {
+func (a *RolesApiService) GetASpecificRole(ctx context.Context, roleId int) (models.GetRoleResponse,
+	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -508,7 +527,8 @@ func (a *RolesApiService) GetASpecificRole(ctx context.Context, roleId int) (mod
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -541,7 +561,8 @@ func (a *RolesApiService) GetASpecificRole(ctx context.Context, roleId int) (mod
 /*
 RolesApiService
 Get All Roles
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
 
 */
@@ -578,7 +599,8 @@ func (a *RolesApiService) GetAllRoles(ctx context.Context) (*http.Response, erro
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -597,13 +619,15 @@ func (a *RolesApiService) GetAllRoles(ctx context.Context) (*http.Response, erro
 /*
 RolesApiService
 Updating Basic Role Settings
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param body
  * @param serviceInstanceId
  * @param roleId
 @return models.GetRoleResponse
 */
-func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body models.UpdateRoleBody, roleId int) (models.GetRoleResponse, *http.Response, error) {
+func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body models.UpdateRoleBody,
+	roleId int) (models.GetRoleResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -640,7 +664,8 @@ func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body mo
 	// body params
 	localVarPostBody = &body
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -671,14 +696,17 @@ func (a *RolesApiService) UpdatingBasicRoleSettings(ctx context.Context, body mo
 
 /*
 RolesApiService
-Along with feature access global access for Group, Cloud, Instance Types and Blue Prints can be provided using this API.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+Along with feature access global access for Group, Cloud, Instance Types and Blue Prints can be provided
+using this API.
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param body
  * @param serviceInstanceId
  * @param roleId
 @return models.CommonRoleUpdateResp
 */
-func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body models.UpdateRoleFeaturePermission, roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
+func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body models.UpdateRoleFeaturePermission,
+	roleId int) (models.CommonRoleUpdateResp, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
@@ -715,7 +743,8 @@ func (a *RolesApiService) UpdatingRolePermissions(ctx context.Context, body mode
 	// body params
 	localVarPostBody = &body
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}

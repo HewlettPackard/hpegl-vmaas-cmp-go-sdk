@@ -328,7 +328,8 @@ type GroupsApiGroupZoneUpdateOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int, localVarOptionals *GroupsApiGroupZoneUpdateOpts) (*http.Response, error) {
+func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int,
+	localVarOptionals *GroupsApiGroupZoneUpdateOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -404,7 +405,8 @@ type GroupsApiUpdatingAGroupNameOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, groupId int, localVarOptionals *GroupsApiUpdatingAGroupNameOpts) (*http.Response, error) {
+func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, groupId int,
+	localVarOptionals *GroupsApiUpdatingAGroupNameOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}

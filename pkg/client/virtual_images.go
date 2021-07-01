@@ -24,12 +24,14 @@ type VirtualImagesApiService struct {
 /*
 VirtualImageApiService
 Get All Virtual images
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
  * @param serviceInstanceId
  * @param name/phrase optional
 @return models.VirtualImages
 */
-func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, param map[string]string) (models.VirtualImages, error) {
+func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context,
+	param map[string]string) (models.VirtualImages, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -63,7 +65,8 @@ func (a *VirtualImagesApiService) GetAllVirtualImages(ctx context.Context, param
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return virtualImageResponse, err
 	}

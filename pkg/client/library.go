@@ -32,7 +32,8 @@ Get All layouts
  * @param serviceInstanceId
 
 */
-func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]string) (models.LayoutsResp, error) {
+func (a *LibraryApiService) GetAllLayouts(ctx context.Context,
+	param map[string]string) (models.LayoutsResp, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}

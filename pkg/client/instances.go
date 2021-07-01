@@ -43,7 +43,8 @@ type InstancesApiCloneAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId int, localVarOptionals *models.CreateInstanceBody) (models.SuccessOrErrorMessage, error) {
+func (a *InstancesApiService) CloneAnInstance(ctx context.Context, instanceId int,
+	localVarOptionals *models.CreateInstanceBody) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -128,7 +129,8 @@ type InstancesApiCloneToImageOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesApiService) CloneToImage(ctx context.Context, instanceId int, localVarOptionals *InstancesApiCloneToImageOpts) (*http.Response, error) {
+func (a *InstancesApiService) CloneToImage(ctx context.Context, instanceId int,
+	localVarOptionals *InstancesApiCloneToImageOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -282,7 +284,8 @@ type InstancesApiDeleteAnIstanceOpts struct {
 	Force optional.String
 }
 
-func (a *InstancesApiService) DeleteAnInstance(ctx context.Context, instanceId int) (models.SuccessOrErrorMessage, error) {
+func (a *InstancesApiService) DeleteAnInstance(ctx context.Context,
+	instanceId int) (models.SuccessOrErrorMessage, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -355,7 +358,8 @@ Get a Specific Instance
  * @param instanceId
 @return models.GetInstanceResponse
 */
-func (a *InstancesApiService) GetASpecificInstance(ctx context.Context, instanceId int) (models.GetInstanceResponse, error) {
+func (a *InstancesApiService) GetASpecificInstance(ctx context.Context,
+	instanceId int) (models.GetInstanceResponse, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -511,7 +515,8 @@ type InstancesApiGetAllInstancesOpts struct {
 	Tags         optional.String
 }
 
-func (a *InstancesApiService) GetAllInstances(ctx context.Context, queryParams map[string]string) (models.Instances, error) {
+func (a *InstancesApiService) GetAllInstances(ctx context.Context,
+	queryParams map[string]string) (models.Instances, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -869,7 +874,8 @@ Fetch an instance type by ID
  * @param instanceTypeId
 
 */
-func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context.Context, instanceTypeId int) (*http.Response, error) {
+func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context.Context,
+	instanceTypeId int) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -923,7 +929,8 @@ func (a *InstancesApiService) GetSpecificInstanceTypeForProvisioning(ctx context
 
 /*
 InstancesApiService
-It is possible to import a snapshot of an instance. This creates a Virtual Image of the instance as it currently exists.
+It is possible to import a snapshot of an instance. This creates a Virtual Image of the instance as
+it currently exists.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param serviceInstanceId
@@ -1483,7 +1490,8 @@ Undo the delete of an instance that is in pending removal state
  * @param instanceId
 @return models.GetInstanceResponse
 */
-func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context, instanceId int) (models.GetInstanceResponse,
+func (a *InstancesApiService) UndoDeleteOfAnInstance(ctx context.Context,
+	instanceId int) (models.GetInstanceResponse,
 	*http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Put")
