@@ -79,6 +79,7 @@ type service struct {
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration, secure bool) *APIClient {
 	if !secure {
+		//nolint
 		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 	if cfg.HTTPClient == nil {
@@ -439,23 +440,6 @@ func CacheExpires(r *http.Response) time.Time {
 		return time.Now()
 	}
 	respCacheControl := parseCacheControl(r.Header)
-
-	// if maxAge, ok := respCacheControl["max-age"]; ok {
-	// 	lifetime, err := time.ParseDuration(maxAge + "s")
-	// 	if err != nil {
-	// 		expires = now
-	// 	} else {
-	// 		expires = now.Add(lifetime)
-	// 	}
-	// } else {
-	// 	expiresHeader := r.Header.Get("Expires")
-	// 	if expiresHeader != "" {
-	// 		expires, err = time.Parse(time.RFC1123, expiresHeader)
-	// 		if err != nil {
-	// 			expires = now
-	// 		}
-	// 	}
-	// }
 	if maxAge, ok := respCacheControl["max-age"]; ok {
 		if lifetime, err := time.ParseDuration(maxAge + "s"); err != nil {
 			expires = now
