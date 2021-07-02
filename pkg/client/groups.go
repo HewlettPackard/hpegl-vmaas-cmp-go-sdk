@@ -17,11 +17,6 @@ import (
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type GroupsAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration

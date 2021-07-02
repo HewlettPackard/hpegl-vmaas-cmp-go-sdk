@@ -14,8 +14,6 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-var _ context.Context
-
 type VirtualImagesAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration

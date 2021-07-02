@@ -17,11 +17,6 @@ import (
 	"github.com/antihax/optional"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type NetworksAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
