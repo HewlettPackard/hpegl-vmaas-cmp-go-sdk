@@ -357,19 +357,6 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 		bodyBuf = &bytes.Buffer{}
 	}
 
-	// if reader, ok := body.(io.Reader); ok {
-	// 	_, err = bodyBuf.ReadFrom(reader)
-	// } else if b, ok := body.([]byte); ok {
-	// 	_, err = bodyBuf.Write(b)
-	// } else if s, ok := body.(string); ok {
-	// 	_, err = bodyBuf.WriteString(s)
-	// } else if s, ok := body.(*string); ok {
-	// 	_, err = bodyBuf.WriteString(*s)
-	// } else if jsonCheck.MatchString(contentType) {
-	// 	err = json.NewEncoder(bodyBuf).Encode(body)
-	// } else if xmlCheck.MatchString(contentType) {
-	// 	err = xml.NewEncoder(bodyBuf).Encode(body)
-	// }
 	switch v := body.(type) {
 	case io.Reader:
 		_, err = bodyBuf.ReadFrom(v)
@@ -453,20 +440,32 @@ func CacheExpires(r *http.Response) time.Time {
 	}
 	respCacheControl := parseCacheControl(r.Header)
 
+	// if maxAge, ok := respCacheControl["max-age"]; ok {
+	// 	lifetime, err := time.ParseDuration(maxAge + "s")
+	// 	if err != nil {
+	// 		expires = now
+	// 	} else {
+	// 		expires = now.Add(lifetime)
+	// 	}
+	// } else {
+	// 	expiresHeader := r.Header.Get("Expires")
+	// 	if expiresHeader != "" {
+	// 		expires, err = time.Parse(time.RFC1123, expiresHeader)
+	// 		if err != nil {
+	// 			expires = now
+	// 		}
+	// 	}
+	// }
 	if maxAge, ok := respCacheControl["max-age"]; ok {
-		lifetime, err := time.ParseDuration(maxAge + "s")
-		if err != nil {
+		if lifetime, err := time.ParseDuration(maxAge + "s"); err != nil {
 			expires = now
 		} else {
 			expires = now.Add(lifetime)
 		}
-	} else {
-		expiresHeader := r.Header.Get("Expires")
-		if expiresHeader != "" {
-			expires, err = time.Parse(time.RFC1123, expiresHeader)
-			if err != nil {
-				expires = now
-			}
+	} else if expiresHeader := r.Header.Get("Expires"); expiresHeader != "" {
+		expires, err = time.Parse(time.RFC1123, expiresHeader)
+		if err != nil {
+			expires = now
 		}
 	}
 
