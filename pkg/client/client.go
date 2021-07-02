@@ -173,6 +173,7 @@ func (c *APIClient) ChangeBasePath(path string) {
 }
 
 // prepareRequest build the request
+//nolint
 func (c *APIClient) prepareRequest(
 	ctx context.Context,
 	path string, method string,
@@ -356,18 +357,34 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 		bodyBuf = &bytes.Buffer{}
 	}
 
-	if reader, ok := body.(io.Reader); ok {
-		_, err = bodyBuf.ReadFrom(reader)
-	} else if b, ok := body.([]byte); ok {
-		_, err = bodyBuf.Write(b)
-	} else if s, ok := body.(string); ok {
-		_, err = bodyBuf.WriteString(s)
-	} else if s, ok := body.(*string); ok {
-		_, err = bodyBuf.WriteString(*s)
-	} else if jsonCheck.MatchString(contentType) {
-		err = json.NewEncoder(bodyBuf).Encode(body)
-	} else if xmlCheck.MatchString(contentType) {
-		err = xml.NewEncoder(bodyBuf).Encode(body)
+	// if reader, ok := body.(io.Reader); ok {
+	// 	_, err = bodyBuf.ReadFrom(reader)
+	// } else if b, ok := body.([]byte); ok {
+	// 	_, err = bodyBuf.Write(b)
+	// } else if s, ok := body.(string); ok {
+	// 	_, err = bodyBuf.WriteString(s)
+	// } else if s, ok := body.(*string); ok {
+	// 	_, err = bodyBuf.WriteString(*s)
+	// } else if jsonCheck.MatchString(contentType) {
+	// 	err = json.NewEncoder(bodyBuf).Encode(body)
+	// } else if xmlCheck.MatchString(contentType) {
+	// 	err = xml.NewEncoder(bodyBuf).Encode(body)
+	// }
+	switch v := body.(type) {
+	case io.Reader:
+		_, err = bodyBuf.ReadFrom(v)
+	case []byte:
+		_, err = bodyBuf.Write(v)
+	case string:
+		_, err = bodyBuf.WriteString(v)
+	case *string:
+		_, err = bodyBuf.WriteString(*v)
+	default:
+		if jsonCheck.MatchString(contentType) {
+			err = json.NewEncoder(bodyBuf).Encode(body)
+		} else if xmlCheck.MatchString(contentType) {
+			err = xml.NewEncoder(bodyBuf).Encode(body)
+		}
 	}
 
 	if err != nil {
