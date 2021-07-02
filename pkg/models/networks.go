@@ -3,25 +3,25 @@
 package models
 
 // CreateNetworkIpPoolBody
-type CreateNetworkIpPoolBody struct {
-	Networkpool *CreateNetworkIpPoolBodyNetworkpool `json:"networkpool,omitempty"`
+type CreateNetworkIPPoolBody struct {
+	Networkpool *CreateNetworkIPPoolBodyNetworkpool `json:"networkpool,omitempty"`
 }
 
 // CreateNetworkIpPoolBodyNetworkpool
-type CreateNetworkIpPoolBodyNetworkpool struct {
+type CreateNetworkIPPoolBodyNetworkpool struct {
 	Name     string                                       `json:"name,omitempty"`
-	Type_    *CreateNetworkIpPoolBodyNetworkpoolType      `json:"type,omitempty"`
-	IpRanges []CreateNetworkIpPoolBodyNetworkpoolIpRanges `json:"ipRanges,omitempty"`
+	Type     *CreateNetworkIPPoolBodyNetworkpoolType      `json:"type,omitempty"`
+	IPRanges []CreateNetworkIPPoolBodyNetworkpoolIPRanges `json:"ipRanges,omitempty"`
 }
 
 // CreateNetworkIpPoolBodyNetworkpoolIpRanges
-type CreateNetworkIpPoolBodyNetworkpoolIpRanges struct {
+type CreateNetworkIPPoolBodyNetworkpoolIPRanges struct {
 	StartAddress string `json:"startAddress,omitempty"`
 	EndAddress   string `json:"endAddress,omitempty"`
 }
 
 // CreateNetworkIpPoolBodyNetworkpoolType
-type CreateNetworkIpPoolBodyNetworkpoolType struct {
+type CreateNetworkIPPoolBodyNetworkpoolType struct {
 	Code string `json:"code,omitempty"`
 }
 
@@ -61,27 +61,27 @@ type GetNetworkBody struct {
 
 // GetNetworkBodyNetwork
 type GetNetworkBodyNetwork struct {
-	Id                      float64                                  `json:"id"`
+	ID                      float64                                  `json:"id"`
 	Name                    string                                   `json:"name"`
 	Zone                    *ListNetworksBodyOwner                   `json:"zone"`
-	Type_                   *ListNetworksBodyType                    `json:"type"`
+	Type                    *ListNetworksBodyType                    `json:"type"`
 	Owner                   *ListNetworksBodyOwner                   `json:"owner"`
 	Code                    string                                   `json:"code"`
 	Category                string                                   `json:"category"`
-	ExternalId              string                                   `json:"externalId"`
-	InternalId              string                                   `json:"internalId"`
-	UniqueId                string                                   `json:"uniqueId"`
+	ExternalID              string                                   `json:"externalId"`
+	InternalID              string                                   `json:"internalId"`
+	UniqueID                string                                   `json:"uniqueId"`
 	ExternalType            string                                   `json:"externalType"`
 	RefType                 string                                   `json:"refType"`
-	RefId                   float64                                  `json:"refId"`
+	RefID                   float64                                  `json:"refId"`
 	DhcpServer              bool                                     `json:"dhcpServer"`
 	Visibility              string                                   `json:"visibility"`
 	EnableAdmin             bool                                     `json:"enableAdmin"`
 	ScanNetwork             bool                                     `json:"scanNetwork"`
 	Active                  bool                                     `json:"active"`
 	DefaultNetwork          bool                                     `json:"defaultNetwork"`
-	AssignPublicIp          bool                                     `json:"assignPublicIp"`
-	ApplianceUrlProxyBypass bool                                     `json:"applianceUrlProxyBypass"`
+	AssignPublicIP          bool                                     `json:"assignPublicIp"`
+	ApplianceURLProxyBypass bool                                     `json:"applianceUrlProxyBypass"`
 	ZonePool                *ListNetworksBodyOwner                   `json:"zonePool"`
 	AllowStaticOverride     bool                                     `json:"allowStaticOverride"`
 	Subnets                 []string                                 `json:"subnets"`
@@ -91,9 +91,9 @@ type GetNetworkBodyNetwork struct {
 
 // GetNetworkBodyNetworkResourcePermission
 type GetNetworkBodyNetworkResourcePermission struct {
+	AllPlans bool     `json:"allPlans"`
 	All      bool     `json:"all"`
 	Sites    []string `json:"sites"`
-	AllPlans bool     `json:"allPlans"`
 	Plans    []string `json:"plans"`
 }
 
@@ -111,17 +111,17 @@ type GetNetworkPoolResposeBody struct {
 
 // GetNetworkPoolResposeBodyNetworkPool
 type GetNetworkPoolResposeBodyNetworkPool struct {
-	Id            float64                           `json:"id"`
-	Type_         *ListNetworksBodyType             `json:"type"`
+	ID            float64                           `json:"id"`
+	Type          *ListNetworksBodyType             `json:"type"`
 	Account       *ListNetworksBodyOwner            `json:"account"`
 	Name          string                            `json:"name"`
-	DnsServers    []string                          `json:"dnsServers"`
-	DnsSuffixList []string                          `json:"dnsSuffixList"`
+	DNSServers    []string                          `json:"dnsServers"`
+	DNSSuffixList []string                          `json:"dnsSuffixList"`
 	DhcpServer    bool                              `json:"dhcpServer"`
-	IpCount       float64                           `json:"ipCount"`
+	IPCount       float64                           `json:"ipCount"`
 	FreeCount     float64                           `json:"freeCount"`
 	PoolEnabled   bool                              `json:"poolEnabled"`
-	IpRanges      []GetNetworkPoolsResponseIpRanges `json:"ipRanges"`
+	IPRanges      []GetNetworkPoolsResponseIPRanges `json:"ipRanges"`
 }
 
 // GetNetworkPoolsResponse
@@ -132,8 +132,8 @@ type GetNetworkPoolsResponse struct {
 }
 
 // GetNetworkPoolsResponseIpRanges
-type GetNetworkPoolsResponseIpRanges struct {
-	Id           float64 `json:"id,omitempty"`
+type GetNetworkPoolsResponseIPRanges struct {
+	ID           float64 `json:"id,omitempty"`
 	StartAddress string  `json:"startAddress,omitempty"`
 	EndAddress   string  `json:"endAddress,omitempty"`
 	AddressCount float64 `json:"addressCount,omitempty"`
@@ -144,17 +144,17 @@ type GetNetworkPoolsResponseIpRanges struct {
 
 // GetNetworkPoolsResponseNetworkPools
 type GetNetworkPoolsResponseNetworkPools struct {
-	Id            float64                           `json:"id,omitempty"`
-	Type_         *ListNetworksBodyType             `json:"type,omitempty"`
+	ID            float64                           `json:"id,omitempty"`
+	Type          *ListNetworksBodyType             `json:"type,omitempty"`
 	Account       *ListNetworksBodyOwner            `json:"account,omitempty"`
 	Name          string                            `json:"name,omitempty"`
-	DnsServers    []string                          `json:"dnsServers,omitempty"`
-	DnsSuffixList []string                          `json:"dnsSuffixList,omitempty"`
+	DNSServers    []string                          `json:"dnsServers,omitempty"`
+	DNSSuffixList []string                          `json:"dnsSuffixList,omitempty"`
 	DhcpServer    bool                              `json:"dhcpServer,omitempty"`
-	IpCount       float64                           `json:"ipCount,omitempty"`
+	IPCount       float64                           `json:"ipCount,omitempty"`
 	FreeCount     float64                           `json:"freeCount,omitempty"`
 	PoolEnabled   bool                              `json:"poolEnabled,omitempty"`
-	IpRanges      []GetNetworkPoolsResponseIpRanges `json:"ipRanges,omitempty"`
+	IPRanges      []GetNetworkPoolsResponseIPRanges `json:"ipRanges,omitempty"`
 }
 
 // GetNetworkProxy
@@ -164,7 +164,7 @@ type GetNetworkProxy struct {
 
 // GetNetworkProxyNetworkProxy
 type GetNetworkProxyNetworkProxy struct {
-	Id         float64                `json:"id"`
+	ID         float64                `json:"id"`
 	Name       string                 `json:"name"`
 	ProxyHost  string                 `json:"proxyHost"`
 	ProxyPort  float64                `json:"proxyPort"`
@@ -187,7 +187,7 @@ type ListNetworkProxies struct {
 
 // ListNetworkProxiesNetworkProxies
 type ListNetworkProxiesNetworkProxies struct {
-	Id         float64                `json:"id,omitempty"`
+	ID         float64                `json:"id,omitempty"`
 	Name       string                 `json:"name,omitempty"`
 	ProxyHost  string                 `json:"proxyHost,omitempty"`
 	ProxyPort  float64                `json:"proxyPort,omitempty"`
@@ -216,19 +216,19 @@ type ListNetworkRoutersPropertiesFirewallDefaultPolicy struct {
 
 // ListNetworkRoutersPropertiesFirewallGlobal
 type ListNetworkRoutersPropertiesFirewallGlobal struct {
-	TcpPickOngoingConnections     bool    `json:"tcpPickOngoingConnections"`
+	TCPPickOngoingConnections     bool    `json:"tcpPickOngoingConnections"`
 	EnableFtpLooseMode            bool    `json:"enableFtpLooseMode"`
-	TcpAllowOutOfWindowPackets    bool    `json:"tcpAllowOutOfWindowPackets"`
-	TcpSendResetForClosedVsePorts bool    `json:"tcpSendResetForClosedVsePorts"`
+	TCPAllowOutOfWindowPackets    bool    `json:"tcpAllowOutOfWindowPackets"`
+	TCPSendResetForClosedVsePorts bool    `json:"tcpSendResetForClosedVsePorts"`
 	DropInvalidTraffic            bool    `json:"dropInvalidTraffic"`
 	LogInvalidTraffic             bool    `json:"logInvalidTraffic"`
-	TcpTimeoutOpen                float64 `json:"tcpTimeoutOpen"`
-	TcpTimeoutEstablished         float64 `json:"tcpTimeoutEstablished"`
-	TcpTimeoutClose               float64 `json:"tcpTimeoutClose"`
-	UdpTimeout                    float64 `json:"udpTimeout"`
+	TCPTimeoutOpen                float64 `json:"tcpTimeoutOpen"`
+	TCPTimeoutEstablished         float64 `json:"tcpTimeoutEstablished"`
+	TCPTimeoutClose               float64 `json:"tcpTimeoutClose"`
+	UDPTimeout                    float64 `json:"udpTimeout"`
 	IcmpTimeout                   float64 `json:"icmpTimeout"`
 	Icmp6Timeout                  float64 `json:"icmp6Timeout"`
-	IpGenericTimeout              float64 `json:"ipGenericTimeout"`
+	IPGenericTimeout              float64 `json:"ipGenericTimeout"`
 	EnableSynFloodProtection      bool    `json:"enableSynFloodProtection"`
 	LogIcmpErrors                 bool    `json:"logIcmpErrors"`
 	DropIcmpReplays               bool    `json:"dropIcmpReplays"`
@@ -248,7 +248,7 @@ type ListNetworkRoutersPropertiesFirewall struct {
 
 // ListNetworkRoutersPropertiesFirewallRules
 type ListNetworkRoutersPropertiesFirewallRules struct {
-	Id              float64  `json:"id,omitempty"`
+	ID              float64  `json:"id,omitempty"`
 	Name            string   `json:"name,omitempty"`
 	Direction       string   `json:"direction,omitempty"`
 	RuleType        string   `json:"ruleType,omitempty"`
@@ -261,7 +261,7 @@ type ListNetworkRoutersPropertiesFirewallRules struct {
 
 // ListNetworkRoutersProperties
 type ListNetworkRoutersProperties struct {
-	Id              float64                                                              `json:"id"`
+	ID              float64                                                              `json:"id"`
 	Code            string                                                               `json:"code"`
 	Name            string                                                               `json:"name"`
 	Category        string                                                               `json:"category"`
@@ -270,9 +270,9 @@ type ListNetworkRoutersProperties struct {
 	RouterType      string                                                               `json:"routerType"`
 	Status          string                                                               `json:"status"`
 	Enabled         bool                                                                 `json:"enabled"`
-	ExternalIp      string                                                               `json:"externalIp"`
-	ProviderId      string                                                               `json:"providerId"`
-	Type_           *ListNetworkRoutersPropertiesType                                    `json:"type"`
+	ExternalIP      string                                                               `json:"externalIp"`
+	ProviderID      string                                                               `json:"providerId"`
+	Type            *ListNetworkRoutersPropertiesType                                    `json:"type"`
 	NetworkServer   *ListNetworkRoutersPropertiesNetworkServer                           `json:"networkServer"`
 	Zone            *ListNetworkRoutersPropertiesNetworkServerIntegrationIntegrationType `json:"zone"`
 	ExternalNetwork *ListNetworkRoutersPropertiesNetworkServerIntegrationIntegrationType `json:"externalNetwork"`
@@ -285,12 +285,12 @@ type ListNetworkRoutersProperties struct {
 
 // ListNetworkRoutersPropertiesInterfaces
 type ListNetworkRoutersPropertiesInterfaces struct {
-	Id              float64               `json:"id,omitempty"`
+	ID              float64               `json:"id,omitempty"`
 	Name            string                `json:"name,omitempty"`
 	Code            string                `json:"code,omitempty"`
 	InterfaceType   string                `json:"interfaceType,omitempty"`
 	NetworkPosition string                `json:"networkPosition,omitempty"`
-	IpAddress       string                `json:"ipAddress,omitempty"`
+	IPAddress       string                `json:"ipAddress,omitempty"`
 	Cidr            string                `json:"cidr,omitempty"`
 	ExternalLink    string                `json:"externalLink,omitempty"`
 	Enabled         bool                  `json:"enabled,omitempty"`
@@ -299,14 +299,14 @@ type ListNetworkRoutersPropertiesInterfaces struct {
 
 // ListNetworkRoutersPropertiesNetworkServer
 type ListNetworkRoutersPropertiesNetworkServer struct {
-	Id          float64                                               `json:"id"`
+	ID          float64                                               `json:"id"`
 	Name        string                                                `json:"name"`
 	Integration *ListNetworkRoutersPropertiesNetworkServerIntegration `json:"integration"`
 }
 
 // ListNetworkRoutersPropertiesNetworkServerIntegration
 type ListNetworkRoutersPropertiesNetworkServerIntegration struct {
-	Id              float64                                                              `json:"id"`
+	ID              float64                                                              `json:"id"`
 	Name            string                                                               `json:"name"`
 	Enabled         bool                                                                 `json:"enabled"`
 	Status          string                                                               `json:"status"`
@@ -316,7 +316,7 @@ type ListNetworkRoutersPropertiesNetworkServerIntegration struct {
 
 // ListNetworkRoutersPropertiesNetworkServerIntegrationIntegrationType
 type ListNetworkRoutersPropertiesNetworkServerIntegrationIntegrationType struct {
-	Id   float64 `json:"id"`
+	ID   float64 `json:"id"`
 	Code string  `json:"code"`
 	Name string  `json:"name"`
 }
@@ -328,7 +328,7 @@ type ListNetworkRoutersPropertiesPermissions struct {
 
 // ListNetworkRoutersPropertiesRoutes
 type ListNetworkRoutersPropertiesRoutes struct {
-	Id                float64 `json:"id,omitempty"`
+	ID                float64 `json:"id,omitempty"`
 	Code              string  `json:"code,omitempty"`
 	RouteType         string  `json:"routeType,omitempty"`
 	Source            string  `json:"source,omitempty"`
@@ -337,14 +337,14 @@ type ListNetworkRoutersPropertiesRoutes struct {
 	DestinationType   string  `json:"destinationType,omitempty"`
 	DefaultRoute      bool    `json:"defaultRoute,omitempty"`
 	ExternalInterface string  `json:"externalInterface,omitempty"`
-	ExternalId        string  `json:"externalId,omitempty"`
+	ExternalID        string  `json:"externalId,omitempty"`
 	Enabled           bool    `json:"enabled,omitempty"`
 	Visible           bool    `json:"visible,omitempty"`
 }
 
 // ListNetworkRoutersPropertiesType
 type ListNetworkRoutersPropertiesType struct {
-	Id               float64  `json:"id"`
+	ID               float64  `json:"id"`
 	Code             string   `json:"code"`
 	Name             string   `json:"name"`
 	Description      string   `json:"description"`
@@ -376,28 +376,28 @@ type ListNetworksBodyMeta struct {
 
 // ListNetworksBodyNetworks
 type ListNetworksBodyNetworks struct {
-	Id                      int                       `json:"id,omitempty"`
+	ID                      int                       `json:"id,omitempty"`
 	Name                    string                    `json:"name,omitempty"`
 	DisplayName             string                    `json:"displayName,omitempty"`
 	Zone                    *ListNetworksBodyZone     `json:"zone,omitempty"`
-	Type_                   *ListNetworksBodyType     `json:"type,omitempty"`
+	Type                    *ListNetworksBodyType     `json:"type,omitempty"`
 	Owner                   *ListNetworksBodyOwner    `json:"owner,omitempty"`
 	Code                    string                    `json:"code,omitempty"`
 	Category                string                    `json:"category,omitempty"`
-	ExternalId              string                    `json:"externalId,omitempty"`
-	InternalId              string                    `json:"internalId,omitempty"`
-	UniqueId                string                    `json:"uniqueId,omitempty"`
+	ExternalID              string                    `json:"externalId,omitempty"`
+	InternalID              string                    `json:"internalId,omitempty"`
+	UniqueID                string                    `json:"uniqueId,omitempty"`
 	ExternalType            string                    `json:"externalType,omitempty"`
 	RefType                 string                    `json:"refType,omitempty"`
-	RefId                   float64                   `json:"refId,omitempty"`
+	RefID                   float64                   `json:"refId,omitempty"`
 	DhcpServer              bool                      `json:"dhcpServer,omitempty"`
 	Visibility              string                    `json:"visibility,omitempty"`
 	EnableAdmin             bool                      `json:"enableAdmin,omitempty"`
 	ScanNetwork             bool                      `json:"scanNetwork,omitempty"`
 	Active                  bool                      `json:"active,omitempty"`
 	DefaultNetwork          bool                      `json:"defaultNetwork,omitempty"`
-	AssignPublicIp          bool                      `json:"assignPublicIp,omitempty"`
-	ApplianceUrlProxyBypass bool                      `json:"applianceUrlProxyBypass,omitempty"`
+	AssignPublicIP          bool                      `json:"assignPublicIp,omitempty"`
+	ApplianceURLProxyBypass bool                      `json:"applianceUrlProxyBypass,omitempty"`
 	ZonePool                *ListNetworksBodyOwner    `json:"zonePool,omitempty"`
 	AllowStaticOverride     bool                      `json:"allowStaticOverride,omitempty"`
 	Subnets                 []interface{}             `json:"subnets,omitempty"`
@@ -406,26 +406,26 @@ type ListNetworksBodyNetworks struct {
 
 // ListNetworksBodyOwner
 type ListNetworksBodyOwner struct {
-	Id   float64 `json:"id"`
+	ID   float64 `json:"id"`
 	Name string  `json:"name"`
 }
 
 // ListNetworksBodyTenants
 type ListNetworksBodyTenants struct {
-	Id   float64 `json:"id,omitempty"`
+	ID   float64 `json:"id,omitempty"`
 	Name string  `json:"name,omitempty"`
 }
 
 // ListNetworksBodyType
 type ListNetworksBodyType struct {
-	Id   float64 `json:"id"`
+	ID   float64 `json:"id"`
 	Name string  `json:"name"`
 	Code string  `json:"code"`
 }
 
 // ListNetworksBodyZone
 type ListNetworksBodyZone struct {
-	Id   float64 `json:"id"`
+	ID   float64 `json:"id"`
 	Name string  `json:"name"`
 }
 
@@ -440,9 +440,9 @@ type UpdateNetworkBodyNetwork struct {
 	Active      bool   `json:"active,omitempty"`
 	DhcpServer  bool   `json:"dhcpServer,omitempty"`
 	// Supported values \"on\" or \"off\"
-	ApplianceUrlProxyBypass string                                       `json:"applianceUrlProxyBypass,omitempty"`
-	DnsPrimary              string                                       `json:"dnsPrimary,omitempty"`
-	DnsSecondary            string                                       `json:"dnsSecondary,omitempty"`
+	ApplianceURLProxyBypass string                                       `json:"applianceUrlProxyBypass,omitempty"`
+	DNSPrimary              string                                       `json:"dnsPrimary,omitempty"`
+	DNSSecondary            string                                       `json:"dnsSecondary,omitempty"`
 	NetworkProxy            *UpdateNetworkBodyNetworkNetworkProxy        `json:"networkProxy,omitempty"`
 	Pool                    *UpdateNetworkBodyNetworkPool                `json:"pool,omitempty"`
 	ResourcePermissions     *UpdateNetworkBodyNetworkResourcePermissions `json:"resourcePermissions,omitempty"`
@@ -450,12 +450,12 @@ type UpdateNetworkBodyNetwork struct {
 
 // UpdateNetworkBodyNetworkNetworkProxy
 type UpdateNetworkBodyNetworkNetworkProxy struct {
-	Id int `json:"id,omitempty"`
+	ID int `json:"id,omitempty"`
 }
 
 // UpdateNetworkBodyNetworkPool
 type UpdateNetworkBodyNetworkPool struct {
-	Id int `json:"id,omitempty"`
+	ID int `json:"id,omitempty"`
 }
 
 // UpdateNetworkBodyNetworkResourcePermissions
@@ -466,16 +466,16 @@ type UpdateNetworkBodyNetworkResourcePermissions struct {
 
 // UpdateNetworkBodyNetworkResourcePermissionsSites
 type UpdateNetworkBodyNetworkResourcePermissionsSites struct {
-	Id int `json:"id,omitempty"`
+	ID int `json:"id,omitempty"`
 }
 
 // UpdateNetworkIpPoolBody
-type UpdateNetworkIpPoolBody struct {
-	Networkpool *UpdateNetworkIpPoolBodyNetworkpool `json:"networkpool,omitempty"`
+type UpdateNetworkIPPoolBody struct {
+	Networkpool *UpdateNetworkIPPoolBodyNetworkpool `json:"networkpool,omitempty"`
 }
 
 // UpdateNetworkIpPoolBodyNetworkpool
-type UpdateNetworkIpPoolBodyNetworkpool struct {
+type UpdateNetworkIPPoolBodyNetworkpool struct {
 	Name string `json:"name,omitempty"`
 }
 
@@ -497,27 +497,27 @@ type UpdateNetworkRespose struct {
 
 // UpdateNetworkResposeNetwork
 type UpdateNetworkResposeNetwork struct {
-	Id                      float64                                        `json:"id"`
+	ID                      float64                                        `json:"id"`
 	Name                    string                                         `json:"name"`
 	Zone                    *ListNetworksBodyOwner                         `json:"zone"`
-	Type_                   *ListNetworksBodyType                          `json:"type"`
+	Type                    *ListNetworksBodyType                          `json:"type"`
 	Owner                   *ListNetworksBodyOwner                         `json:"owner"`
 	Code                    string                                         `json:"code"`
 	Category                string                                         `json:"category"`
-	ExternalId              string                                         `json:"externalId"`
-	InternalId              string                                         `json:"internalId"`
-	UniqueId                string                                         `json:"uniqueId"`
+	ExternalID              string                                         `json:"externalId"`
+	InternalID              string                                         `json:"internalId"`
+	UniqueID                string                                         `json:"uniqueId"`
 	ExternalType            string                                         `json:"externalType"`
 	RefType                 string                                         `json:"refType"`
-	RefId                   float64                                        `json:"refId"`
+	RefID                   float64                                        `json:"refId"`
 	DhcpServer              bool                                           `json:"dhcpServer"`
 	Visibility              string                                         `json:"visibility"`
 	EnableAdmin             bool                                           `json:"enableAdmin"`
 	ScanNetwork             bool                                           `json:"scanNetwork"`
 	Active                  bool                                           `json:"active"`
 	DefaultNetwork          bool                                           `json:"defaultNetwork"`
-	AssignPublicIp          bool                                           `json:"assignPublicIp"`
-	ApplianceUrlProxyBypass bool                                           `json:"applianceUrlProxyBypass"`
+	AssignPublicIP          bool                                           `json:"assignPublicIp"`
+	ApplianceURLProxyBypass bool                                           `json:"applianceUrlProxyBypass"`
 	ZonePool                *ListNetworksBodyOwner                         `json:"zonePool"`
 	AllowStaticOverride     bool                                           `json:"allowStaticOverride"`
 	Subnets                 []string                                       `json:"subnets"`
@@ -527,15 +527,15 @@ type UpdateNetworkResposeNetwork struct {
 
 // UpdateNetworkResposeNetworkResourcePermission
 type UpdateNetworkResposeNetworkResourcePermission struct {
+	AllPlans bool                                                 `json:"allPlans"`
 	All      bool                                                 `json:"all"`
 	Sites    []UpdateNetworkResposeNetworkResourcePermissionSites `json:"sites"`
-	AllPlans bool                                                 `json:"allPlans"`
 	Plans    []interface{}                                        `json:"plans"`
 }
 
 // UpdateNetworkResposeNetworkResourcePermissionSites
 type UpdateNetworkResposeNetworkResourcePermissionSites struct {
-	Id       float64 `json:"id,omitempty"`
-	Name     string  `json:"name,omitempty"`
-	Default_ bool    `json:"default,omitempty"`
+	ID      float64 `json:"id,omitempty"`
+	Name    string  `json:"name,omitempty"`
+	Default bool    `json:"default,omitempty"`
 }

@@ -2,36 +2,8 @@
 #(C) Copyright 2021 Hewlett Packard Enterprise Development LP
 # Inspiration from https://github.com/rightscale/go-boilerplate/blob/master/Makefile
 
-NAME=$(shell find cmd -name ".gitkeep_provider" -exec dirname {} \; | sort -u | sed -e 's|cmd/||')
 VERSION=0.0.1
 
-# Stuff that needs to be installed globally (not in vendor)
-DEPEND=
-
-# Will get the branch name
-SYMBOLIC_REF=$(shell if [ -n "$$CIRCLE_TAG" ] ; then echo $$CIRCLE_TAG; else git symbolic-ref HEAD | cut -d"/" -f 3; fi)
-COMMIT_ID=$(shell git rev-parse --verify HEAD)
-DATE=$(shell date +"%F %T")
-
-PACKAGE := $(shell git remote get-url origin | sed -e 's|http://||' -e 's|^.*@||' -e 's|.git||' -e 's|:|/|')
-VERSION_PACKAGE=$(PACKAGE)/pkg/cmd/$@
-VFLAG=-X '$(VERSION_PACKAGE).name=$@' \
-      -X '$(VERSION_PACKAGE).version=$(SYMBOLIC_REF)' \
-      -X '$(VERSION_PACKAGE).buildDate=$(DATE)' \
-      -X '$(VERSION_PACKAGE).buildSha=$(COMMIT_ID)'
-TAGS=
-
-# kelog issue: https://github.com/rjeczalik/notify/issues/108
-UNAME_S := $(shell uname -s)
-ifeq ($(UNAME_S),Darwin)
-	TAGS=-tags kqueue
-endif
-TMPFILE := $(shell mktemp)
-
-LOCALIZATION_FILES := $(shell find . -name \*.toml | grep -v vendor | grep -v ./bin)
-
-$(NAME): $(shell find . -name \*.go)
-	CGO_ENABLED=0 go build $(TAGS) -ldflags "$(VFLAG)" -o build/$@ .
 
 default: all
 .PHONY: default
@@ -73,7 +45,8 @@ coverage: vendor
 	@echo "Generated $(coverage_dir)/html/main.html";
 .PHONY: coverage
 
-build: vendor $(NAME)
+build: vendor
+	@go build ./...
 .PHONY: build
 
 

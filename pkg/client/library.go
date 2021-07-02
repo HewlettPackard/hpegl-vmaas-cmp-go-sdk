@@ -14,73 +14,71 @@ import (
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
-type LibraryApiService struct {
+type LibraryAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
 }
 
 /*
-LibrariesApiService
+LibrariesAPIService
 Get All layouts
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
 
 */
-func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]string) (models.LayoutsResp, error) {
+func (a *LibraryAPIService) GetAllLayouts(ctx context.Context,
+	param map[string]string) (models.LayoutsResp, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
+		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.LibraryLayoutPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(param)
+	localVarQueryParams := getURLValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.LayoutsResp{}, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
 		return models.LayoutsResp{}, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		return models.LayoutsResp{}, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return models.LayoutsResp{}, ParseError(localVarHTTPResponse)
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return models.LayoutsResp{}, err
 	}
@@ -89,58 +87,61 @@ func (a *LibraryApiService) GetAllLayouts(ctx context.Context, param map[string]
 	if err = json.Unmarshal(localVarBody, &layoutsResp); err != nil {
 		return models.LayoutsResp{}, err
 	}
+
 	return layoutsResp, nil
 }
 
-func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, param map[string]string) (models.InstanceTypesResp, error) {
+func (a *LibraryAPIService) GetAllInstanceTypes(ctx context.Context,
+	param map[string]string) (models.InstanceTypesResp, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
+		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.LibraryInstanceTypesPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(param)
+	localVarQueryParams := getURLValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.InstanceTypesResp{}, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
 		return models.InstanceTypesResp{}, err
 	}
-	if localVarHttpResponse.StatusCode >= 300 {
-		return models.InstanceTypesResp{}, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return models.InstanceTypesResp{}, ParseError(localVarHTTPResponse)
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return models.InstanceTypesResp{}, err
 	}
@@ -148,5 +149,6 @@ func (a *LibraryApiService) GetAllInstanceTypes(ctx context.Context, param map[s
 	if err = json.Unmarshal(localVarBody, &instanceTypesResp); err != nil {
 		return models.InstanceTypesResp{}, err
 	}
+
 	return instanceTypesResp, nil
 }

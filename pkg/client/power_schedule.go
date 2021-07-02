@@ -14,11 +14,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-var (
-	_ context.Context
-)
-
-type PowerSchedulesApiService struct {
+type PowerSchedulesAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
 }
@@ -26,14 +22,16 @@ type PowerSchedulesApiService struct {
 /*
 VirtualImageApiService
 Get All Virtual images
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
  * @param name/phrase optional
 @return models.VirtualImages
 */
-func (a *PowerSchedulesApiService) GetAllPowerSchedules(ctx context.Context, param map[string]string) (models.GetAllPowerSchedules, error) {
+func (a *PowerSchedulesAPIService) GetAllPowerSchedules(ctx context.Context,
+	param map[string]string) (models.GetAllPowerSchedules, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
+		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
@@ -41,46 +39,47 @@ func (a *PowerSchedulesApiService) GetAllPowerSchedules(ctx context.Context, par
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.PowerSchedulPath)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getUrlValues(param)
+	localVarQueryParams := getURLValues(param)
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return powerSchedulePath, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
 		return powerSchedulePath, err
 	}
-	if localVarHttpResponse.StatusCode >= 300 {
-		return powerSchedulePath, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return powerSchedulePath, ParseError(localVarHTTPResponse)
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	defer localVarHttpResponse.Body.Close()
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	defer localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return powerSchedulePath, err
 	}
@@ -88,5 +87,6 @@ func (a *PowerSchedulesApiService) GetAllPowerSchedules(ctx context.Context, par
 	if err := json.Unmarshal(localVarBody, &powerSchedulePath); err != nil {
 		return powerSchedulePath, err
 	}
+
 	return powerSchedulePath, nil
 }

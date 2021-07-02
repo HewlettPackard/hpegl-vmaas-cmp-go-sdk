@@ -16,7 +16,7 @@ import (
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
+func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -25,14 +25,14 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 
 	tests := []struct {
 		name    string
-		groupId int
+		groupID int
 		given   func(m *MockAPIClientHandler)
 		want    models.GroupResp
 		wantErr bool
 	}{
 		{
 			name:    "Normal Test case 1: Get a specific group",
-			groupId: 1,
+			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/groups/1"
 				method := "GET"
@@ -46,7 +46,8 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 						}
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -56,7 +57,7 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 			},
 			want: models.GroupResp{
 				Group: &models.Group{
-					Id:   1,
+					ID:   1,
 					Name: templateName,
 				},
 			},
@@ -64,19 +65,20 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 		},
 		{
 			name:    "Failed Test case 2: Error in prepare requst",
-			groupId: 1,
+			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/groups/1"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.GroupResp{},
 			wantErr: true,
 		},
 		{
 			name:    "Failed Test case 3: Error in callAPI",
-			groupId: 1,
+			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/groups/1"
 				method := "GET"
@@ -90,7 +92,8 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -105,7 +108,7 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := GroupsApiService{
+			a := GroupsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -113,19 +116,19 @@ func TestGroupsApiService_GetASpecificGroup(t *testing.T) {
 			}
 
 			tt.given(mockAPIClient)
-			got, err := a.GetASpecificGroup(ctx, tt.groupId)
+			got, err := a.GetASpecificGroup(ctx, tt.groupID)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GroupsApiService.GetASpecificGroup() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GroupsAPIService.GetASpecificGroup() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GroupsApiService.GetASpecificGroup() = %v, want %v", got, tt.want)
+				t.Errorf("GroupsAPIService.GetASpecificGroup() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestGroupsApiService_GetAllGroups(t *testing.T) {
+func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -157,9 +160,10 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, getUrlValues(map[string]string{
-					"name": templateName,
-				}), "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -170,7 +174,7 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 			want: models.Groups{
 				Groups: &[]models.Group{
 					{
-						Id:   1,
+						ID:   1,
 						Name: templateName,
 					},
 				},
@@ -186,9 +190,10 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 				path := mockHost + "/v1/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, getUrlValues(map[string]string{
-					"name": templateName,
-				}), "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.Groups{},
 			wantErr: true,
@@ -211,9 +216,10 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{}, getUrlValues(map[string]string{
-					"name": templateName,
-				}), "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -228,7 +234,7 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := GroupsApiService{
+			a := GroupsAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -238,11 +244,11 @@ func TestGroupsApiService_GetAllGroups(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllGroups(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GroupsApiService.GetAllGroups() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GroupsAPIService.GetAllGroups() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GroupsApiService.GetAllGroups() = %v, want %v", got, tt.want)
+				t.Errorf("GroupsAPIService.GetAllGroups() = %v, want %v", got, tt.want)
 			}
 		})
 	}

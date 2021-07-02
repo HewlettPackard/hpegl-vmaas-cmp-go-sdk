@@ -29,7 +29,7 @@ workflows:
           # for AWS creds to download image
           <<: *common-context
 
-  unit_test:
+  go-lint:
     jobs:
       - checkout-workspace:
           <<: *filters
@@ -41,6 +41,19 @@ workflows:
           <<: *common
           requires:
             - copyright-check
+      - go-lint:
+          <<: *common
+          requires:
+            - go-vendor
+
+  unit_test:
+    jobs:
+      - checkout-workspace:
+          <<: *filters
+      - go-vendor:
+          <<: *common
+          requires:
+            - checkout-workspace
       - go-unit-test:
           <<: *common
           requires:

@@ -16,7 +16,7 @@ import (
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestPlansApiService_GetAllServicePlans(t *testing.T) {
+func TestPlansAPIService_GetAllServicePlans(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -49,9 +49,10 @@ func TestPlansApiService_GetAllServicePlans(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -78,9 +79,10 @@ func TestPlansApiService_GetAllServicePlans(t *testing.T) {
 				path := mockHost + "/v1/service-plans"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.ServicePlans{},
 			wantErr: true,
@@ -103,9 +105,10 @@ func TestPlansApiService_GetAllServicePlans(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -119,7 +122,7 @@ func TestPlansApiService_GetAllServicePlans(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := PlansApiService{
+			a := PlansAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -128,11 +131,11 @@ func TestPlansApiService_GetAllServicePlans(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllServicePlans(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("PlansApiService.GetAllServicePlans() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("PlansAPIService.GetAllServicePlans() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("PlansApiService.GetAllServicePlans() = %v, want %v", got, tt.want)
+				t.Errorf("PlansAPIService.GetAllServicePlans() = %v, want %v", got, tt.want)
 			}
 		})
 	}

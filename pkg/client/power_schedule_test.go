@@ -16,7 +16,7 @@ import (
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
+func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -48,9 +48,10 @@ func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -77,9 +78,10 @@ func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
 				path := mockHost + "/v1/power-schedules"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
 			want:    models.GetAllPowerSchedules{},
 			wantErr: true,
@@ -102,9 +104,10 @@ func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -119,7 +122,7 @@ func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := PowerSchedulesApiService{
+			a := PowerSchedulesAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -128,11 +131,11 @@ func TestPowerSchedulesApiService_GetAllPowerSchedules(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllPowerSchedules(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("PowerSchedulesApiService.GetAllPowerSchedules() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("PowerSchedulesAPIService.GetAllPowerSchedules() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("PowerSchedulesApiService.GetAllPowerSchedules() = %v, want %v", got, tt.want)
+				t.Errorf("PowerSchedulesAPIService.GetAllPowerSchedules() = %v, want %v", got, tt.want)
 			}
 		})
 	}

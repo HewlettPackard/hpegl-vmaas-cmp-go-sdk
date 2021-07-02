@@ -13,7 +13,7 @@ type ServerCounts struct {
 	Host          int `json:"host"`
 	Hypervisor    int `json:"hypervisor"`
 	ContainerHost int `json:"containerHost"`
-	Vm            int `json:"vm"`
+	VM            int `json:"vm"`
 	Baremetal     int `json:"baremetal"`
 	Unmanaged     int `json:"unmanaged"`
 }
@@ -39,7 +39,7 @@ type GroupsStatsServerCounts struct {
 	Host          int `json:"host"`
 	Hypervisor    int `json:"hypervisor"`
 	ContainerHost int `json:"containerHost"`
-	Vm            int `json:"vm"`
+	VM            int `json:"vm"`
 	Baremetal     int `json:"baremetal"`
 	Unmanaged     int `json:"unmanaged"`
 }
@@ -59,10 +59,10 @@ type Group struct {
 	Name        string  `json:"name,omitempty"`
 	Code        string  `json:"code,omitempty"`
 	Location    string  `json:"location,omitempty"`
-	AccountId   int     `json:"accountId,omitempty"`
+	AccountID   int     `json:"accountId,omitempty"`
 	Zones       []Zones `json:"zones,omitempty"`
 	ServerCount int     `json:"serverCount,omitempty"`
-	Id          int     `json:"id"`
+	ID          int     `json:"id"`
 	Active      bool    `json:"active,omitempty"`
 	DateCreated string  `json:"dateCreated,omitempty"`
 	LastUpdated string  `json:"lastUpdated,omitempty"`
@@ -71,7 +71,7 @@ type Group struct {
 
 // Zones
 type Zones struct {
-	Id   int    `json:"id"`
+	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
 

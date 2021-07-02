@@ -17,33 +17,30 @@ import (
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
-type GroupsApiService struct {
+type GroupsAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
 }
 
 /*
-GroupsApiService
+GroupsAPIService
 Creates a group
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param optional nil or *GroupsApiCreateGroupOpts - Optional Parameters:
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
+ * @param optional nil or *GroupsAPICreateGroupOpts - Optional Parameters:
      * @param "Body" (optional.Interface of CreateGroupBody) -
 
 */
 
-type GroupsApiCreateGroupOpts struct {
+type GroupsAPICreateGroupOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *GroupsApiCreateGroupOpts) (*http.Response, error) {
+func (a *GroupsAPIService) CreateGroup(ctx context.Context,
+	localVarOptionals *GroupsAPICreateGroupOpts) (*http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
+		localVarHTTPMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
@@ -51,7 +48,7 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *G
 
 	// create path and map variables
 	// Client.greenlake.hpe.com/api/vmaas/
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.GroupsPath)
 
 	localVarHeaderParams := make(map[string]string)
@@ -59,169 +56,173 @@ func (a *GroupsApiService) CreateGroup(ctx context.Context, localVarOptionals *G
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		return localVarHttpResponse, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
 	}
 
-	return localVarHttpResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 /*
-GroupsApiService
+GroupsAPIService
 If a group has zones or servers still tied to it, a delete action will fail
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param groupId The Group ID
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
+ * @param groupID The Group ID
 
 */
-func (a *GroupsApiService) DeleteAGroup(ctx context.Context, groupId int) (*http.Response, error) {
+func (a *GroupsAPIService) DeleteAGroup(ctx context.Context, groupID int) (*http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Delete")
+		localVarHTTPMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		consts.GroupsPath, groupId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		consts.GroupsPath, groupID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if groupId < 1 {
-		return nil, reportError("groupId must be greater than 1")
+	if groupID < 1 {
+		return nil, reportError("groupID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		return localVarHttpResponse, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
 	}
 
-	return localVarHttpResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 /*
-GroupsApiService
+GroupsAPIService
 Get a Specific Group
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param groupId The Group ID
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
+ * @param groupID The Group ID
 
 */
-func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, groupId int) (models.GroupResp, error) {
+func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context, groupID int) (models.GroupResp, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
+		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		consts.GroupsPath, groupId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		consts.GroupsPath, groupID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if groupId < 1 {
-		return models.GroupResp{}, reportError("groupId must be greater than 1")
+	if groupID < 1 {
+		return models.GroupResp{}, reportError("groupID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.GroupResp{}, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
 		return models.GroupResp{}, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		return models.GroupResp{}, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return models.GroupResp{}, ParseError(localVarHTTPResponse)
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	defer localVarHttpResponse.Body.Close()
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	defer localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return models.GroupResp{}, err
 	}
@@ -230,66 +231,70 @@ func (a *GroupsApiService) GetASpecificGroup(ctx context.Context, groupId int) (
 	if err = json.Unmarshal(localVarBody, &groupResp); err != nil {
 		return models.GroupResp{}, err
 	}
+
 	return groupResp, nil
 }
 
 /*
-GroupsApiService
+GroupsAPIService
 This endpoint retrieves all groups and a list of zones associated with the group by id.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param serviceInstanceId
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
 
 */
-func (a *GroupsApiService) GetAllGroups(ctx context.Context, queryParams map[string]string) (models.Groups, error) {
+func (a *GroupsAPIService) GetAllGroups(ctx context.Context,
+	queryParams map[string]string) (models.Groups, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
+		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpApiBasePath,
+	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 		consts.GroupsPath)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
-	localVarFormParams := getUrlValues(queryParams)
+	localVarFormParams := getURLValues(queryParams)
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return models.Groups{}, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
 		return models.Groups{}, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		return models.Groups{}, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return models.Groups{}, ParseError(localVarHTTPResponse)
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	defer localVarHttpResponse.Body.Close()
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	defer localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return models.Groups{}, err
 	}
@@ -298,155 +303,161 @@ func (a *GroupsApiService) GetAllGroups(ctx context.Context, queryParams map[str
 	if err = json.Unmarshal(localVarBody, &groupsResp); err != nil {
 		return models.Groups{}, err
 	}
+
 	return groupsResp, nil
 }
 
 /*
-GroupsApiService
-This will update the zones(clouds) that are assigned to the group. Any zones that are not passed in the zones parameter will be removed from the group.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param groupId The Group ID
- * @param optional nil or *GroupsApiGroupZoneUpdateOpts - Optional Parameters:
+GroupsAPIService
+This will update the zones(clouds) that are assigned to the group. Any zones that are not passed in
+the zones parameter will be removed from the group.
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
+ * @param groupID The Group ID
+ * @param optional nil or *GroupsAPIGroupZoneUpdateOpts - Optional Parameters:
      * @param "Body" (optional.Interface of UpdateGroupZone) -
 
 */
 
-type GroupsApiGroupZoneUpdateOpts struct {
+type GroupsAPIGroupZoneUpdateOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) GroupZoneUpdate(ctx context.Context, groupId int, localVarOptionals *GroupsApiGroupZoneUpdateOpts) (*http.Response, error) {
+func (a *GroupsAPIService) GroupZoneUpdate(ctx context.Context, groupID int,
+	localVarOptionals *GroupsAPIGroupZoneUpdateOpts) (*http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Put")
+		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		consts.GroupsPath, groupId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		consts.GroupsPath, groupID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if groupId < 1 {
-		return nil, reportError("groupId must be greater than 1")
+	if groupID < 1 {
+		return nil, reportError("groupID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		return localVarHttpResponse, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
 	}
 
-	return localVarHttpResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 /*
-GroupsApiService
+GroupsAPIService
 Updating a group name
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param serviceInstanceId
- * @param groupId The Group ID
- * @param optional nil or *GroupsApiUpdatingAGroupNameOpts - Optional Parameters:
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
+ * @param groupID The Group ID
+ * @param optional nil or *GroupsAPIUpdatingAGroupNameOpts - Optional Parameters:
      * @param "Body" (optional.Interface of UpdateGroupName) -
 
 */
 
-type GroupsApiUpdatingAGroupNameOpts struct {
+type GroupsAPIUpdatingAGroupNameOpts struct {
 	Body optional.Interface
 }
 
-func (a *GroupsApiService) UpdatingAGroupName(ctx context.Context, groupId int, localVarOptionals *GroupsApiUpdatingAGroupNameOpts) (*http.Response, error) {
+func (a *GroupsAPIService) UpdatingAGroupName(ctx context.Context, groupID int,
+	localVarOptionals *GroupsAPIUpdatingAGroupNameOpts) (*http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Put")
+		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
 	)
 
 	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpApiBasePath,
-		consts.GroupsPath, groupId)
+	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		consts.GroupsPath, groupID)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if groupId < 1 {
-		return nil, reportError("groupId must be greater than 1")
+	if groupID < 1 {
+		return nil, reportError("groupID must be greater than 1")
 	}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody := localVarOptionals.Body.Value()
 		localVarPostBody = &localVarOptionalBody
 	}
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
+		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+	localVarHTTPResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		return localVarHttpResponse, ParseError(localVarHttpResponse)
+	if localVarHTTPResponse.StatusCode >= 300 {
+		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
 	}
 
-	return localVarHttpResponse, nil
+	return localVarHTTPResponse, nil
 }

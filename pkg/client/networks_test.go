@@ -16,7 +16,7 @@ import (
 	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
 )
 
-func TestNetworksApiService_GetAllNetworks(t *testing.T) {
+func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -49,9 +49,10 @@ func TestNetworksApiService_GetAllNetworks(t *testing.T) {
 						"networkCount": 1
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -62,7 +63,7 @@ func TestNetworksApiService_GetAllNetworks(t *testing.T) {
 			want: models.ListNetworksBody{
 				Networks: []models.ListNetworksBodyNetworks{
 					{
-						Id:   1,
+						ID:   1,
 						Name: templateName,
 					},
 				},
@@ -79,9 +80,10 @@ func TestNetworksApiService_GetAllNetworks(t *testing.T) {
 				path := mockHost + "/v1/networks"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
 			want:    models.ListNetworksBody{},
 			wantErr: true,
@@ -104,9 +106,10 @@ func TestNetworksApiService_GetAllNetworks(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, getUrlValues(map[string]string{
-					"name": templateName,
-				}), url.Values{}, "", nil).Return(req, nil)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,
@@ -121,7 +124,7 @@ func TestNetworksApiService_GetAllNetworks(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := NetworksApiService{
+			a := NetworksAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
@@ -130,11 +133,11 @@ func TestNetworksApiService_GetAllNetworks(t *testing.T) {
 			tt.given(mockAPIClient)
 			got, err := a.GetAllNetworks(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("NetworksApiService.GetAllNetworks() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("NetworksAPIService.GetAllNetworks() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NetworksApiService.GetAllNetworks() = %v, want %v", got, tt.want)
+				t.Errorf("NetworksAPIService.GetAllNetworks() = %v, want %v", got, tt.want)
 			}
 		})
 	}

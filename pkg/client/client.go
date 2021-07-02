@@ -52,23 +52,23 @@ type APIClient struct {
 
 	// API Services
 
-	/*CloudsApi *CloudsApiService
+	/*CloudsAPI *CloudsAPIService
 
-	GroupsApi *GroupsApiService
+	GroupsAPI *GroupsAPIService
 
-	InstancesApi *InstancesApiService
+	InstancesAPI *InstancesAPIService
 
-	KeysCertsApi *KeysCertsApiService
+	KeysCertsAPI *KeysCertsAPIService
 
-	LibraryApi *LibraryApiService
+	LibraryAPI *LibraryAPIService
 
-	NetworksApi *NetworksApiService
+	NetworksAPI *NetworksAPIService
 
-	PlansApi *PlansApiService
+	PlansAPI *PlansAPIService
 
-	PoliciesApi *PoliciesApiService
+	PoliciesAPI *PoliciesAPIService
 
-	RolesApi *RolesApiService*/
+	RolesAPI *RolesAPIService*/
 }
 
 type service struct {
@@ -79,6 +79,7 @@ type service struct {
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration, secure bool) *APIClient {
 	if !secure {
+		//nolint
 		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 	if cfg.HTTPClient == nil {
@@ -90,15 +91,15 @@ func NewAPIClient(cfg *Configuration, secure bool) *APIClient {
 	c.common.client = c
 
 	// API Services
-	/*c.CloudsApi = (*CloudsApiService)(&c.common)
-	c.GroupsApi = (*GroupsApiService)(&c.common)
-	c.InstancesApi = (*InstancesApiService)(&c.common)
-	c.KeysCertsApi = (*KeysCertsApiService)(&c.common)
-	c.LibraryApi = (*LibraryApiService)(&c.common)
-	c.NetworksApi = (*NetworksApiService)(&c.common)
-	c.PlansApi = (*PlansApiService)(&c.common)
-	c.PoliciesApi = (*PoliciesApiService)(&c.common)
-	c.RolesApi = (*RolesApiService)(&c.common)
+	/*c.CloudsAPI = (*CloudsAPIService)(&c.common)
+	c.GroupsAPI = (*GroupsAPIService)(&c.common)
+	c.InstancesAPI = (*InstancesAPIService)(&c.common)
+	c.KeysCertsAPI = (*KeysCertsAPIService)(&c.common)
+	c.LibraryAPI = (*LibraryAPIService)(&c.common)
+	c.NetworksAPI = (*NetworksAPIService)(&c.common)
+	c.PlansAPI = (*PlansAPIService)(&c.common)
+	c.PoliciesAPI = (*PoliciesAPIService)(&c.common)
+	c.RolesAPI = (*RolesAPIService)(&c.common)
 	*/
 
 	return c
@@ -112,6 +113,7 @@ func selectHeaderContentType(contentTypes []string) string {
 	if contains(contentTypes, "application/json") {
 		return "application/json"
 	}
+
 	return contentTypes[0] // use the first content type specified in 'consumes'
 }
 
@@ -131,10 +133,11 @@ func selectHeaderAccept(accepts []string) string {
 // contains is a case insenstive match, finding needle in a haystack
 func contains(haystack []string, needle string) bool {
 	for _, a := range haystack {
-		if strings.EqualFold(a,needle) {
+		if strings.EqualFold(a, needle) {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -154,7 +157,7 @@ func parameterToString(obj interface{}, collectionFormat string) string {
 	}
 
 	if reflect.TypeOf(obj).Kind() == reflect.Slice {
-		return strings.Trim(strings.Replace(fmt.Sprint(obj), " ", delimiter, -1), "[]")
+		return strings.Trim(strings.ReplaceAll(fmt.Sprint(obj), " ", delimiter), "[]")
 	}
 
 	return fmt.Sprintf("%v", obj)
@@ -171,6 +174,7 @@ func (c *APIClient) ChangeBasePath(path string) {
 }
 
 // prepareRequest build the request
+//nolint
 func (c *APIClient) prepareRequest(
 	ctx context.Context,
 	path string, method string,
@@ -180,9 +184,7 @@ func (c *APIClient) prepareRequest(
 	formParams url.Values,
 	fileName string,
 	fileBytes []byte) (localVarRequest *http.Request, err error) {
-
 	var body *bytes.Buffer
-
 	// Detect postBody type and post.
 	if postBody != nil {
 		contentType := headerParams["Content-Type"]
@@ -190,21 +192,19 @@ func (c *APIClient) prepareRequest(
 			contentType = detectContentType(postBody)
 			headerParams["Content-Type"] = contentType
 		}
-
 		body, err = setBody(postBody, contentType)
 		if err != nil {
 			return nil, err
 		}
 	}
-
 	// add form parameters and file if available.
-	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 || (len(fileBytes) > 0 && fileName != "") {
+	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 ||
+		(len(fileBytes) > 0 && fileName != "") {
 		if body != nil {
 			return nil, errors.New("cannot specify postBody and multipart form at the same time")
 		}
 		body = &bytes.Buffer{}
 		w := multipart.NewWriter(body)
-
 		for k, v := range formParams {
 			for _, iv := range v {
 				if strings.HasPrefix(k, "@") { // file
@@ -213,13 +213,16 @@ func (c *APIClient) prepareRequest(
 						return nil, err
 					}
 				} else { // form value
-					w.WriteField(k, iv)
+					err := w.WriteField(k, iv)
+					if err != nil {
+						continue
+					}
 				}
 			}
 		}
 		if len(fileBytes) > 0 && fileName != "" {
 			w.Boundary()
-			//_, fileNm := filepath.Split(fileName)
+			// _, fileNm := filepath.Split(fileName)
 			part, err := w.CreateFormFile("file", filepath.Base(fileName))
 			if err != nil {
 				return nil, err
@@ -231,13 +234,13 @@ func (c *APIClient) prepareRequest(
 			// Set the Boundary in the Content-Type
 			headerParams["Content-Type"] = w.FormDataContentType()
 		}
-
 		// Set Content-Length
 		headerParams["Content-Length"] = fmt.Sprintf("%d", body.Len())
 		w.Close()
 	}
 
-	if strings.HasPrefix(headerParams["Content-Type"], "application/x-www-form-urlencoded") && len(formParams) > 0 {
+	if strings.HasPrefix(headerParams["Content-Type"], "application/x-www-form-urlencoded") &&
+		len(formParams) > 0 {
 		if body != nil {
 			return nil, errors.New("cannot specify postBody and x-www-form-urlencoded form at the same time")
 		}
@@ -290,13 +293,10 @@ func (c *APIClient) prepareRequest(
 	if ctx != nil {
 		// add context to the request
 		localVarRequest = localVarRequest.WithContext(ctx)
-
-
 		// Basic HTTP Authentication
 		if auth, ok := ctx.Value(ContextBasicAuth).(BasicAuth); ok {
 			localVarRequest.SetBasicAuth(auth.UserName, auth.Password)
 		}
-
 		// AccessToken Authentication
 		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
 			localVarRequest.Header.Set("Authorization", "Bearer "+auth)
@@ -304,7 +304,7 @@ func (c *APIClient) prepareRequest(
 	}
 
 	for header, value := range c.cfg.DefaultHeader {
-		if value != "" && value != " "{
+		if value != "" && value != " " {
 			localVarRequest.Header.Add(header, value)
 		}
 	}
@@ -317,13 +317,16 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		if err = xml.Unmarshal(b, v); err != nil {
 			return err
 		}
+
 		return nil
 	} else if strings.Contains(contentType, "application/json") {
 		if err = json.Unmarshal(b, v); err != nil {
 			return err
 		}
+
 		return nil
 	}
+
 	return errors.New("undefined response type")
 }
 
@@ -355,18 +358,21 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 		bodyBuf = &bytes.Buffer{}
 	}
 
-	if reader, ok := body.(io.Reader); ok {
-		_, err = bodyBuf.ReadFrom(reader)
-	} else if b, ok := body.([]byte); ok {
-		_, err = bodyBuf.Write(b)
-	} else if s, ok := body.(string); ok {
-		_, err = bodyBuf.WriteString(s)
-	} else if s, ok := body.(*string); ok {
-		_, err = bodyBuf.WriteString(*s)
-	} else if jsonCheck.MatchString(contentType) {
-		err = json.NewEncoder(bodyBuf).Encode(body)
-	} else if xmlCheck.MatchString(contentType) {
-		xml.NewEncoder(bodyBuf).Encode(body)
+	switch v := body.(type) {
+	case io.Reader:
+		_, err = bodyBuf.ReadFrom(v)
+	case []byte:
+		_, err = bodyBuf.Write(v)
+	case string:
+		_, err = bodyBuf.WriteString(v)
+	case *string:
+		_, err = bodyBuf.WriteString(*v)
+	default:
+		if jsonCheck.MatchString(contentType) {
+			err = json.NewEncoder(bodyBuf).Encode(body)
+		} else if xmlCheck.MatchString(contentType) {
+			err = xml.NewEncoder(bodyBuf).Encode(body)
+		}
 	}
 
 	if err != nil {
@@ -375,8 +381,10 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 
 	if bodyBuf.Len() == 0 {
 		err = fmt.Errorf("invalid body type %s", contentType)
+
 		return nil, err
 	}
+
 	return bodyBuf, nil
 }
 
@@ -419,6 +427,7 @@ func parseCacheControl(headers http.Header) cacheControl {
 			cc[part] = ""
 		}
 	}
+
 	return cc
 }
 
@@ -431,22 +440,19 @@ func CacheExpires(r *http.Response) time.Time {
 		return time.Now()
 	}
 	respCacheControl := parseCacheControl(r.Header)
-
 	if maxAge, ok := respCacheControl["max-age"]; ok {
-		lifetime, err := time.ParseDuration(maxAge + "s")
+		if lifetime, err := time.ParseDuration(maxAge + "s"); err != nil {
+			expires = now
+		} else {
+			expires = now.Add(lifetime)
+		}
+	} else if expiresHeader := r.Header.Get("Expires"); expiresHeader != "" {
+		expires, err = time.Parse(time.RFC1123, expiresHeader)
 		if err != nil {
 			expires = now
 		}
-		expires = now.Add(lifetime)
-	} else {
-		expiresHeader := r.Header.Get("Expires")
-		if expiresHeader != "" {
-			expires, err = time.Parse(time.RFC1123, expiresHeader)
-			if err != nil {
-				expires = now
-			}
-		}
 	}
+
 	return expires
 }
 

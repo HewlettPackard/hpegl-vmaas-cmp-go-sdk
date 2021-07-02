@@ -10,7 +10,7 @@ import (
 // CreateInstanceBody
 type CreateInstanceBody struct {
 	// Cloud ID
-	ZoneId            json.Number                           `json:"zoneId"`
+	ZoneID            json.Number                           `json:"zoneId"`
 	Instance          *CreateInstanceBodyInstance           `json:"instance"`
 	Volumes           []CreateInstanceBodyVolumes           `json:"volumes"`
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces"`
@@ -33,6 +33,7 @@ type CreateInstancePorts struct {
 	Port string `json:"port,omitempty"`
 	Lb   string `json:"lb,omitempty"`
 }
+
 type CreateInstanceBodyTag struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
@@ -57,14 +58,14 @@ type CreateInstanceBodyConfig struct {
 	// To specify agent install (on/off)
 	NoAgent              string      `json:"noAgent,omitempty"`
 	Template             int         `json:"template,omitempty"`
-	ResourcePoolId       json.Number `json:"resourcePoolId"`
+	ResourcePoolID       json.Number `json:"resourcePoolId"`
 	SmbiosAssetTag       string      `json:"smbiosAssetTag,omitempty"`
-	HostId               string      `json:"hostId,omitempty"`
+	HostID               string      `json:"hostId,omitempty"`
 	VmwareDomainName     string      `json:"vmwareDomainName,omitempty"`
 	VmwareCustomSpec     string      `json:"vmwareCustomSpec,omitempty"`
 	NestedVirtualization string      `json:"nestedVirtualization,omitempty"`
 	CreateUser           bool        `json:"createUser,omitempty"`
-	VMwareFolderId       string      `json:"vmwareFolderId,omitempty"`
+	VMwareFolderID       string      `json:"vmwareFolderId,omitempty"`
 }
 
 // CreateInstanceBodyInstanceInstanceType
@@ -76,43 +77,43 @@ type CreateInstanceBodyInstanceInstanceType struct {
 // CreateInstanceBodyInstanceLayout
 type CreateInstanceBodyInstanceLayout struct {
 	// The layout id for the instance type that you want to provision.
-	Id json.Number `json:"id"`
+	ID json.Number `json:"id"`
 }
 
 // CreateInstanceBodyInstancePlan
 type CreateInstanceBodyInstancePlan struct {
 	// Service Plan ID
-	Id json.Number `json:"id"`
+	ID json.Number `json:"id"`
 }
 
 // CreateInstanceBodyInstanceSite
 type CreateInstanceBodyInstanceSite struct {
 	// Group ID
-	Id   int     `json:"id"`
+	ID   int     `json:"id"`
 	Name *string `'json:"name,omitempty"`
 }
 
 // CreateInstanceBodyNetwork
 type CreateInstanceBodyNetwork struct {
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
 // CreateInstanceBodyNetworkInterfaces
 type CreateInstanceBodyNetworkInterfaces struct {
 	Network                *CreateInstanceBodyNetwork `json:"network"`
-	NetworkInterfaceTypeId json.Number                `json:"networkInterfaceTypeId,omitempty"`
+	NetworkInterfaceTypeID json.Number                `json:"networkInterfaceTypeId,omitempty"`
 }
 
 // CreateInstanceBodyVolumes
 type CreateInstanceBodyVolumes struct {
-	Id         int  `json:"id,omitempty"`
+	ID         int  `json:"id,omitempty"`
 	RootVolume bool `json:"rootVolume,omitempty"`
 	// Name/type of the LV being created
 	Name        string `json:"name"`
 	Size        int    `json:"size,omitempty"`
 	StorageType int    `json:"storageType,omitempty"`
 	// The ID of the specific datastore. Auto selection can be specified as auto or autoCluster (for clusters).
-	DatastoreId interface{} `json:"datastoreId"`
+	DatastoreID interface{} `json:"datastoreId"`
 }
 
 type Instances struct {
@@ -127,9 +128,9 @@ type GetInstanceResponse struct {
 
 // GetInstanceResponseInstance
 type GetInstanceResponseInstance struct {
-	Id                  int                                         `json:"id,omitempty"`
-	Uuid                string                                      `json:"uuid,omitempty"`
-	AccountId           int                                         `json:"accountId,omitempty"`
+	ID                  int                                         `json:"id,omitempty"`
+	UUID                string                                      `json:"uuid,omitempty"`
+	AccountID           int                                         `json:"accountId,omitempty"`
 	Tenant              *GetInstanceResponseInstanceTenant          `json:"tenant,omitempty"`
 	InstanceType        *GetInstanceResponseInstanceInstanceType    `json:"instanceType,omitempty"`
 	Group               *GetInstanceResponseInstanceGroup           `json:"group,omitempty"`
@@ -174,9 +175,9 @@ type GetInstanceResponseInstance struct {
 	Owner               *GetInstanceResponseInstanceCreatedBy       `json:"owner,omitempty"`
 }
 
-//GetInstanceResponseInstanceCloud
+// GetInstanceResponseInstanceCloud
 type GetInstanceResponseInstanceCloud struct {
-	Id   int    `json:"id,omitempty"`
+	ID   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
@@ -221,17 +222,17 @@ type GetInstanceResponseInstanceConfigRemovalOptions struct {
 	ReleaseEIPs     bool `json:"releaseEIPs,omitempty"`
 	RemoveVolumes   bool `json:"removeVolumes,omitempty"`
 	RemoveResources bool `json:"removeResources,omitempty"`
-	UserId          int  `json:"userId,omitempty"`
+	UserID          int  `json:"userId,omitempty"`
 }
 
 // GetInstanceResponseInstanceConnectionInfo
 type GetInstanceResponseInstanceConnectionInfo struct {
-	Ip string `json:"ip,omitempty"`
+	IP string `json:"ip,omitempty"`
 }
 
 // GetInstanceResponseInstanceCreatedBy
 type GetInstanceResponseInstanceCreatedBy struct {
-	Id       int    `json:"id,omitempty"`
+	ID       int    `json:"id,omitempty"`
 	Username string `json:"username,omitempty"`
 }
 
@@ -245,13 +246,13 @@ type GetInstanceResponseInstanceEvars struct {
 
 // GetInstanceResponseInstanceGroup
 type GetInstanceResponseInstanceGroup struct {
-	Id   int    `json:"id,omitempty"`
+	ID   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
 // GetInstanceResponseInstanceInstanceType
 type GetInstanceResponseInstanceInstanceType struct {
-	Id       int    `json:"id,omitempty"`
+	ID       int    `json:"id,omitempty"`
 	Code     string `json:"code,omitempty"`
 	Category string `json:"category,omitempty"`
 	Name     string `json:"name,omitempty"`
@@ -259,53 +260,53 @@ type GetInstanceResponseInstanceInstanceType struct {
 
 // GetInstanceResponseInstanceInterfaces
 type GetInstanceResponseInstanceInterfaces struct {
-	Id      json.Number                         `json:"id,omitempty"`
+	ID      json.Number                         `json:"id,omitempty"`
 	Network *GetInstanceResponseInstanceNetwork `json:"network,omitempty"`
 }
 
 // GetInstanceResponseInstanceLayout
 type GetInstanceResponseInstanceLayout struct {
-	Id                int    `json:"id,omitempty"`
+	ID                int    `json:"id,omitempty"`
 	Name              string `json:"name,omitempty"`
 	ProvisionTypeCode string `json:"provisionTypeCode,omitempty"`
 }
 
 // GetInstanceResponseInstanceNetwork
 type GetInstanceResponseInstanceNetwork struct {
-	Id                     json.Number                             `json:"id,omitempty"`
+	ID                     json.Number                             `json:"id,omitempty"`
 	Subnet                 string                                  `json:"subnet,omitempty"`
 	Group                  string                                  `json:"group,omitempty"`
 	DhcpServer             bool                                    `json:"dhcpServer,omitempty"`
 	Name                   string                                  `json:"name,omitempty"`
 	Pool                   *GetInstanceResponseInstanceNetworkPool `json:"pool,omitempty"`
-	IpAddress              string                                  `json:"ipAddress,omitempty"`
-	IpMode                 string                                  `json:"ipMode,omitempty"`
-	NetworkInterfaceTypeId int                                     `json:"networkInterfaceTypeId,omitempty"`
+	IPAddress              string                                  `json:"ipAddress,omitempty"`
+	IPMode                 string                                  `json:"ipMode,omitempty"`
+	NetworkInterfaceTypeID int                                     `json:"networkInterfaceTypeId,omitempty"`
 }
 
 // GetInstanceResponseInstanceNetworkPool
 type GetInstanceResponseInstanceNetworkPool struct {
-	Id   int    `json:"id,omitempty"`
+	ID   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
 // GetInstanceResponseInstancePlan
 type GetInstanceResponseInstancePlan struct {
-	Id   int    `json:"id,omitempty"`
+	ID   int    `json:"id,omitempty"`
 	Code string `json:"code,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
 // GetInstanceResponseInstanceTags
 type GetInstanceResponseInstanceTags struct {
-	Id    int    `json:"id,omitempty"`
+	ID    int    `json:"id,omitempty"`
 	Name  string `json:"name,omitempty"`
 	Value string `json:"value,omitempty"`
 }
 
 // GetInstanceResponseInstanceTenant
 type GetInstanceResponseInstanceTenant struct {
-	Id   int    `json:"id,omitempty"`
+	ID   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
 
@@ -314,8 +315,8 @@ type GetInstanceResponseInstanceVolumes struct {
 	Size              int         `json:"size,omitempty"`
 	Name              string      `json:"name,omitempty"`
 	RootVolume        bool        `json:"rootVolume,omitempty"`
-	Id                int         `json:"id,omitempty"`
-	DatastoreId       interface{} `json:"datastoreId,omitempty"`
+	ID                int         `json:"id,omitempty"`
+	DatastoreID       interface{} `json:"datastoreId,omitempty"`
 	MaxStorage        float64     `json:"maxStorage,omitempty"`
 	DeviceDisplayName string      `json:"deviceDisplayName,omitempty"`
 }
@@ -344,46 +345,48 @@ type ResizeInstanceBody struct {
 }
 
 type ResizeInstanceBodyInstance struct {
-	Id   int                             `json:"id,omitempty"`
+	ID   int                             `json:"id,omitempty"`
 	Plan *ResizeInstanceBodyInstancePlan `json:"plan"`
 }
 
 // ResizeInstanceBodyInstancePlan
 type ResizeInstanceBodyInstancePlan struct {
 	// Service Plan ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
 // ResizeInstanceBodyInstanceVolumes
 type ResizeInstanceBodyInstanceVolumes struct {
-	Id          json.Number `json:"id"`
+	ID          json.Number `json:"id"`
 	RootVolume  bool        `json:"rootVolume"`
 	Name        string      `json:"name"`
 	Size        int         `json:"size"`
-	SizeId      interface{} `json:"sizeId,omitempty"`
+	SizeID      interface{} `json:"sizeId,omitempty"`
 	StorageType interface{} `json:"storageType,omitempty"`
-	DatastoreId interface{} `json:"datastoreId,omitempty"`
+	DatastoreID interface{} `json:"datastoreId,omitempty"`
 }
+
 type ResizeInstanceResponse struct {
 	Instance *ResizeInstanceResponseInstance `json:"instance"`
 }
+
 type ResizeInstanceResponseInstance struct {
-	Id        int                                `json:"id"`
+	ID        int                                `json:"id"`
 	Name      string                             `json:"string"`
 	Cloud     *GetInstanceResponseInstanceCloud  `json:"cloud,omitempty"`
 	Plan      *ResizeInstanceBodyInstancePlan    `json:"plan"`
 	Volumes   []GetInstanceResposeResizeVolumes  `json:"volumes"`
-	AccountId int                                `json:"accountId,omitempty"`
+	AccountID int                                `json:"accountId,omitempty"`
 	Tenant    *GetInstanceResponseInstanceTenant `json:"tenant,omitempty"`
 }
 
 type GetInstanceResposeResizeVolumes struct {
-	Id          json.Number `json:"id,omitempty"`
+	ID          json.Number `json:"id,omitempty"`
 	RootVolume  interface{} `json:"rootVolume,omitempty"`
 	Name        string      `json:"name,omitempty"`
 	Size        json.Number `json:"size,omitempty"`
 	StorageType json.Number `json:"storageType,omitempty"`
-	DatastoreId interface{} `json:"datastoreId,omitempty"`
+	DatastoreID interface{} `json:"datastoreId,omitempty"`
 }
 
 // SnapshotBody
@@ -401,6 +404,7 @@ type SnapshotBodySnapshot struct {
 type ListSnapshotResponse struct {
 	Snapshots []ListSnapshotResponseInstance `json:"snapshots"`
 }
+
 type ListSnapshotResponseInstance struct {
 	ID              int         `json:"id,omitempty"`
 	Name            string      `json:"name,omitempty"`
@@ -421,7 +425,7 @@ type ListSnapshotResponseInstance struct {
 }
 
 type ImportSnapshotBody struct {
-	StorageProviderId int `json:"storageProviderId,omitempty"`
+	StorageProviderID int `json:"storageProviderId,omitempty"`
 }
 
 // UpdateInstanceBody
@@ -437,7 +441,8 @@ type UpdateInstanceBodyInstance struct {
 	Description string `json:"description,omitempty"`
 	// Add or update value of Metadata tags, Array of objects having a name and value
 	AddTags []CreateInstanceBodyTag `json:"addTags,omitempty"`
-	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed, it must match to be removed
+	// Remove Metadata tags, Array of objects having a name and an optional value. If value is passed,
+	// it must match to be removed
 	RemoveTags        []CreateInstanceBodyTag               `json:"removeTags,omitempty"`
 	Site              *CreateInstanceBodyInstanceSite       `json:"site"`
 	Owner             *GetInstanceResponseInstanceCreatedBy `json:"owner,omitempty"`
@@ -446,9 +451,11 @@ type UpdateInstanceBodyInstance struct {
 	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
 	InstanceContext   string                                `json:"instanceContext,omitempty"`
 }
+
 type UpdateInstanceResponse struct {
 	Instance *UpdateInstanceResponseInstance `json:"instance"`
 }
+
 type UpdateInstanceResponseInstance struct {
 	Name    string                                `json:"name,omitempty"`
 	ID      int                                   `json:"id,omitempty"`
@@ -467,14 +474,14 @@ type GetServicePlanResponse struct {
 
 // GetServicePlanResponsePlans
 type GetServicePlanResponsePlans struct {
-	Id                    int                                  `json:"id,omitempty"`
+	ID                    int                                  `json:"id,omitempty"`
 	Name                  string                               `json:"name,omitempty"`
 	Value                 int                                  `json:"value,omitempty"`
 	Code                  string                               `json:"code,omitempty"`
 	MaxStorage            int                                  `json:"maxStorage,omitempty"`
 	MaxMemory             int                                  `json:"maxMemory,omitempty"`
 	MaxCores              int                                  `json:"maxCores,omitempty"`
-	CustomCpu             bool                                 `json:"customCpu,omitempty"`
+	CustomCPU             bool                                 `json:"customCpu,omitempty"`
 	CustomMaxMemory       bool                                 `json:"customMaxMemory,omitempty"`
 	CustomMaxStorage      bool                                 `json:"customMaxStorage,omitempty"`
 	CustomMaxDataStorage  bool                                 `json:"customMaxDataStorage,omitempty"`
@@ -491,7 +498,7 @@ type GetServicePlanResponsePlans struct {
 	Datastores            *GetServicePlanResponseDatastores    `json:"datastores,omitempty"`
 	SupportsAutoDatastore bool                                 `json:"supportsAutoDatastore,omitempty"`
 	AutoOptions           string                               `json:"autoOptions,omitempty"`
-	CpuOptions            string                               `json:"cpuOptions,omitempty"`
+	CPUOptions            string                               `json:"cpuOptions,omitempty"`
 	CoreOptions           string                               `json:"coreOptions,omitempty"`
 	MemoryOptions         string                               `json:"memoryOptions,omitempty"`
 	RootCustomSizeOptions *interface{}                         `json:"rootCustomSizeOptions,omitempty"`
@@ -503,7 +510,7 @@ type GetServicePlanResponsePlans struct {
 
 // GetServicePlanResponseStorageTypes
 type GetServicePlanResponseStorageTypes struct {
-	Id               int      `json:"id,omitempty"`
+	ID               int      `json:"id,omitempty"`
 	Editable         bool     `json:"editable,omitempty"`
 	OptionTypes      []string `json:"optionTypes,omitempty"`
 	DisplayOrder     int      `json:"displayOrder,omitempty"`

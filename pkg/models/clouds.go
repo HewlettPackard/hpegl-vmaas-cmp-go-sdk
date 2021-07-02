@@ -139,8 +139,8 @@ type ResourcePoolRespBody struct {
 	} `json:"tenants"`
 	Resourcepermission struct {
 		All      bool          `json:"all"`
-		Sites    []interface{} `json:"sites"`
 		Allplans bool          `json:"allPlans"`
+		Sites    []interface{} `json:"sites"`
 		Plans    []interface{} `json:"plans"`
 	} `json:"resourcePermission"`
 	Depth int `json:"depth"`
@@ -170,8 +170,8 @@ type DataStoresRespBody struct {
 	} `json:"tenants"`
 	Resourcepermission struct {
 		All      bool          `json:"all"`
-		Sites    []interface{} `json:"sites"`
 		Allplans bool          `json:"allPlans"`
+		Sites    []interface{} `json:"sites"`
 		Plans    []interface{} `json:"plans"`
 	} `json:"resourcePermission"`
 }
