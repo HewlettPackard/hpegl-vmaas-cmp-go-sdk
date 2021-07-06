@@ -144,7 +144,6 @@ type GetInstanceResponseInstance struct {
 	Description         string                                      `json:"description,omitempty"`
 	Config              *GetInstanceResponseInstanceConfig          `json:"config,omitempty"`
 	Volumes             []GetInstanceResponseInstanceVolumes        `json:"volumes,omitempty"`
-	Controllers         []GetInstanceResponseInstanceController     `json:"controllers,omitempty"`
 	Interfaces          []GetInstanceResponseInstanceInterfaces     `json:"interfaces,omitempty"`
 	CustomOptions       *interface{}                                `json:"customOptions,omitempty"`
 	InstanceVersion     string                                      `json:"instanceVersion,omitempty"`
@@ -319,22 +318,6 @@ type GetInstanceResponseInstanceVolumes struct {
 	DatastoreID       interface{} `json:"datastoreId,omitempty"`
 	MaxStorage        float64     `json:"maxStorage,omitempty"`
 	DeviceDisplayName string      `json:"deviceDisplayName,omitempty"`
-}
-
-type GetInstanceResponseInstanceController struct {
-	Editable           bool   `json:"editable,omitempty"`
-	Typename           string `json:"typeName,omitempty"`
-	Maxdevices         int    `json:"maxDevices,omitempty"`
-	Displayorder       int    `json:"displayOrder,omitempty"`
-	Active             bool   `json:"active,omitempty"`
-	Unitnumber         string `json:"unitNumber,omitempty"`
-	Reservedunitnumber int    `json:"reservedUnitNumber,omitempty"`
-	Busnumber          string `json:"busNumber,omitempty"`
-	Removable          bool   `json:"removable,omitempty"`
-	Name               string `json:"name,omitempty"`
-	Typeid             int    `json:"typeId,omitempty"`
-	ID                 int    `json:"id,omitempty"`
-	Category           string `json:"category,omitempty"`
 }
 
 // ResizeInstanceBody
