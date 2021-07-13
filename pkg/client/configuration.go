@@ -43,19 +43,21 @@ type APIKey struct {
 }
 
 type Configuration struct {
-	BasePath      string            `json:"basePath,omitempty"`
-	Host          string            `json:"host,omitempty"`
-	Scheme        string            `json:"scheme,omitempty"`
-	DefaultHeader map[string]string `json:"defaultHeader,omitempty"`
-	UserAgent     string            `json:"userAgent,omitempty"`
-	HTTPClient    *http.Client
+	BasePath           string            `json:"basePath,omitempty"`
+	Host               string            `json:"host,omitempty"`
+	Scheme             string            `json:"scheme,omitempty"`
+	DefaultHeader      map[string]string `json:"defaultHeader,omitempty"`
+	DefaultQueryParams map[string]string `json:"defaultQueryParams"`
+	UserAgent          string            `json:"userAgent,omitempty"`
+	HTTPClient         *http.Client
 }
 
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		BasePath:      "/",
-		DefaultHeader: make(map[string]string),
-		UserAgent:     "Swagger-Codegen/1.0.0/go",
+		BasePath:           "/",
+		DefaultHeader:      make(map[string]string),
+		DefaultQueryParams: make(map[string]string),
+		UserAgent:          "Swagger-Codegen/1.0.0/go",
 	}
 
 	return cfg
@@ -63,4 +65,8 @@ func NewConfiguration() *Configuration {
 
 func (c *Configuration) AddDefaultHeader(key string, value string) {
 	c.DefaultHeader[key] = value
+}
+
+func (c *Configuration) AddDefaultQueryParams(key string, value string) {
+	c.DefaultQueryParams[key] = value
 }
