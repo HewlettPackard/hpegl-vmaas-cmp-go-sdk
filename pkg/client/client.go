@@ -264,6 +264,10 @@ func (c *APIClient) prepareRequest(
 		}
 	}
 
+	for k, v := range c.cfg.DefaultQueryParams {
+		query.Add(k, v)
+	}
+
 	// Encode the parameters.
 	url.RawQuery = query.Encode()
 
