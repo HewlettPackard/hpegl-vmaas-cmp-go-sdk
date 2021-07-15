@@ -106,7 +106,7 @@ type ComputeServerType struct {
 	ExternalDelete bool   `json:"externalDelete"`
 }
 type ServerStats struct {
-	Ts             time.Time `json:"ts"`
+	TS             time.Time `json:"ts"`
 	MaxMemory      int64     `json:"maxMemory"`
 	UsedMemory     int       `json:"usedMemory"`
 	MaxStorage     int64     `json:"maxStorage"`
