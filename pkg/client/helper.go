@@ -29,7 +29,6 @@ func (c CustomError) Error() string {
 	if err != nil {
 		return err.Error()
 	}
-
 	return string(jsonObj)
 }
 
