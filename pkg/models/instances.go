@@ -259,8 +259,9 @@ type GetInstanceResponseInstanceInstanceType struct {
 
 // GetInstanceResponseInstanceInterfaces
 type GetInstanceResponseInstanceInterfaces struct {
-	ID      interface{}                         `json:"id,omitempty"`
-	Network *GetInstanceResponseInstanceNetwork `json:"network,omitempty"`
+	ID                     interface{}                         `json:"id,omitempty"`
+	Network                *GetInstanceResponseInstanceNetwork `json:"network,omitempty"`
+	NetworkInterfaceTypeID int                                 `json:"networkInterfaceTypeId,omitempty"`
 }
 
 // GetInstanceResponseInstanceLayout
@@ -272,15 +273,14 @@ type GetInstanceResponseInstanceLayout struct {
 
 // GetInstanceResponseInstanceNetwork
 type GetInstanceResponseInstanceNetwork struct {
-	ID                     json.Number                             `json:"id,omitempty"`
-	Subnet                 string                                  `json:"subnet,omitempty"`
-	Group                  string                                  `json:"group,omitempty"`
-	DhcpServer             bool                                    `json:"dhcpServer,omitempty"`
-	Name                   string                                  `json:"name,omitempty"`
-	Pool                   *GetInstanceResponseInstanceNetworkPool `json:"pool,omitempty"`
-	IPAddress              string                                  `json:"ipAddress,omitempty"`
-	IPMode                 string                                  `json:"ipMode,omitempty"`
-	NetworkInterfaceTypeID int                                     `json:"networkInterfaceTypeId,omitempty"`
+	ID         json.Number                             `json:"id,omitempty"`
+	Subnet     string                                  `json:"subnet,omitempty"`
+	Group      string                                  `json:"group,omitempty"`
+	DhcpServer bool                                    `json:"dhcpServer,omitempty"`
+	Name       string                                  `json:"name,omitempty"`
+	Pool       *GetInstanceResponseInstanceNetworkPool `json:"pool,omitempty"`
+	IPAddress  string                                  `json:"ipAddress,omitempty"`
+	IPMode     string                                  `json:"ipMode,omitempty"`
 }
 
 // GetInstanceResponseInstanceNetworkPool
