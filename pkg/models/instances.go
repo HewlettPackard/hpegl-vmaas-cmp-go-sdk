@@ -351,6 +351,7 @@ type ResizeInstanceBodyInstanceVolumes struct {
 
 type ResizeInstanceResponse struct {
 	Instance *ResizeInstanceResponseInstance `json:"instance"`
+	Success  bool                            `json:"success"`
 }
 
 type ResizeInstanceResponseInstance struct {
