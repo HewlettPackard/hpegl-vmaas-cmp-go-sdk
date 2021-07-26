@@ -524,3 +524,7 @@ type GetServicePlanResponseDatastores struct {
 	Cluster string `json:"cluster,omitempty"`
 	Store   string `json:"store,omitempty"`
 }
+
+type InstancePowerResponse struct {
+	Success bool `json:"success"`
+}

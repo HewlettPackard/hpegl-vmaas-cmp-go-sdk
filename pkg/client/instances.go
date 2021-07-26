@@ -1160,12 +1160,13 @@ Restarts all VM running within an instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) RestartAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
+func (a *InstancesAPIService) RestartAnInstance(ctx context.Context, instanceID int) (models.InstancePowerResponse, error) {
 	var (
-		localVarHTTPMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHTTPMethod    = strings.ToUpper("Put")
+		localVarPostBody      interface{}
+		localVarFileName      string
+		localVarFileBytes     []byte
+		instanceStateResponse models.InstancePowerResponse
 	)
 
 	// create path and map variables
@@ -1197,19 +1198,29 @@ func (a *InstancesAPIService) RestartAnInstance(ctx context.Context, instanceID 
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
 		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return instanceStateResponse, err
 	}
 
 	localVarHTTPResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return instanceStateResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
+		return instanceStateResponse, ParseError(localVarHTTPResponse)
 	}
 
-	return localVarHTTPResponse, nil
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	defer localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return instanceStateResponse, err
+	}
+
+	if err = json.Unmarshal(localVarBody, &instanceStateResponse); err != nil {
+		return instanceStateResponse, err
+	}
+
+	return instanceStateResponse, nil
 }
 
 /*
@@ -1305,12 +1316,13 @@ Starts all VM running within an instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) StartAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
+func (a *InstancesAPIService) StartAnInstance(ctx context.Context, instanceID int) (models.InstancePowerResponse, error) {
 	var (
-		localVarHTTPMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHTTPMethod    = strings.ToUpper("Put")
+		localVarPostBody      interface{}
+		localVarFileName      string
+		localVarFileBytes     []byte
+		instanceStateResponse models.InstancePowerResponse
 	)
 
 	// create path and map variables
@@ -1342,18 +1354,29 @@ func (a *InstancesAPIService) StartAnInstance(ctx context.Context, instanceID in
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
 		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return instanceStateResponse, err
 	}
 
 	localVarHTTPResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return instanceStateResponse, err
 	}
 	if localVarHTTPResponse.StatusCode >= 300 {
-		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
+		return instanceStateResponse, ParseError(localVarHTTPResponse)
 	}
 
-	return localVarHTTPResponse, nil
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	defer localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return instanceStateResponse, err
+	}
+
+	if err = json.Unmarshal(localVarBody, &instanceStateResponse); err != nil {
+		return instanceStateResponse, err
+	}
+
+	return instanceStateResponse, nil
+
 }
 
 /*
@@ -1365,12 +1388,13 @@ Stops all VM running within an instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) StopAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
+func (a *InstancesAPIService) StopAnInstance(ctx context.Context, instanceID int) (models.InstancePowerResponse, error) {
 	var (
-		localVarHTTPMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHTTPMethod    = strings.ToUpper("Put")
+		localVarPostBody      interface{}
+		localVarFileName      string
+		localVarFileBytes     []byte
+		instanceStateResponse models.InstancePowerResponse
 	)
 
 	// create path and map variables
@@ -1402,18 +1426,28 @@ func (a *InstancesAPIService) StopAnInstance(ctx context.Context, instanceID int
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
 		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return instanceStateResponse, err
 	}
 
 	localVarHTTPResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return instanceStateResponse, err
 	}
 	if localVarHTTPResponse.StatusCode >= 300 {
-		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
+		return instanceStateResponse, ParseError(localVarHTTPResponse)
 	}
 
-	return localVarHTTPResponse, nil
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	defer localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return instanceStateResponse, err
+	}
+
+	if err = json.Unmarshal(localVarBody, &instanceStateResponse); err != nil {
+		return instanceStateResponse, err
+	}
+
+	return instanceStateResponse, nil
 }
 
 /*
@@ -1425,12 +1459,13 @@ Suspends all VM running within an instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
+func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context, instanceID int) (models.InstancePowerResponse, error) {
 	var (
-		localVarHTTPMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHTTPMethod    = strings.ToUpper("Put")
+		localVarPostBody      interface{}
+		localVarFileName      string
+		localVarFileBytes     []byte
+		instanceStateResponse models.InstancePowerResponse
 	)
 
 	// create path and map variables
@@ -1462,18 +1497,28 @@ func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context, instanceID 
 	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
 		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return instanceStateResponse, err
 	}
 
 	localVarHTTPResponse, err := a.Client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return instanceStateResponse, err
 	}
 	if localVarHTTPResponse.StatusCode >= 300 {
-		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
+		return instanceStateResponse, ParseError(localVarHTTPResponse)
 	}
 
-	return localVarHTTPResponse, nil
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	defer localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return instanceStateResponse, err
+	}
+
+	if err = json.Unmarshal(localVarBody, &instanceStateResponse); err != nil {
+		return instanceStateResponse, err
+	}
+
+	return instanceStateResponse, nil
 }
 
 /*
