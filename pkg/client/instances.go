@@ -1376,7 +1376,6 @@ func (a *InstancesAPIService) StartAnInstance(ctx context.Context, instanceID in
 	}
 
 	return instanceStateResponse, nil
-
 }
 
 /*
