@@ -148,7 +148,7 @@ type GetInstanceResponseInstance struct {
 	CustomOptions       *interface{}                                `json:"customOptions,omitempty"`
 	InstanceVersion     string                                      `json:"instanceVersion,omitempty"`
 	Labels              []string                                    `json:"labels,omitempty"`
-	Tags                []GetInstanceResponseInstanceTags           `json:"tags,omitempty"`
+	Tags                []CreateInstanceBodyTag                     `json:"tags,omitempty"`
 	Evars               []GetInstanceResponseInstanceEvars          `json:"evars,omitempty"`
 	MaxMemory           int64                                       `json:"maxMemory,omitempty"`
 	MaxStorage          int64                                       `json:"maxStorage,omitempty"`
