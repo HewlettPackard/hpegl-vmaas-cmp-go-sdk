@@ -202,3 +202,24 @@ type GetNetworkInterfaceNetworkTypes struct {
 	Name string `json:"name"`
 	Code string `json:"code"`
 }
+
+type GetAllCloudFolders struct {
+	Folders []GetCloudFolder `json:"folders"`
+}
+
+type GetCloudFolder struct {
+	ID            int         `json:"id"`
+	Name          string      `json:"name"`
+	Parent        interface{} `json:"parent"`
+	Type          string      `json:"type"`
+	ExternalID    string      `json:"externalId"`
+	Visibility    string      `json:"visibility"`
+	ReadOnly      bool        `json:"readOnly"`
+	DefaultFolder bool        `json:"defaultFolder"`
+	DefaultStore  bool        `json:"defaultStore"`
+	Active        bool        `json:"active"`
+}
+
+type GetSpecificCloudFolder struct {
+	Folder GetCloudFolder `json:"folder"`
+}
