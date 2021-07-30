@@ -601,12 +601,14 @@ func (a *CloudsAPIService) GetAllCloudFolders(
 				if cloudID < 1 {
 					return fmt.Errorf("%s", "cloud id should be greater than or equal to 1")
 				}
+
 				return nil
 			},
 		},
 	}
 
 	err := folderAPI.do(ctx, nil, queryParams)
+
 	return folders, err
 }
 
@@ -632,11 +634,13 @@ func (a *CloudsAPIService) GetSpecificCloudFolder(
 				if cloudID < 1 {
 					return fmt.Errorf("%s", "cloud id should be greater than or equal to 1")
 				}
+
 				return nil
 			},
 		},
 	}
 
 	err := folderAPI.do(ctx, nil, nil)
+
 	return folder, err
 }

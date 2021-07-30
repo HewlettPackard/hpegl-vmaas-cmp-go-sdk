@@ -23,7 +23,7 @@ type api struct {
 	validations []validationFunc
 }
 
-// do will call the API provided. this funtion will not return any response, but
+// do will call the API provided. this function will not return any response, but
 // response should be catched from jsonParser function itself
 func (a *api) do(ctx context.Context, request interface{}, queryParams map[string]string) error {
 	var (
