@@ -609,3 +609,34 @@ func (a *CloudsAPIService) GetAllCloudFolders(
 	err := folderAPI.do(ctx, nil, queryParams)
 	return folders, err
 }
+
+func (a *CloudsAPIService) GetSpecificCloudFolder(
+	ctx context.Context,
+	cloudID int,
+	folderID int,
+) (models.GetCloudFolder, error) {
+	folder := models.GetCloudFolder{}
+
+	folderAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d/%s/%d",
+			a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.ZonePath, cloudID, consts.FolderPath, folderID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &folder)
+		},
+		// validate cloud id > 1
+		validations: []validationFunc{
+			func() error {
+				if cloudID < 1 {
+					return fmt.Errorf("%s", "cloud id should be greater than or equal to 1")
+				}
+				return nil
+			},
+		},
+	}
+
+	err := folderAPI.do(ctx, nil, nil)
+	return folder, err
+}
