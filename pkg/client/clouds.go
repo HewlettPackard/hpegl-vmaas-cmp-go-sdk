@@ -578,3 +578,34 @@ func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
 
 	return networkResp, nil
 }
+
+func (a *CloudsAPIService) GetAllCloudFolders(
+	ctx context.Context,
+	cloudID int,
+	queryParams map[string]string,
+) (models.GetAllCloudFolders, error) {
+	folders := models.GetAllCloudFolders{}
+
+	folderAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d/%s",
+			a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.ZonePath, cloudID, consts.FolderPath),
+		client: a.Client,
+		// jsonParser also stores folder response, since folders is not a local variable
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &folders)
+		},
+		// validate cloud id > 1
+		validations: []validationFunc{
+			func() error {
+				if cloudID < 1 {
+					return fmt.Errorf("%s", "cloud id should be greater than or equal to 1")
+				}
+				return nil
+			},
+		},
+	}
+
+	err := folderAPI.do(ctx, nil, queryParams)
+	return folders, err
+}
