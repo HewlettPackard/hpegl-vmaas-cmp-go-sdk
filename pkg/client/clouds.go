@@ -614,8 +614,8 @@ func (a *CloudsAPIService) GetSpecificCloudFolder(
 	ctx context.Context,
 	cloudID int,
 	folderID int,
-) (models.GetCloudFolder, error) {
-	folder := models.GetCloudFolder{}
+) (models.GetSpecificCloudFolder, error) {
+	folder := models.GetSpecificCloudFolder{}
 
 	folderAPI := &api{
 		method: "GET",

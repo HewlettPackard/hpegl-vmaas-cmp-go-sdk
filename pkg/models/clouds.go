@@ -219,3 +219,7 @@ type GetCloudFolder struct {
 	DefaultStore  bool        `json:"defaultStore"`
 	Active        bool        `json:"active"`
 }
+
+type GetSpecificCloudFolder struct {
+	Folder GetCloudFolder `json:"folder"`
+}
