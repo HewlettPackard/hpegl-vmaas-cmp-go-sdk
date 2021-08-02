@@ -1432,3 +1432,88 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 		})
 	}
 }
+
+func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name       string
+		instanceID int
+		given      func(m *MockAPIClientHandler)
+		want       models.GetInstanceHistory
+		wantErr    bool
+	}{
+		{
+			name:       "Normal test case 1: Get all history",
+			instanceID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/history"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"processes": [
+						{
+							"id": 6944,
+							"accountId": 6,
+							"processType": {
+								"code": "cloning",
+								"name": "executing instance clone"
+							},
+							"displayName": "Cloning",
+							"instanceId": 2495,
+							"status": "failed"
+						}
+					]
+				}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetInstanceHistory{
+				Processes: []models.GetInstanceHistoryProcesses{
+					{
+						ID:        6944,
+						AccountID: 6,
+						ProcessType: models.GetInstanceHistoryProcessType{
+							Code: "cloning",
+							Name: "executing instance clone",
+						},
+						DisplayName: "Cloning",
+						InstanceID:  2495,
+						Status:      "failed",
+					},
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			i := InstancesAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+
+			got, err := i.GetInstanceHistory(ctx, tt.instanceID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("InstancesAPIService.GetInstanceHistory() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InstancesAPIService.GetInstanceHistory() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

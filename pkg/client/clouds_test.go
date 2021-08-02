@@ -441,7 +441,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 }
 
 // TODO add UTs for get all cloud folder(s)
-/* func TestCloudsAPIService_GetAllFolders(t *testing.T) {
+func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -451,7 +451,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 		cloudID int
 		param   map[string]string
 		given   func(m *MockAPIClientHandler)
-		want    models.GetFolders
+		want    models.GetAllCloudFolders
 		wantErr bool
 	}{
 		{
@@ -484,8 +484,8 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				}, nil)
 
 			},
-			want: models.GetFolders{
-				Folders: []models.Folder{
+			want: models.GetAllCloudFolders{
+				Folders: []models.GetCloudFolder{
 					{
 						ID:   1,
 						Name: templateName,
@@ -509,7 +509,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
-			want:    models.GetFolders{},
+			want:    models.GetAllCloudFolders{},
 			wantErr: true,
 		},
 		{
@@ -542,7 +542,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				}, nil)
 
 			},
-			want:    models.GetFolders{},
+			want:    models.GetAllCloudFolders{},
 			wantErr: true,
 		},
 	}
@@ -556,18 +556,18 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.GetAllFolders(ctx, tt.cloudID, tt.param)
+			got, err := a.GetAllCloudFolders(ctx, tt.cloudID, tt.param)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("CloudsAPIService.GetAllFolders() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CloudsAPIService.GetAllCloudFolders() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CloudsAPIService.GetAllFolders() = %v, want %v", got, tt.want)
+				t.Errorf("CloudsAPIService.GetAllCloudFolders() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
-*/
+
 func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
