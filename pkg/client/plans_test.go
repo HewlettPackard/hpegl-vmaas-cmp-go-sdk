@@ -58,7 +58,6 @@ func TestPlansAPIService_GetAllServicePlans(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.ServicePlans{
 				ServicePlansResponse: []models.ServicePlanResponse{

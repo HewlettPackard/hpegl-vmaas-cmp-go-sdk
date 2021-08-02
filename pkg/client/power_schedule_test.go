@@ -57,7 +57,6 @@ func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.GetAllPowerSchedules{
 				Schedules: []models.GetAllPowerSchedulesSchedules{
@@ -113,7 +112,6 @@ func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.GetAllPowerSchedules{},
 			wantErr: true,

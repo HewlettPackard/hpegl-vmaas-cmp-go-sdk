@@ -533,6 +533,7 @@ type GetInstanceHistoryProcessType struct {
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
+
 type GetInstanceHistoryProcesses struct {
 	ID            int                           `json:"id"`
 	AccountID     int                           `json:"accountId"`
@@ -571,6 +572,7 @@ type GetInstanceHistoryProcesses struct {
 	} `json:"updatedBy"`
 	Events []interface{} `json:"events"`
 }
+
 type GetInstanceHistory struct {
 	Processes []GetInstanceHistoryProcesses `json:"processes"`
 }

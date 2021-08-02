@@ -58,7 +58,6 @@ func TestLibraryAPIService_GetAllLayouts(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.LayoutsResp{
 				InstanceTypeLayouts: []models.LayoutRespBody{
@@ -83,7 +82,6 @@ func TestLibraryAPIService_GetAllLayouts(t *testing.T) {
 					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
-
 			},
 			want:    models.LayoutsResp{},
 			wantErr: true,
@@ -116,7 +114,6 @@ func TestLibraryAPIService_GetAllLayouts(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.LayoutsResp{},
 			wantErr: true,
@@ -186,7 +183,6 @@ func TestLibraryAPIService_GetAllInstanceTypes(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.InstanceTypesResp{
 				InstanceTypes: []models.InstanceTypeRespBody{

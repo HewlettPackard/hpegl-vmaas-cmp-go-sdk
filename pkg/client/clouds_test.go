@@ -83,7 +83,6 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.DataStoresResp{
 				Datastores: []models.DataStoresRespBody{
@@ -109,7 +108,6 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
-
 			},
 			want:    models.DataStoresResp{},
 			wantErr: true,
@@ -221,7 +219,6 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.ResourcePoolsResp{
 				ResourcePools: []models.ResourcePoolRespBody{
@@ -279,7 +276,6 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.ResourcePoolsResp{},
 			wantErr: true,
@@ -356,7 +352,6 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.CloudsResp{
 				Clouds: []models.CloudRespBody{
@@ -412,7 +407,6 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.CloudsResp{},
 			wantErr: true,
@@ -482,7 +476,6 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.GetAllCloudFolders{
 				Folders: []models.GetCloudFolder{
@@ -540,7 +533,6 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.GetAllCloudFolders{},
 			wantErr: true,
@@ -610,7 +602,6 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.GetAllCloudNetworks{
 				Data: models.DataGetNetworkInterface{
@@ -668,7 +659,6 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.GetAllCloudNetworks{},
 			wantErr: true,

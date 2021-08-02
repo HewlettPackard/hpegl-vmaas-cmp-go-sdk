@@ -19,8 +19,7 @@ type ServerCounts struct {
 }
 
 // GroupsZones
-type GroupsZones struct {
-}
+type GroupsZones struct{}
 
 // GroupsStats
 type GroupsStats struct {

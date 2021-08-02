@@ -56,7 +56,6 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.GetAllEnvironment{
 				Environments: []models.GetEnvironment{
@@ -111,7 +110,6 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.GetAllEnvironment{},
 			wantErr: true,

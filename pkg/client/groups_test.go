@@ -53,7 +53,6 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.GroupResp{
 				Group: &models.Group{
@@ -99,7 +98,6 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.GroupResp{},
 			wantErr: true,
@@ -169,7 +167,6 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.Groups{
 				Groups: &[]models.Group{
@@ -225,7 +222,6 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.Groups{},
 			wantErr: true,

@@ -1692,7 +1692,7 @@ func (a *InstancesAPIService) UpdatingAnInstance(ctx context.Context, instanceID
 	return updateInstanceResponse, nil
 }
 
-func (i *InstancesAPIService) GetInstanceHistory(
+func (a *InstancesAPIService) GetInstanceHistory(
 	ctx context.Context,
 	instanceID int,
 ) (models.GetInstanceHistory, error) {
@@ -1700,9 +1700,9 @@ func (i *InstancesAPIService) GetInstanceHistory(
 
 	folderAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d/history", i.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%s/%s/%d/history", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.InstancesPath, instanceID),
-		client: i.Client,
+		client: a.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &history)
