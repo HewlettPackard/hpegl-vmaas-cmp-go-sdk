@@ -528,3 +528,48 @@ type GetServicePlanResponseDatastores struct {
 type InstancePowerResponse struct {
 	Success bool `json:"success"`
 }
+
+type GetInstanceHistoryProcesses struct {
+	ID          int    `json:"id"`
+	AccountID   int    `json:"accountId"`
+	UniqueID    string `json:"uniqueId"`
+	ProcessType struct {
+		Code string `json:"code"`
+		Name string `json:"name"`
+	} `json:"processType"`
+	DisplayName   string      `json:"displayName"`
+	Description   interface{} `json:"description"`
+	SubType       interface{} `json:"subType"`
+	SubID         interface{} `json:"subId"`
+	ZoneID        interface{} `json:"zoneId"`
+	IntegrationID interface{} `json:"integrationId"`
+	AppID         interface{} `json:"appId"`
+	InstanceID    int         `json:"instanceId"`
+	ContainerID   interface{} `json:"containerId"`
+	ServerID      interface{} `json:"serverId"`
+	ContainerName interface{} `json:"containerName"`
+	Status        string      `json:"status"`
+	Reason        interface{} `json:"reason"`
+	Percent       float64     `json:"percent"`
+	StatusEta     int         `json:"statusEta"`
+	Message       interface{} `json:"message"`
+	Output        interface{} `json:"output"`
+	Error         interface{} `json:"error"`
+	StartDate     time.Time   `json:"startDate"`
+	EndDate       time.Time   `json:"endDate"`
+	Duration      int         `json:"duration"`
+	DateCreated   time.Time   `json:"dateCreated"`
+	LastUpdated   time.Time   `json:"lastUpdated"`
+	CreatedBy     struct {
+		Username    string `json:"username"`
+		DisplayName string `json:"displayName"`
+	} `json:"createdBy"`
+	UpdatedBy struct {
+		Username    string `json:"username"`
+		DisplayName string `json:"displayName"`
+	} `json:"updatedBy"`
+	Events []interface{} `json:"events"`
+}
+type GetInstanceHistory struct {
+	Processes []GetInstanceHistoryProcesses `json:"processes"`
+}

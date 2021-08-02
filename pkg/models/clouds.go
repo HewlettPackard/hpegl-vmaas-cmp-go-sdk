@@ -180,15 +180,6 @@ type DataStoresResp struct {
 	Datastores []DataStoresRespBody `json:"datastores"`
 }
 
-type GetFolders struct {
-	Folders []Folder `json:"folders"`
-}
-
-type Folder struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
-
 type GetAllCloudNetworks struct {
 	Data DataGetNetworkInterface `json:"data"`
 }
