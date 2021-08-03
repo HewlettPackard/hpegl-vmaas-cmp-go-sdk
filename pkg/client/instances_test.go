@@ -21,7 +21,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	//templateName := "test_clone_an_instance"
+	// templateName := "test_clone_an_instance"
 	tests := []struct {
 		name       string
 		param      models.CreateInstanceBody
@@ -40,7 +40,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
-				//headers := getDefaultHeaders()
+				// headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -63,7 +63,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Clone",
 				})
-				//pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
+				// pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -88,7 +88,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
-				//headers := getDefaultHeaders()
+				// headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -98,7 +98,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Clone",
 				})
-				//pBody := []byte(`{"ZoneID":"1","CloneName":"Instance_Clone"}`)
+				// pBody := []byte(`{"ZoneID":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -115,7 +115,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
-				//headers := getDefaultHeaders()
+				// headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -195,7 +195,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances"
 				method := "POST"
-				//headers := getDefaultHeaders()
+				// headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -227,7 +227,6 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.GetInstanceResponse{
 				Instance: &models.GetInstanceResponseInstance{
@@ -246,7 +245,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances"
 				method := "POST"
-				//headers := getDefaultHeaders()
+				// headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -256,10 +255,9 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				})
-				//pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
+				// pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
-
 			},
 			want:    models.GetInstanceResponse{},
 			wantErr: true,
@@ -273,7 +271,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances"
 				method := "POST"
-				//headers := getDefaultHeaders()
+				// headers := getDefaultHeaders()
 				headers := map[string]string{
 					"Accept":       "application/json",
 					"Content-Type": "application/json",
@@ -305,7 +303,6 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.GetInstanceResponse{},
 			wantErr: true,
@@ -384,7 +381,8 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 			},
 			want:    models.SuccessOrErrorMessage{},
 			wantErr: true,
-		}, {
+		},
+		{
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
@@ -432,6 +430,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 		})
 	}
 }
+
 func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
@@ -498,7 +497,8 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 					"Content-Type": "application/json",
 				}
 				pBody, _ := json.Marshal(models.ImportSnapshotBody{
-					StorageProviderID: 1})
+					StorageProviderID: 1,
+				})
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1077,6 +1077,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 		})
 	}
 }
+
 func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
@@ -1113,7 +1114,6 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.GetInstanceResponse{
 				Instance: &models.GetInstanceResponseInstance{
@@ -1133,7 +1133,6 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 				// mock the context only since it is not validated in this function
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
-
 			},
 			want:    models.GetInstanceResponse{},
 			wantErr: true,
@@ -1162,7 +1161,6 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.GetInstanceResponse{},
 			wantErr: true,
@@ -1192,7 +1190,6 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 }
 
 func TestInstancesAPIService_GetAllInstances(t *testing.T) {
-
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -1233,7 +1230,6 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.Instances{
 				Instances: []models.GetInstanceResponseInstance{
@@ -1259,7 +1255,6 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
-
 			},
 			want:    models.Instances{},
 			wantErr: true,
@@ -1291,7 +1286,6 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.Instances{},
 			wantErr: true,
@@ -1355,7 +1349,6 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.ListSnapshotResponse{
 				Snapshots: []models.ListSnapshotResponseInstance{
@@ -1376,7 +1369,6 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
-
 			},
 			want:    models.ListSnapshotResponse{},
 			wantErr: true,
@@ -1404,7 +1396,6 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.ListSnapshotResponse{},
 			wantErr: true,
@@ -1428,6 +1419,91 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("InstancesAPIService.GetListOfSnapshotsForAnInstance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name       string
+		instanceID int
+		given      func(m *MockAPIClientHandler)
+		want       models.GetInstanceHistory
+		wantErr    bool
+	}{
+		{
+			name:       "Normal test case 1: Get all history",
+			instanceID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/history"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"processes": [
+						{
+							"id": 6944,
+							"accountId": 6,
+							"processType": {
+								"code": "cloning",
+								"name": "executing instance clone"
+							},
+							"displayName": "Cloning",
+							"instanceId": 2495,
+							"status": "failed"
+						}
+					]
+				}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetInstanceHistory{
+				Processes: []models.GetInstanceHistoryProcesses{
+					{
+						ID:        6944,
+						AccountID: 6,
+						ProcessType: models.GetInstanceHistoryProcessType{
+							Code: "cloning",
+							Name: "executing instance clone",
+						},
+						DisplayName: "Cloning",
+						InstanceID:  2495,
+						Status:      "failed",
+					},
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			i := InstancesAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+
+			got, err := i.GetInstanceHistory(ctx, tt.instanceID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("InstancesAPIService.GetInstanceHistory() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InstancesAPIService.GetInstanceHistory() = %v, want %v", got, tt.want)
 			}
 		})
 	}

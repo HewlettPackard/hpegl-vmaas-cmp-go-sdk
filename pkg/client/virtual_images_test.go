@@ -59,7 +59,6 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.VirtualImages{
 				VirtualImages: []models.VirtualImage{
@@ -85,7 +84,6 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 					getURLValues(map[string]string{
 						"name": templateName,
 					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
-
 			},
 			want:    models.VirtualImages{},
 			wantErr: true,
@@ -118,7 +116,6 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.VirtualImages{},
 			wantErr: true,
