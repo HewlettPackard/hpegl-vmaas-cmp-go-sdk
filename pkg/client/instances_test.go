@@ -1484,6 +1484,47 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 					},
 				},
 			},
+			wantErr: false,
+		},
+		{
+			name:       "Failed test case 2: Error in call prepare request",
+			instanceID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/history"
+				method := "GET"
+				headers := getDefaultHeaders()
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+			},
+			want:    models.GetInstanceHistory{},
+			wantErr: true,
+		},
+		{
+			name:       "Failed test case 3: error in callAPI",
+			instanceID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/instances/1/history"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+			},
+			want:    models.GetInstanceHistory{},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
