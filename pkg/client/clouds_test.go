@@ -685,3 +685,124 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 		})
 	}
 }
+func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	templateName := "test_template_all_specific_cloud_folder"
+	tests := []struct {
+		name     string
+		cloudID  int
+		folderID int
+		given    func(m *MockAPIClientHandler)
+		want     models.GetSpecificCloudFolder
+		wantErr  bool
+	}{
+		// TODO: Add test cases.
+		{
+			name:     "Normal Test case 1: Get Specific Cloud Folder",
+			cloudID:  1,
+			folderID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/zones/1/folders/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"folder": {
+								"id": 1,
+								"name": "test_template_all_specific_cloud_folder"
+							}
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+
+			},
+			want: models.GetSpecificCloudFolder{
+				Folder: models.GetCloudFolder{
+					ID:   1,
+					Name: templateName,
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name:     "Failed Test case 2: Error in prepare request",
+			cloudID:  1,
+			folderID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/zones/1/folders/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
+			},
+			want:    models.GetSpecificCloudFolder{},
+			wantErr: true,
+		},
+		{
+			name:     "Failed Test case 3: error in callAPI",
+			cloudID:  1,
+			folderID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/zones/1/folders/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+
+			},
+			want:    models.GetSpecificCloudFolder{},
+			wantErr: true,
+		},
+		{
+			name:     "Failed Test case 4: Cloud ID can not be less than 1",
+			cloudID:  0,
+			folderID: 1,
+			given:    func(m *MockAPIClientHandler) {},
+			want:     models.GetSpecificCloudFolder{},
+			wantErr:  true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			a := CloudsAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := a.GetSpecificCloudFolder(ctx, tt.cloudID, tt.folderID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("CloudsAPIService.GetSpecificCloudFolder() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("CloudsAPIService.GetSpecificCloudFolder() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
