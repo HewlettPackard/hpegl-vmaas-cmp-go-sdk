@@ -585,38 +585,28 @@ type CreateInstanceCloneInstanceTypeBody struct {
 	Code string `json:"code"`
 }
 type CreateInstanceCloneInstanceBody struct {
-	ShutdownDays      int    `json:"shutdownDays"`
-	ExpireDays        int    `json:"expireDays"`
-	Tags              string `json:"tags"`
-	InstanceContext   string `json:"instanceContext"`
-	EnvironmentPrefix string `json:"environmentPrefix"`
-	PowerScheduleType int    `json:"powerScheduleType"`
-}
-type CreateInstanceCloneConfigBody struct {
-	ResourcePoolID       int         `json:"resourcePoolId"`
-	Template             int         `json:"template"`
-	HostID               string      `json:"hostId"`
-	VmwareFolderID       string      `json:"vmwareFolderId"`
-	Expose               string      `json:"expose"`
-	NoAgent              string      `json:"noAgent"`
-	SmbiosAssetTag       interface{} `json:"smbiosAssetTag"`
-	NestedVirtualization string      `json:"nestedVirtualization"`
-	CreateUser           bool        `json:"createUser"`
+	ShutdownDays      int      `json:"shutdownDays"`
+	ExpireDays        int      `json:"expireDays"`
+	Tags              []string `json:"tags"`
+	InstanceContext   string   `json:"instanceContext"`
+	EnvironmentPrefix string   `json:"environmentPrefix"`
+	PowerScheduleType int      `json:"powerScheduleType"`
 }
 type CreateInstanceCloneBody struct {
 	Name              string                                `json:"name"`
 	Cloud             IDModel                               `json:"cloud"`
 	Group             IDModel                               `json:"group"`
 	Type              string                                `json:"type"`
+	HostName          string                                `json:"hostname"`
 	InstanceType      CreateInstanceCloneInstanceTypeBody   `json:"instanceType"`
 	Description       string                                `json:"description"`
 	Instance          CreateInstanceCloneInstanceBody       `json:"instance"`
 	Layout            IDModel                               `json:"layout"`
 	Plan              IDModel                               `json:"plan"`
 	LayoutSize        int                                   `json:"layoutSize"`
-	Config            CreateInstanceCloneConfigBody         `json:"config"`
+	Config            CreateInstanceBodyConfig              `json:"config"`
 	Volumes           []CreateInstanceBodyVolumes           `json:"volumes"`
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces"`
 	Evars             []GetInstanceResponseInstanceEvars    `json:"evars"`
-	Metadata          [][]CreateInstanceBodyTag             `json:"metadata"`
+	Metadata          []CreateInstanceBodyTag               `json:"metadata"`
 }
