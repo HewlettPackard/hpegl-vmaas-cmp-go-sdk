@@ -172,6 +172,8 @@ type GetInstanceResponseInstance struct {
 	ShutdownWarningSent bool                                        `json:"shutdownWarningSent,omitempty"`
 	CreatedBy           *GetInstanceResponseInstanceCreatedBy       `json:"createdBy,omitempty"`
 	Owner               *GetInstanceResponseInstanceCreatedBy       `json:"owner,omitempty"`
+	EnvironmentPrefix   string                                      `json:"environmentPrefix"`
+	InstanceContext     string                                      `json:"instanceContext"`
 }
 
 // GetInstanceResponseInstanceCloud
@@ -186,11 +188,11 @@ type GetInstanceResponseInstanceConfig struct {
 	Template             int           `json:"template,omitempty"`
 	Poolprovidertype     interface{}   `json:"poolProviderType,omitempty"`
 	Isvpcselectable      bool          `json:"isVpcSelectable,omitempty"`
-	Smbiosassettag       interface{}   `json:"smbiosAssetTag,omitempty"`
+	Smbiosassettag       string        `json:"smbiosAssetTag,omitempty"`
 	Isec2                bool          `json:"isEC2,omitempty"`
 	Createuser           bool          `json:"createUser,omitempty"`
 	Nestedvirtualization interface{}   `json:"nestedVirtualization,omitempty"`
-	Vmwarefolderid       interface{}   `json:"vmwareFolderId,omitempty"`
+	Vmwarefolderid       string        `json:"vmwareFolderId,omitempty"`
 	Expose               []interface{} `json:"expose,omitempty"`
 	Noagent              interface{}   `json:"noAgent,omitempty"`
 	Customoptions        interface{}   `json:"customOptions,omitempty"`
@@ -202,8 +204,9 @@ type GetInstanceResponseInstanceConfig struct {
 		Jobaction          string `json:"jobAction,omitempty"`
 		Jobretentioncount  int    `json:"jobRetentionCount,omitempty"`
 	} `json:"backup,omitempty"`
-	Layoutsize  int           `json:"layoutSize,omitempty"`
-	Lbinstances []interface{} `json:"lbInstances,omitempty"`
+	Layoutsize        int           `json:"layoutSize,omitempty"`
+	Lbinstances       []interface{} `json:"lbInstances,omitempty"`
+	PowerScheduleType int           `json:"powerScheduleType"`
 }
 
 // GetInstanceResponseInstanceConfigBackup
