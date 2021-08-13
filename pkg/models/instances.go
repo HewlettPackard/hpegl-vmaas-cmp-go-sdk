@@ -587,12 +587,14 @@ type IDModel struct {
 type CreateInstanceCloneInstanceTypeBody struct {
 	Code string `json:"code"`
 }
+
 type CreateInstanceCloneInstanceBody struct {
 	Tags              []string `json:"tags,omitempty"`
 	InstanceContext   string   `json:"instanceContext,omitempty"`
 	EnvironmentPrefix string   `json:"environmentPrefix,omitempty"`
 	PowerScheduleType int      `json:"powerScheduleType,omitempty"`
 }
+
 type CreateInstanceCloneBody struct {
 	Name              string                                `json:"name,omitempty"`
 	Cloud             IDModel                               `json:"cloud,omitempty"`

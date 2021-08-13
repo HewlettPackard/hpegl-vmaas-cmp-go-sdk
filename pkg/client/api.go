@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"net/url"
 	"strings"
+
+	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
 )
 
 // all the required validation should be provided as validationFunc
@@ -49,9 +51,9 @@ func (a *api) do(ctx context.Context, request interface{}, queryParams map[strin
 	localVarFormParams := url.Values{}
 
 	// set Content-Type header
-	localVarHeaderParams["Content-Type"] = "application/json"
+	localVarHeaderParams["Content-Type"] = consts.ContentType
 	// set Accept header
-	localVarHeaderParams["Accept"] = "application/json"
+	localVarHeaderParams["Accept"] = consts.ContentType
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, request,
 		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
