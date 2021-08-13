@@ -61,10 +61,10 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				pBody, _ := json.Marshal(models.CreateInstanceCloneBody{
+				pBody := models.CreateInstanceCloneBody{
 					Cloud: models.IDModel{ID: 1},
 					Name:  "Instance_Clone",
-				})
+				}
 				// pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
@@ -96,10 +96,10 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					"Content-Type": "application/json",
 				}
 				// mock the context only since it is not validated in this function
-				pBody, _ := json.Marshal(models.CreateInstanceCloneBody{
+				pBody := models.CreateInstanceCloneBody{
 					Cloud: models.IDModel{ID: 1},
 					Name:  "Instance_Clone",
-				})
+				}
 				// pBody := []byte(`{"ZoneID":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
@@ -140,10 +140,12 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneID:    "1",
-					CloneName: "Instance_Clone",
-				})
+				pBody := models.CreateInstanceCloneBody{
+					Cloud: models.IDModel{
+						ID: 1,
+					},
+					Name: "Instance_Clone",
+				}
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
