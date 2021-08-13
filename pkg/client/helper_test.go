@@ -10,7 +10,6 @@ const mockHost = "mockhost"
 
 func getDefaultHeaders() map[string]string {
 	return map[string]string{
-		"Accept":       consts.ContentType,
-		"Content-Type": consts.ContentType,
+		"Accept": consts.ContentType,
 	}
 }

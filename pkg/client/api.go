@@ -50,8 +50,6 @@ func (a *api) do(ctx context.Context, request interface{}, queryParams map[strin
 	localVarQueryParams := getURLValues(queryParams)
 	localVarFormParams := url.Values{}
 
-	// set Content-Type header
-	localVarHeaderParams["Content-Type"] = consts.ContentType
 	// set Accept header
 	localVarHeaderParams["Accept"] = consts.ContentType
 

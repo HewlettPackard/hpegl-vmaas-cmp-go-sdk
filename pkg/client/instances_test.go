@@ -41,10 +41,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
+				headers := getDefaultHeaders()
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
 					"cloud": {
@@ -91,10 +88,8 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
+				headers := getDefaultHeaders()
+
 				// mock the context only since it is not validated in this function
 				pBody := models.CreateInstanceCloneBody{
 					Cloud: models.IDModel{ID: 1},
@@ -118,10 +113,8 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
+				headers := getDefaultHeaders()
+
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 					{
 						"cloud": {
