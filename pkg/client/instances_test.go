@@ -24,7 +24,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 	// templateName := "test_clone_an_instance"
 	tests := []struct {
 		name       string
-		param      models.CreateInstanceBody
+		param      models.CreateInstanceCloneBody
 		instanceID int
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
@@ -32,24 +32,23 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 	}{
 		{
 			name: "Normal Test case 1: Clone an Instance",
-			param: models.CreateInstanceBody{
-				ZoneID:    "1",
-				CloneName: "Instance_Clone",
+			param: models.CreateInstanceCloneBody{
+				Cloud: models.IDModel{ID: 1},
+				Name:  "Instance_Clone",
 			},
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
+				headers := getDefaultHeaders()
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
-					{
-						"zoneId": "1",
-						"name": "Instance_Clone"
-					}
+				{
+					"cloud": {
+						"ID": 1
+					},
+					"name": "Instance_Clone"
+				}
 				`)))
 				req, _ := http.NewRequest(method, path, postBody)
 				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
@@ -59,10 +58,10 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneID:    "1",
-					CloneName: "Instance_Clone",
-				})
+				pBody := models.CreateInstanceCloneBody{
+					Cloud: models.IDModel{ID: 1},
+					Name:  "Instance_Clone",
+				}
 				// pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
@@ -80,24 +79,22 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 		},
 		{
 			name: "Failed test case 2: Error in call prepare request",
-			param: models.CreateInstanceBody{
-				ZoneID:    "1",
-				CloneName: "Instance_Clone",
+			param: models.CreateInstanceCloneBody{
+				Cloud: models.IDModel{ID: 1},
+				Name:  "Instance_Clone",
 			},
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
+				headers := getDefaultHeaders()
+
 				// mock the context only since it is not validated in this function
-				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneID:    "1",
-					CloneName: "Instance_Clone",
-				})
+				pBody := models.CreateInstanceCloneBody{
+					Cloud: models.IDModel{ID: 1},
+					Name:  "Instance_Clone",
+				}
 				// pBody := []byte(`{"ZoneID":"1","CloneName":"Instance_Clone"}`)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
@@ -107,22 +104,22 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 		},
 		{
 			name: "Failed test case 3: error in callAPI",
-			param: models.CreateInstanceBody{
-				ZoneID:    "1",
-				CloneName: "Instance_Clone",
+			param: models.CreateInstanceCloneBody{
+				Cloud: models.IDModel{ID: 1},
+				Name:  "Instance_Clone",
 			},
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
+				headers := getDefaultHeaders()
+
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 					{
-						"zoneId": "1",
+						"cloud": {
+							"ID": 1
+						},
 						"name": "Instance_Clone"
 					}
 				`)))
@@ -136,10 +133,12 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
-				pBody, _ := json.Marshal(models.CreateInstanceBody{
-					ZoneID:    "1",
-					CloneName: "Instance_Clone",
-				})
+				pBody := models.CreateInstanceCloneBody{
+					Cloud: models.IDModel{
+						ID: 1,
+					},
+					Name: "Instance_Clone",
+				}
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -162,7 +161,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.CloneAnInstance(ctx, tt.instanceID, &tt.param)
+			got, err := a.CloneAnInstance(ctx, tt.instanceID, tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InstancesAPIService.CloneAnInstance() error = %v, wantErr %v", err, tt.wantErr)
 				return

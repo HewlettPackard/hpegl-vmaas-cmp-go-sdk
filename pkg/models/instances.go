@@ -113,7 +113,7 @@ type CreateInstanceBodyVolumes struct {
 	Size        int    `json:"size,omitempty"`
 	StorageType int    `json:"storageType,omitempty"`
 	// The ID of the specific datastore. Auto selection can be specified as auto or autoCluster (for clusters).
-	DatastoreID interface{} `json:"datastoreId"`
+	DatastoreID interface{} `json:"datastoreId,omitempty"`
 }
 
 type Instances struct {
@@ -172,6 +172,8 @@ type GetInstanceResponseInstance struct {
 	ShutdownWarningSent bool                                        `json:"shutdownWarningSent,omitempty"`
 	CreatedBy           *GetInstanceResponseInstanceCreatedBy       `json:"createdBy,omitempty"`
 	Owner               *GetInstanceResponseInstanceCreatedBy       `json:"owner,omitempty"`
+	EnvironmentPrefix   string                                      `json:"environmentPrefix"`
+	InstanceContext     string                                      `json:"instanceContext"`
 }
 
 // GetInstanceResponseInstanceCloud
@@ -182,15 +184,15 @@ type GetInstanceResponseInstanceCloud struct {
 
 // GetInstanceResponseInstanceConfig
 type GetInstanceResponseInstanceConfig struct {
-	ResourcePoolID       interface{}   `json:"resourcePoolId,omitempty"`
+	ResourcePoolID       json.Number   `json:"resourcePoolId,omitempty"`
 	Template             int           `json:"template,omitempty"`
 	Poolprovidertype     interface{}   `json:"poolProviderType,omitempty"`
 	Isvpcselectable      bool          `json:"isVpcSelectable,omitempty"`
-	Smbiosassettag       interface{}   `json:"smbiosAssetTag,omitempty"`
+	Smbiosassettag       string        `json:"smbiosAssetTag,omitempty"`
 	Isec2                bool          `json:"isEC2,omitempty"`
 	Createuser           bool          `json:"createUser,omitempty"`
 	Nestedvirtualization interface{}   `json:"nestedVirtualization,omitempty"`
-	Vmwarefolderid       interface{}   `json:"vmwareFolderId,omitempty"`
+	Vmwarefolderid       string        `json:"vmwareFolderId,omitempty"`
 	Expose               []interface{} `json:"expose,omitempty"`
 	Noagent              interface{}   `json:"noAgent,omitempty"`
 	Customoptions        interface{}   `json:"customOptions,omitempty"`
@@ -202,8 +204,9 @@ type GetInstanceResponseInstanceConfig struct {
 		Jobaction          string `json:"jobAction,omitempty"`
 		Jobretentioncount  int    `json:"jobRetentionCount,omitempty"`
 	} `json:"backup,omitempty"`
-	Layoutsize  int           `json:"layoutSize,omitempty"`
-	Lbinstances []interface{} `json:"lbInstances,omitempty"`
+	Layoutsize        int           `json:"layoutSize,omitempty"`
+	Lbinstances       []interface{} `json:"lbInstances,omitempty"`
+	PowerScheduleType int           `json:"powerScheduleType"`
 }
 
 // GetInstanceResponseInstanceConfigBackup
@@ -575,4 +578,38 @@ type GetInstanceHistoryProcesses struct {
 
 type GetInstanceHistory struct {
 	Processes []GetInstanceHistoryProcesses `json:"processes"`
+}
+
+type IDModel struct {
+	ID int `json:"id,omitempty"`
+}
+
+type CreateInstanceCloneInstanceTypeBody struct {
+	Code string `json:"code"`
+}
+
+type CreateInstanceCloneInstanceBody struct {
+	Tags              []string `json:"tags,omitempty"`
+	InstanceContext   string   `json:"instanceContext,omitempty"`
+	EnvironmentPrefix string   `json:"environmentPrefix,omitempty"`
+	PowerScheduleType int      `json:"powerScheduleType,omitempty"`
+}
+
+type CreateInstanceCloneBody struct {
+	Name              string                                `json:"name,omitempty"`
+	Cloud             IDModel                               `json:"cloud,omitempty"`
+	Group             IDModel                               `json:"group,omitempty"`
+	Type              string                                `json:"type,omitempty"`
+	HostName          string                                `json:"hostname,omitempty"`
+	InstanceType      CreateInstanceCloneInstanceTypeBody   `json:"instanceType,omitempty"`
+	Description       string                                `json:"description,omitempty"`
+	Instance          CreateInstanceCloneInstanceBody       `json:"instance,omitempty"`
+	Layout            IDModel                               `json:"layout,omitempty"`
+	Plan              IDModel                               `json:"plan,omitempty"`
+	LayoutSize        int                                   `json:"layoutSize,omitempty"`
+	Config            CreateInstanceBodyConfig              `json:"config,omitempty"`
+	Volumes           []CreateInstanceBodyVolumes           `json:"volumes,omitempty"`
+	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces,omitempty"`
+	Evars             []GetInstanceResponseInstanceEvars    `json:"evars,omitempty"`
+	Metadata          []CreateInstanceBodyTag               `json:"metadata,omitempty"`
 }

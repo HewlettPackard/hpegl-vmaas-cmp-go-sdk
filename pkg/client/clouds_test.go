@@ -685,6 +685,7 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 		})
 	}
 }
+
 func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
@@ -723,7 +724,6 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.GetSpecificCloudFolder{
 				Folder: models.GetCloudFolder{
@@ -771,7 +771,6 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.GetSpecificCloudFolder{},
 			wantErr: true,
