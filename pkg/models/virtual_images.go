@@ -44,9 +44,8 @@ type VirtualImage struct {
 	StorageProvider      interface{} `json:"storageProvider"`
 	ExternalID           string      `json:"externalId"`
 	Visibility           string      `json:"visibility"`
-	Config               struct {
-	} `json:"config"`
-	Volumes []struct {
+	Config               struct{}    `json:"config"`
+	Volumes              []struct {
 		Name       string `json:"name"`
 		MaxStorage int64  `json:"maxStorage"`
 		RawSize    int64  `json:"rawSize"`

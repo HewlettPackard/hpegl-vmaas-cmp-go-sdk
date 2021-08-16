@@ -38,76 +38,6 @@ type InstancesAPICloneAnInstanceOpts struct {
 	Body optional.Interface
 }
 
-func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int,
-	localVarOptionals *models.CreateInstanceBody) (models.SuccessOrErrorMessage, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
-
-	var cloneResp models.SuccessOrErrorMessage
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/clone", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	if localVarOptionals != nil {
-		var err error
-		localVarPostBody, err = json.Marshal(localVarOptionals)
-		if err != nil {
-			return cloneResp, err
-		}
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return cloneResp, err
-	}
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return cloneResp, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return cloneResp, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return cloneResp, err
-	}
-	if err := json.Unmarshal(localVarBody, &cloneResp); err != nil {
-		return cloneResp, err
-	}
-
-	return cloneResp, nil
-}
-
 /*
 InstancesAPIService
 Creates an image template from an existing instance
@@ -736,57 +666,6 @@ Retrieves the process history for a specific instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) GetInstanceHistory(ctx context.Context, instanceID int) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
-
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/history", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return localVarHTTPResponse, ParseError(localVarHTTPResponse)
-	}
-
-	return localVarHTTPResponse, nil
-}
 
 /*
 InstancesAPIService
@@ -1741,4 +1620,45 @@ func (a *InstancesAPIService) UpdatingAnInstance(ctx context.Context, instanceID
 	}
 
 	return updateInstanceResponse, nil
+}
+
+func (a *InstancesAPIService) GetInstanceHistory(
+	ctx context.Context,
+	instanceID int,
+) (models.GetInstanceHistory, error) {
+	history := models.GetInstanceHistory{}
+
+	folderAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d/history", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &history)
+		},
+	}
+
+	err := folderAPI.do(ctx, nil, nil)
+
+	return history, err
+}
+
+func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int,
+	cloneRequest models.CreateInstanceCloneBody) (models.SuccessOrErrorMessage, error) {
+	var cloneResp models.SuccessOrErrorMessage
+	instanceClone := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d/clone", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &cloneResp)
+		},
+	}
+
+	err := instanceClone.do(ctx, cloneRequest, nil)
+
+	return cloneResp, err
 }

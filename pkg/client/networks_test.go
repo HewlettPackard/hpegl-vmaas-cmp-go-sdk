@@ -58,7 +58,6 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 					StatusCode: 200,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want: models.ListNetworksBody{
 				Networks: []models.ListNetworksBodyNetworks{
@@ -115,7 +114,6 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 					StatusCode: 500,
 					Body:       respBody,
 				}, nil)
-
 			},
 			want:    models.ListNetworksBody{},
 			wantErr: true,

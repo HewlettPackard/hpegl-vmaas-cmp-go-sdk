@@ -50,6 +50,5 @@ type ServicePlanResponse struct {
 		Code      string `json:"code"`
 		PriceUnit string `json:"priceUnit"`
 	} `json:"priceSets"`
-	Config struct {
-	} `json:"config"`
+	Config struct{} `json:"config"`
 }

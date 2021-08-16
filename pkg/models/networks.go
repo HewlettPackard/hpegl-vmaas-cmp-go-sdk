@@ -48,8 +48,7 @@ type CreateNetworkProxyBodyNetworkProxy struct {
 }
 
 // CreateNetworkProxyRespose
-type CreateNetworkProxyResponse struct {
-}
+type CreateNetworkProxyResponse struct{}
 
 // GetNetworkBody
 type GetNetworkBody struct {
@@ -485,8 +484,7 @@ type UpdateNetworkProxyBody struct {
 }
 
 // UpdateNetworkProxyRespose
-type UpdateNetworkProxyResponse struct {
-}
+type UpdateNetworkProxyResponse struct{}
 
 // UpdateNetworkRespose
 type UpdateNetworkRespose struct {

@@ -58,34 +58,33 @@ type LayoutRespBody struct {
 		Disablerootdatastore  bool        `json:"disableRootDatastore"`
 		Hassnapshots          bool        `json:"hasSnapshots"`
 		Optiontypes           []struct {
-			ID                 int         `json:"id"`
-			Name               string      `json:"name"`
-			Description        interface{} `json:"description"`
-			Code               string      `json:"code"`
-			Fieldname          string      `json:"fieldName"`
-			Fieldlabel         string      `json:"fieldLabel"`
-			Fieldcode          string      `json:"fieldCode"`
-			Fieldcontext       string      `json:"fieldContext"`
-			Fieldgroup         string      `json:"fieldGroup"`
-			Fieldclass         interface{} `json:"fieldClass"`
-			Fieldaddon         interface{} `json:"fieldAddOn"`
-			Fieldcomponent     interface{} `json:"fieldComponent"`
-			Fieldinput         interface{} `json:"fieldInput"`
-			Placeholder        interface{} `json:"placeHolder"`
-			Verifypattern      interface{} `json:"verifyPattern"`
-			Helpblock          string      `json:"helpBlock"`
-			Helpblockfieldcode interface{} `json:"helpBlockFieldCode"`
-			Defaultvalue       interface{} `json:"defaultValue"`
-			Optionsource       interface{} `json:"optionSource"`
-			Optionlist         interface{} `json:"optionList"`
-			Type               string      `json:"type"`
-			Advanced           bool        `json:"advanced"`
-			Required           bool        `json:"required"`
-			Exportmeta         bool        `json:"exportMeta"`
-			Editable           bool        `json:"editable"`
-			Creatable          bool        `json:"creatable"`
-			Config             struct {
-			} `json:"config"`
+			ID                    int         `json:"id"`
+			Name                  string      `json:"name"`
+			Description           interface{} `json:"description"`
+			Code                  string      `json:"code"`
+			Fieldname             string      `json:"fieldName"`
+			Fieldlabel            string      `json:"fieldLabel"`
+			Fieldcode             string      `json:"fieldCode"`
+			Fieldcontext          string      `json:"fieldContext"`
+			Fieldgroup            string      `json:"fieldGroup"`
+			Fieldclass            interface{} `json:"fieldClass"`
+			Fieldaddon            interface{} `json:"fieldAddOn"`
+			Fieldcomponent        interface{} `json:"fieldComponent"`
+			Fieldinput            interface{} `json:"fieldInput"`
+			Placeholder           interface{} `json:"placeHolder"`
+			Verifypattern         interface{} `json:"verifyPattern"`
+			Helpblock             string      `json:"helpBlock"`
+			Helpblockfieldcode    interface{} `json:"helpBlockFieldCode"`
+			Defaultvalue          interface{} `json:"defaultValue"`
+			Optionsource          interface{} `json:"optionSource"`
+			Optionlist            interface{} `json:"optionList"`
+			Type                  string      `json:"type"`
+			Advanced              bool        `json:"advanced"`
+			Required              bool        `json:"required"`
+			Exportmeta            bool        `json:"exportMeta"`
+			Editable              bool        `json:"editable"`
+			Creatable             bool        `json:"creatable"`
+			Config                struct{}    `json:"config"`
 			Displayorder          int         `json:"displayOrder"`
 			Wrapperclass          interface{} `json:"wrapperClass"`
 			Enabled               bool        `json:"enabled"`
@@ -97,34 +96,33 @@ type LayoutRespBody struct {
 			Displayvalueondetails interface{} `json:"displayValueOnDetails"`
 		} `json:"optionTypes"`
 		Customoptiontypes []struct {
-			ID                 int         `json:"id"`
-			Name               string      `json:"name"`
-			Description        interface{} `json:"description"`
-			Code               string      `json:"code"`
-			Fieldname          string      `json:"fieldName"`
-			Fieldlabel         string      `json:"fieldLabel"`
-			Fieldcode          string      `json:"fieldCode"`
-			Fieldcontext       string      `json:"fieldContext"`
-			Fieldgroup         string      `json:"fieldGroup"`
-			Fieldclass         interface{} `json:"fieldClass"`
-			Fieldaddon         interface{} `json:"fieldAddOn"`
-			Fieldcomponent     interface{} `json:"fieldComponent"`
-			Fieldinput         interface{} `json:"fieldInput"`
-			Placeholder        interface{} `json:"placeHolder"`
-			Verifypattern      interface{} `json:"verifyPattern"`
-			Helpblock          string      `json:"helpBlock"`
-			Helpblockfieldcode interface{} `json:"helpBlockFieldCode"`
-			Defaultvalue       string      `json:"defaultValue"`
-			Optionsource       interface{} `json:"optionSource"`
-			Optionlist         interface{} `json:"optionList"`
-			Type               string      `json:"type"`
-			Advanced           bool        `json:"advanced"`
-			Required           bool        `json:"required"`
-			Exportmeta         bool        `json:"exportMeta"`
-			Editable           bool        `json:"editable"`
-			Creatable          bool        `json:"creatable"`
-			Config             struct {
-			} `json:"config"`
+			ID                    int         `json:"id"`
+			Name                  string      `json:"name"`
+			Description           interface{} `json:"description"`
+			Code                  string      `json:"code"`
+			Fieldname             string      `json:"fieldName"`
+			Fieldlabel            string      `json:"fieldLabel"`
+			Fieldcode             string      `json:"fieldCode"`
+			Fieldcontext          string      `json:"fieldContext"`
+			Fieldgroup            string      `json:"fieldGroup"`
+			Fieldclass            interface{} `json:"fieldClass"`
+			Fieldaddon            interface{} `json:"fieldAddOn"`
+			Fieldcomponent        interface{} `json:"fieldComponent"`
+			Fieldinput            interface{} `json:"fieldInput"`
+			Placeholder           interface{} `json:"placeHolder"`
+			Verifypattern         interface{} `json:"verifyPattern"`
+			Helpblock             string      `json:"helpBlock"`
+			Helpblockfieldcode    interface{} `json:"helpBlockFieldCode"`
+			Defaultvalue          string      `json:"defaultValue"`
+			Optionsource          interface{} `json:"optionSource"`
+			Optionlist            interface{} `json:"optionList"`
+			Type                  string      `json:"type"`
+			Advanced              bool        `json:"advanced"`
+			Required              bool        `json:"required"`
+			Exportmeta            bool        `json:"exportMeta"`
+			Editable              bool        `json:"editable"`
+			Creatable             bool        `json:"creatable"`
+			Config                struct{}    `json:"config"`
 			Displayorder          int         `json:"displayOrder"`
 			Wrapperclass          interface{} `json:"wrapperClass"`
 			Enabled               bool        `json:"enabled"`
@@ -196,9 +194,8 @@ type LayoutRespBody struct {
 		} `json:"virtualImage"`
 		Category interface{} `json:"category"`
 		Config   struct {
-			Extraoptions struct {
-			} `json:"extraOptions"`
-			Migrated bool `json:"migrated"`
+			Extraoptions struct{} `json:"extraOptions"`
+			Migrated     bool     `json:"migrated"`
 		} `json:"config"`
 		Containerports       []interface{} `json:"containerPorts"`
 		Containerscripts     []interface{} `json:"containerScripts"`

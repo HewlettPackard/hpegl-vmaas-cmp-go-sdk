@@ -35,4 +35,7 @@ const (
 	OptionsPath            = "options"
 	ZoneNetworkOptionsPath = "zoneNetworkOptions"
 	ProvisionTypesPath     = "provision-types"
+
+	// headers
+	ContentType = "application/json"
 )

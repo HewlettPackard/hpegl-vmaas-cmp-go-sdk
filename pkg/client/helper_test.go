@@ -2,10 +2,14 @@
 
 package client
 
+import (
+	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
+)
+
 const mockHost = "mockhost"
 
 func getDefaultHeaders() map[string]string {
 	return map[string]string{
-		"Accept": "application/json",
+		"Accept": consts.ContentType,
 	}
 }
