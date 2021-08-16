@@ -14,6 +14,7 @@ type Servers struct {
 type GetSpecificServerResponse struct {
 	Server Server `json:"server"`
 }
+
 type Server struct {
 	ID                int                `json:"id"`
 	UUID              string             `json:"uuid"`
@@ -84,23 +85,28 @@ type ParentServer struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
+
 type Account struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
+
 type Owner struct {
 	ID       int    `json:"id"`
 	Username string `json:"username"`
 }
+
 type Zone struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
+
 type Plan struct {
 	ID   int    `json:"id"`
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
+
 type ComputeServerType struct {
 	ID             int    `json:"id"`
 	Code           string `json:"code"`
@@ -108,6 +114,7 @@ type ComputeServerType struct {
 	Managed        bool   `json:"managed"`
 	ExternalDelete bool   `json:"externalDelete"`
 }
+
 type ServerStats struct {
 	TS             time.Time `json:"ts"`
 	MaxMemory      int64     `json:"maxMemory"`
@@ -118,11 +125,13 @@ type ServerStats struct {
 	FreeMemory     int64     `json:"freeMemory"`
 	ReservedMemory int64     `json:"reservedMemory"`
 }
+
 type SourceImage struct {
 	ID   int    `json:"id"`
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
+
 type ServerOs struct {
 	ID          int         `json:"id"`
 	Code        string      `json:"code"`
@@ -135,6 +144,7 @@ type ServerOs struct {
 	BitCount    int         `json:"bitCount"`
 	Platform    string      `json:"platform"`
 }
+
 type Interfaces struct {
 	RefType           interface{} `json:"refType"`
 	RefID             interface{} `json:"refId"`
@@ -163,6 +173,7 @@ type Interfaces struct {
 	IPMode            string      `json:"ipMode"`
 	MacAddress        string      `json:"macAddress"`
 }
+
 type Type struct {
 	ID   int    `json:"id"`
 	Code string `json:"code"`
