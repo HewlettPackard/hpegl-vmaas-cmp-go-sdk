@@ -6,9 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/url"
-	"strings"
 
 	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
@@ -27,66 +24,48 @@ Get All Servers
  * @param name/phrase optional
 @return models.Servers
 */
-func (a *ServersAPIService) GetAllServers(ctx context.Context,
-	queryParams map[string]string) (models.Servers, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		serversResponse    models.Servers
-	)
-
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.ServerPath)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(queryParams)
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+func (a *ServersAPIService) GetAllServers(
+	ctx context.Context,
+	queryParams map[string]string,
+) (models.Servers, error) {
+	serversResponse := models.Servers{}
+	serverAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.ServerPath),
+		client: a.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &serversResponse)
+		},
 	}
+	err := serverAPI.do(ctx, nil, queryParams)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	return serversResponse, err
+}
 
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+func (a *ServersAPIService) GetSpecificServer(
+	ctx context.Context,
+	serverID int) (models.GetSpecificServerResponse, error) {
+	serversResponse := models.GetSpecificServerResponse{}
+	serverAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.ServerPath, serverID),
+		client: a.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &serversResponse)
+		},
+		validations: []validationFunc{
+			func() error {
+				if serverID < 1 {
+					return fmt.Errorf("%s", "server id should be greater than or equal to 1")
+				}
+
+				return nil
+			},
+		},
 	}
+	err := serverAPI.do(ctx, nil, nil)
 
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return serversResponse, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return serversResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return serversResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return serversResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &serversResponse); err != nil {
-		return serversResponse, err
-	}
-
-	return serversResponse, nil
+	return serversResponse, err
 }

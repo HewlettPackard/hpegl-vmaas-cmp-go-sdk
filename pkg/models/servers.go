@@ -11,6 +11,9 @@ type Servers struct {
 	Meta        *Meta               `json:"meta"`
 }
 
+type GetSpecificServerResponse struct {
+	Server Server `json:"server"`
+}
 type Server struct {
 	ID                int                `json:"id"`
 	UUID              string             `json:"uuid"`
