@@ -4,8 +4,8 @@ package models
 
 import "time"
 
-type Servers struct {
-	Server      []Server            `json:"server"`
+type ServersResponse struct {
+	Server      []Server            `json:"servers"`
 	Stats       map[int]ServerStats `json:"stats"`
 	MultiTenant bool                `json:"multiTenant"`
 	Meta        *Meta               `json:"meta"`
@@ -36,7 +36,7 @@ type Server struct {
 	SiteID            int                `json:"siteId"`
 	ResourcePoolID    int                `json:"resourcePoolId"`
 	FolderID          int                `json:"folderId"`
-	SSHHost           int                `json:"sshHost"`
+	SSHHost           interface{}        `json:"sshHost"`
 	SSHPort           int                `json:"sshPort"`
 	ExternalIP        string             `json:"externalIp"`
 	InternalIP        string             `json:"internalIp"`
