@@ -569,6 +569,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
+	headers := getDefaultHeaders()
 
 	tests := []struct {
 		name       string
@@ -594,10 +595,6 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/resize"
 				method := "PUT"
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
 					"instance" : {"id": 1},
@@ -611,7 +608,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 						"string": "test_instance_response"
 					}
 				}`)))
-				pBody, _ := json.Marshal(models.ResizeInstanceBody{
+				pBody := &models.ResizeInstanceBody{
 					Instance: &models.ResizeInstanceBodyInstance{
 						ID: 1,
 					},
@@ -620,7 +617,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 						Name: "test_instance_volume",
 					}},
 					DeleteOriginalVolumes: false,
-				})
+				}
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -652,11 +649,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/resize"
 				method := "PUT"
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
-				pBody, _ := json.Marshal(models.ResizeInstanceBody{
+				pBody := &models.ResizeInstanceBody{
 					Instance: &models.ResizeInstanceBodyInstance{
 						ID: 1,
 					},
@@ -665,7 +658,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 						Name: "test_instance_volume",
 					}},
 					DeleteOriginalVolumes: false,
-				})
+				}
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -688,10 +681,6 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1/resize"
 				method := "PUT"
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
 					"instance" : {"id": 1},
@@ -707,7 +696,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 						]
 					}
 				`)))
-				pBody, _ := json.Marshal(models.ResizeInstanceBody{
+				pBody := &models.ResizeInstanceBody{
 					Instance: &models.ResizeInstanceBodyInstance{
 						ID: 1,
 					},
@@ -716,7 +705,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 						Name: "test_instance_volume",
 					}},
 					DeleteOriginalVolumes: false,
-				})
+				}
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -917,6 +906,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 	ctx := context.Background()
 	ctrl := gomock.NewController(t)
+	headers := getDefaultHeaders()
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
@@ -938,10 +928,6 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "PUT"
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
 					"snapshot": {
@@ -956,12 +942,12 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 						"name": "test_update_instance_name"
 					}
 				}`)))
-				pBody, _ := json.Marshal(models.UpdateInstanceBody{
+				pBody := &models.UpdateInstanceBody{
 					Instance: &models.UpdateInstanceBodyInstance{
 						Name:        "test_update_instance_name",
 						Description: "test_update_instance_description",
 					},
-				})
+				}
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -989,17 +975,13 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "PUT"
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
 
-				pBody, _ := json.Marshal(models.UpdateInstanceBody{
+				pBody := &models.UpdateInstanceBody{
 					Instance: &models.UpdateInstanceBodyInstance{
 						Name:        "test_update_instance_name",
 						Description: "test_update_instance_description",
 					},
-				})
+				}
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1018,10 +1000,6 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 			given: func(m *MockAPIClientHandler) {
 				path := mockHost + "/v1/instances/1"
 				method := "PUT"
-				headers := map[string]string{
-					"Accept":       "application/json",
-					"Content-Type": "application/json",
-				}
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
 					"snapshot": {
@@ -1038,13 +1016,13 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 						]
 					}
 				}`)))
-				pBody, _ := json.Marshal(models.UpdateInstanceBody{
+				pBody := models.UpdateInstanceBody{
 					Instance: &models.UpdateInstanceBodyInstance{
 						Name:        "test_update_instance_name",
 						Description: "test_update_instance_description",
 					},
-				})
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+				}
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, &pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,

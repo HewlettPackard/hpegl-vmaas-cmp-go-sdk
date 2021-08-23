@@ -146,6 +146,7 @@ type ServerOs struct {
 }
 
 type Interfaces struct {
+	ID                int         `json:"id"`
 	RefType           interface{} `json:"refType"`
 	RefID             interface{} `json:"refId"`
 	Name              string      `json:"name"`

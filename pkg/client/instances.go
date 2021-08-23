@@ -948,90 +948,6 @@ func (a *InstancesAPIService) LockAnInstance(ctx context.Context, instanceID int
 
 /*
 InstancesAPIService
-It is possible to resize VMs within an instance by increasing their memory plan or storage limit.
-This is done by assigning a new service plan to the VM.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
- * @param optional nil or *InstancesAPIResizeAnInstanceOpts - Optional Parameters:
-     * @param "Body" (optional.Interface of ResizeInstanceBody) -
-@return models.GetInstanceResponse
-*/
-
-func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int,
-	localVarOptionals *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		resizeResponse     models.ResizeInstanceResponse
-	)
-
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/resize", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	if localVarOptionals != nil {
-		var err error
-		localVarPostBody, err = json.Marshal(localVarOptionals)
-		if err != nil {
-			return resizeResponse, err
-		}
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return resizeResponse, err
-	}
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return resizeResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return resizeResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return resizeResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &resizeResponse); err != nil {
-		return resizeResponse, err
-	}
-
-	return resizeResponse, nil
-}
-
-/*
-InstancesAPIService
 Restarts all VM running within an instance
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
@@ -1538,88 +1454,56 @@ func (a *InstancesAPIService) UnlockAnInstance(ctx context.Context, instanceID i
 
 /*
 InstancesAPIService
-Updating an Instance
+It is possible to resize VMs within an instance by increasing their memory plan or storage limit.
+This is done by assigning a new service plan to the VM.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param serviceInstanceID
  * @param instanceID
- * @param optional nil or *InstancesAPIUpdatingAnInstanceOpts - Optional Parameters:
-     * @param "Body" (optional.Interface of UpdateInstanceBody) -
+ * @param optional nil or *InstancesAPIResizeAnInstanceOpts - Optional Parameters:
+     * @param "Body" (optional.Interface of ResizeInstanceBody) -
 @return models.GetInstanceResponse
 */
 
-type InstancesAPIUpdatingAnInstanceOpts struct {
-	Body optional.Interface
+func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int,
+	request *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
+	resizeResp := models.ResizeInstanceResponse{}
+
+	instanceAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d/resize", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resizeResp)
+		},
+	}
+	err := instanceAPI.do(ctx, request, nil)
+
+	return resizeResp, err
 }
 
-func (a *InstancesAPIService) UpdatingAnInstance(ctx context.Context, instanceID int,
-	localVarOptionals *models.UpdateInstanceBody) (models.UpdateInstanceResponse, error) {
-	var (
-		localVarHTTPMethod     = strings.ToUpper("Put")
-		localVarPostBody       interface{}
-		localVarFileName       string
-		localVarFileBytes      []byte
-		updateInstanceResponse models.UpdateInstanceResponse
-	)
+func (a *InstancesAPIService) UpdatingAnInstance(
+	ctx context.Context,
+	instanceID int,
+	request *models.UpdateInstanceBody,
+) (models.UpdateInstanceResponse, error) {
+	instance := models.UpdateInstanceResponse{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	instanceAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &instance)
+		},
 	}
+	err := instanceAPI.do(ctx, request, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	if localVarOptionals != nil {
-		var err error
-		localVarPostBody, err = json.Marshal(localVarOptionals)
-		if err != nil {
-			return updateInstanceResponse, err
-		}
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return updateInstanceResponse, err
-	}
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return updateInstanceResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return updateInstanceResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return updateInstanceResponse, err
-	}
-	if err = json.Unmarshal(localVarBody, &updateInstanceResponse); err != nil {
-		return updateInstanceResponse, err
-	}
-
-	return updateInstanceResponse, nil
+	return instance, err
 }
 
 func (a *InstancesAPIService) GetInstanceHistory(
@@ -1628,7 +1512,7 @@ func (a *InstancesAPIService) GetInstanceHistory(
 ) (models.GetInstanceHistory, error) {
 	history := models.GetInstanceHistory{}
 
-	folderAPI := &api{
+	historyAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s/%s/%d/history", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.InstancesPath, instanceID),
@@ -1638,8 +1522,7 @@ func (a *InstancesAPIService) GetInstanceHistory(
 			return json.Unmarshal(body, &history)
 		},
 	}
-
-	err := folderAPI.do(ctx, nil, nil)
+	err := historyAPI.do(ctx, nil, nil)
 
 	return history, err
 }
@@ -1657,7 +1540,6 @@ func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID in
 			return json.Unmarshal(body, &cloneResp)
 		},
 	}
-
 	err := instanceClone.do(ctx, cloneRequest, nil)
 
 	return cloneResp, err

@@ -100,6 +100,8 @@ type CreateInstanceBodyNetwork struct {
 
 // CreateInstanceBodyNetworkInterfaces
 type CreateInstanceBodyNetworkInterfaces struct {
+	Name                   string                     `json:"name,omitempty"`
+	ID                     int                        `json:"id,omitempty"`
 	Network                *CreateInstanceBodyNetwork `json:"network"`
 	NetworkInterfaceTypeID json.Number                `json:"networkInterfaceTypeId,omitempty"`
 }
@@ -325,9 +327,10 @@ type GetInstanceResponseInstanceVolumes struct {
 
 // ResizeInstanceBody
 type ResizeInstanceBody struct {
-	Instance              *ResizeInstanceBodyInstance         `json:"instance"`
-	Volumes               []ResizeInstanceBodyInstanceVolumes `json:"volumes"`
-	DeleteOriginalVolumes bool                                `json:"deleteOriginalVolumes,omitempty"`
+	Instance              *ResizeInstanceBodyInstance           `json:"instance,omitempty"`
+	Volumes               []ResizeInstanceBodyInstanceVolumes   `json:"volumes,omitempty"`
+	DeleteOriginalVolumes bool                                  `json:"deleteOriginalVolumes,omitempty"`
+	NetworkInterfaces     []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces,omitempty"`
 }
 
 type ResizeInstanceBodyInstance struct {
