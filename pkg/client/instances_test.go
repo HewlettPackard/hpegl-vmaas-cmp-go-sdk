@@ -13,7 +13,7 @@ import (
 	"reflect"
 	"testing"
 
-	models "github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/models"
+	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
 

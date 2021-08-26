@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"strings"
 
-	consts "github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/common"
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 )
 
 // all the required validation should be provided as validationFunc

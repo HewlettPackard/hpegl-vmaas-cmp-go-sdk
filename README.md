@@ -12,7 +12,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/client"
+	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/client"
 	"golang.org/x/net/context"
 	"os"
 )

@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/models"
+	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 )

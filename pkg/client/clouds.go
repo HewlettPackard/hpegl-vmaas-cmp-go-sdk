@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	consts "github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/common"
-	"github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/models"
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
+	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
 type CloudsAPIService struct {
