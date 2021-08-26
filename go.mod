@@ -1,4 +1,4 @@
-module github.com/HewlettPackard/vmaas-cmp-go-sdk
+module github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk
 
 go 1.17
 

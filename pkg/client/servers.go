@@ -7,8 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	consts "github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/common"
-	models "github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/models"
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
+	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
 type ServersAPIService struct {
