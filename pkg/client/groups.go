@@ -13,8 +13,8 @@ import (
 
 	"github.com/antihax/optional"
 
-	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
-	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
+	consts "github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/common"
+	"github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/models"
 )
 
 type GroupsAPIService struct {

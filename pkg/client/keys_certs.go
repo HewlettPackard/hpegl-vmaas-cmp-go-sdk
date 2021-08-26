@@ -12,7 +12,7 @@ import (
 
 	"github.com/antihax/optional"
 
-	"github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/models"
+	"github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/models"
 )
 
 type KeysCertsAPIService struct {

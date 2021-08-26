@@ -13,7 +13,7 @@ linters-settings:
   lll:
     line-length: 128
   goimports:
-    local-prefixes: "github.com/hpe-hcss"
+    local-prefixes: "github.com/HewlettPackard"
   godox:
     keywords:
       - OPTIMIZE

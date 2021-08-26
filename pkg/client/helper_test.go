@@ -3,7 +3,7 @@
 package client
 
 import (
-	consts "github.com/hpe-hcss/vmaas-cmp-go-sdk/pkg/common"
+	consts "github.com/HewlettPackard/vmaas-cmp-go-sdk/pkg/common"
 )
 
 const mockHost = "mockhost"
