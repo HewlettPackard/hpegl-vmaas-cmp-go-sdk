@@ -561,8 +561,8 @@ type GetInstanceHistoryProcesses struct {
 }
 
 type InstanceHistoryModifiedDate struct {
-	Username    string `json:"username"`
-	DisplayName string `json:"display_name"`
+	Username    string `json:"username" tf:"username"`
+	DisplayName string `json:"displayName" tf:"display_name"`
 }
 
 type TFInstance struct {
