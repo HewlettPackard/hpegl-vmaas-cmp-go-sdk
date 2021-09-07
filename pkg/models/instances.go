@@ -176,6 +176,7 @@ type GetInstanceResponseInstance struct {
 	Owner               *GetInstanceResponseInstanceCreatedBy       `json:"owner,omitempty"`
 	EnvironmentPrefix   string                                      `json:"environmentPrefix"`
 	InstanceContext     string                                      `json:"instanceContext"`
+	ContainerDetails    []GetInstanceContainer                      `json:"containerDetails"`
 }
 
 // GetInstanceResponseInstanceCloud
@@ -565,16 +566,8 @@ type InstanceHistoryModifiedDate struct {
 	DisplayName string `json:"displayName" tf:"display_name"`
 }
 
-type TFInstance struct {
-	History []GetInstanceHistoryProcesses `tf:"history"`
-}
-
 type GetInstanceHistory struct {
 	Processes []GetInstanceHistoryProcesses `json:"processes"`
-}
-
-type IDModel struct {
-	ID int `json:"id,omitempty"`
 }
 
 type CreateInstanceCloneInstanceTypeBody struct {
@@ -605,4 +598,37 @@ type CreateInstanceCloneBody struct {
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces,omitempty"`
 	Evars             []GetInstanceResponseInstanceEvars    `json:"evars,omitempty"`
 	Metadata          []CreateInstanceBodyTag               `json:"metadata,omitempty"`
+}
+
+type GetInstanceContainer struct {
+	ID            int                         `json:"id" tf:"id"`
+	Name          string                      `json:"name" tf:"name"`
+	IP            string                      `json:"ip" tf:"ip"`
+	ExternalFqdn  string                      `json:"externalFqdn" tf:"external_fqdn"`
+	ContainerType NameModel                   `json:"containerType" tf:"container_type"`
+	Server        GetInstanceContainersServer `json:"server" tf:"server"`
+	Hostname      string                      `json:"hostname" tf:"hostname"`
+	MaxStorage    int64                       `json:"maxStorage" tf:"max_storage"`
+	MaxMemory     int64                       `json:"maxMemory" tf:"max_memory"`
+	MaxCores      int                         `json:"maxCores" tf:"max_cores"`
+}
+
+type GetInstanceContainersServer struct {
+	ID                int                             `json:"id" tf:"id"`
+	Owner             UserNameModel                   `json:"owner" tf:"owner"`
+	ComputeServerType GetInstanceContainersServerType `json:"computeServerType" tf:"compute_server_type"`
+	Visibility        string                          `json:"visibility" tf:"visibility"`
+	SSHHost           string                          `json:"sshHost" tf:"ssh_host"`
+	SSHPort           int                             `json:"sshPort" tf:"ssh_port"`
+	Platform          string                          `json:"platform" tf:"platform"`
+	PlatformVersion   string                          `json:"platformVersion" tf:"platform_version"`
+	DateCreated       time.Time                       `json:"dateCreated" tf:"date_created"`
+	LastUpdated       time.Time                       `json:"lastUpdated" tf:"last_updated"`
+	ServerOs          NameModel                       `json:"serverOs" tf:"server_os"`
+}
+
+type GetInstanceContainersServerType struct {
+	Name           string `json:"name" tf:"name"`
+	Managed        bool   `json:"managed" tf:"managed"`
+	ExternalDelete bool   `json:"externalDelete" tf:"external_delete"`
 }
