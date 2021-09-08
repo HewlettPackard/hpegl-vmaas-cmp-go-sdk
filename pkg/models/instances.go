@@ -537,8 +537,8 @@ type InstancePowerResponse struct {
 }
 
 type GetInstanceHistoryProcessType struct {
-	Code string `json:"code"`
-	Name string `json:"name"`
+	Code string `json:"code" tf:"code"`
+	Name string `json:"name" tf:"name"`
 }
 
 type GetInstanceHistoryProcesses struct {
@@ -552,11 +552,11 @@ type GetInstanceHistoryProcesses struct {
 	Reason      interface{}                   `json:"reason" tf:"reason"`
 	Percent     float64                       `json:"percent" tf:"percent"`
 	StatusEta   int                           `json:"statusEta" tf:"status_eta"`
-	StartDate   time.Time                     `json:"startDate" tf:"start_date"`
-	EndDate     time.Time                     `json:"endDate" tf:"end_date"`
+	StartDate   string                        `json:"startDate" tf:"start_date"`
+	EndDate     string                        `json:"endDate" tf:"end_date"`
 	Duration    int                           `json:"duration" tf:"duration"`
-	DateCreated time.Time                     `json:"dateCreated" tf:"date_created"`
-	LastUpdated time.Time                     `json:"lastUpdated" tf:"last_updated"`
+	DateCreated string                        `json:"dateCreated" tf:"date_created"`
+	LastUpdated string                        `json:"lastUpdated" tf:"last_updated"`
 	CreatedBy   InstanceHistoryModifiedDate   `json:"createdBy" tf:"created_by,sub"`
 	UpdatedBy   InstanceHistoryModifiedDate   `json:"updatedBy" tf:"updated_by,sub"`
 }
@@ -605,26 +605,26 @@ type GetInstanceContainer struct {
 	Name          string                      `json:"name" tf:"name"`
 	IP            string                      `json:"ip" tf:"ip"`
 	ExternalFqdn  string                      `json:"externalFqdn" tf:"external_fqdn"`
-	ContainerType NameModel                   `json:"containerType" tf:"container_type"`
-	Server        GetInstanceContainersServer `json:"server" tf:"server"`
+	ContainerType NameModel                   `json:"containerType" tf:"container_type,sub"`
+	Server        GetInstanceContainersServer `json:"server" tf:"server,sub"`
 	Hostname      string                      `json:"hostname" tf:"hostname"`
-	MaxStorage    int64                       `json:"maxStorage" tf:"max_storage"`
-	MaxMemory     int64                       `json:"maxMemory" tf:"max_memory"`
+	MaxStorage    int                         `json:"maxStorage" tf:"max_storage"`
+	MaxMemory     int                         `json:"maxMemory" tf:"max_memory"`
 	MaxCores      int                         `json:"maxCores" tf:"max_cores"`
 }
 
 type GetInstanceContainersServer struct {
 	ID                int                             `json:"id" tf:"id"`
-	Owner             UserNameModel                   `json:"owner" tf:"owner"`
-	ComputeServerType GetInstanceContainersServerType `json:"computeServerType" tf:"compute_server_type"`
+	Owner             UserNameModel                   `json:"owner" tf:"owner,sub"`
+	ComputeServerType GetInstanceContainersServerType `json:"computeServerType" tf:"compute_server_type,sub"`
 	Visibility        string                          `json:"visibility" tf:"visibility"`
 	SSHHost           string                          `json:"sshHost" tf:"ssh_host"`
 	SSHPort           int                             `json:"sshPort" tf:"ssh_port"`
 	Platform          string                          `json:"platform" tf:"platform"`
 	PlatformVersion   string                          `json:"platformVersion" tf:"platform_version"`
-	DateCreated       time.Time                       `json:"dateCreated" tf:"date_created"`
-	LastUpdated       time.Time                       `json:"lastUpdated" tf:"last_updated"`
-	ServerOs          NameModel                       `json:"serverOs" tf:"server_os"`
+	DateCreated       string                          `json:"dateCreated" tf:"date_created"`
+	LastUpdated       string                          `json:"lastUpdated" tf:"last_updated"`
+	ServerOs          NameModel                       `json:"serverOs" tf:"server_os,sub"`
 }
 
 type GetInstanceContainersServerType struct {
