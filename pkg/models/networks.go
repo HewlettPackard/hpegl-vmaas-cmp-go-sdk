@@ -8,8 +8,8 @@ type IDNameModel struct {
 }
 
 type ListNetworksBody struct {
-	Networks     GetSpecificNetworkBody `json:"networks"`
-	NetworkCount int                    `json:"networkCount"`
+	Networks     []GetSpecificNetworkBody `json:"networks"`
+	NetworkCount int                      `json:"networkCount"`
 }
 
 type GetSpecificNetworkBodyType struct {
@@ -22,6 +22,7 @@ type GetSpecificNetworkBody struct {
 	ID                      int                        `json:"id"`
 	Name                    string                     `json:"name"`
 	Zone                    IDNameModel                `json:"zone"`
+	DisplayName             string                     `json:"displayName"`
 	Type                    GetSpecificNetworkBodyType `json:"type"`
 	Owner                   IDNameModel                `json:"owner"`
 	Code                    string                     `json:"code"`
