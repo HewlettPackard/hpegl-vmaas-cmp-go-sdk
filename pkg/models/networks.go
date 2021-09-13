@@ -46,3 +46,37 @@ type GetSpecificNetworkBody struct {
 	AllowStaticOverride     bool                       `json:"allowStaticOverride"`
 	Tenants                 []IDNameModel              `json:"tenants"`
 }
+
+type CreateNetworkResourcePermission struct {
+	All   bool      `json:"all"`
+	Sites []IDModel `json:"sites"`
+}
+
+type CreateNetworkRequest struct {
+	Network             CreateNetwork                   `json:"network"`
+	ResourcePermissions CreateNetworkResourcePermission `json:"resourcePermissions"`
+}
+
+type CreateNetwork struct {
+	Name                    string              `json:"name"`
+	Description             string              `json:"description"`
+	Zone                    IDModel             `json:"zone"`
+	Type                    IDModel             `json:"type"`
+	Cidr                    string              `json:"cidr"`
+	Gateway                 string              `json:"gateway"`
+	DNSPrimary              string              `json:"dnsPrimary"`
+	DNSSecondary            string              `json:"dnsSecondary"`
+	ScopeID                 string              `json:"scopeId"`
+	Config                  CreateNetworkConfig `json:"config"`
+	DhcpServer              string              `json:"dhcpServer"`
+	AllowStaticOverride     string              `json:"allowStaticOverride"`
+	Pool                    int                 `json:"pool"`
+	ScanNetwork             string              `json:"scanNetwork"`
+	ApplianceURLProxyBypass string              `json:"applianceUrlProxyBypass"`
+	NoProxy                 string              `json:"noProxy"`
+}
+
+type CreateNetworkConfig struct {
+	ConnectedGateway string `json:"connectedGateway"`
+	VlanIDs          string `json:"vlanIDs"`
+}
