@@ -75,11 +75,12 @@ func (a *NetworksAPIService) CreateNetwork(
 
 func (a *NetworksAPIService) DeleteNetwork(
 	ctx context.Context,
+	networkID int,
 ) (models.SuccessOrErrorMessage, error) {
 	var output models.SuccessOrErrorMessage
 	networkAPI := &api{
 		method: "DELETE",
-		path:   fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
+		path:   fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
