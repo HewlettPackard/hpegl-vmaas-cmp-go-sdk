@@ -60,7 +60,7 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 				}, nil)
 			},
 			want: models.ListNetworksBody{
-				Networks: []models.ListNetworksBodyNetworks{
+				Networks: []models.GetSpecificNetworkBody{
 					{
 						ID:   1,
 						Name: templateName,
