@@ -12,6 +12,12 @@ type ListNetworksBody struct {
 	NetworkCount int                      `json:"networkCount"`
 }
 
+type CreateNetworkResponse struct {
+	Success bool                   `json:"success"`
+	Errors  interface{}            `json:"errors"`
+	Network GetSpecificNetworkBody `json:"network"`
+}
+
 type GetSpecificNetworkBody struct {
 	ID                      int           `json:"id" tf:"id"`
 	Name                    string        `json:"name" tf:"name"`
@@ -63,8 +69,7 @@ type CreateNetwork struct {
 	DNSPrimary              string              `json:"dnsPrimary" tf:"primary_dns"`
 	DNSSecondary            string              `json:"dnsSecondary" tf:"secondary_dns"`
 	Config                  CreateNetworkConfig `json:"config" tf:"config,sub"`
-	DhcpServer              string              `json:"dhcpServer" tf:"dhcp_server"`
-	Pool                    int                 `json:"pool" tf:"pool"`
+	DhcpServer              bool                `json:"dhcpServer" tf:"dhcp_server"`
 	ScanNetwork             string              `json:"scanNetwork" tf:"scan_network"`
 	ApplianceURLProxyBypass string              `json:"applianceUrlProxyBypass" tf:"appliance_url_proxy_bypass"`
 	NoProxy                 string              `json:"noProxy" tf:"no_proxy"`
@@ -74,4 +79,16 @@ type CreateNetwork struct {
 type CreateNetworkConfig struct {
 	ConnectedGateway string `json:"connectedGateway" tf:"connected_gateway"`
 	VlanIDs          string `json:"vlanIDs" tf:"vlan_ids"`
+}
+
+type GetNetworkTypesResponse struct {
+	NetworkTypes []GetSpecificNetworkType `json:"networkTypes"`
+}
+
+type GetSpecificNetworkType struct {
+	ID          int    `json:"id"`
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Category    string `json:"category"`
 }

@@ -16,15 +16,15 @@ type NetworksAPIService struct {
 	Cfg    Configuration
 }
 
-func (a *NetworksAPIService) GetAllNetworks(
+func (n *NetworksAPIService) GetAllNetworks(
 	ctx context.Context,
 	param map[string]string,
 ) (models.ListNetworksBody, error) {
 	var networksResp models.ListNetworksBody
 	networkAPI := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
-		client: a.Client,
+		path:   fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
+		client: n.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &networksResp)
@@ -35,15 +35,15 @@ func (a *NetworksAPIService) GetAllNetworks(
 	return networksResp, err
 }
 
-func (a *NetworksAPIService) GetSpecificNetwork(
+func (n *NetworksAPIService) GetSpecificNetwork(
 	ctx context.Context,
 	networkID int,
 ) (models.GetSpecificNetworkBody, error) {
 	var networksResp models.GetSpecificNetworkBody
 	networkAPI := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
-		client: a.Client,
+		path:   fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
+		client: n.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &networksResp)
@@ -54,15 +54,15 @@ func (a *NetworksAPIService) GetSpecificNetwork(
 	return networksResp, err
 }
 
-func (a *NetworksAPIService) CreateNetwork(
+func (n *NetworksAPIService) CreateNetwork(
 	ctx context.Context,
 	networkReq models.CreateNetworkRequest,
-) (models.GetSpecificNetworkBody, error) {
-	var networksResp models.GetSpecificNetworkBody
+) (models.CreateNetworkResponse, error) {
+	var networksResp models.CreateNetworkResponse
 	networkAPI := &api{
 		method: "POST",
-		path:   fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
-		client: a.Client,
+		path:   fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
+		client: n.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &networksResp)
@@ -73,15 +73,15 @@ func (a *NetworksAPIService) CreateNetwork(
 	return networksResp, err
 }
 
-func (a *NetworksAPIService) DeleteNetwork(
+func (n *NetworksAPIService) DeleteNetwork(
 	ctx context.Context,
 	networkID int,
 ) (models.SuccessOrErrorMessage, error) {
 	var output models.SuccessOrErrorMessage
 	networkAPI := &api{
 		method: "DELETE",
-		path:   fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
-		client: a.Client,
+		path:   fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
+		client: n.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &output)
@@ -90,4 +90,23 @@ func (a *NetworksAPIService) DeleteNetwork(
 	err := networkAPI.do(ctx, nil, nil)
 
 	return output, err
+}
+
+func (n *NetworksAPIService) GetNetworkType(
+	ctx context.Context,
+	params map[string]string,
+) (models.GetNetworkTypesResponse, error) {
+	var resp models.GetNetworkTypesResponse
+	networkAPI := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworkTypePath),
+		client: n.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := networkAPI.do(ctx, nil, params)
+
+	return resp, err
 }

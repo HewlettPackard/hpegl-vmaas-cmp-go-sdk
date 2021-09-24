@@ -122,20 +122,98 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockAPIClient := NewMockAPIClientHandler(ctrl)
-			a := NetworksAPIService{
+			n := NetworksAPIService{
 				Client: mockAPIClient,
 				Cfg: Configuration{
 					Host: mockHost,
 				},
 			}
 			tt.given(mockAPIClient)
-			got, err := a.GetAllNetworks(ctx, tt.param)
+			got, err := n.GetAllNetworks(ctx, tt.param)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("NetworksAPIService.GetAllNetworks() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NetworksAPIService.GetAllNetworks() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNetworksAPIService_CreateNetwork(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name    string
+		args    models.CreateNetworkRequest
+		given   func(m *MockAPIClientHandler)
+		want    models.CreateNetworkResponse
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1: Create network",
+			args: models.CreateNetworkRequest{
+				Network: models.CreateNetwork{
+					Name: "tf_net",
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks"
+				method := "POST"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+
+				m.EXPECT().prepareRequest(gomock.Any(), path, method,
+					models.CreateNetworkRequest{
+						Network: models.CreateNetwork{
+							Name: "tf_net",
+						},
+					},
+					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"Success": true,
+						"network": {
+							"id": 16,
+							"name": "tf_net"
+						}
+					}
+				`))),
+				}, nil)
+			},
+			want: models.CreateNetworkResponse{
+				Success: true,
+				Network: models.GetSpecificNetworkBody{
+					ID:   16,
+					Name: "tf_net",
+				},
+			},
+			wantErr: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			n := NetworksAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			got, err := n.CreateNetwork(context.Background(), tt.args)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("NetworksAPIService.CreateNetwork() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NetworksAPIService.CreateNetwork() = %v, want %v", got, tt.want)
 			}
 		})
 	}
