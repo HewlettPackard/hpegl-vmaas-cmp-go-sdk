@@ -13,6 +13,8 @@ const (
 	GroupsPath = "groups"
 	// NetworksPath
 	NetworksPath = "networks"
+	// NetworkTypePath
+	NetworkTypePath = "network-types"
 	// LibraryLayoutPath
 	LibraryLayoutPath = "library/layouts"
 	// LibraryInstanceTypesPath
