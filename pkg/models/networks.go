@@ -66,8 +66,10 @@ type CreateNetwork struct {
 	Name                    string              `json:"name" tf:"name"`
 	Description             string              `json:"description" tf:"description"`
 	CloudID                 int                 `json:"-" tf:"cloud_id"`
+	GroupID                 int                 `json:"-" tf:"group_id"`
 	Zone                    IDModel             `json:"zone" tf:"zone"`
-	Type                    IDModel             `json:"type" tf:"type"`
+	Site                    IDModel             `json:"site"`
+	Type                    IDModel             `json:"type"`
 	Cidr                    string              `json:"cidr" tf:"cidr"`
 	Gateway                 string              `json:"gateway" tf:"gateway"`
 	DNSPrimary              string              `json:"dnsPrimary" tf:"primary_dns"`
