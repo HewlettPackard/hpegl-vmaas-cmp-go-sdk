@@ -28,6 +28,7 @@ const (
 	// DatstorePath
 	DatstorePath = "data-stores"
 	// Virtual-Images Path
+	NetworkRouterPath      = "routers"
 	ServerPath             = "servers"
 	VirtualImagePath       = "virtual-images"
 	FolderPath             = "folders"
