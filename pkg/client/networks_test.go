@@ -60,7 +60,7 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 				}, nil)
 			},
 			want: models.ListNetworksBody{
-				Networks: []models.GetSpecificNetworkBody{
+				Networks: []models.GetSpecificNetwork{
 					{
 						ID:   1,
 						Name: templateName,
@@ -188,7 +188,7 @@ func TestNetworksAPIService_CreateNetwork(t *testing.T) {
 			},
 			want: models.CreateNetworkResponse{
 				Success: true,
-				Network: models.GetSpecificNetworkBody{
+				Network: models.GetSpecificNetwork{
 					ID:   16,
 					Name: "tf_net",
 				},

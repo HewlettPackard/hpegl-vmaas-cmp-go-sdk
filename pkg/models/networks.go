@@ -8,17 +8,21 @@ type IDNameModel struct {
 }
 
 type ListNetworksBody struct {
-	Networks     []GetSpecificNetworkBody `json:"networks"`
-	NetworkCount int                      `json:"networkCount"`
+	Networks     []GetSpecificNetwork `json:"networks"`
+	NetworkCount int                  `json:"networkCount"`
 }
 
 type CreateNetworkResponse struct {
-	Success bool                   `json:"success"`
-	Errors  interface{}            `json:"errors"`
-	Network GetSpecificNetworkBody `json:"network"`
+	Success bool               `json:"success"`
+	Errors  interface{}        `json:"errors"`
+	Network GetSpecificNetwork `json:"network"`
 }
 
 type GetSpecificNetworkBody struct {
+	Network GetSpecificNetwork `json:"network"`
+}
+
+type GetSpecificNetwork struct {
 	ID                      int           `json:"id" tf:"id"`
 	Name                    string        `json:"name" tf:"name"`
 	Zone                    IDNameModel   `json:"zone"`
