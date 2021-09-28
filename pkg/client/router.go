@@ -56,7 +56,7 @@ func (r *RouterAPIService) GetSpecificRouter(
 
 func (r *RouterAPIService) CreateRouter(
 	ctx context.Context,
-	request int,
+	request models.CreateRouterRequest,
 ) (models.GetSpecificRouterResp, error) {
 	routerResp := models.GetSpecificRouterResp{}
 	serverAPI := &api{
@@ -68,7 +68,7 @@ func (r *RouterAPIService) CreateRouter(
 			return json.Unmarshal(body, &routerResp)
 		},
 	}
-	err := serverAPI.do(ctx, nil, nil)
+	err := serverAPI.do(ctx, request, nil)
 
 	return routerResp, err
 }
