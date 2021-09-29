@@ -110,3 +110,42 @@ func (n *NetworksAPIService) GetNetworkType(
 
 	return resp, err
 }
+
+func (n *NetworksAPIService) GetNetworkPool(
+	ctx context.Context,
+	params map[string]string,
+) (models.GetNetworkPoolsResp, error) {
+	var resp models.GetNetworkPoolsResp
+	networkAPI := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.NetworkPoolPath),
+		client: n.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := networkAPI.do(ctx, nil, params)
+
+	return resp, err
+}
+
+func (n *NetworksAPIService) GetSpecificNetworkPool(
+	ctx context.Context,
+	NetworkPoolID int,
+) (models.GetSpecificNetworkPool, error) {
+	var resp models.GetSpecificNetworkPool
+	networkAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%s/%d",
+			n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.NetworkPoolPath, NetworkPoolID),
+		client: n.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := networkAPI.do(ctx, nil, nil)
+
+	return resp, err
+}

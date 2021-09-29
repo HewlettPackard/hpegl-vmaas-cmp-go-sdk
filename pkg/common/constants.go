@@ -15,6 +15,7 @@ const (
 	NetworksPath = "networks"
 	// NetworkTypePath
 	NetworkTypePath = "network-types"
+	NetworkPoolPath = "pools"
 	// LibraryLayoutPath
 	LibraryLayoutPath = "library/layouts"
 	// LibraryInstanceTypesPath
