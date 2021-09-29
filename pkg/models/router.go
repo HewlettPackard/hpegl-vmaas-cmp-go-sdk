@@ -52,8 +52,8 @@ type CreateRouterRequestRouter struct {
 	EnableBgp       string                    `json:"enableBgp" tf:"enable_bgp"`
 
 	// for tftags parsing
-	Tier0Config *CreateRouterTier0Config `json:"-" tf:"tier0_config,sub"`
-	Tier1Config *CreateRouterTier1Config `json:"-" tf:"tier1_config,sub"`
+	Tier0Config CreateRouterTier0Config `json:"-" tf:"tier0_config,sub"`
+	Tier1Config CreateRouterTier1Config `json:"-" tf:"tier1_config,sub"`
 }
 
 type CreateRouterRequestConfig struct {
@@ -78,40 +78,40 @@ type CreateRouterTier1Config struct {
 }
 
 type RouteRedistributionTier0 struct {
-	TIER0STATIC            bool `json:"TIER0_STATIC,omitempty" tf:"TIER0_STATIC"`
-	TIER0NAT               bool `json:"TIER0_NAT,omitempty" tf:"TIER0_NAT"`
-	TIER0IPSECLOCALIP      bool `json:"TIER0_IPSEC_LOCAL_IP,omitempty" tf:"TIER0_IPSEC_LOCAL_IP"`
-	TIER0DNSFORWARDERIP    bool `json:"TIER0_DNS_FORWARDER_IP,omitempty" tf:"TIER0_DNS_FORWARDER_IP"`
-	TIER0SERVICEINTERFACE  bool `json:"TIER0_SERVICE_INTERFACE,omitempty" tf:"TIER0_SERVICE_INTERFACE"`
-	TIER0EXTERNALINTERFACE bool `json:"TIER0_EXTERNAL_INTERFACE,omitempty" tf:"TIER0_EXTERNAL_INTERFACE"`
-	TIER0LOOPBACKINTERFACE bool `json:"TIER0_LOOPBACK_INTERFACE,omitempty" tf:"TIER0_LOOPBACK_INTERFACE"`
-	TIER0SEGMENT           bool `json:"TIER0_SEGMENT,omitempty" tf:"TIER0_SEGMENT"`
+	TIER0STATIC            bool `json:"TIER0_STATIC,omitempty" tf:"tier0_static"`
+	TIER0NAT               bool `json:"TIER0_NAT,omitempty" tf:"tier0_nat"`
+	TIER0IPSECLOCALIP      bool `json:"TIER0_IPSEC_LOCAL_IP,omitempty" tf:"tier0_ipsec_local_ip"`
+	TIER0DNSFORWARDERIP    bool `json:"TIER0_DNS_FORWARDER_IP,omitempty" tf:"tier0_dns_forwarder_ip"`
+	TIER0SERVICEINTERFACE  bool `json:"TIER0_SERVICE_INTERFACE,omitempty" tf:"tier0_service_interface"`
+	TIER0EXTERNALINTERFACE bool `json:"TIER0_EXTERNAL_INTERFACE,omitempty" tf:"tier0_external_interface"`
+	TIER0LOOPBACKINTERFACE bool `json:"TIER0_LOOPBACK_INTERFACE,omitempty" tf:"tier0_loopback_interface"`
+	TIER0SEGMENT           bool `json:"TIER0_SEGMENT,omitempty" tf:"tier0_segment"`
 }
 
 type RouteAdvertisement struct {
-	Tier1Connected          bool   `json:"TIER1_CONNECTED,omitempty" tf:"TIER1_CONNECTED"`
-	Tier1StaticRoutes       bool   `json:"TIER1_STATIC_ROUTES,omitempty" tf:"TIER1_STATIC_ROUTES"`
-	Tier0Gateway            string `json:"tier0Gateway,omitempty" tf:"tier0Gateway"`
-	TIER1DNSFORWARDERIP     bool   `json:"TIER1_DNS_FORWARDER_IP,omitempty" tf:"TIER1_DNS_FORWARDER_IP"`
-	TIER1STATIC             bool   `json:"TIER1_STATIC,omitempty" tf:"TIER1_STATIC"`
-	TIER1LBVIP              bool   `json:"TIER1_LB_VIP,omitempty" tf:"TIER1_LB_VIP"`
-	TIER1NAT                bool   `json:"TIER1_NAT,omitempty" tf:"TIER1_NAT"`
-	TIER1LBSNAT             bool   `json:"TIER1_LB_SNAT,omitempty" tf:"TIER1_LB_SNAT"`
-	TIER1IPSECLOCALENDPOINT bool   `json:"TIER1_IPSEC_LOCAL_ENDPOINT,omitempty" tf:"TIER1_IPSEC_LOCAL_ENDPOINT"`
+	Tier1Connected          bool   `json:"TIER1_CONNECTED,omitempty" tf:"tier1_connected"`
+	Tier1StaticRoutes       bool   `json:"TIER1_STATIC_ROUTES,omitempty" tf:"tier1_static_routes"`
+	Tier0Gateway            string `json:"tier0Gateway,omitempty" tf:"tier0gateway"`
+	TIER1DNSFORWARDERIP     bool   `json:"TIER1_DNS_FORWARDER_IP,omitempty" tf:"tier1_dns_forwarder_ip"`
+	TIER1STATIC             bool   `json:"TIER1_STATIC,omitempty" tf:"tier1_static"`
+	TIER1LBVIP              bool   `json:"TIER1_LB_VIP,omitempty" tf:"tier1_lb_vip"`
+	TIER1NAT                bool   `json:"TIER1_NAT,omitempty" tf:"tier1_nat"`
+	TIER1LBSNAT             bool   `json:"TIER1_LB_SNAT,omitempty" tf:"tier1_lb_snat"`
+	TIER1IPSECLOCALENDPOINT bool   `json:"TIER1_IPSEC_LOCAL_ENDPOINT,omitempty" tf:"tier1_ipsec_local_endpoint"`
 }
 
 type RouteRedistributionTier1 struct {
-	TIER1SERVICEINTERFACE bool `json:"TIER1_SERVICE_INTERFACE,omitempty" tf:"TIER1_SERVICE_INTERFACE"`
-	TIER1SEGMENT          bool `json:"TIER1_SEGMENT,omitempty" tf:"TIER1_SEGMENT"`
+	TIER1SERVICEINTERFACE bool `json:"TIER1_SERVICE_INTERFACE,omitempty" tf:"tier1_service_interface"`
+	TIER1SEGMENT          bool `json:"TIER1_SEGMENT,omitempty" tf:"tier1_segment"`
 	RouteAdvertisement
 }
 
 type Bgp struct {
-	LOCALASNUM     bool   `json:"LOCAL_AS_NUM,omitempty" tf:"LOCAL_AS_NUM"`
-	ECMP           bool   `json:"ECMP,omitempty" tf:"ECMP"`
-	MULTIPATHRELAX bool   `json:"MULTIPATH_RELAX,omitempty" tf:"MULTIPATH_RELAX"`
-	INTERSRIBGP    bool   `json:"INTER_SR_IBGP,omitempty" tf:"INTER_SR_IBGP"`
-	RESTARTMODE    string `json:"RESTART_MODE,omitempty" tf:"RESTART_MODE"`
-	RESTARTTIME    int    `json:"RESTART_TIME,omitempty" tf:"RESTART_TIME"`
-	STALEROUTETIME int    `json:"STALE_ROUTE_TIME,omitempty" tf:"STALE_ROUTE_TIME"`
+	LOCALASNUM     bool   `json:"LOCAL_AS_NUM,omitempty" tf:"local_as_num"`
+	ECMP           bool   `json:"ECMP,omitempty" tf:"ecmp"`
+	MULTIPATHRELAX bool   `json:"MULTIPATH_RELAX,omitempty" tf:"multipath_relax"`
+	INTERSRIBGP    bool   `json:"INTER_SR_IBGP,omitempty" tf:"inter_sr_ibgp"`
+	RESTARTMODE    string `json:"RESTART_MODE,omitempty" tf:"restart_mode"`
+	RESTARTTIME    int    `json:"RESTART_TIME,omitempty" tf:"restart_time"`
+	STALEROUTETIME int    `json:"STALE_ROUTE_TIME,omitempty" tf:"stale_route_time"`
 }
