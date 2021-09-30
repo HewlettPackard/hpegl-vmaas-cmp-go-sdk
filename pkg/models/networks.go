@@ -111,6 +111,7 @@ type GetNetworkPoolsResp struct {
 type GetSpecificNetworkPool struct {
 	NetworkPool GetNetworkPool `json:"networkPool"`
 }
+
 type GetNetworkPool struct {
 	ID          int                      `json:"id"`
 	Type        IDModel                  `json:"type"`

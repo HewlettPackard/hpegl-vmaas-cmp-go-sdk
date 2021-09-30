@@ -132,13 +132,13 @@ func (n *NetworksAPIService) GetNetworkPool(
 
 func (n *NetworksAPIService) GetSpecificNetworkPool(
 	ctx context.Context,
-	NetworkPoolID int,
+	networkPoolID int,
 ) (models.GetSpecificNetworkPool, error) {
 	var resp models.GetSpecificNetworkPool
 	networkAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d",
-			n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.NetworkPoolPath, NetworkPoolID),
+			n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.NetworkPoolPath, networkPoolID),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
