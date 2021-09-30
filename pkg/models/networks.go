@@ -69,20 +69,20 @@ type CreateNetwork struct {
 	GroupID                 int                 `json:"-" tf:"group_id"`
 	TypeID                  int                 `json:"-" tf:"type_id"`
 	PoolID                  int                 `json:"-" tf:"pool_id"`
-	Zone                    IDModel             `json:"zone" tf:"zone"`
-	Site                    IDModel             `json:"site"`
-	Type                    IDModel             `json:"type"`
-	Pool                    IDModel             `json:"pool"`
-	Cidr                    string              `json:"cidr" tf:"cidr"`
-	Gateway                 string              `json:"gateway" tf:"gateway"`
-	DNSPrimary              string              `json:"dnsPrimary" tf:"primary_dns"`
-	DNSSecondary            string              `json:"dnsSecondary" tf:"secondary_dns"`
-	Config                  CreateNetworkConfig `json:"config" tf:"config,sub"`
+	Zone                    IDModel             `json:"zone,omitempty" tf:"zone"`
+	Site                    IDModel             `json:"site,omitempty"`
+	Type                    IDModel             `json:"type,omitempty"`
+	Pool                    IDModel             `json:"pool,omitempty"`
+	Cidr                    string              `json:"cidr,omitempty" tf:"cidr"`
+	Gateway                 string              `json:"gateway,omitempty" tf:"gateway"`
+	DNSPrimary              string              `json:"dnsPrimary,omitempty" tf:"primary_dns"`
+	DNSSecondary            string              `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
+	Config                  CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
 	DhcpServer              bool                `json:"dhcpServer" tf:"dhcp_server"`
-	ScanNetwork             string              `json:"scanNetwork" tf:"scan_network"`
-	ApplianceURLProxyBypass string              `json:"applianceUrlProxyBypass" tf:"appliance_url_proxy_bypass"`
-	NoProxy                 string              `json:"noProxy" tf:"no_proxy"`
-	ScopeID                 string              `json:"scopeId" tf:"scode_id"`
+	ScanNetwork             string              `json:"scanNetwork,omitempty" tf:"scan_network"`
+	ApplianceURLProxyBypass string              `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
+	NoProxy                 string              `json:"noProxy,omitempty" tf:"no_proxy"`
+	ScopeID                 string              `json:"scopeId,omitempty" tf:"scode_id"`
 }
 
 type CreateNetworkConfig struct {
