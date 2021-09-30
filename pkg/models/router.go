@@ -12,6 +12,11 @@ type GetSpecificRouterResp struct {
 	NetworkRouter GetNetworkRouter `json:"networkRouter"`
 }
 
+type CreateRouterResp struct {
+	Success bool `json:"success"`
+	ID      int  `json:"id"`
+}
+
 type GetNetworkRouter struct {
 	ID              int           `json:"id"`
 	Code            string        `json:"code"`
@@ -114,4 +119,36 @@ type Bgp struct {
 	RESTARTMODE    string `json:"RESTART_MODE,omitempty" tf:"restart_mode"`
 	RESTARTTIME    int    `json:"RESTART_TIME,omitempty" tf:"restart_time"`
 	STALEROUTETIME int    `json:"STALE_ROUTE_TIME,omitempty" tf:"stale_route_time"`
+}
+
+type GetNetworlRouterTypes struct {
+	NetworkRouterTypes []NetworkRouterTypes `json:"networkRouterTypes"`
+}
+
+type NetworkRouterTypes struct {
+	ID          int    `json:"id"`
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Enabled     bool   `json:"enabled"`
+}
+
+type GetNetworkServicesResp struct {
+	NetworkServices []GetNetworkServices `json:"networkServices"`
+}
+
+type GetNetworkServices struct {
+	ServiceType               string      `json:"serviceType"`
+	ServiceTypeName           string      `json:"serviceTypeName"`
+	Type                      string      `json:"type"`
+	TypeName                  string      `json:"typeName"`
+	Name                      string      `json:"name"`
+	ID                        int         `json:"id"`
+	IntegrationID             int         `json:"integrationId"`
+	CanEdit                   bool        `json:"canEdit"`
+	CanDelete                 bool        `json:"canDelete"`
+	Status                    string      `json:"status"`
+	LastUpdated               time.Time   `json:"lastUpdated"`
+	BrandingImageName         interface{} `json:"brandingImageName"`
+	SupportsTenantPermissions bool        `json:"supportsTenantPermissions"`
 }
