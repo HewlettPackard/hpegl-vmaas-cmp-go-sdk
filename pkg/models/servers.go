@@ -180,10 +180,3 @@ type Type struct {
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
-
-type Meta struct {
-	Max    int `json:"max"`
-	Offset int `json:"offset"`
-	Size   int `json:"size"`
-	Total  int `json:"total"`
-}
