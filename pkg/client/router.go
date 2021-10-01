@@ -60,7 +60,7 @@ func (r *RouterAPIService) CreateRouter(
 ) (models.CreateRouterResp, error) {
 	routerResp := models.CreateRouterResp{}
 	serverAPI := &api{
-		method: "GET",
+		method: "POST",
 		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.NetworksPath, consts.NetworkRouterPath),
 		client: r.Client,

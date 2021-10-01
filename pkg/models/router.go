@@ -49,12 +49,11 @@ type CreateRouterRequestRouter struct {
 	Type            IDModel                   `json:"type"`
 	TypeID          int                       `json:"-" tf:"type_id,computed"`
 	Enabled         bool                      `json:"enabled" tf:"enable"`
-	Site            IDModel                   `json:"site"`
-	GroupID         int                       `json:"-" tf:"group_id"`
+	Site            IDStringModel             `json:"site"`
+	GroupID         string                    `json:"-" tf:"group_id"`
 	NetworkServer   IDModel                   `json:"networkServer"`
 	NetworkServerID int                       `json:"-" tf:"network_server_id,computed"`
 	Config          CreateRouterRequestConfig `json:"config"`
-	EnableBgp       string                    `json:"enableBgp" tf:"enable_bgp"`
 
 	// for tftags parsing
 	TfTier0Config *CreateRouterTier0Config `json:"-" tf:"tier0_config,sub"`
@@ -66,6 +65,7 @@ type CreateRouterRequestConfig struct {
 	HaMode        string `json:"haMode,omitempty"`
 	FailOver      string `json:"failOver,omitempty"`
 	Tier0Gateways string `json:"tier0_gateway"`
+	EnableBgp     bool   `json:"enableBgp"`
 	CreateRouterTier0Config
 }
 
@@ -77,6 +77,7 @@ type CreateRouterTier0Config struct {
 	TfEdgeCluster string                   `json:"-" tf:"edge_cluster"`
 	TfHaMode      string                   `json:"-" tf:"ha_mode"`
 	TfFailOver    string                   `json:"-" tf:"fail_over"`
+	TfEnableBgp   bool                     `json:"-" tf:"enable_bgp"`
 	TfBGP         Bgp                      `json:"-" tf:"bgp,sub"`
 	TfRRTier0     RouteRedistributionTier0 `json:"-" tf:"route_redistribution_tier0,sub"`
 	TfRRTier1     RouteRedistributionTier1 `json:"-" tf:"route_redistribution_tier1,sub"`
@@ -118,7 +119,7 @@ type RouteRedistributionTier1 struct {
 }
 
 type Bgp struct {
-	LOCALASNUM     bool   `json:"LOCAL_AS_NUM,omitempty" tf:"local_as_num"`
+	LOCALASNUM     int    `json:"LOCAL_AS_NUM,omitempty" tf:"local_as_num"`
 	ECMP           bool   `json:"ECMP,omitempty" tf:"ecmp"`
 	MULTIPATHRELAX bool   `json:"MULTIPATH_RELAX,omitempty" tf:"multipath_relax"`
 	INTERSRIBGP    bool   `json:"INTER_SR_IBGP,omitempty" tf:"inter_sr_ibgp"`
