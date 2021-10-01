@@ -57,8 +57,8 @@ func (r *RouterAPIService) GetSpecificRouter(
 func (r *RouterAPIService) CreateRouter(
 	ctx context.Context,
 	request models.CreateRouterRequest,
-) (models.GetSpecificRouterResp, error) {
-	routerResp := models.GetSpecificRouterResp{}
+) (models.CreateRouterResp, error) {
+	routerResp := models.CreateRouterResp{}
 	serverAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,

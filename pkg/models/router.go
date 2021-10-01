@@ -57,14 +57,15 @@ type CreateRouterRequestRouter struct {
 	EnableBgp       string                    `json:"enableBgp" tf:"enable_bgp"`
 
 	// for tftags parsing
-	Tier0Config CreateRouterTier0Config `json:"-" tf:"tier0_config,sub"`
-	Tier1Config CreateRouterTier1Config `json:"-" tf:"tier1_config,sub"`
+	TfTier0Config *CreateRouterTier0Config `json:"-" tf:"tier0_config,sub"`
+	TfTier1Config *CreateRouterTier1Config `json:"-" tf:"tier1_config,sub"`
 }
 
 type CreateRouterRequestConfig struct {
-	EdgeCluster string `json:"edgeCluster,omitempty" tf:"edge_cluster"`
-	HaMode      string `json:"haMode,omitempty" tf:"ha_mode"`
-	FailOver    string `json:"failOver,omitempty" tf:"fail_over"`
+	EdgeCluster   string `json:"edgeCluster,omitempty"`
+	HaMode        string `json:"haMode,omitempty"`
+	FailOver      string `json:"failOver,omitempty"`
+	Tier0Gateways string `json:"tier0_gateway"`
 	CreateRouterTier0Config
 }
 
@@ -73,13 +74,18 @@ type CreateRouterTier0Config struct {
 	RouteRedistributionTier0
 	RouteRedistributionTier1
 	// For tftag parsing
-	BGP     Bgp                      `json:"-" tf:"bgp,sub"`
-	RRTier0 RouteRedistributionTier0 `json:"-" tf:"route_redistribution_tier0,sub"`
-	RRTier1 RouteRedistributionTier1 `json:"-" tf:"route_redistribution_tier1,sub"`
+	TfEdgeCluster string                   `json:"-" tf:"edge_cluster"`
+	TfHaMode      string                   `json:"-" tf:"ha_mode"`
+	TfFailOver    string                   `json:"-" tf:"fail_over"`
+	TfBGP         Bgp                      `json:"-" tf:"bgp,sub"`
+	TfRRTier0     RouteRedistributionTier0 `json:"-" tf:"route_redistribution_tier0,sub"`
+	TfRRTier1     RouteRedistributionTier1 `json:"-" tf:"route_redistribution_tier1,sub"`
 }
 
 type CreateRouterTier1Config struct {
-	RouteAdvertisement *RouteAdvertisement `json:"-" tf:"route_advertisement,sub"`
+	TfEdgeCluster        string             `json:"-" tf:"edge_cluster"`
+	TfTier0Gateways      string             `json:"-" tf:"tier0_gateway"`
+	TfRouteAdvertisement RouteAdvertisement `json:"-" tf:"route_advertisement,sub"`
 }
 
 type RouteRedistributionTier0 struct {
