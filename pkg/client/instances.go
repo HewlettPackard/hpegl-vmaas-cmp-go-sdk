@@ -125,72 +125,22 @@ Create an Instance
 
 func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 	localVarOptionals *models.CreateInstanceBody) (models.GetInstanceResponse, error) {
-	var (
-		localVarHTTPMethod     = strings.ToUpper("Post")
-		localVarPostBody       interface{}
-		localVarFileName       string
-		localVarFileBytes      []byte
-		createInstanceResponse models.GetInstanceResponse
-	)
+	createInstanceResp := models.GetInstanceResponse{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath)
+	createInstanceAPI := &api{
+		method: "POST",
+		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &createInstanceResp)
+		},
 	}
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	err := createInstanceAPI.do(ctx, localVarOptionals, nil)
 
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	if localVarOptionals != nil {
-		var err error
-		localVarPostBody, err = json.Marshal(localVarOptionals)
-		if err != nil {
-			return createInstanceResponse, err
-		}
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return createInstanceResponse, err
-	}
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return createInstanceResponse, err
-	}
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return createInstanceResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return createInstanceResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &createInstanceResponse); err != nil {
-		return createInstanceResponse, err
-	}
-
-	return createInstanceResponse, nil
+	return createInstanceResp, err
 }
 
 /*
@@ -211,67 +161,21 @@ type InstancesAPIDeleteAnIstanceOpts struct {
 
 func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
 	instanceID int) (models.SuccessOrErrorMessage, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Delete")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	delInstanceResp := models.SuccessOrErrorMessage{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	delInstanceAPI := &api{
+		method: "DELETE",
+		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &delInstanceResp)
+		},
 	}
+	err := delInstanceAPI.do(ctx, nil, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return models.SuccessOrErrorMessage{}, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return models.SuccessOrErrorMessage{}, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return models.SuccessOrErrorMessage{}, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return models.SuccessOrErrorMessage{}, err
-	}
-
-	// fmt.Println(string(localVarBody))
-	var instancesResponse models.SuccessOrErrorMessage
-	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
-		return models.SuccessOrErrorMessage{}, err
-	}
-
-	return instancesResponse, nil
+	return delInstanceResp, err
 }
 
 /*
@@ -285,66 +189,21 @@ Get a Specific Instance
 */
 func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
 	instanceID int) (models.GetInstanceResponse, error) {
-	var (
-		localVarHTTPMethod  = strings.ToUpper("Get")
-		localVarPostBody    interface{}
-		localVarFileName    string
-		localVarFileBytes   []byte
-		getInstanceResponse models.GetInstanceResponse
-	)
+	specificInstResp := models.GetInstanceResponse{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	specificInstanceAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &specificInstResp)
+		},
 	}
+	err := specificInstanceAPI.do(ctx, nil, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return getInstanceResponse, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return getInstanceResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return getInstanceResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return getInstanceResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &getInstanceResponse); err != nil {
-		return getInstanceResponse, err
-	}
-
-	return getInstanceResponse, nil
+	return specificInstResp, err
 }
 
 /*
@@ -355,7 +214,8 @@ Fetch the list of available instance types
  * @param serviceInstanceID
 
 */
-func (a *InstancesAPIService) GetAllInstanceTypesForProvisioning(ctx context.Context) (*http.Response, error) {
+func (a *InstancesAPIService) GetAllInstanceTypesForProvisioning(ctx context.Context) (*http.Response,
+	error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -442,66 +302,21 @@ type InstancesAPIGetAllInstancesOpts struct {
 
 func (a *InstancesAPIService) GetAllInstances(ctx context.Context,
 	queryParams map[string]string) (models.Instances, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		instancesResponse  models.Instances
-	)
+	getAllInstance := models.Instances{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath)
+	instanceAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(queryParams)
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &getAllInstance)
+		},
 	}
+	err := instanceAPI.do(ctx, nil, queryParams)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return instancesResponse, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return instancesResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return instancesResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return instancesResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &instancesResponse); err != nil {
-		return instancesResponse, err
-	}
-
-	return instancesResponse, nil
+	return getAllInstance, err
 }
 
 /*
@@ -606,7 +421,8 @@ List all environment variables associated with the instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) GetEnvVariables(ctx context.Context, instanceID int) (*http.Response, error) {
+func (a *InstancesAPIService) GetEnvVariables(ctx context.Context,
+	instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -678,65 +494,21 @@ Lists VMware Snapshot of the instance
 */
 func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Context,
 	instanceID int) (models.ListSnapshotResponse, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		snapshotResponse   models.ListSnapshotResponse
-	)
+	listSnapshotResp := models.ListSnapshotResponse{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/snapshots", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	listSnapshotAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d/snapshots", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &listSnapshotResp)
+		},
 	}
+	err := listSnapshotAPI.do(ctx, nil, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return snapshotResponse, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return snapshotResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return snapshotResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return snapshotResponse, err
-	}
-	if err = json.Unmarshal(localVarBody, &snapshotResponse); err != nil {
-		return snapshotResponse, err
-	}
-
-	return snapshotResponse, nil
+	return listSnapshotResp, err
 }
 
 /*
@@ -816,73 +588,22 @@ it currently exists.
 
 func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.ImportSnapshotBody) (models.SuccessOrErrorMessage, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Put")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	importSnapshotResp := models.SuccessOrErrorMessage{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/import-snapshot", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	importSnapshotAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d/import-snapshot", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &importSnapshotResp)
+		},
 	}
+	err := importSnapshotAPI.do(ctx, localVarOptionals, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	return importSnapshotResp, err
 
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	if localVarOptionals != nil {
-		var err error
-		localVarPostBody, err = json.Marshal(localVarOptionals)
-		if err != nil {
-			return models.SuccessOrErrorMessage{}, err
-		}
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return models.SuccessOrErrorMessage{}, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return models.SuccessOrErrorMessage{}, err
-	}
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return models.SuccessOrErrorMessage{}, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return models.SuccessOrErrorMessage{}, err
-	}
-
-	var instanceResponse models.SuccessOrErrorMessage
-	if err = json.Unmarshal(localVarBody, &instanceResponse); err != nil {
-		return models.SuccessOrErrorMessage{}, err
-	}
-
-	return instanceResponse, nil
 }
 
 /*
@@ -894,7 +615,8 @@ InstancesAPIService
  * @param instanceID
 
 */
-func (a *InstancesAPIService) LockAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
+func (a *InstancesAPIService) LockAnInstance(ctx context.Context,
+	instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -955,67 +677,23 @@ Restarts all VM running within an instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) RestartAnInstance(ctx context.Context, instanceID int) (models.InstancePowerResponse, error) {
-	var (
-		localVarHTTPMethod    = strings.ToUpper("Put")
-		localVarPostBody      interface{}
-		localVarFileName      string
-		localVarFileBytes     []byte
-		instanceStateResponse models.InstancePowerResponse
-	)
+func (a *InstancesAPIService) RestartAnInstance(ctx context.Context,
+	instanceID int) (models.InstancePowerResponse, error) {
+	restartInstResp := models.InstancePowerResponse{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/restart", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	restartInstAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d/restart", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &restartInstResp)
+		},
 	}
+	err := restartInstAPI.do(ctx, nil, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return instanceStateResponse, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return instanceStateResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return instanceStateResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return instanceStateResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &instanceStateResponse); err != nil {
-		return instanceStateResponse, err
-	}
-
-	return instanceStateResponse, nil
+	return restartInstResp, err
 }
 
 /*
@@ -1032,74 +710,21 @@ Creates VMware Snapshot of the instance
 
 func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.SnapshotBody) (models.Instances, error) {
-	var (
-		localVarHTTPMethod   = strings.ToUpper("Put")
-		localVarPostBody     interface{}
-		localVarFileName     string
-		localVarFileBytes    []byte
-		snapshotInstanceresp models.Instances
-	)
+	snapshotInstResp := models.Instances{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/snapshot", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	instanceAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d/snapshot", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &snapshotInstResp)
+		},
 	}
+	err := instanceAPI.do(ctx, localVarOptionals, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	if localVarOptionals != nil {
-		var err error
-		localVarPostBody, err = json.Marshal(localVarOptionals)
-		if err != nil {
-			return snapshotInstanceresp, err
-		}
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return snapshotInstanceresp, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return snapshotInstanceresp, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return snapshotInstanceresp, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return snapshotInstanceresp, err
-	}
-
-	if err := json.Unmarshal(localVarBody, &snapshotInstanceresp); err != nil {
-		return snapshotInstanceresp, err
-	}
-
-	return snapshotInstanceresp, nil
+	return snapshotInstResp, err
 }
 
 /*
@@ -1111,66 +736,23 @@ Starts all VM running within an instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) StartAnInstance(ctx context.Context, instanceID int) (models.InstancePowerResponse, error) {
-	var (
-		localVarHTTPMethod    = strings.ToUpper("Put")
-		localVarPostBody      interface{}
-		localVarFileName      string
-		localVarFileBytes     []byte
-		instanceStateResponse models.InstancePowerResponse
-	)
+func (a *InstancesAPIService) StartAnInstance(ctx context.Context,
+	instanceID int) (models.InstancePowerResponse, error) {
+	startInstanceResp := models.InstancePowerResponse{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/start", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	startInstanceAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d/start", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &startInstanceResp)
+		},
 	}
+	err := startInstanceAPI.do(ctx, nil, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return instanceStateResponse, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return instanceStateResponse, err
-	}
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return instanceStateResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return instanceStateResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &instanceStateResponse); err != nil {
-		return instanceStateResponse, err
-	}
-
-	return instanceStateResponse, nil
+	return startInstanceResp, err
 }
 
 /*
@@ -1182,66 +764,23 @@ Stops all VM running within an instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) StopAnInstance(ctx context.Context, instanceID int) (models.InstancePowerResponse, error) {
-	var (
-		localVarHTTPMethod    = strings.ToUpper("Put")
-		localVarPostBody      interface{}
-		localVarFileName      string
-		localVarFileBytes     []byte
-		instanceStateResponse models.InstancePowerResponse
-	)
+func (a *InstancesAPIService) StopAnInstance(ctx context.Context,
+	instanceID int) (models.InstancePowerResponse, error) {
+	stopInstanceResp := models.InstancePowerResponse{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/stop", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
+	stopInstanceAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d/stop", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &stopInstanceResp)
+		},
 	}
+	err := stopInstanceAPI.do(ctx, nil, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return instanceStateResponse, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return instanceStateResponse, err
-	}
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return instanceStateResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return instanceStateResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &instanceStateResponse); err != nil {
-		return instanceStateResponse, err
-	}
-
-	return instanceStateResponse, nil
+	return stopInstanceResp, err
 }
 
 /*
@@ -1253,66 +792,22 @@ Suspends all VM running within an instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context, instanceID int) (models.InstancePowerResponse, error) {
-	var (
-		localVarHTTPMethod    = strings.ToUpper("Put")
-		localVarPostBody      interface{}
-		localVarFileName      string
-		localVarFileBytes     []byte
-		instanceStateResponse models.InstancePowerResponse
-	)
+func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
+	instanceID int) (models.InstancePowerResponse, error) {
+	suspendResp := models.InstancePowerResponse{}
+	suspendInstanceAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%d/suspend", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.InstancesPath, instanceID),
+		client: a.Client,
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/suspend", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &suspendResp)
+		},
 	}
+	err := suspendInstanceAPI.do(ctx, nil, nil)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return instanceStateResponse, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return instanceStateResponse, err
-	}
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return instanceStateResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return instanceStateResponse, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &instanceStateResponse); err != nil {
-		return instanceStateResponse, err
-	}
-
-	return instanceStateResponse, nil
+	return suspendResp, err
 }
 
 /*
@@ -1401,7 +896,8 @@ Unlocks the instance
  * @param instanceID
 
 */
-func (a *InstancesAPIService) UnlockAnInstance(ctx context.Context, instanceID int) (*http.Response, error) {
+func (a *InstancesAPIService) UnlockAnInstance(ctx context.Context,
+	instanceID int) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -1507,9 +1003,7 @@ func (a *InstancesAPIService) UpdatingAnInstance(
 }
 
 func (a *InstancesAPIService) GetInstanceHistory(
-	ctx context.Context,
-	instanceID int,
-) (models.GetInstanceHistory, error) {
+	ctx context.Context, instanceID int) (models.GetInstanceHistory, error) {
 	history := models.GetInstanceHistory{}
 
 	historyAPI := &api{
