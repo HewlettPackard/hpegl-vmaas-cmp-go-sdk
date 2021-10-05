@@ -603,7 +603,6 @@ func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, in
 	err := importSnapshotAPI.do(ctx, localVarOptionals, nil)
 
 	return importSnapshotResp, err
-
 }
 
 /*
