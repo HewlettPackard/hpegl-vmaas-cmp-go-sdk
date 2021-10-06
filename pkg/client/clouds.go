@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -235,69 +234,30 @@ Get All Cloud Data Stores
 */
 func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID int,
 	queryParams map[string]string) (models.DataStoresResp, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	allCloudDSResp := models.DataStoresResp{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.ZonePath, cloudID)
+	allCloudDSAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.ZonePath, cloudID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(queryParams)
-	localVarFormParams := url.Values{}
-	var datastoresResp models.DataStoresResp
-	if cloudID < 1 {
-		return datastoresResp, reportError("cloudID must be greater than 1")
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &allCloudDSResp)
+		},
+		validations: []validationFunc{
+			func() error {
+				if cloudID < 1 {
+					return fmt.Errorf("%s", "cloud id should be greater than or equal to 1")
+				}
+
+				return nil
+			},
+		},
 	}
+	err := allCloudDSAPI.do(ctx, nil, queryParams)
 
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return datastoresResp, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return datastoresResp, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return datastoresResp, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return datastoresResp, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &datastoresResp); err != nil {
-		return datastoresResp, err
-	}
-
-	return datastoresResp, nil
+	return allCloudDSResp, err
 }
 
 /*
@@ -311,69 +271,31 @@ Get All Cloud Resource Pools
 */
 func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID int,
 	queryParams map[string]string) (models.ResourcePoolsResp, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	allCloudRPoolResp := models.ResourcePoolsResp{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.ZonePath, cloudID)
+	allCloudRPoolAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.ZonePath, cloudID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(queryParams)
-	localVarFormParams := url.Values{}
-	var resourcePoolsResp models.ResourcePoolsResp
-	if cloudID < 1 {
-		return resourcePoolsResp, reportError("cloudID must be greater than 1")
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &allCloudRPoolResp)
+		},
+		validations: []validationFunc{
+			func() error {
+				if cloudID < 1 {
+					return fmt.Errorf("%s", "cloud id should be greater than or equal to 1")
+				}
+
+				return nil
+			},
+		},
 	}
+	err := allCloudRPoolAPI.do(ctx, nil, queryParams)
 
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	return allCloudRPoolResp, err
 
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return resourcePoolsResp, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return resourcePoolsResp, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return resourcePoolsResp, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return resourcePoolsResp, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &resourcePoolsResp); err != nil {
-		return resourcePoolsResp, err
-	}
-
-	return resourcePoolsResp, nil
 }
 
 /*
@@ -386,133 +308,44 @@ Get All Clouds
 */
 func (a *CloudsAPIService) GetAllClouds(ctx context.Context,
 	queryParams map[string]string) (models.CloudsResp, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	allCloudResp := models.CloudsResp{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.ZonePath)
+	allCloudAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.ZonePath),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(queryParams)
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &allCloudResp)
+		},
 	}
+	err := allCloudAPI.do(ctx, nil, queryParams)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	var cloudsResp models.CloudsResp
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return cloudsResp, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return cloudsResp, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return cloudsResp, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return cloudsResp, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &cloudsResp); err != nil {
-		return cloudsResp, err
-	}
-
-	return cloudsResp, nil
+	return allCloudResp, err
 }
 
 func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
 	provisionTypeID int) (models.GetAllCloudNetworks, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	allCloudNetworkResp := models.GetAllCloudNetworks{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.OptionsPath, consts.ZoneNetworkOptionsPath)
+	allCloudNetworkAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.OptionsPath, consts.ZoneNetworkOptionsPath),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(map[string]string{
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &allCloudNetworkResp)
+		},
+	}
+	queryParams := map[string]string{
 		"zoneId":          strconv.Itoa(cloudID),
 		"provisionTypeId": strconv.Itoa(provisionTypeID),
-	})
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
+	err := allCloudNetworkAPI.do(ctx, nil, queryParams)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	var networkResp models.GetAllCloudNetworks
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return networkResp, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return networkResp, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return networkResp, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return networkResp, err
-	}
-
-	if err = json.Unmarshal(localVarBody, &networkResp); err != nil {
-		return networkResp, err
-	}
-
-	return networkResp, nil
+	return allCloudNetworkResp, err
 }
 
 func (a *CloudsAPIService) GetAllCloudFolders(
