@@ -295,7 +295,6 @@ func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID
 	err := allCloudRPoolAPI.do(ctx, nil, queryParams)
 
 	return allCloudRPoolResp, err
-
 }
 
 /*
