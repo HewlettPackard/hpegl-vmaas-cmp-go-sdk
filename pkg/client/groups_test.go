@@ -158,10 +158,10 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 						}]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
-					}), "", nil).Return(req, nil)
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
@@ -187,10 +187,10 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 				path := mockHost + "/v1/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
-					}), "", nil).Return(nil, errors.New("prepare request error"))
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
 			want:    models.Groups{},
 			wantErr: true,
@@ -213,10 +213,10 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 						]
 					}
 				`)))
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
-					}), "", nil).Return(req, nil)
+					}), url.Values{}, "", nil).Return(req, nil)
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 500,

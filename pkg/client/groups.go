@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -170,69 +169,30 @@ Get a Specific Group
 
 */
 func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context, groupID int) (models.GroupResp, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	specificGrpResp := models.GroupResp{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.GroupsPath, groupID)
+	specificGrpRespAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.GroupsPath, groupID),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if groupID < 1 {
-		return models.GroupResp{}, reportError("groupID must be greater than 1")
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &specificGrpResp)
+		},
+		validations: []validationFunc{
+			func() error {
+				if groupID < 1 {
+					return fmt.Errorf("%s", "group id should be greater than or equal to 1")
+				}
+
+				return nil
+			},
+		},
 	}
+	err := specificGrpRespAPI.do(ctx, nil, nil)
 
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return models.GroupResp{}, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return models.GroupResp{}, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return models.GroupResp{}, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return models.GroupResp{}, err
-	}
-
-	var groupResp models.GroupResp
-	if err = json.Unmarshal(localVarBody, &groupResp); err != nil {
-		return models.GroupResp{}, err
-	}
-
-	return groupResp, nil
+	return specificGrpResp, err
 }
 
 /*
@@ -245,66 +205,21 @@ This endpoint retrieves all groups and a list of zones associated with the group
 */
 func (a *GroupsAPIService) GetAllGroups(ctx context.Context,
 	queryParams map[string]string) (models.Groups, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	allGrpResp := models.Groups{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.GroupsPath)
+	allGrpRespAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.GroupsPath),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := getURLValues(queryParams)
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &allGrpResp)
+		},
 	}
+	err := allGrpRespAPI.do(ctx, nil, queryParams)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return models.Groups{}, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return models.Groups{}, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return models.Groups{}, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return models.Groups{}, err
-	}
-
-	var groupsResp models.Groups
-	if err = json.Unmarshal(localVarBody, &groupsResp); err != nil {
-		return models.Groups{}, err
-	}
-
-	return groupsResp, nil
+	return allGrpResp, err
 }
 
 /*
