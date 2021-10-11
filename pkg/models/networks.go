@@ -23,7 +23,7 @@ type GetSpecificNetworkBody struct {
 }
 
 type GetSpecificNetwork struct {
-	ID                      int           `json:"id" tf:"id"`
+	ID                      int           `json:"id" tf:"id,computed"`
 	Name                    string        `json:"name" tf:"name"`
 	Zone                    IDNameModel   `json:"zone"`
 	DisplayName             string        `json:"displayName" tf:"display_name,computed"`
@@ -72,7 +72,7 @@ type CreateNetwork struct {
 	Zone                    IDModel             `json:"zone,omitempty" tf:"zone"`
 	Site                    IDModel             `json:"site,omitempty"`
 	Type                    IDModel             `json:"type,omitempty"`
-	Pool                    IDModel             `json:"pool,omitempty"`
+	Pool                    *IDModel            `json:"pool,omitempty"`
 	Cidr                    string              `json:"cidr,omitempty" tf:"cidr"`
 	Gateway                 string              `json:"gateway,omitempty" tf:"gateway"`
 	DNSPrimary              string              `json:"dnsPrimary,omitempty" tf:"primary_dns"`
