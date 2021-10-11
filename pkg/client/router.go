@@ -73,6 +73,26 @@ func (r *RouterAPIService) CreateRouter(
 	return routerResp, err
 }
 
+func (r *RouterAPIService) UpdateRouter(
+	ctx context.Context,
+	routerID int,
+	request models.CreateRouterRequest,
+) (models.SuccessOrErrorMessage, error) {
+	routerResp := models.SuccessOrErrorMessage{}
+	serverAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.NetworksPath, consts.NetworkRouterPath, routerID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &routerResp)
+		},
+	}
+	err := serverAPI.do(ctx, request, nil)
+
+	return routerResp, err
+}
+
 func (r *RouterAPIService) DeleteRouter(
 	ctx context.Context,
 	routerID int,

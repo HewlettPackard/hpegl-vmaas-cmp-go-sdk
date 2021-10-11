@@ -46,13 +46,14 @@ type CreateRouterRequest struct {
 
 type CreateRouterRequestRouter struct {
 	Name            string                    `json:"name" tf:"name"`
-	Type            IDModel                   `json:"type"`
+	Type            IDModel                   `json:"type,omitempty"`
 	TypeID          int                       `json:"-" tf:"type_id,computed"`
 	Enabled         bool                      `json:"enabled" tf:"enable"`
-	Site            IDStringModel             `json:"site"`
+	Site            IDStringModel             `json:"site,omitempty"`
 	GroupID         string                    `json:"-" tf:"group_id"`
-	NetworkServer   IDModel                   `json:"networkServer"`
+	NetworkServer   IDModel                   `json:"networkServer,omitempty"`
 	NetworkServerID int                       `json:"-" tf:"network_server_id,computed"`
+	EnableBGP       bool                      `json:"enableBgp"`
 	Config          CreateRouterRequestConfig `json:"config"`
 
 	// for tftags parsing
@@ -65,7 +66,6 @@ type CreateRouterRequestConfig struct {
 	HaMode        string `json:"haMode,omitempty"`
 	FailOver      string `json:"failOver,omitempty"`
 	Tier0Gateways string `json:"tier0_gateway"`
-	EnableBgp     bool   `json:"enableBgp"`
 	CreateRouterTier0Config
 }
 
@@ -77,7 +77,6 @@ type CreateRouterTier0Config struct {
 	TfEdgeCluster string                   `json:"-" tf:"edge_cluster"`
 	TfHaMode      string                   `json:"-" tf:"ha_mode"`
 	TfFailOver    string                   `json:"-" tf:"fail_over"`
-	TfEnableBgp   bool                     `json:"-" tf:"enable_bgp"`
 	TfBGP         Bgp                      `json:"-" tf:"bgp,sub"`
 	TfRRTier0     RouteRedistributionTier0 `json:"-" tf:"route_redistribution_tier0,sub"`
 	TfRRTier1     RouteRedistributionTier1 `json:"-" tf:"route_redistribution_tier1,sub"`
@@ -126,6 +125,7 @@ type Bgp struct {
 	RESTARTMODE    string `json:"RESTART_MODE,omitempty" tf:"restart_mode"`
 	RESTARTTIME    int    `json:"RESTART_TIME,omitempty" tf:"restart_time"`
 	STALEROUTETIME int    `json:"STALE_ROUTE_TIME,omitempty" tf:"stale_route_time"`
+	TfEnableBgp    bool   `json:"-" tf:"enable_bgp"`
 }
 
 type GetNetworlRouterTypes struct {
