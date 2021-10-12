@@ -149,3 +149,23 @@ func (n *NetworksAPIService) GetSpecificNetworkPool(
 
 	return resp, err
 }
+
+func (n *NetworksAPIService) UpdateNetwork(
+	ctx context.Context,
+	networkID int,
+	request models.CreateNetworkRequest,
+) (models.SuccessOrErrorMessage, error) {
+	var output models.SuccessOrErrorMessage
+	networkAPI := &api{
+		method: "PUT",
+		path:   fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
+		client: n.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &output)
+		},
+	}
+	err := networkAPI.do(ctx, request, nil)
+
+	return output, err
+}
