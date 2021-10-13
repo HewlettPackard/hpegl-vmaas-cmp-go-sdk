@@ -54,40 +54,48 @@ type GetSpecificNetwork struct {
 }
 
 type NetworkResPermission struct {
-	All   bool      `json:"all" tf:"all"`
-	Sites []IDModel `json:"sites" tf:"sites"`
+	All   bool                        `json:"all,omitempty" tf:"all"`
+	Sites []NetworkResPermissionSites `json:"sites,omitempty" tf:"sites"`
+}
+
+type NetworkResPermissionSites struct {
+	ID      int    `json:"id,omitempty" tf:"id"`
+	Default string `json:"default,omitempty" tf:"default"`
 }
 
 type CreateNetworkRequest struct {
 	Network             CreateNetwork        `json:"network"`
-	ResourcePermissions NetworkResPermission `json:"resourcePermissions"`
+	ResourcePermissions NetworkResPermission `json:"resourcePermissions,omitempty"`
 }
 
 type CreateNetwork struct {
 	ID                  int                  `json:"-" tf:"id,computed"`
 	Name                string               `json:"name" tf:"name"`
-	Description         string               `json:"description" tf:"description"`
-	DisplayName         string               `json:"displayName" tf:"display_name"`
+	Description         string               `json:"description,omitempty" tf:"description"`
+	DisplayName         string               `json:"displayName,omitempty" tf:"display_name"`
 	CloudID             int                  `json:"-" tf:"cloud_id"`
-	GroupID             int                  `json:"-" tf:"group_id"`
+	GroupID             string               `json:"-" tf:"group_id"`
 	TypeID              int                  `json:"-" tf:"type_id"`
 	PoolID              int                  `json:"-" tf:"pool_id"`
-	Zone                IDModel              `json:"zone,omitempty"`
-	Site                IDModel              `json:"site,omitempty"`
+	NetworkDomainID     int                  `json:"-" tf:"domain_id"`
+	Site                IDStringModel        `json:"site,omitempty"`
 	Type                IDModel              `json:"type,omitempty"`
 	Pool                *IDModel             `json:"pool,omitempty"`
-	NetworkDomain       *IDModel             `json:"networkDomain" tf:"domain"`
-	NetworkProxy        *IDModel             `json:"networkProxy" tf:"proxy"`
-	SearchDomains       string               `json:"searchDomains" tf:"search_domains"`
+	NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
+	NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
+	NetworkServer       IDModel              `json:"networkServer,omitempty"`
+	NetworkProxyID      int                  `json:"-" tf:"proxy_id"`
+	ProxyID             int                  `json:"-" tf:"proxy_id"`
+	SearchDomains       string               `json:"searchDomains,omitempty" tf:"search_domains"`
 	Cidr                string               `json:"cidr,omitempty" tf:"cidr"`
 	Gateway             string               `json:"gateway,omitempty" tf:"gateway"`
 	DNSPrimary          string               `json:"dnsPrimary,omitempty" tf:"primary_dns"`
 	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
-	Config              CreateNetworkConfig  `json:"config,omitempty" tf:"config,sub"`
-	Active              bool                 `json:"active" tf:"active"`
-	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_server"`
+	Config              *CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
+	Active              bool                 `json:"active,omitempty" tf:"active"`
+	DhcpServer          bool                 `json:"dhcpServer,omitempty" tf:"dhcp_server"`
 	ScanNetwork         string               `json:"scanNetwork,omitempty" tf:"scan_network"`
-	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_static_override"`
+	AllowStaticOverride bool                 `json:"allowStaticOverride,omitempty" tf:"allow_static_override"`
 	AppURLProxyBypass   string               `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
 	ScopeID             string               `json:"scopeId,omitempty" tf:"scode_id"`
@@ -95,8 +103,8 @@ type CreateNetwork struct {
 }
 
 type CreateNetworkConfig struct {
-	ConnectedGateway string `json:"connectedGateway" tf:"connected_gateway"`
-	VlanIDs          string `json:"vlanIDs" tf:"vlan_ids"`
+	ConnectedGateway string `json:"connectedGateway,omitempty" tf:"connected_gateway"`
+	VlanIDs          string `json:"vlanIDs,omitempty" tf:"vlan_ids"`
 }
 
 type GetNetworkTypesResponse struct {

@@ -21,4 +21,5 @@ type GetDomain struct {
 
 type GetSpecificDomain struct {
 	NetworkDomain GetDomain `json:"networkDomain"`
+	SuccessOrErrorMessage
 }
