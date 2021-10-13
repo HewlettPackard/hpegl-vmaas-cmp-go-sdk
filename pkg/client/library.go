@@ -6,9 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/url"
-	"strings"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -29,126 +26,38 @@ Get All layouts
 */
 func (a *LibraryAPIService) GetAllLayouts(ctx context.Context,
 	param map[string]string) (models.LayoutsResp, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	response := models.LayoutsResp{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.LibraryLayoutPath)
+	allLayoutsAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.LibraryLayoutPath),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(param)
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &response)
+		},
 	}
+	err := allLayoutsAPI.do(ctx, nil, param)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return models.LayoutsResp{}, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return models.LayoutsResp{}, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return models.LayoutsResp{}, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return models.LayoutsResp{}, err
-	}
-
-	var layoutsResp models.LayoutsResp
-	if err = json.Unmarshal(localVarBody, &layoutsResp); err != nil {
-		return models.LayoutsResp{}, err
-	}
-
-	return layoutsResp, nil
+	return response, err
 }
 
 func (a *LibraryAPIService) GetAllInstanceTypes(ctx context.Context,
 	param map[string]string) (models.InstanceTypesResp, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-	)
+	response := models.InstanceTypesResp{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.LibraryInstanceTypesPath)
+	allInstTypeAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.LibraryInstanceTypesPath),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(param)
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &response)
+		},
 	}
+	err := allInstTypeAPI.do(ctx, nil, param)
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return models.InstanceTypesResp{}, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return models.InstanceTypesResp{}, err
-	}
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return models.InstanceTypesResp{}, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return models.InstanceTypesResp{}, err
-	}
-	var instanceTypesResp models.InstanceTypesResp
-	if err = json.Unmarshal(localVarBody, &instanceTypesResp); err != nil {
-		return models.InstanceTypesResp{}, err
-	}
-
-	return instanceTypesResp, nil
+	return response, err
 }

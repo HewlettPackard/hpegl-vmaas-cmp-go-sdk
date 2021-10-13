@@ -6,9 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/url"
-	"strings"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -21,64 +18,20 @@ type ProvisioningAPIService struct {
 
 func (a *ProvisioningAPIService) GetAllProvisioningTypes(ctx context.Context,
 	param map[string]string) (models.GetAllProvisioningTypes, error) {
-	var (
-		localVarHTTPMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		provisions         models.GetAllProvisioningTypes
-	)
+	response := models.GetAllProvisioningTypes{}
 
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.ProvisionTypesPath)
+	allProvisionAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.ProvisionTypesPath),
+		client: a.Client,
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := getURLValues(param)
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &response)
+		},
 	}
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	err := allProvisionAPI.do(ctx, nil, param)
 
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return provisions, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return provisions, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return provisions, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	defer localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return provisions, err
-	}
-
-	if err := json.Unmarshal(localVarBody, &provisions); err != nil {
-		return provisions, err
-	}
-
-	return provisions, nil
+	return response, err
 }
