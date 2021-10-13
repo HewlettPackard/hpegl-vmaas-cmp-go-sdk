@@ -14,9 +14,10 @@ const (
 	// NetworksPath
 	NetworksPath = "networks"
 	// NetworkTypePath
-	NetworkTypePath = "network-types"
-	NetworkPoolPath = "pools"
-	DomainPath      = "domains"
+	NetworkTypePath  = "network-types"
+	NetworkPoolPath  = "pools"
+	NetworkProxyPath = "proxies"
+	DomainPath       = "domains"
 	// LibraryLayoutPath
 	LibraryLayoutPath = "library/layouts"
 	// LibraryInstanceTypesPath

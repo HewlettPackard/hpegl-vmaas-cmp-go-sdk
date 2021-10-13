@@ -169,3 +169,22 @@ func (n *NetworksAPIService) UpdateNetwork(
 
 	return output, err
 }
+
+func (n *NetworksAPIService) GetNetworkProxy(
+	ctx context.Context,
+	params map[string]string,
+) (models.GetAllNetworkProxies, error) {
+	var proxyResp models.GetAllNetworkProxies
+	networkAPI := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.NetworkProxyPath),
+		client: n.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &proxyResp)
+		},
+	}
+	err := networkAPI.do(ctx, nil, params)
+
+	return proxyResp, err
+}
