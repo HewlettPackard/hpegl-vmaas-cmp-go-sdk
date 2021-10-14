@@ -38,8 +38,8 @@ func (r *RouterAPIService) GetAllRouter(
 func (r *RouterAPIService) GetSpecificRouter(
 	ctx context.Context,
 	routerID int,
-) (models.GetSpecificRouterResp, error) {
-	routerResp := models.GetSpecificRouterResp{}
+) (models.GetNetworkRouter, error) {
+	routerResp := models.GetNetworkRouter{}
 	serverAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
