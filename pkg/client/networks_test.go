@@ -218,3 +218,151 @@ func TestNetworksAPIService_CreateNetwork(t *testing.T) {
 		})
 	}
 }
+
+func TestNetworksAPIService_UpdateNetwork(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		networkID int
+		request   models.CreateNetworkRequest
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.SuccessOrErrorMessage
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1: update network",
+			args: args{
+				networkID: 1,
+				request: models.CreateNetworkRequest{
+					Network: models.CreateNetwork{
+						Name: "test_net",
+					},
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/1"
+				method := "PUT"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+
+				m.EXPECT().prepareRequest(gomock.Any(), path, method,
+					models.CreateNetworkRequest{
+						Network: models.CreateNetwork{
+							Name: "test_net",
+						},
+					},
+					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"Success": true
+					}
+				`))),
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			n := NetworksAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			got, err := n.UpdateNetwork(context.Background(), tt.args.networkID, tt.args.request)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("NetworksAPIService.UpdateNetwork() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NetworksAPIService.UpdateNetwork() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNetworksAPIService_GetNetworkProxy(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name    string
+		args    map[string]string
+		given   func(m *MockAPIClientHandler)
+		want    models.GetAllNetworkProxies
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1: Get all proxies",
+			args: map[string]string{
+				"name": "NSXT",
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/proxies"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"networkProxies": [
+							{
+								"id": 1,
+								"name": "test_proxy"
+							}
+						]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": "NSXT",
+					}), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetAllNetworkProxies{
+				GetNetworkProxies: []models.GetNetworkProxy{
+					{
+						ID:   1,
+						Name: "test_proxy",
+					},
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			n := NetworksAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			got, err := n.GetNetworkProxy(context.Background(), tt.args)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("NetworksAPIService.GetNetworkProxy() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NetworksAPIService.GetNetworkProxy() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

@@ -23,71 +23,88 @@ type GetSpecificNetworkBody struct {
 }
 
 type GetSpecificNetwork struct {
-	ID                      int           `json:"id" tf:"id"`
-	Name                    string        `json:"name" tf:"name"`
-	Zone                    IDNameModel   `json:"zone"`
-	DisplayName             string        `json:"displayName" tf:"display_name,computed"`
-	Type                    IDModel       `json:"type"`
-	TypeID                  int           `json:"-" tf:"type_id,computed"`
-	Owner                   IDNameModel   `json:"owner"`
-	Code                    string        `json:"code" tf:"code,computed"`
-	Category                string        `json:"category"`
-	ExternalID              string        `json:"externalId" tf:"external_id,computed"`
-	InternalID              string        `json:"internalId" tf:"internal_id,computed"`
-	UniqueID                string        `json:"uniqueId" tf:"unique_id,computed"`
-	ExternalType            string        `json:"externalType"`
-	RefType                 string        `json:"refType"`
-	RefID                   int           `json:"refId"`
-	DhcpServer              bool          `json:"dhcpServer" tf:"dhcp_server"`
-	Status                  string        `json:"status" tf:"status,computed"`
-	Visibility              string        `json:"visibility" tf:"visibility"`
-	EnableAdmin             bool          `json:"enableAdmin"`
-	ScanNetwork             bool          `json:"scanNetwork" tf:"scan_network"`
-	Active                  bool          `json:"active" tf:"active"`
-	DefaultNetwork          bool          `json:"defaultNetwork"`
-	AssignPublicIP          bool          `json:"assignPublicIp"`
-	ApplianceURLProxyBypass bool          `json:"applianceUrlProxyBypass" tf:"appliance_url_proxy_bypass"`
-	ZonePool                IDNameModel   `json:"zonePool"`
-	AllowStaticOverride     bool          `json:"allowStaticOverride"`
-	Tenants                 []IDNameModel `json:"tenants"`
+	ID                      int                  `json:"id" tf:"id,computed"`
+	Name                    string               `json:"name" tf:"name"`
+	Zone                    IDNameModel          `json:"zone"`
+	DisplayName             string               `json:"displayName" tf:"display_name,computed"`
+	Type                    IDModel              `json:"type"`
+	TypeID                  int                  `json:"-" tf:"type_id,computed"`
+	Owner                   IDNameModel          `json:"owner"`
+	Code                    string               `json:"code" tf:"code,computed"`
+	Category                string               `json:"category"`
+	ExternalID              string               `json:"externalId" tf:"external_id,computed"`
+	InternalID              string               `json:"internalId" tf:"internal_id,computed"`
+	UniqueID                string               `json:"uniqueId" tf:"unique_id,computed"`
+	ExternalType            string               `json:"externalType"`
+	RefType                 string               `json:"refType"`
+	RefID                   int                  `json:"refId"`
+	DhcpServer              bool                 `json:"dhcpServer" tf:"dhcp_server"`
+	Status                  string               `json:"status" tf:"status,computed"`
+	Visibility              string               `json:"visibility" tf:"visibility"`
+	EnableAdmin             bool                 `json:"enableAdmin"`
+	ScanNetwork             bool                 `json:"scanNetwork" tf:"scan_network"`
+	Active                  bool                 `json:"active" tf:"active"`
+	DefaultNetwork          bool                 `json:"defaultNetwork"`
+	AssignPublicIP          bool                 `json:"assignPublicIp"`
+	ApplianceURLProxyBypass bool                 `json:"applianceUrlProxyBypass" tf:"appliance_url_proxy_bypass"`
+	ZonePool                IDNameModel          `json:"zonePool"`
+	AllowStaticOverride     bool                 `json:"allowStaticOverride"`
+	Tenants                 []IDNameModel        `json:"tenants"`
+	ResourcePermissions     NetworkResPermission `json:"resourcePermissions" tf:"resource_permissions,sub"`
 }
 
-type CreateNetworkResourcePermission struct {
-	All   bool      `json:"all"`
-	Sites []IDModel `json:"sites"`
+type NetworkResPermission struct {
+	All   bool                        `json:"all,omitempty" tf:"all"`
+	Sites []NetworkResPermissionSites `json:"sites,omitempty" tf:"sites"`
+}
+
+type NetworkResPermissionSites struct {
+	ID      int    `json:"id,omitempty" tf:"id"`
+	Default string `json:"default,omitempty" tf:"default"`
 }
 
 type CreateNetworkRequest struct {
-	Network             CreateNetwork                   `json:"network"`
-	ResourcePermissions CreateNetworkResourcePermission `json:"resourcePermissions"`
+	Network             CreateNetwork        `json:"network"`
+	ResourcePermissions NetworkResPermission `json:"resourcePermissions,omitempty"`
 }
 
 type CreateNetwork struct {
-	Name                    string              `json:"name" tf:"name"`
-	Description             string              `json:"description" tf:"description"`
-	CloudID                 int                 `json:"-" tf:"cloud_id"`
-	GroupID                 int                 `json:"-" tf:"group_id"`
-	TypeID                  int                 `json:"-" tf:"type_id"`
-	PoolID                  int                 `json:"-" tf:"pool_id"`
-	Zone                    IDModel             `json:"zone,omitempty" tf:"zone"`
-	Site                    IDModel             `json:"site,omitempty"`
-	Type                    IDModel             `json:"type,omitempty"`
-	Pool                    IDModel             `json:"pool,omitempty"`
-	Cidr                    string              `json:"cidr,omitempty" tf:"cidr"`
-	Gateway                 string              `json:"gateway,omitempty" tf:"gateway"`
-	DNSPrimary              string              `json:"dnsPrimary,omitempty" tf:"primary_dns"`
-	DNSSecondary            string              `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
-	Config                  CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
-	DhcpServer              bool                `json:"dhcpServer" tf:"dhcp_server"`
-	ScanNetwork             string              `json:"scanNetwork,omitempty" tf:"scan_network"`
-	ApplianceURLProxyBypass string              `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
-	NoProxy                 string              `json:"noProxy,omitempty" tf:"no_proxy"`
-	ScopeID                 string              `json:"scopeId,omitempty" tf:"scode_id"`
+	ID                  int                  `json:"-" tf:"id,computed"`
+	Name                string               `json:"name" tf:"name"`
+	Description         string               `json:"description,omitempty" tf:"description"`
+	DisplayName         string               `json:"displayName,omitempty" tf:"display_name"`
+	CloudID             int                  `json:"-" tf:"cloud_id"`
+	GroupID             string               `json:"-" tf:"group_id"`
+	TypeID              int                  `json:"-" tf:"type_id"`
+	PoolID              int                  `json:"-" tf:"pool_id"`
+	NetworkDomainID     int                  `json:"-" tf:"domain_id"`
+	Site                IDStringModel        `json:"site,omitempty"`
+	Type                IDModel              `json:"type,omitempty"`
+	Pool                *IDModel             `json:"pool,omitempty"`
+	NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
+	NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
+	NetworkServer       IDModel              `json:"networkServer,omitempty"`
+	NetworkProxyID      int                  `json:"-" tf:"proxy_id"`
+	ProxyID             int                  `json:"-" tf:"proxy_id"`
+	SearchDomains       string               `json:"searchDomains,omitempty" tf:"search_domains"`
+	Cidr                string               `json:"cidr,omitempty" tf:"cidr"`
+	Gateway             string               `json:"gateway,omitempty" tf:"gateway"`
+	DNSPrimary          string               `json:"dnsPrimary,omitempty" tf:"primary_dns"`
+	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
+	Config              *CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
+	Active              bool                 `json:"active,omitempty" tf:"active"`
+	DhcpServer          bool                 `json:"dhcpServer,omitempty" tf:"dhcp_server"`
+	ScanNetwork         string               `json:"scanNetwork,omitempty" tf:"scan_network"`
+	AllowStaticOverride bool                 `json:"allowStaticOverride,omitempty" tf:"allow_static_override"`
+	AppURLProxyBypass   string               `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
+	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
+	ScopeID             string               `json:"scopeId,omitempty" tf:"scode_id"`
+	ResourcePermissions NetworkResPermission `json:"-" tf:"resource_permissions,sub"`
 }
 
 type CreateNetworkConfig struct {
-	ConnectedGateway string `json:"connectedGateway" tf:"connected_gateway"`
-	VlanIDs          string `json:"vlanIDs" tf:"vlan_ids"`
+	ConnectedGateway string `json:"connectedGateway,omitempty" tf:"connected_gateway"`
+	VlanIDs          string `json:"vlanIDs,omitempty" tf:"vlan_ids"`
 }
 
 type GetNetworkTypesResponse struct {
