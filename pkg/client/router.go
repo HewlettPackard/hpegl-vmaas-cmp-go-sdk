@@ -38,8 +38,8 @@ func (r *RouterAPIService) GetAllRouter(
 func (r *RouterAPIService) GetSpecificRouter(
 	ctx context.Context,
 	routerID int,
-) (models.GetSpecificRouterResp, error) {
-	routerResp := models.GetSpecificRouterResp{}
+) (models.GetNetworkRouter, error) {
+	routerResp := models.GetNetworkRouter{}
 	serverAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
@@ -63,6 +63,26 @@ func (r *RouterAPIService) CreateRouter(
 		method: "POST",
 		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.NetworksPath, consts.NetworkRouterPath),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &routerResp)
+		},
+	}
+	err := serverAPI.do(ctx, request, nil)
+
+	return routerResp, err
+}
+
+func (r *RouterAPIService) UpdateRouter(
+	ctx context.Context,
+	routerID int,
+	request models.CreateRouterRequest,
+) (models.SuccessOrErrorMessage, error) {
+	routerResp := models.SuccessOrErrorMessage{}
+	serverAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &routerResp)
