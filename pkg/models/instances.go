@@ -458,47 +458,6 @@ type UpdateInstanceResponseInstance struct {
 	Success bool                                  `json:"success"`
 }
 
-// GetServicePlanResponse
-type GetServicePlanResponse struct {
-	Plans []GetServicePlanResponsePlans `json:"plans,omitempty"`
-}
-
-// GetServicePlanResponsePlans
-type GetServicePlanResponsePlans struct {
-	ID                    int                                  `json:"id,omitempty"`
-	Name                  string                               `json:"name,omitempty"`
-	Value                 int                                  `json:"value,omitempty"`
-	Code                  string                               `json:"code,omitempty"`
-	MaxStorage            int                                  `json:"maxStorage,omitempty"`
-	MaxMemory             int                                  `json:"maxMemory,omitempty"`
-	MaxCores              int                                  `json:"maxCores,omitempty"`
-	CustomCPU             bool                                 `json:"customCpu,omitempty"`
-	CustomMaxMemory       bool                                 `json:"customMaxMemory,omitempty"`
-	CustomMaxStorage      bool                                 `json:"customMaxStorage,omitempty"`
-	CustomMaxDataStorage  bool                                 `json:"customMaxDataStorage,omitempty"`
-	CustomCoresPerSocket  bool                                 `json:"customCoresPerSocket,omitempty"`
-	StorageTypes          []GetServicePlanResponseStorageTypes `json:"storageTypes,omitempty"`
-	RootStorageTypes      []GetServicePlanResponseStorageTypes `json:"rootStorageTypes,omitempty"`
-	AddVolumes            bool                                 `json:"addVolumes,omitempty"`
-	CustomizeVolume       bool                                 `json:"customizeVolume,omitempty"`
-	RootDiskCustomizable  bool                                 `json:"rootDiskCustomizable,omitempty"`
-	NoDisks               bool                                 `json:"noDisks,omitempty"`
-	HasDatastore          bool                                 `json:"hasDatastore,omitempty"`
-	MinDisk               int                                  `json:"minDisk,omitempty"`
-	LvmSupported          bool                                 `json:"lvmSupported,omitempty"`
-	Datastores            *GetServicePlanResponseDatastores    `json:"datastores,omitempty"`
-	SupportsAutoDatastore bool                                 `json:"supportsAutoDatastore,omitempty"`
-	AutoOptions           string                               `json:"autoOptions,omitempty"`
-	CPUOptions            string                               `json:"cpuOptions,omitempty"`
-	CoreOptions           string                               `json:"coreOptions,omitempty"`
-	MemoryOptions         string                               `json:"memoryOptions,omitempty"`
-	RootCustomSizeOptions *interface{}                         `json:"rootCustomSizeOptions,omitempty"`
-	CustomSizeOptions     *interface{}                         `json:"customSizeOptions,omitempty"`
-	CustomCores           bool                                 `json:"customCores,omitempty"`
-	MaxDisks              int                                  `json:"maxDisks,omitempty"`
-	MemorySizeType        string                               `json:"memorySizeType,omitempty"`
-}
-
 // GetServicePlanResponseStorageTypes
 type GetServicePlanResponseStorageTypes struct {
 	ID               int      `json:"id,omitempty"`

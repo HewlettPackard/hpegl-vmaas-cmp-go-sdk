@@ -15,36 +15,6 @@ type CreateKeyPairKeyPair struct {
 	PrivateKey string `json:"privateKey,omitempty"`
 }
 
-// CreateKeyPairResponseBody
-type CreateKeyPairResponseBody struct {
-	KeyPair *CreateKeyPairResponseBodyKeyPair `json:"keyPair"`
-	Success bool                              `json:"success"`
-}
-
-// CreateKeyPairResponseBodyKeyPair
-type CreateKeyPairResponseBodyKeyPair struct {
-	ID            float64 `json:"id"`
-	AccountID     float64 `json:"accountId"`
-	HasPrivateKey bool    `json:"hasPrivateKey"`
-	DateCreated   string  `json:"dateCreated"`
-	LastUpdated   string  `json:"lastUpdated"`
-}
-
-// ListAllKeyPair
-type ListAllKeyPair struct {
-	KeyPairs []ListAllKeyPairKeyPairs `json:"keyPairs"`
-	Meta     *ListAllKeyPairMeta      `json:"meta"`
-}
-
-// ListAllKeyPairKeyPairs
-type ListAllKeyPairKeyPairs struct {
-	ID            float64 `json:"id,omitempty"`
-	AccountID     float64 `json:"accountId,omitempty"`
-	HasPrivateKey bool    `json:"hasPrivateKey,omitempty"`
-	DateCreated   string  `json:"dateCreated,omitempty"`
-	LastUpdated   string  `json:"lastUpdated,omitempty"`
-}
-
 // ListAllKeyPairMeta
 type ListAllKeyPairMeta struct {
 	Offset float64 `json:"offset"`

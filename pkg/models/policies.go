@@ -2,32 +2,6 @@
 
 package models
 
-// CreatePolicyBodyPolicyConfig
-type CreatePolicyBodyPolicyConfig struct {
-	MaxVms float64 `json:"maxVms"`
-}
-
-// CreatePolicyBodyPolicyPolicyType
-type CreatePolicyBodyPolicyPolicyType struct {
-	Code string `json:"code"`
-}
-
-// CreatePolicyBodyPolicy
-type CreatePolicyBodyPolicy struct {
-	Name        string                            `json:"name,omitempty"`
-	Description string                            `json:"description,omitempty"`
-	PolicyType  *CreatePolicyBodyPolicyPolicyType `json:"policyType,omitempty"`
-	Config      *CreatePolicyBodyPolicyConfig     `json:"config,omitempty"`
-	Enabled     bool                              `json:"enabled,omitempty"`
-	RefID       float64                           `json:"refId,omitempty"`
-	RefType     string                            `json:"refType,omitempty"`
-}
-
-// CreatePolicyBody
-type CreatePolicyBody struct {
-	Policy *CreatePolicyBodyPolicy `json:"policy"`
-}
-
 // UpdatePolicyBodyPolicyConfig
 // Supported config types: ['maxVms', 'maxMemory', 'maxCores', 'maxStorage', 'maxHosts',
 // 'serverNaming', 'delayedRemoval', 'hostNaming', 'naming', 'maxNetworks', 'powerSchedule',
