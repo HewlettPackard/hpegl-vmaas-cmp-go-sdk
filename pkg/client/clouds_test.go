@@ -15,30 +15,7 @@ import (
 
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	"github.com/golang/mock/gomock"
-	"github.com/stretchr/testify/assert"
 )
-
-func TestCloudsAPIService_GetASpecificCloud(t *testing.T) {
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-
-	mockStatusOk := &http.Response{
-		StatusCode: http.StatusOK,
-		Body:       ioutil.NopCloser(bytes.NewBufferString("{}")),
-	}
-
-	mockAPIClient := NewMockAPIClientHandler(ctrl)
-	mockAPIClient.EXPECT().prepareRequest(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(),
-		gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, nil)
-	mockAPIClient.EXPECT().callAPI(gomock.Any()).Return(mockStatusOk, nil)
-	a := &CloudsAPIService{
-		Client: mockAPIClient,
-		Cfg:    Configuration{},
-	}
-	_, err := a.GetASpecificCloud(context.Background(), 1)
-
-	assert.Nil(t, err)
-}
 
 func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 	ctx := context.Background()
