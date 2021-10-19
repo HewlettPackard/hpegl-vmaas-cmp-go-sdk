@@ -92,10 +92,10 @@ type CreateNetwork struct {
 	DNSPrimary          string               `json:"dnsPrimary,omitempty" tf:"primary_dns"`
 	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
 	Config              *CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
-	Active              bool                 `json:"active,omitempty" tf:"active"`
-	DhcpServer          bool                 `json:"dhcpServer,omitempty" tf:"dhcp_server"`
-	ScanNetwork         string               `json:"scanNetwork,omitempty" tf:"scan_network"`
-	AllowStaticOverride bool                 `json:"allowStaticOverride,omitempty" tf:"allow_static_override"`
+	Active              bool                 `json:"active" tf:"active"`
+	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_server"`
+	ScanNetwork         bool                 `json:"scanNetwork" tf:"scan_network"`
+	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_static_override"`
 	AppURLProxyBypass   string               `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
 	ScopeID             string               `json:"scopeId,omitempty" tf:"scode_id"`
