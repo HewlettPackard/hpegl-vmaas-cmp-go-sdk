@@ -167,3 +167,32 @@ type GetNetworkServices struct {
 	BrandingImageName         interface{} `json:"brandingImageName"`
 	SupportsTenantPermissions bool        `json:"supportsTenantPermissions"`
 }
+
+type CreateRouterNatRequest struct {
+	CreateRouterNat CreateRouterNat `json:"networkRouterNAT"`
+}
+
+type CreateRouterNat struct {
+	Name               string                `json:"name" tf:"name"`
+	Description        string                `json:"description" tf:"description"`
+	Enabled            bool                  `json:"enabled" tf:"enabled"`
+	Config             CreateRouterNatConfig `json:"config" tf:"config"`
+	SourceNetwork      string                `json:"sourceNetwork" tf:"source_network"`
+	DestinationNetwork string                `json:"destinationNetwork" tf:"destination_network"`
+	TranslatedNetwork  string                `json:"translatedNetwork" tf:"translated_network"`
+	TranslatedPorts    string                `json:"translatedPorts" tf:"translated_ports"`
+	Priority           int                   `json:"priority" tf:"priority"`
+}
+
+type CreateRouterNatConfig struct {
+	Action   string `json:"action" tf:"action"`
+	Service  string `json:"service" tf:"service"`
+	Firewall string `json:"firewall" tf:"firewall"`
+	Scope    string `json:"scope" tf:"scope"`
+	Logging  bool   `json:"logging" tf:"logging"`
+}
+
+type CreateRouterNatResponse struct {
+	IDModel
+	SuccessOrErrorMessage
+}

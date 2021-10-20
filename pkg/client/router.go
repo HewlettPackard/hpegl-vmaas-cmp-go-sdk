@@ -149,3 +149,23 @@ func (r *RouterAPIService) GetNetworkServices(
 
 	return routerResp, err
 }
+
+func (r *RouterAPIService) CreateRouterNat(
+	ctx context.Context,
+	routerID int,
+	request models.CreateRouterNatRequest,
+) (models.CreateRouterNatResponse, error) {
+	natResp := models.CreateRouterNatResponse{}
+	serverAPI := &api{
+		method: "POST",
+		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RoutersNatPath),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &natResp)
+		},
+	}
+	err := serverAPI.do(ctx, request, nil)
+
+	return natResp, err
+}
