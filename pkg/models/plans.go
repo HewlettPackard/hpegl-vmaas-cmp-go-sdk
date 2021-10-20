@@ -2,8 +2,6 @@
 
 package models
 
-import "time"
-
 type ServicePlans struct {
 	ServicePlansResponse []ServicePlanResponse `json:"servicePlans"`
 }
@@ -29,8 +27,8 @@ type ServicePlanResponse struct {
 	AddVolumes           bool        `json:"addVolumes"`
 	MemoryOptionSource   interface{} `json:"memoryOptionSource"`
 	CPUOptionSource      interface{} `json:"cpuOptionSource"`
-	DateCreated          time.Time   `json:"dateCreated"`
-	LastUpdated          time.Time   `json:"lastUpdated"`
+	DateCreated          string      `json:"dateCreated"`
+	LastUpdated          string      `json:"lastUpdated"`
 	RegionCode           interface{} `json:"regionCode"`
 	Visibility           string      `json:"visibility"`
 	Editable             bool        `json:"editable"`

@@ -1,8 +1,6 @@
 // (C) Copyright 2021 Hewlett Packard Enterprise Development LP
 package models
 
-import "time"
-
 type VirtualImages struct {
 	VirtualImages []VirtualImage `json:"virtualImages"`
 }
@@ -64,6 +62,6 @@ type VirtualImage struct {
 		ReservedUnitNumber int `json:"reservedUnitNumber"`
 	} `json:"storageControllers"`
 	NetworkInterfaces []interface{} `json:"networkInterfaces"`
-	DateCreated       time.Time     `json:"dateCreated"`
-	LastUpdated       time.Time     `json:"lastUpdated"`
+	DateCreated       string        `json:"dateCreated"`
+	LastUpdated       string        `json:"lastUpdated"`
 }
