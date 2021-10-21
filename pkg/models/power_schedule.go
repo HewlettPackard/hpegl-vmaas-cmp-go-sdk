@@ -1,8 +1,6 @@
 // (C) Copyright 2021 Hewlett Packard Enterprise Development LP
 package models
 
-import "time"
-
 type GetAllPowerSchedulesSchedules struct {
 	ID                     int         `json:"id"`
 	Name                   string      `json:"name"`
@@ -25,8 +23,8 @@ type GetAllPowerSchedulesSchedules struct {
 	Saturdayon             float64     `json:"saturdayOn"`
 	Saturdayoff            float64     `json:"saturdayOff"`
 	Totalmonthlyhourssaved float64     `json:"totalMonthlyHoursSaved"`
-	Datecreated            time.Time   `json:"dateCreated"`
-	Lastupdated            time.Time   `json:"lastUpdated"`
+	Datecreated            string      `json:"dateCreated"`
+	Lastupdated            string      `json:"lastUpdated"`
 }
 
 type GetAllPowerSchedules struct {

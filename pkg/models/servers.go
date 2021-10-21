@@ -2,8 +2,6 @@
 
 package models
 
-import "time"
-
 type ServersResponse struct {
 	Server      []Server            `json:"servers"`
 	Stats       map[int]ServerStats `json:"stats"`
@@ -52,13 +50,13 @@ type Server struct {
 	LvmEnabled        bool               `json:"lvmEnabled"`
 	APIKey            string             `json:"apiKey"`
 	SoftwareRaid      bool               `json:"softwareRaid"`
-	DateCreated       time.Time          `json:"dateCreated"`
-	LastUpdated       time.Time          `json:"lastUpdated"`
+	DateCreated       string             `json:"dateCreated"`
+	LastUpdated       string             `json:"lastUpdated"`
 	Stats             *ServerStats       `json:"stats"`
 	Status            string             `json:"status"`
 	StatusMessage     interface{}        `json:"statusMessage"`
 	ErrorMessage      interface{}        `json:"errorMessage"`
-	StatusDate        time.Time          `json:"statusDate"`
+	StatusDate        string             `json:"statusDate"`
 	StatusPercent     interface{}        `json:"statusPercent"`
 	StatusEta         interface{}        `json:"statusEta"`
 	PowerState        string             `json:"powerState"`
@@ -116,14 +114,14 @@ type ComputeServerType struct {
 }
 
 type ServerStats struct {
-	TS             time.Time `json:"ts"`
-	MaxMemory      int64     `json:"maxMemory"`
-	UsedMemory     int       `json:"usedMemory"`
-	MaxStorage     int64     `json:"maxStorage"`
-	UsedStorage    int       `json:"usedStorage"`
-	CPUUsage       float64   `json:"cpuUsage"`
-	FreeMemory     int64     `json:"freeMemory"`
-	ReservedMemory int64     `json:"reservedMemory"`
+	TS             string  `json:"ts"`
+	MaxMemory      int64   `json:"maxMemory"`
+	UsedMemory     int     `json:"usedMemory"`
+	MaxStorage     int64   `json:"maxStorage"`
+	UsedStorage    int     `json:"usedStorage"`
+	CPUUsage       float64 `json:"cpuUsage"`
+	FreeMemory     int64   `json:"freeMemory"`
+	ReservedMemory int64   `json:"reservedMemory"`
 }
 
 type SourceImage struct {

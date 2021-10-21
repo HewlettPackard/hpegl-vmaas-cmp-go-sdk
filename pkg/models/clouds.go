@@ -2,8 +2,6 @@
 
 package models
 
-import "time"
-
 type CloudRespBody struct {
 	ID         int         `json:"id"`
 	UUID       string      `json:"uuid"`
@@ -85,8 +83,8 @@ type CloudRespBody struct {
 		Enabledisktypeselection    string `json:"enableDiskTypeSelection"`
 		Enablenetworktypeselection string `json:"enableNetworkTypeSelection"`
 	} `json:"config"`
-	Datecreated time.Time `json:"dateCreated"`
-	Lastupdated time.Time `json:"lastUpdated"`
+	Datecreated string `json:"dateCreated"`
+	Lastupdated string `json:"lastUpdated"`
 	Groups      []struct {
 		ID        int    `json:"id"`
 		Name      string `json:"name"`

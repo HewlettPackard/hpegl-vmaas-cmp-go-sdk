@@ -2,8 +2,6 @@
 
 package models
 
-import "time"
-
 type GetAllNetworkRouter struct {
 	NetworkRouters []GetNetworkRouter `json:"networkRouters"`
 }
@@ -23,8 +21,8 @@ type GetNetworkRouter struct {
 	Name            string        `json:"name"`
 	Description     interface{}   `json:"description"`
 	Category        string        `json:"category"`
-	DateCreated     time.Time     `json:"dateCreated"`
-	LastUpdated     time.Time     `json:"lastUpdated"`
+	DateCreated     string        `json:"dateCreated"`
+	LastUpdated     string        `json:"lastUpdated"`
 	RouterType      string        `json:"routerType"`
 	Status          string        `json:"status"`
 	Enabled         bool          `json:"enabled"`
@@ -164,7 +162,7 @@ type GetNetworkServices struct {
 	CanEdit                   bool        `json:"canEdit"`
 	CanDelete                 bool        `json:"canDelete"`
 	Status                    string      `json:"status"`
-	LastUpdated               time.Time   `json:"lastUpdated"`
+	LastUpdated               string      `json:"lastUpdated"`
 	BrandingImageName         interface{} `json:"brandingImageName"`
 	SupportsTenantPermissions bool        `json:"supportsTenantPermissions"`
 }
