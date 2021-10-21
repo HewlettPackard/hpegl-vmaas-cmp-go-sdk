@@ -261,6 +261,7 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 		})
 	}
 }
+
 func TestRouterAPIService_CreateRouter(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -466,6 +467,339 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("RouterAPIService.UpdateRouter() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	templateName := "test_template_get_a_specific_router"
+	tests := []struct {
+		name     string
+		routerID int
+		given    func(m *MockAPIClientHandler)
+		want     models.GetNetworkRouter
+		wantErr  bool
+	}{
+		// TODO: Add test cases.
+		{
+			name:     "Normal Test case 1: Get a specific router",
+			routerID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"id": 1,
+						"name": "test_template_get_a_specific_router"
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetNetworkRouter{
+				ID:   1,
+				Name: templateName,
+			},
+			wantErr: false,
+		},
+		{
+			name:     "Failed Test case 2: Error in prepare request",
+			routerID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
+			},
+			want:    models.GetNetworkRouter{},
+			wantErr: true,
+		},
+		{
+			name:     "Failed Test case 3: Error in callAPI",
+			routerID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+			},
+			want:    models.GetNetworkRouter{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.GetSpecificRouter(ctx, tt.routerID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.GetSpecificRouter() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.GetSpecificRouter() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_DeleteRouter(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	templateName := "test_template_delete_a_router"
+	tests := []struct {
+		name     string
+		routerID int
+		given    func(m *MockAPIClientHandler)
+		want     models.SuccessOrErrorMessage
+		wantErr  bool
+	}{
+		// TODO: Add test cases.
+		{
+			name:     "Normal Test case 1: Delete a  router",
+			routerID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true,
+						"message": "test_template_delete_a_router"
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
+				Message: templateName,
+			},
+			wantErr: false,
+		},
+		{
+			name:     "Failed Test case 2: Error in prepare request",
+			routerID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
+			},
+			want:    models.SuccessOrErrorMessage{},
+			wantErr: true,
+		},
+		{
+			name:     "Failed Test case 3: Error in callAPI",
+			routerID: 1,
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+			},
+			want:    models.SuccessOrErrorMessage{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.DeleteRouter(ctx, tt.routerID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.DeleteRouter() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.DeleteRouter() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_GetNetworkServices(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	templateName := "test_template_get_network_services"
+	tests := []struct {
+		name    string
+		param   map[string]string
+		given   func(m *MockAPIClientHandler)
+		want    models.GetNetworkServicesResp
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+		{
+			name: "Normal Test case 1: Get Network Services",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/services"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"networkServices": [{
+							"id": 1,
+							"name": "test_template_get_network_services"
+						}]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetNetworkServicesResp{
+				NetworkServices: []models.GetNetworkServices{
+					{
+						ID:   1,
+						Name: templateName,
+					},
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Failed Test case 2: Error in prepare request",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/services"
+				method := "GET"
+				headers := getDefaultHeaders()
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
+			},
+			want:    models.GetNetworkServicesResp{},
+			wantErr: true,
+		},
+		{
+			name: "Failed Test case 3: Error in callAPI",
+			param: map[string]string{
+				"name": templateName,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/services"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"message": "Internal Server Error",
+						"recommendedActions": [
+							"Unknown error occurred. Please contact the administrator"
+						]
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(map[string]string{
+						"name": templateName,
+					}), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 500,
+					Body:       respBody,
+				}, nil)
+			},
+			want:    models.GetNetworkServicesResp{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.GetNetworkServices(ctx, tt.param)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.GetNetworkServices() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.GetNetworkServices() = %v, want %v", got, tt.want)
 			}
 		})
 	}
