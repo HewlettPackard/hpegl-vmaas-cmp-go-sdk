@@ -171,10 +171,11 @@ type CreateRouterNatRequest struct {
 }
 
 type CreateRouterNat struct {
+	ID                 int                   `json:"-" tf:"id,computed"`
 	Name               string                `json:"name" tf:"name"`
 	Description        string                `json:"description" tf:"description"`
 	Enabled            bool                  `json:"enabled" tf:"enabled"`
-	Config             CreateRouterNatConfig `json:"config" tf:"config"`
+	Config             CreateRouterNatConfig `json:"config" tf:"config,sub"`
 	SourceNetwork      string                `json:"sourceNetwork" tf:"source_network"`
 	DestinationNetwork string                `json:"destinationNetwork" tf:"destination_network"`
 	TranslatedNetwork  string                `json:"translatedNetwork" tf:"translated_network"`
