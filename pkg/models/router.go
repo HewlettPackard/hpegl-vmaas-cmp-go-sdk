@@ -183,6 +183,10 @@ type CreateRouterNat struct {
 	Priority           int                   `json:"priority" tf:"priority"`
 }
 
+type TfCreateRouterNat struct {
+	NatRule []CreateRouterNat `tf:"nat_rule"`
+}
+
 type CreateRouterNatConfig struct {
 	Action   string `json:"action" tf:"action"`
 	Service  string `json:"service" tf:"service"`
