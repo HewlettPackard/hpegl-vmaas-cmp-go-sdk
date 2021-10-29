@@ -172,15 +172,16 @@ type CreateRouterNatRequest struct {
 
 type CreateRouterNat struct {
 	ID                 int                   `json:"-" tf:"id,computed"`
-	Name               string                `json:"name" tf:"name"`
-	Description        string                `json:"description" tf:"description"`
+	Name               string                `json:"name,omitempty" tf:"name"`
+	Description        string                `json:"description,omitempty" tf:"description"`
 	Enabled            bool                  `json:"enabled" tf:"enabled"`
 	Config             CreateRouterNatConfig `json:"config" tf:"config,sub"`
-	SourceNetwork      string                `json:"sourceNetwork" tf:"source_network"`
-	DestinationNetwork string                `json:"destinationNetwork" tf:"destination_network"`
-	TranslatedNetwork  string                `json:"translatedNetwork" tf:"translated_network"`
-	TranslatedPorts    string                `json:"translatedPorts" tf:"translated_ports"`
+	SourceNetwork      string                `json:"sourceNetwork,omitempty" tf:"source_network"`
+	DestinationNetwork string                `json:"destinationNetwork,omitempty" tf:"destination_network"`
+	TranslatedNetwork  string                `json:"translatedNetwork,omitempty" tf:"translated_network"`
+	TranslatedPorts    string                `json:"translatedPorts,omitempty" tf:"translated_ports"`
 	Priority           int                   `json:"priority" tf:"priority"`
+	RouterID           int                   `json:"-" tf:"router_id"`
 }
 
 type TfCreateRouterNat struct {
@@ -205,7 +206,7 @@ type GetSpecificRouterNatResponse struct {
 }
 
 type GetSpecificRouterNat struct {
-	ID                 int    `json:"id"`
+	ID                 int    `json:"id" tf:"id"`
 	Name               string `json:"name"`
 	Description        string `json:"description"`
 	Enabled            bool   `json:"enabled"`
@@ -222,4 +223,5 @@ type GetSpecificRouterNat struct {
 	ProviderID         string `json:"providerId"`
 	DateCreated        string `json:"dateCreated"`
 	LastUpdated        string `json:"lastUpdated"`
+	IsDeprecated       bool   `json:"-" tf:"is_deprecated,computed"`
 }
