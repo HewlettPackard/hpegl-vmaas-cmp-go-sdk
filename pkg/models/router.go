@@ -182,6 +182,7 @@ type CreateRouterNat struct {
 	TranslatedPorts    string                `json:"translatedPorts,omitempty" tf:"translated_ports"`
 	Priority           int                   `json:"priority" tf:"priority"`
 	RouterID           int                   `json:"-" tf:"router_id"`
+	IsDeprecated       bool                  `json:"-" tf:"is_deprecated"`
 }
 
 type TfCreateRouterNat struct {
