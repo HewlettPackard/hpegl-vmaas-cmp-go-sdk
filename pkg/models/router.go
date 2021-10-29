@@ -191,10 +191,10 @@ type TfCreateRouterNat struct {
 }
 
 type CreateRouterNatConfig struct {
-	Action   string `json:"action" tf:"action"`
-	Service  string `json:"service" tf:"service"`
-	Firewall string `json:"firewall" tf:"firewall"`
-	Scope    string `json:"scope" tf:"scope"`
+	Action   string `json:"action,omitempty" tf:"action"`
+	Service  string `json:"service,omitempty" tf:"service"`
+	Firewall string `json:"firewall,omitempty" tf:"firewall"`
+	Scope    string `json:"scope,omitempty" tf:"scope"`
 	Logging  bool   `json:"logging" tf:"logging"`
 }
 
