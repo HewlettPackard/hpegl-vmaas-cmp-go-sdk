@@ -193,8 +193,8 @@ func (r *RouterAPIService) GetSpecificRouterNat(
 func (r *RouterAPIService) DeleteRouterNat(
 	ctx context.Context,
 	routerID, natID int,
-) (models.GetSpecificRouterNatResponse, error) {
-	natResp := models.GetSpecificRouterNatResponse{}
+) (models.SuccessOrErrorMessage, error) {
+	natResp := models.SuccessOrErrorMessage{}
 	serverAPI := &api{
 		method: "DELETE",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
