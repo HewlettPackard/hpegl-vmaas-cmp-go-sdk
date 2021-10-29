@@ -83,6 +83,7 @@ type CreateRouterTier0Config struct {
 
 type CreateRouterTier1Config struct {
 	TfEdgeCluster        string             `json:"-" tf:"edge_cluster"`
+	TfFailOver           string             `json:"-" tf:"fail_over"`
 	TfTier0Gateways      string             `json:"-" tf:"tier0_gateway,omitempty"`
 	TfRouteAdvertisement RouteAdvertisement `json:"-" tf:"route_advertisement,sub"`
 }

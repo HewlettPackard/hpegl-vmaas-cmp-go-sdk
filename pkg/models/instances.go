@@ -4,7 +4,6 @@ package models
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // CreateInstanceBody
@@ -157,8 +156,8 @@ type GetInstanceResponseInstance struct {
 	MaxCores            int                                         `json:"maxCores,omitempty"`
 	HourlyCost          float64                                     `json:"hourlyCost,omitempty"`
 	HourlyPrice         float64                                     `json:"hourlyPrice,omitempty"`
-	DateCreated         time.Time                                   `json:"dateCreated,omitempty"`
-	LastUpdated         time.Time                                   `json:"lastUpdated,omitempty"`
+	DateCreated         string                                      `json:"dateCreated,omitempty"`
+	LastUpdated         string                                      `json:"lastUpdated,omitempty"`
 	HostName            string                                      `json:"hostName,omitempty"`
 	FirewallEnabled     bool                                        `json:"firewallEnabled,omitempty"`
 	NetworkLevel        string                                      `json:"networkLevel,omitempty"`
@@ -404,7 +403,7 @@ type ListSnapshotResponseInstance struct {
 	Status          string      `json:"status,omitempty"`
 	State           interface{} `json:"state,omitempty"`
 	SnapshotType    string      `json:"snapshotType,omitempty"`
-	SnapshotCreated time.Time   `json:"snapshotCreated,omitempty"`
+	SnapshotCreated string      `json:"snapshotCreated,omitempty"`
 	Zone            struct {
 		ID   int    `json:"id"`
 		Name string `json:"name"`
@@ -412,7 +411,7 @@ type ListSnapshotResponseInstance struct {
 	Datastore       interface{} `json:"datastore,omitempty"`
 	ParentSnapshot  interface{} `json:"parentSnapshot,omitempty"`
 	CurrentlyActive bool        `json:"currentlyActive,omitempty"`
-	DateCreated     time.Time   `json:"dateCreated,omitempty"`
+	DateCreated     string      `json:"dateCreated,omitempty"`
 }
 
 type ImportSnapshotBody struct {
