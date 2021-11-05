@@ -5,6 +5,7 @@ package client
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"io/ioutil"
 	"net/http"
@@ -485,7 +486,6 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 		want     models.GetNetworkRouter
 		wantErr  bool
 	}{
-		// TODO: Add test cases.
 		{
 			name:     "Normal Test case 1: Get a specific router",
 			routerID: 1,
@@ -590,7 +590,6 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 		want     models.SuccessOrErrorMessage
 		wantErr  bool
 	}{
-		// TODO: Add test cases.
 		{
 			name:     "Normal Test case 1: Delete a  router",
 			routerID: 1,
@@ -695,7 +694,6 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 		want    models.GetNetworkServicesResp
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
 			name: "Normal Test case 1: Get Network Services",
 			param: map[string]string{
@@ -800,6 +798,226 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("RouterAPIService.GetNetworkServices() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_DeleteRouterNat(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		routerID int
+		natID    int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.SuccessOrErrorMessage
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID: 1,
+				natID:    2,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1/nats/2"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.DeleteRouterNat(context.Background(), tt.args.routerID, tt.args.natID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.DeleteRouterNat() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.DeleteRouterNat() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_GetSpecificRouterNat(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		routerID int
+		natID    int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.GetSpecificRouterNatResponse
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID: 1,
+				natID:    2,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1/nats/2"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"networkRouterNAT": {
+							"id": 1
+						}
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetSpecificRouterNatResponse{
+				GetSpecificRouterNat: models.GetSpecificRouterNat{
+					ID: 1,
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.GetSpecificRouterNat(context.Background(), tt.args.routerID, tt.args.natID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.GetSpecificRouterNat() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.GetSpecificRouterNat() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_CreateRouterNat(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		ctx      context.Context
+		routerID int
+		request  models.CreateRouterNatRequest
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.CreateRouterNatResponse
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID: 1,
+				ctx:      context.Background(),
+				request: models.CreateRouterNatRequest{
+					CreateRouterNat: models.CreateRouterNat{
+						Name: "test_nat",
+					},
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1/networks/routers/1/nats"
+				method := "POST"
+				headers := getDefaultHeaders()
+				reqModel := models.CreateRouterNatRequest{
+					CreateRouterNat: models.CreateRouterNat{
+						Name: "test_nat",
+					},
+				}
+				jsonByte, _ := json.Marshal(reqModel)
+				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true,
+						"id": 2
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, reqModel, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.CreateRouterNatResponse{
+				IDModel:               models.IDModel{ID: 2},
+				SuccessOrErrorMessage: models.SuccessOrErrorMessage{Success: true},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.CreateRouterNat(tt.args.ctx, tt.args.routerID, tt.args.request)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.CreateRouterNat() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.CreateRouterNat() = %v, want %v", got, tt.want)
 			}
 		})
 	}

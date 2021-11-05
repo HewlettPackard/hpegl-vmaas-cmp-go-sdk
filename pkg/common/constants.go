@@ -18,6 +18,7 @@ const (
 	NetworkPoolPath  = "pools"
 	NetworkProxyPath = "proxies"
 	DomainPath       = "domains"
+	RoutersNatPath   = "nats"
 	// LibraryLayoutPath
 	LibraryLayoutPath = "library/layouts"
 	// LibraryInstanceTypesPath

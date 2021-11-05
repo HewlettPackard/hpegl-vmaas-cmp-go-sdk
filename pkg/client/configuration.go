@@ -57,7 +57,7 @@ func NewConfiguration() *Configuration {
 		BasePath:           "/",
 		DefaultHeader:      make(map[string]string),
 		DefaultQueryParams: make(map[string]string),
-		UserAgent:          "Swagger-Codegen/1.0.0/go",
+		UserAgent:          "vmmas/cmp/go-sdk",
 	}
 
 	return cfg

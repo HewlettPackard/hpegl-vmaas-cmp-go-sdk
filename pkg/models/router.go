@@ -166,3 +166,64 @@ type GetNetworkServices struct {
 	BrandingImageName         interface{} `json:"brandingImageName"`
 	SupportsTenantPermissions bool        `json:"supportsTenantPermissions"`
 }
+
+type CreateRouterNatRequest struct {
+	CreateRouterNat CreateRouterNat `json:"networkRouterNAT"`
+}
+
+type CreateRouterNat struct {
+	ID                 int                   `json:"-" tf:"id,computed"`
+	Name               string                `json:"name,omitempty" tf:"name"`
+	Description        string                `json:"description,omitempty" tf:"description"`
+	Enabled            bool                  `json:"enabled" tf:"enabled"`
+	Config             CreateRouterNatConfig `json:"config" tf:"config,sub"`
+	SourceNetwork      string                `json:"sourceNetwork,omitempty" tf:"source_network"`
+	DestinationNetwork string                `json:"destinationNetwork,omitempty" tf:"destination_network"`
+	TranslatedNetwork  string                `json:"translatedNetwork,omitempty" tf:"translated_network"`
+	TranslatedPorts    string                `json:"translatedPorts,omitempty" tf:"translated_ports"`
+	Priority           int                   `json:"priority" tf:"priority"`
+	RouterID           int                   `json:"-" tf:"router_id"`
+	IsDeprecated       bool                  `json:"-" tf:"is_deprecated"`
+}
+
+type TfCreateRouterNat struct {
+	NatRule []CreateRouterNat `tf:"nat_rule"`
+}
+
+type CreateRouterNatConfig struct {
+	Action   string `json:"action,omitempty" tf:"action"`
+	Service  string `json:"service,omitempty" tf:"service"`
+	Firewall string `json:"firewall,omitempty" tf:"firewall"`
+	Scope    string `json:"scope,omitempty" tf:"scope"`
+	Logging  bool   `json:"logging" tf:"logging"`
+}
+
+type CreateRouterNatResponse struct {
+	IDModel
+	SuccessOrErrorMessage
+}
+
+type GetSpecificRouterNatResponse struct {
+	GetSpecificRouterNat GetSpecificRouterNat `json:"networkRouterNAT"`
+}
+
+type GetSpecificRouterNat struct {
+	ID                 int    `json:"id" tf:"id"`
+	Name               string `json:"name"`
+	Description        string `json:"description"`
+	Enabled            bool   `json:"enabled"`
+	SourceNetwork      string `json:"sourceNetwork"`
+	DestinationNetwork string `json:"destinationNetwork"`
+	TranslatedNetwork  string `json:"translatedNetwork"`
+	SourcePorts        string `json:"sourcePorts"`
+	DestinationPorts   string `json:"destinationPorts"`
+	TranslatedPorts    string `json:"translatedPorts"`
+	Priority           int    `json:"priority"`
+	SyncSource         string `json:"syncSource"`
+	InternalID         string `json:"internalId"`
+	ExternalID         string `json:"externalId"`
+	ProviderID         string `json:"providerId"`
+	DateCreated        string `json:"dateCreated"`
+	LastUpdated        string `json:"lastUpdated"`
+	IsDeprecated       bool   `json:"-" tf:"is_deprecated,computed"`
+}
