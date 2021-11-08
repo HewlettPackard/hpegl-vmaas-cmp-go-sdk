@@ -231,6 +231,7 @@ type GetSpecificRouterNat struct {
 type CreateRouterFirewallRuleGroupRequest struct {
 	CreateRouterFirewallRuleGroup CreateRouterFirewallRuleGroup `json:"ruleGroup"`
 }
+
 type CreateRouterFirewallRuleGroup struct {
 	ID           int    `json:"-" tf:"id,computed"`
 	Name         string `json:"name,omitempty" tf:"name"`
