@@ -237,8 +237,8 @@ type CreateRouterFirewallRuleGroup struct {
 	Name         string `json:"name,omitempty" tf:"name"`
 	Description  string `json:"description,omitempty" tf:"description"`
 	Priority     int    `json:"priority" tf:"priority"`
-	ExternalType string `json:"externalType" tf:"externalType"`
-	GroupLayer   string `json:"groupLayer" tf:"groupLayer"`
+	ExternalType string `json:"externalType" tf:"external_type"`
+	GroupLayer   string `json:"groupLayer" tf:"group_layer"`
 	RouterID     int    `json:"-" tf:"router_id"`
 	IsDeprecated bool   `json:"-" tf:"is_deprecated"`
 }
