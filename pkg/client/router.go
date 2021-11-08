@@ -209,3 +209,63 @@ func (r *RouterAPIService) DeleteRouterNat(
 
 	return natResp, err
 }
+
+func (r *RouterAPIService) CreateRouterFirewallRuleGroup(
+	ctx context.Context,
+	routerID int,
+	request models.CreateRouterFirewallRuleGroupRequest,
+) (models.CreateRouterFirewallRuleGroupResponse, error) {
+	firewallGroupResp := models.CreateRouterFirewallRuleGroupResponse{}
+	serverAPI := &api{
+		method: "POST",
+		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &firewallGroupResp)
+		},
+	}
+	err := serverAPI.do(ctx, request, nil)
+
+	return firewallGroupResp, err
+}
+
+func (r *RouterAPIService) GetSpecificRouterFirewallRuleGroup(
+	ctx context.Context,
+	routerID, firewallGroupID int,
+) (models.GetSpecificRouterFirewallRuleGroupResponse, error) {
+	firewallGroupResp := models.GetSpecificRouterFirewallRuleGroupResponse{}
+	serverAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
+			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath, firewallGroupID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &firewallGroupResp)
+		},
+	}
+	err := serverAPI.do(ctx, nil, nil)
+
+	return firewallGroupResp, err
+}
+
+func (r *RouterAPIService) DeleteRouterFirewallRuleGroup(
+	ctx context.Context,
+	routerID, firewallGroupID int,
+) (models.SuccessOrErrorMessage, error) {
+	firewallGroupResp := models.SuccessOrErrorMessage{}
+	serverAPI := &api{
+		method: "DELETE",
+		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
+			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath, firewallGroupID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &firewallGroupResp)
+		},
+	}
+	err := serverAPI.do(ctx, nil, nil)
+
+	return firewallGroupResp, err
+}
