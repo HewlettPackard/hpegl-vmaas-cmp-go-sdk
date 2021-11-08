@@ -227,3 +227,41 @@ type GetSpecificRouterNat struct {
 	LastUpdated        string `json:"lastUpdated"`
 	IsDeprecated       bool   `json:"-" tf:"is_deprecated,computed"`
 }
+
+type CreateRouterFirewallRuleGroupRequest struct {
+	CreateRouterFirewallRuleGroup CreateRouterFirewallRuleGroup `json:"ruleGroup"`
+}
+type CreateRouterFirewallRuleGroup struct {
+	ID           int    `json:"-" tf:"id,computed"`
+	Name         string `json:"name,omitempty" tf:"name"`
+	Description  string `json:"description,omitempty" tf:"description"`
+	Priority     int    `json:"priority" tf:"priority"`
+	ExternalType string `json:"externalType" tf:"externalType"`
+	GroupLayer   string `json:"groupLayer" tf:"groupLayer"`
+	RouterID     int    `json:"-" tf:"router_id"`
+	IsDeprecated bool   `json:"-" tf:"is_deprecated"`
+}
+
+type TfCreateRouterFirewallRuleGroup struct {
+	FirewallRuleGroup []CreateRouterFirewallRuleGroup `tf:"firewall_rule_group"`
+}
+
+type CreateRouterFirewallRuleGroupResponse struct {
+	IDModel
+	SuccessOrErrorMessage
+}
+
+type GetSpecificRouterFirewallRuleGroupResponse struct {
+	GetSpecificRouterFirewallRuleGroup GetSpecificRouterFirewallRuleGroup `json:"ruleGroup"`
+}
+
+type GetSpecificRouterFirewallRuleGroup struct {
+	ID           int    `json:"id" tf:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	ExternalID   string `json:"externalId"`
+	Status       string `json:"status"`
+	Priority     int    `json:"priority"`
+	GroupLayer   string `json:"groupLayer"`
+	IsDeprecated bool   `json:"-" tf:"is_deprecated,computed"`
+}
