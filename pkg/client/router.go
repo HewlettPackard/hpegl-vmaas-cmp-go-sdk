@@ -190,6 +190,27 @@ func (r *RouterAPIService) GetSpecificRouterNat(
 	return natResp, err
 }
 
+func (r *RouterAPIService) UpdateRouterNat(
+	ctx context.Context,
+	routerID, natID int,
+	req models.CreateRouterNatRequest,
+) (models.CreateRouterNatResponse, error) {
+	natResp := models.CreateRouterNatResponse{}
+	serverAPI := &api{
+		method: "PUT",
+		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
+			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &natResp)
+		},
+	}
+	err := serverAPI.do(ctx, req, nil)
+
+	return natResp, err
+}
+
 func (r *RouterAPIService) DeleteRouterNat(
 	ctx context.Context,
 	routerID, natID int,
