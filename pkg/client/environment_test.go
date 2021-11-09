@@ -36,7 +36,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/environments"
+				path := mockHost + "/v1beta1/environments"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -73,7 +73,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/environments"
+				path := mockHost + "/v1beta1/environments"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -90,7 +90,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/environments"
+				path := mockHost + "/v1beta1/environments"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

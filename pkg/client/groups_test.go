@@ -34,7 +34,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 			name:    "Normal Test case 1: Get a specific group",
 			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/groups/1"
+				path := mockHost + "/v1beta1/groups/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -66,7 +66,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 			name:    "Failed Test case 2: Error in prepare requst",
 			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/groups/1"
+				path := mockHost + "/v1beta1/groups/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
@@ -79,7 +79,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 			name:    "Failed Test case 3: Error in callAPI",
 			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/groups/1"
+				path := mockHost + "/v1beta1/groups/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -146,7 +146,7 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/groups"
+				path := mockHost + "/v1beta1/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -184,7 +184,7 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/groups"
+				path := mockHost + "/v1beta1/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -201,7 +201,7 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/groups"
+				path := mockHost + "/v1beta1/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

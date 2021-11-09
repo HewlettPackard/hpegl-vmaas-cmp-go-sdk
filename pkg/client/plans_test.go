@@ -36,7 +36,7 @@ func TestPlansAPIService_GetAllServicePlans(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/service-plans"
+				path := mockHost + "/v1beta1/service-plans"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -75,7 +75,7 @@ func TestPlansAPIService_GetAllServicePlans(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/service-plans"
+				path := mockHost + "/v1beta1/service-plans"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -92,7 +92,7 @@ func TestPlansAPIService_GetAllServicePlans(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/service-plans"
+				path := mockHost + "/v1beta1/service-plans"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

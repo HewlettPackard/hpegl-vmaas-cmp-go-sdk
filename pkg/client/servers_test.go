@@ -36,7 +36,7 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/servers"
+				path := mockHost + "/v1beta1/servers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -76,7 +76,7 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/servers"
+				path := mockHost + "/v1beta1/servers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -93,7 +93,7 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/servers"
+				path := mockHost + "/v1beta1/servers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -161,7 +161,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 			name:     "Normal Test case 1: Get a specific server",
 			serverID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/servers/1"
+				path := mockHost + "/v1beta1/servers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -194,7 +194,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 			name:     "Failed test case 2: Error in call prepare request",
 			serverID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/servers/1"
+				path := mockHost + "/v1beta1/servers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
@@ -208,7 +208,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 			name:     "Failed test case 3: error in callAPI",
 			serverID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/servers/1"
+				path := mockHost + "/v1beta1/servers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

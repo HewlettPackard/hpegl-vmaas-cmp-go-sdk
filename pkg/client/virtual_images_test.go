@@ -37,7 +37,7 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/virtual-images"
+				path := mockHost + "/v1beta1/virtual-images"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -76,7 +76,7 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/virtual-images"
+				path := mockHost + "/v1beta1/virtual-images"
 				method := "GET"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
@@ -94,7 +94,7 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/virtual-images"
+				path := mockHost + "/v1beta1/virtual-images"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

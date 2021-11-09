@@ -36,7 +36,7 @@ func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/power-schedules"
+				path := mockHost + "/v1beta1/power-schedules"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -74,7 +74,7 @@ func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/power-schedules"
+				path := mockHost + "/v1beta1/power-schedules"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -91,7 +91,7 @@ func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/power-schedules"
+				path := mockHost + "/v1beta1/power-schedules"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
