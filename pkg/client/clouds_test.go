@@ -38,7 +38,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/data-stores"
+				path := mockHost + "/v1beta1/zones/1/data-stores"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -78,7 +78,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/data-stores"
+				path := mockHost + "/v1beta1/zones/1/data-stores"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -96,7 +96,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/data-stores"
+				path := mockHost + "/v1beta1/zones/1/data-stores"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -175,7 +175,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/resource-pools"
+				path := mockHost + "/v1beta1/zones/1/resource-pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -214,7 +214,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/resource-pools"
+				path := mockHost + "/v1beta1/zones/1/resource-pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -232,7 +232,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/resource-pools"
+				path := mockHost + "/v1beta1/zones/1/resource-pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -308,7 +308,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones"
+				path := mockHost + "/v1beta1/zones"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -346,7 +346,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones"
+				path := mockHost + "/v1beta1/zones"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -363,7 +363,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones"
+				path := mockHost + "/v1beta1/zones"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -432,7 +432,7 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/folders"
+				path := mockHost + "/v1beta1/zones/1/folders"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -471,7 +471,7 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/folders"
+				path := mockHost + "/v1beta1/zones/1/folders"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -489,7 +489,7 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/folders"
+				path := mockHost + "/v1beta1/zones/1/folders"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -555,7 +555,7 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 			cloudID:         1,
 			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/options/zoneNetworkOptions"
+				path := mockHost + "/v1beta1/options/zoneNetworkOptions"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -597,7 +597,7 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 			cloudID:         1,
 			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/options/zoneNetworkOptions"
+				path := mockHost + "/v1beta1/options/zoneNetworkOptions"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -614,7 +614,7 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 			cloudID:         1,
 			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/options/zoneNetworkOptions"
+				path := mockHost + "/v1beta1/options/zoneNetworkOptions"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -682,7 +682,7 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 			cloudID:  1,
 			folderID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/folders/1"
+				path := mockHost + "/v1beta1/zones/1/folders/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -715,7 +715,7 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 			cloudID:  1,
 			folderID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/folders/1"
+				path := mockHost + "/v1beta1/zones/1/folders/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -729,7 +729,7 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 			cloudID:  1,
 			folderID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/zones/1/folders/1"
+				path := mockHost + "/v1beta1/zones/1/folders/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

@@ -34,7 +34,7 @@ func TestProvisioningAPIService_GetAllProvisioningTypes(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/provision-types"
+				path := mockHost + "/v1beta1/provision-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -72,7 +72,7 @@ func TestProvisioningAPIService_GetAllProvisioningTypes(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/provision-types"
+				path := mockHost + "/v1beta1/provision-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
@@ -89,7 +89,7 @@ func TestProvisioningAPIService_GetAllProvisioningTypes(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/provision-types"
+				path := mockHost + "/v1beta1/provision-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
