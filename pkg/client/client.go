@@ -20,7 +20,6 @@ import (
 	"reflect"
 	"regexp"
 	"strings"
-	"time"
 )
 
 var (
@@ -46,58 +45,38 @@ type APIClientHandler interface {
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
-
-	// API Services
-
-	/*CloudsAPI *CloudsAPIService
-
-	GroupsAPI *GroupsAPIService
-
-	InstancesAPI *InstancesAPIService
-
-	KeysCertsAPI *KeysCertsAPIService
-
-	LibraryAPI *LibraryAPIService
-
-	NetworksAPI *NetworksAPIService
-
-	PlansAPI *PlansAPIService
-
-	PoliciesAPI *PoliciesAPIService
-
-	RolesAPI *RolesAPIService*/
-}
-
-type service struct {
-	client *APIClient
+	cfg        *Configuration
+	cmpVersion int
 }
 
 // NewAPIClient creates a new API Client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(cfg *Configuration) *APIClient {
+func NewAPIClient(ctx context.Context, cfg *Configuration) (*APIClient, error) {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
-	c := &APIClient{}
-	c.cfg = cfg
-	c.common.client = c
+	c := &APIClient{
+		cfg: cfg,
+	}
+	cmpClient := CmpStatus{
+		Client: c,
+		Cfg:    *cfg,
+	}
+	statusResp, err := cmpClient.GetSetupCheck(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if !statusResp.Success {
+		return nil, fmt.Errorf("failed to get status of cmp")
+	}
+	versionInt, err := parseVersion(statusResp.BuildVersion)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse cmp build, error: %v", err)
+	}
+	c.cmpVersion = versionInt
 
-	// API Services
-	/*c.CloudsAPI = (*CloudsAPIService)(&c.common)
-	c.GroupsAPI = (*GroupsAPIService)(&c.common)
-	c.InstancesAPI = (*InstancesAPIService)(&c.common)
-	c.KeysCertsAPI = (*KeysCertsAPIService)(&c.common)
-	c.LibraryAPI = (*LibraryAPIService)(&c.common)
-	c.NetworksAPI = (*NetworksAPIService)(&c.common)
-	c.PlansAPI = (*PlansAPIService)(&c.common)
-	c.PoliciesAPI = (*PoliciesAPIService)(&c.common)
-	c.RolesAPI = (*RolesAPIService)(&c.common)
-	*/
-
-	return c
+	return c, nil
 }
 
 // selectHeaderContentType select a content type from the available list.
@@ -379,73 +358,4 @@ func detectContentType(body interface{}) string {
 	}
 
 	return contentType
-}
-
-// Ripped from https://github.com/gregjones/httpcache/blob/master/httpcache.go
-type cacheControl map[string]string
-
-func parseCacheControl(headers http.Header) cacheControl {
-	cc := cacheControl{}
-	ccHeader := headers.Get("Cache-Control")
-	for _, part := range strings.Split(ccHeader, ",") {
-		part = strings.Trim(part, " ")
-		if part == "" {
-			continue
-		}
-		if strings.ContainsRune(part, '=') {
-			keyval := strings.Split(part, "=")
-			cc[strings.Trim(keyval[0], " ")] = strings.Trim(keyval[1], ",")
-		} else {
-			cc[part] = ""
-		}
-	}
-
-	return cc
-}
-
-// CacheExpires helper function to determine remaining time before repeating a request.
-func CacheExpires(r *http.Response) time.Time {
-	// Figure out when the cache expires.
-	var expires time.Time
-	now, err := time.Parse(time.RFC1123, r.Header.Get("date"))
-	if err != nil {
-		return time.Now()
-	}
-	respCacheControl := parseCacheControl(r.Header)
-	if maxAge, ok := respCacheControl["max-age"]; ok {
-		if lifetime, err := time.ParseDuration(maxAge + "s"); err != nil {
-			expires = now
-		} else {
-			expires = now.Add(lifetime)
-		}
-	} else if expiresHeader := r.Header.Get("Expires"); expiresHeader != "" {
-		expires, err = time.Parse(time.RFC1123, expiresHeader)
-		if err != nil {
-			expires = now
-		}
-	}
-
-	return expires
-}
-
-// GenericSwaggerError Provides access to the body, error and model on returned errors.
-type GenericSwaggerError struct {
-	body  []byte
-	error string
-	model interface{}
-}
-
-// Error returns non-empty string if there was an error.
-func (e GenericSwaggerError) Error() string {
-	return e.error
-}
-
-// Body returns the raw bytes of the response
-func (e GenericSwaggerError) Body() []byte {
-	return e.body
-}
-
-// Model returns the unpacked model of the error
-func (e GenericSwaggerError) Model() interface{} {
-	return e.model
 }

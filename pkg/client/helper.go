@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"strconv"
+	"strings"
 )
 
 func getURLValues(query map[string]string) url.Values {
@@ -54,4 +56,21 @@ func ParseError(resp *http.Response) error {
 	}
 
 	return customErr
+}
+
+func parseVersion(version string) (int, error) {
+	versionSplit := strings.Split(version, ".")
+
+	mul := 10000
+	sum := 0
+	for _, v := range versionSplit {
+		vInt, err := strconv.Atoi(v)
+		if err != nil {
+			return 0, err
+		}
+		sum += mul * vInt
+		mul /= 100
+	}
+
+	return sum, nil
 }

@@ -32,8 +32,8 @@ func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID in
 
 	allCloudDSAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d/data-stores", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.ZonePath, cloudID),
+		path: fmt.Sprintf("%s/%s/%s/%d/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+			consts.ZonePath, cloudID, consts.DatstorePath),
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
