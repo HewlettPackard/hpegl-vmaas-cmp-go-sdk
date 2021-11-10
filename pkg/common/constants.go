@@ -14,11 +14,12 @@ const (
 	// NetworksPath
 	NetworksPath = "networks"
 	// NetworkTypePath
-	NetworkTypePath  = "network-types"
-	NetworkPoolPath  = "pools"
-	NetworkProxyPath = "proxies"
-	DomainPath       = "domains"
-	RoutersNatPath   = "nats"
+	NetworkTypePath              = "network-types"
+	NetworkPoolPath              = "pools"
+	NetworkProxyPath             = "proxies"
+	DomainPath                   = "domains"
+	RoutersNatPath               = "nats"
+	RoutersFirewallRuleGroupPath = "firewall-rule-groups"
 	// LibraryLayoutPath
 	LibraryLayoutPath = "library/layouts"
 	// LibraryInstanceTypesPath

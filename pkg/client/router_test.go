@@ -1111,3 +1111,223 @@ func TestRouterAPIService_UpdateRouterNat(t *testing.T) {
 		})
 	}
 }
+
+func TestRouterAPIService_DeleteRouterFirewallRuleGroup(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		routerID        int
+		firewallGroupID int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.SuccessOrErrorMessage
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID:        1,
+				firewallGroupID: 2,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups/2"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.DeleteRouterFirewallRuleGroup(context.Background(), tt.args.routerID, tt.args.firewallGroupID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.DeleteRouterFirewallRuleGroup() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.DeleteRouterFirewallRuleGroup() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_GetSpecificRouterFirewallRuleGroup(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		routerID        int
+		firewallGroupID int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.GetSpecificRouterFirewallRuleGroupResponse
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID:        1,
+				firewallGroupID: 2,
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups/2"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"ruleGroup": {
+							"id": 1
+						}
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetSpecificRouterFirewallRuleGroupResponse{
+				GetSpecificRouterFirewallRuleGroup: models.GetSpecificRouterFirewallRuleGroup{
+					ID: 1,
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.GetSpecificRouterFirewallRuleGroup(context.Background(), tt.args.routerID, tt.args.firewallGroupID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.GetSpecificRouterFirewallRuleGroup() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.GetSpecificRouterFirewallRuleGroup() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_CreateRouterFirewallRuleGroup(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		ctx      context.Context
+		routerID int
+		request  models.CreateRouterFirewallRuleGroupRequest
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.CreateRouterFirewallRuleGroupResponse
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID: 1,
+				ctx:      context.Background(),
+				request: models.CreateRouterFirewallRuleGroupRequest{
+					CreateRouterFirewallRuleGroup: models.CreateRouterFirewallRuleGroup{
+						Name: "test_firewall_rule_group",
+					},
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups"
+				method := "POST"
+				headers := getDefaultHeaders()
+				reqModel := models.CreateRouterFirewallRuleGroupRequest{
+					CreateRouterFirewallRuleGroup: models.CreateRouterFirewallRuleGroup{
+						Name: "test_firewall_rule_group",
+					},
+				}
+				jsonByte, _ := json.Marshal(reqModel)
+				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true,
+						"id": 2
+					}
+				`)))
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, reqModel, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.CreateRouterFirewallRuleGroupResponse{
+				IDModel:               models.IDModel{ID: 2},
+				SuccessOrErrorMessage: models.SuccessOrErrorMessage{Success: true},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.CreateRouterFirewallRuleGroup(tt.args.ctx, tt.args.routerID, tt.args.request)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.CreateRouterFirewallRuleGroup() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.CreateRouterFirewallRuleGroup() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
