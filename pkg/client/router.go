@@ -196,7 +196,7 @@ func (r *RouterAPIService) UpdateRouterNat(
 	req models.CreateRouterNatRequest,
 ) (models.CreateRouterNatResponse, error) {
 	natResp := models.CreateRouterNatResponse{}
-	serverAPI := &api{
+	routerAPI := &api{
 		method: "PUT",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
 			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
@@ -206,7 +206,7 @@ func (r *RouterAPIService) UpdateRouterNat(
 			return json.Unmarshal(body, &natResp)
 		},
 	}
-	err := serverAPI.do(ctx, req, nil)
+	err := routerAPI.do(ctx, req, nil)
 
 	return natResp, err
 }

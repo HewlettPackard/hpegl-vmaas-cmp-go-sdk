@@ -1134,7 +1134,7 @@ func TestRouterAPIService_DeleteRouterFirewallRuleGroup(t *testing.T) {
 				firewallGroupID: 2,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/networks/routers/1/firewall-rule-groups/2"
+				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups/2"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1201,7 +1201,7 @@ func TestRouterAPIService_GetSpecificRouterFirewallRuleGroup(t *testing.T) {
 				firewallGroupID: 2,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/networks/routers/1/firewall-rule-groups/2"
+				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups/2"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1278,7 +1278,7 @@ func TestRouterAPIService_CreateRouterFirewallRuleGroup(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1/networks/routers/1/firewall-rule-groups"
+				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups"
 				method := "POST"
 				headers := getDefaultHeaders()
 				reqModel := models.CreateRouterFirewallRuleGroupRequest{
