@@ -42,28 +42,38 @@ type APIClientHandler interface {
 	callAPI(request *http.Request) (*http.Response, error)
 }
 
+// Auth interface is used in prepare request to set token
+type Auth interface {
+	SetScmClientToken(ctx *context.Context, meta interface{})
+}
+
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg        *Configuration
 	cmpVersion int
+	auth       Auth
+	meta       interface{}
 }
 
 // NewAPIClient creates a new API Client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(ctx context.Context, cfg *Configuration) (*APIClient, error) {
+func NewAPIClient(auth Auth, meta interface{}, cfg *Configuration) (*APIClient, error) {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
 	c := &APIClient{
-		cfg: cfg,
+		cfg:  cfg,
+		auth: auth,
+		meta: meta,
 	}
 	cmpClient := CmpStatus{
 		Client: c,
 		Cfg:    *cfg,
 	}
-	statusResp, err := cmpClient.GetSetupCheck(ctx)
+	// Get status of cmp
+	statusResp, err := cmpClient.GetSetupCheck(context.Background())
 	if err != nil {
 		return nil, err
 	}
@@ -247,6 +257,9 @@ func (c *APIClient) prepareRequest(
 
 	// Add the Authentication Token to header.
 	if ctx != nil {
+		// Set auth token. This implementation is temporary fix. Need to put
+		// this in a goroutine or implement cache in cmp-api
+		c.auth.SetScmClientToken(&ctx, c.meta)
 		// add context to the request
 		localVarRequest = localVarRequest.WithContext(ctx)
 		// Basic HTTP Authentication
