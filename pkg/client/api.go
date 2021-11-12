@@ -4,6 +4,7 @@ package client
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/url"
 	"strings"
@@ -23,13 +24,20 @@ type api struct {
 	client            APIClientHandler
 	jsonParser        jsonPareserFunc
 	validations       []validationFunc
-	compatibleVersion int
+	compatibleVersion string
 }
 
 // do will call the API provided. this function will not return any response, but
 // response should be catched from jsonParser function itself
 func (a *api) do(ctx context.Context, request interface{}, queryParams map[string]string) error {
-	if a.client.getVersion() < a.compatibleVersion {
+	currentVersion, err := parseVersion(a.compatibleVersion)
+	if err != nil {
+		panic(fmt.Sprintf("failed to parse the current version, error: %v", err))
+	}
+	if a.client.getVersion() < currentVersion {
+		if a.client.getVersion() == 0 {
+			return fmt.Errorf("failed to get meta data for cmp-sdk")
+		}
 		return errVersion
 	}
 	var (

@@ -11,7 +11,7 @@ import (
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
-const routerCompatibleVersion = 51011
+const routerCompatibleVersion = "5.2.10"
 
 type RouterAPIService struct {
 	Client APIClientHandler

@@ -52,10 +52,10 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
-
 	c := &APIClient{
 		cfg: cfg,
 	}
+
 	return c
 }
 

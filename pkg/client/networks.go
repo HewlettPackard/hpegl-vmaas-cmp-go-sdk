@@ -11,7 +11,7 @@ import (
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
-const networkCompatibleVersion = 51011
+const networkCompatibleVersion = "5.2.10"
 
 type NetworksAPIService struct {
 	Client APIClientHandler
