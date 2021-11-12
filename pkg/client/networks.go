@@ -11,6 +11,8 @@ import (
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
+const networkCompatibleVersion = 51011
+
 type NetworksAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
@@ -60,9 +62,10 @@ func (n *NetworksAPIService) CreateNetwork(
 ) (models.CreateNetworkResponse, error) {
 	var networksResp models.CreateNetworkResponse
 	networkAPI := &api{
-		method: "POST",
-		path:   fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
-		client: n.Client,
+		compatibleVersion: networkCompatibleVersion,
+		method:            "POST",
+		path:              fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
+		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &networksResp)
@@ -79,9 +82,10 @@ func (n *NetworksAPIService) DeleteNetwork(
 ) (models.SuccessOrErrorMessage, error) {
 	var output models.SuccessOrErrorMessage
 	networkAPI := &api{
-		method: "DELETE",
-		path:   fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
-		client: n.Client,
+		compatibleVersion: networkCompatibleVersion,
+		method:            "DELETE",
+		path:              fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
+		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &output)
@@ -98,9 +102,10 @@ func (n *NetworksAPIService) GetNetworkType(
 ) (models.GetNetworkTypesResponse, error) {
 	var resp models.GetNetworkTypesResponse
 	networkAPI := &api{
-		method: "GET",
-		path:   fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworkTypePath),
-		client: n.Client,
+		compatibleVersion: networkCompatibleVersion,
+		method:            "GET",
+		path:              fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworkTypePath),
+		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &resp)
@@ -157,9 +162,10 @@ func (n *NetworksAPIService) UpdateNetwork(
 ) (models.SuccessOrErrorMessage, error) {
 	var output models.SuccessOrErrorMessage
 	networkAPI := &api{
-		method: "PUT",
-		path:   fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
-		client: n.Client,
+		compatibleVersion: networkCompatibleVersion,
+		method:            "PUT",
+		path:              fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
+		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &output)

@@ -11,6 +11,8 @@ import (
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
+const routerCompatibleVersion = 51011
+
 type RouterAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
@@ -22,7 +24,8 @@ func (r *RouterAPIService) GetAllRouter(
 ) (models.GetAllNetworkRouter, error) {
 	routerResp := models.GetAllNetworkRouter{}
 	routerAPI := &api{
-		method: "GET",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.NetworksPath, consts.NetworkRouterPath),
 		client: r.Client,
@@ -41,7 +44,8 @@ func (r *RouterAPIService) GetSpecificRouter(
 ) (models.GetNetworkRouter, error) {
 	routerResp := models.GetNetworkRouter{}
 	routerAPI := &api{
-		method: "GET",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
@@ -60,7 +64,8 @@ func (r *RouterAPIService) CreateRouter(
 ) (models.CreateRouterResp, error) {
 	routerResp := models.CreateRouterResp{}
 	routerAPI := &api{
-		method: "POST",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "POST",
 		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.NetworksPath, consts.NetworkRouterPath),
 		client: r.Client,
@@ -80,7 +85,8 @@ func (r *RouterAPIService) UpdateRouter(
 ) (models.SuccessOrErrorMessage, error) {
 	routerResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
-		method: "PUT",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "PUT",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
@@ -99,7 +105,8 @@ func (r *RouterAPIService) DeleteRouter(
 ) (models.SuccessOrErrorMessage, error) {
 	routerResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
-		method: "DELETE",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "DELETE",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
@@ -118,7 +125,8 @@ func (r *RouterAPIService) GetRouterTypes(
 ) (models.GetNetworlRouterTypes, error) {
 	routerResp := models.GetNetworlRouterTypes{}
 	routerAPI := &api{
-		method: "GET",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
 			consts.NetworkRouterTypePath),
 		client: r.Client,
@@ -137,7 +145,8 @@ func (r *RouterAPIService) GetNetworkServices(
 ) (models.GetNetworkServicesResp, error) {
 	routerResp := models.GetNetworkServicesResp{}
 	routerAPI := &api{
-		method: "GET",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
 			consts.NetworkServicePath),
 		client: r.Client,
@@ -157,7 +166,8 @@ func (r *RouterAPIService) CreateRouterNat(
 ) (models.CreateRouterNatResponse, error) {
 	natResp := models.CreateRouterNatResponse{}
 	routerAPI := &api{
-		method: "POST",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "POST",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath),
 		client: r.Client,
@@ -176,7 +186,8 @@ func (r *RouterAPIService) GetSpecificRouterNat(
 ) (models.GetSpecificRouterNatResponse, error) {
 	natResp := models.GetSpecificRouterNatResponse{}
 	routerAPI := &api{
-		method: "GET",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
 			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
@@ -197,7 +208,8 @@ func (r *RouterAPIService) UpdateRouterNat(
 ) (models.CreateRouterNatResponse, error) {
 	natResp := models.CreateRouterNatResponse{}
 	routerAPI := &api{
-		method: "PUT",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "PUT",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
 			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
@@ -217,7 +229,8 @@ func (r *RouterAPIService) DeleteRouterNat(
 ) (models.SuccessOrErrorMessage, error) {
 	natResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
-		method: "DELETE",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "DELETE",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
 			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
@@ -238,7 +251,8 @@ func (r *RouterAPIService) CreateRouterFirewallRuleGroup(
 ) (models.CreateRouterFirewallRuleGroupResponse, error) {
 	firewallGroupResp := models.CreateRouterFirewallRuleGroupResponse{}
 	routerAPI := &api{
-		method: "POST",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "POST",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath),
 		client: r.Client,
@@ -257,7 +271,8 @@ func (r *RouterAPIService) GetSpecificRouterFirewallRuleGroup(
 ) (models.GetSpecificRouterFirewallRuleGroupResponse, error) {
 	firewallGroupResp := models.GetSpecificRouterFirewallRuleGroupResponse{}
 	routerAPI := &api{
-		method: "GET",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
 			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath, firewallGroupID),
@@ -277,7 +292,8 @@ func (r *RouterAPIService) DeleteRouterFirewallRuleGroup(
 ) (models.SuccessOrErrorMessage, error) {
 	firewallGroupResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
-		method: "DELETE",
+		compatibleVersion: routerCompatibleVersion,
+		method:            "DELETE",
 		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
 			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath, firewallGroupID),

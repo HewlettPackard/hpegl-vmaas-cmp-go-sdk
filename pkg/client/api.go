@@ -18,16 +18,20 @@ type validationFunc func() error
 type jsonPareserFunc func(body []byte) error
 
 type api struct {
-	method      string
-	path        string
-	client      APIClientHandler
-	jsonParser  jsonPareserFunc
-	validations []validationFunc
+	method            string
+	path              string
+	client            APIClientHandler
+	jsonParser        jsonPareserFunc
+	validations       []validationFunc
+	compatibleVersion int
 }
 
 // do will call the API provided. this function will not return any response, but
 // response should be catched from jsonParser function itself
 func (a *api) do(ctx context.Context, request interface{}, queryParams map[string]string) error {
+	if a.client.getVersion() < a.compatibleVersion {
+		return errVersion
+	}
 	var (
 		localVarHTTPMethod = strings.ToUpper(a.method)
 		localVarFileName   string

@@ -11,21 +11,14 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"io"
 	"mime/multipart"
 	"net/http"
 	"net/url"
-	"os"
 	"path/filepath"
-	"reflect"
-	"regexp"
 	"strings"
 )
 
-var (
-	jsonCheck = regexp.MustCompile("(?i:[application|text]/json)")
-	xmlCheck  = regexp.MustCompile("(?i:[application|text]/xml)")
-)
+type SetScmClientToken func(ctx *context.Context, meta interface{})
 
 type APIClientHandler interface {
 	ChangeBasePath(path string)
@@ -40,11 +33,8 @@ type APIClientHandler interface {
 		fileBytes []byte) (localVarRequest *http.Request, err error)
 	decode(v interface{}, b []byte, contentType string) (err error)
 	callAPI(request *http.Request) (*http.Response, error)
-}
-
-// Auth interface is used in prepare request to set token
-type Auth interface {
-	SetScmClientToken(ctx *context.Context, meta interface{})
+	SetMeta(meta interface{}, fn SetScmClientToken) error
+	getVersion() int
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
@@ -52,77 +42,51 @@ type Auth interface {
 type APIClient struct {
 	cfg        *Configuration
 	cmpVersion int
-	auth       Auth
 	meta       interface{}
+	tokenFunc  SetScmClientToken
 }
 
 // NewAPIClient creates a new API Client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(auth Auth, meta interface{}, cfg *Configuration) (*APIClient, error) {
+func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
 	c := &APIClient{
-		cfg:  cfg,
-		auth: auth,
-		meta: meta,
+		cfg: cfg,
 	}
+	return c
+}
+
+func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
+	c.meta = meta
+	c.tokenFunc = fn
+	// if cmp version already set then skip
+	if c.cmpVersion != 0 {
+		return nil
+	}
+	// initialize cmp status client and get setup/check
+	// and set version
 	cmpClient := CmpStatus{
 		Client: c,
-		Cfg:    *cfg,
+		Cfg:    *c.cfg,
 	}
 	// Get status of cmp
 	statusResp, err := cmpClient.GetSetupCheck(context.Background())
 	if err != nil {
-		return nil, err
+		return err
 	}
 	if !statusResp.Success {
-		return nil, fmt.Errorf("failed to get status of cmp")
+		return fmt.Errorf("failed to get status of cmp")
 	}
 	versionInt, err := parseVersion(statusResp.BuildVersion)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse cmp build, error: %v", err)
+		return fmt.Errorf("failed to parse cmp build, error: %v", err)
 	}
 	c.cmpVersion = versionInt
 
-	return c, nil
-}
-
-// selectHeaderContentType select a content type from the available list.
-func selectHeaderContentType(contentTypes []string) string {
-	if len(contentTypes) == 0 {
-		return ""
-	}
-	if contains(contentTypes, "application/json") {
-		return "application/json"
-	}
-
-	return contentTypes[0] // use the first content type specified in 'consumes'
-}
-
-// selectHeaderAccept join all accept types and return
-func selectHeaderAccept(accepts []string) string {
-	if len(accepts) == 0 {
-		return ""
-	}
-
-	if contains(accepts, "application/json") {
-		return "application/json"
-	}
-
-	return strings.Join(accepts, ",")
-}
-
-// contains is a case insenstive match, finding needle in a haystack
-func contains(haystack []string, needle string) bool {
-	for _, a := range haystack {
-		if strings.EqualFold(a, needle) {
-			return true
-		}
-	}
-
-	return false
+	return nil
 }
 
 // callAPI do the request.
@@ -133,6 +97,10 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 // Change base path to allow switching to mocks
 func (c *APIClient) ChangeBasePath(path string) {
 	c.cfg.BasePath = path
+}
+
+func (c *APIClient) getVersion() int {
+	return c.cmpVersion
 }
 
 // prepareRequest build the request
@@ -259,7 +227,7 @@ func (c *APIClient) prepareRequest(
 	if ctx != nil {
 		// Set auth token. This implementation is temporary fix. Need to put
 		// this in a goroutine or implement cache in cmp-api
-		c.auth.SetScmClientToken(&ctx, c.meta)
+		c.tokenFunc(&ctx, c.meta)
 		// add context to the request
 		localVarRequest = localVarRequest.WithContext(ctx)
 		// Basic HTTP Authentication
@@ -297,78 +265,4 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 	}
 
 	return errors.New("undefined response type")
-}
-
-// Add a file to the multipart request
-func addFile(w *multipart.Writer, fieldName, path string) error {
-	file, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
-	if err != nil {
-		return err
-	}
-	_, err = io.Copy(part, file)
-
-	return err
-}
-
-// Set request body from an interface{}
-func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
-	if bodyBuf == nil {
-		bodyBuf = &bytes.Buffer{}
-	}
-
-	switch v := body.(type) {
-	case io.Reader:
-		_, err = bodyBuf.ReadFrom(v)
-	case []byte:
-		_, err = bodyBuf.Write(v)
-	case string:
-		_, err = bodyBuf.WriteString(v)
-	case *string:
-		_, err = bodyBuf.WriteString(*v)
-	default:
-		if jsonCheck.MatchString(contentType) {
-			err = json.NewEncoder(bodyBuf).Encode(body)
-		} else if xmlCheck.MatchString(contentType) {
-			err = xml.NewEncoder(bodyBuf).Encode(body)
-		}
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	if bodyBuf.Len() == 0 {
-		err = fmt.Errorf("invalid body type %s", contentType)
-
-		return nil, err
-	}
-
-	return bodyBuf, nil
-}
-
-// detectContentType method is used to figure out `Request.Body` content type for request header
-func detectContentType(body interface{}) string {
-	contentType := "text/plain; charset=utf-8"
-	kind := reflect.TypeOf(body).Kind()
-
-	switch kind {
-	case reflect.Struct, reflect.Map, reflect.Ptr:
-		contentType = "application/json; charset=utf-8"
-	case reflect.String:
-		contentType = "text/plain; charset=utf-8"
-	default:
-		if b, ok := body.([]byte); ok {
-			contentType = http.DetectContentType(b)
-		} else if kind == reflect.Slice {
-			contentType = "application/json; charset=utf-8"
-		}
-	}
-
-	return contentType
 }
