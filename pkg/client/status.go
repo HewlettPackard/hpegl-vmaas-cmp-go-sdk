@@ -16,13 +16,13 @@ type CmpStatus struct {
 	Cfg    Configuration
 }
 
-func (a *CmpStatus) GetSetupCheck(ctx context.Context) (models.CmpSetupCheck, error) {
-	checkResp := models.CmpSetupCheck{}
+func (a *CmpStatus) GetCmpVersion(ctx context.Context) (models.CmpVersionModel, error) {
+	checkResp := models.CmpVersionModel{}
 
 	allCloudDSAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.SetupCheckPath),
+			consts.WhoamiPath),
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {

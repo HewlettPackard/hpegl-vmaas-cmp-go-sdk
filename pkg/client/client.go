@@ -46,6 +46,10 @@ type APIClient struct {
 	tokenFunc  SetScmClientToken
 }
 
+// defaultTokenFunc will use while defining httpClient. defaultTokenFunc
+// will not fetch any token or update context.
+func defaultTokenFunc(ctx *context.Context, meta interface{}) {}
+
 // NewAPIClient creates a new API Client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
@@ -53,7 +57,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 		cfg.HTTPClient = http.DefaultClient
 	}
 	c := &APIClient{
-		cfg: cfg,
+		cfg:       cfg,
+		tokenFunc: defaultTokenFunc,
 	}
 
 	return c
@@ -73,14 +78,11 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 		Cfg:    *c.cfg,
 	}
 	// Get status of cmp
-	statusResp, err := cmpClient.GetSetupCheck(context.Background())
+	statusResp, err := cmpClient.GetCmpVersion(context.Background())
 	if err != nil {
 		return err
 	}
-	if !statusResp.Success {
-		return fmt.Errorf("failed to get status of cmp")
-	}
-	versionInt, err := parseVersion(statusResp.BuildVersion)
+	versionInt, err := parseVersion(statusResp.Appliance.BuildVersion)
 	if err != nil {
 		return fmt.Errorf("failed to parse cmp build, error: %v", err)
 	}
