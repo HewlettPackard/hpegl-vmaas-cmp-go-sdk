@@ -47,6 +47,7 @@ func TestDomainAPIService_GetAllDomains(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -76,6 +77,7 @@ func TestDomainAPIService_GetAllDomains(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/domains"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -102,6 +104,7 @@ func TestDomainAPIService_GetAllDomains(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -168,6 +171,7 @@ func TestDomainAPIService_GetSpecificDomain(t *testing.T) {
 						}
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -191,6 +195,7 @@ func TestDomainAPIService_GetSpecificDomain(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/domains/1"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -213,6 +218,7 @@ func TestDomainAPIService_GetSpecificDomain(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 

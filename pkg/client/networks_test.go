@@ -49,6 +49,7 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 						"networkCount": 1
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -79,6 +80,7 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 				path := mockHost + "/v1beta1/networks"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -105,6 +107,7 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -165,6 +168,7 @@ func TestNetworksAPIService_CreateNetwork(t *testing.T) {
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
 
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method,
 					models.CreateNetworkRequest{
 						Network: models.CreateNetwork{
@@ -250,6 +254,7 @@ func TestNetworksAPIService_UpdateNetwork(t *testing.T) {
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
 
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method,
 					models.CreateNetworkRequest{
 						Network: models.CreateNetwork{
@@ -325,6 +330,7 @@ func TestNetworksAPIService_GetNetworkProxy(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": "NSXT",
@@ -397,6 +403,7 @@ func TestNetworksAPIService_GetSpecificNetwork(t *testing.T) {
 						}
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -420,6 +427,7 @@ func TestNetworksAPIService_GetSpecificNetwork(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/1"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
@@ -442,6 +450,7 @@ func TestNetworksAPIService_GetSpecificNetwork(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -504,6 +513,7 @@ func TestNetworksAPIService_DeleteNetwork(t *testing.T) {
 						"message": "test_template_delete_network"
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -525,6 +535,7 @@ func TestNetworksAPIService_DeleteNetwork(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
@@ -547,6 +558,7 @@ func TestNetworksAPIService_DeleteNetwork(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -614,6 +626,7 @@ func TestNetworksAPIService_GetNetworkType(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -643,6 +656,7 @@ func TestNetworksAPIService_GetNetworkType(t *testing.T) {
 				path := mockHost + "/v1beta1/network-types"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -669,6 +683,7 @@ func TestNetworksAPIService_GetNetworkType(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -738,6 +753,7 @@ func TestNetworksAPIService_GetNetworkPool(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -767,6 +783,7 @@ func TestNetworksAPIService_GetNetworkPool(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/pools"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -793,6 +810,7 @@ func TestNetworksAPIService_GetNetworkPool(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -859,6 +877,7 @@ func TestNetworksAPIService_GetSpecificNetworkPool(t *testing.T) {
 						}
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -882,6 +901,7 @@ func TestNetworksAPIService_GetSpecificNetworkPool(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/pools/1"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
@@ -904,6 +924,7 @@ func TestNetworksAPIService_GetSpecificNetworkPool(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 

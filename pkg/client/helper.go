@@ -3,9 +3,26 @@
 package client
 
 import (
+	"bytes"
 	"encoding/json"
+	"encoding/xml"
+	"fmt"
+	"io"
+	"mime/multipart"
 	"net/http"
 	"net/url"
+	"os"
+	"path/filepath"
+	"reflect"
+	"regexp"
+	"strconv"
+	"strings"
+)
+
+var (
+	jsonCheck  = regexp.MustCompile("(?i:[application|text]/json)")
+	xmlCheck   = regexp.MustCompile("(?i:[application|text]/xml)")
+	errVersion = fmt.Errorf("error, API is not supported for the current version, please contact your administrator")
 )
 
 func getURLValues(query map[string]string) url.Values {
@@ -54,4 +71,135 @@ func ParseError(resp *http.Response) error {
 	}
 
 	return customErr
+}
+
+func parseVersion(version string) (int, error) {
+	if version == "" {
+		return 0, nil
+	}
+
+	versionSplit := strings.Split(version, ".")
+
+	mul := 10000
+	sum := 0
+	for _, v := range versionSplit {
+		vInt, err := strconv.Atoi(v)
+		if err != nil {
+			return 0, err
+		}
+		sum += mul * vInt
+		mul /= 100
+	}
+
+	return sum, nil
+}
+
+// selectHeaderContentType select a content type from the available list.
+func selectHeaderContentType(contentTypes []string) string {
+	if len(contentTypes) == 0 {
+		return ""
+	}
+	if contains(contentTypes, "application/json") {
+		return "application/json"
+	}
+
+	return contentTypes[0] // use the first content type specified in 'consumes'
+}
+
+// selectHeaderAccept join all accept types and return
+func selectHeaderAccept(accepts []string) string {
+	if len(accepts) == 0 {
+		return ""
+	}
+
+	if contains(accepts, "application/json") {
+		return "application/json"
+	}
+
+	return strings.Join(accepts, ",")
+}
+
+// contains is a case insenstive match, finding needle in a haystack
+func contains(haystack []string, needle string) bool {
+	for _, a := range haystack {
+		if strings.EqualFold(a, needle) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// Add a file to the multipart request
+func addFile(w *multipart.Writer, fieldName, path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
+	if err != nil {
+		return err
+	}
+	_, err = io.Copy(part, file)
+
+	return err
+}
+
+// Set request body from an interface{}
+func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
+	if bodyBuf == nil {
+		bodyBuf = &bytes.Buffer{}
+	}
+
+	switch v := body.(type) {
+	case io.Reader:
+		_, err = bodyBuf.ReadFrom(v)
+	case []byte:
+		_, err = bodyBuf.Write(v)
+	case string:
+		_, err = bodyBuf.WriteString(v)
+	case *string:
+		_, err = bodyBuf.WriteString(*v)
+	default:
+		if jsonCheck.MatchString(contentType) {
+			err = json.NewEncoder(bodyBuf).Encode(body)
+		} else if xmlCheck.MatchString(contentType) {
+			err = xml.NewEncoder(bodyBuf).Encode(body)
+		}
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	if bodyBuf.Len() == 0 {
+		err = fmt.Errorf("invalid body type %s", contentType)
+
+		return nil, err
+	}
+
+	return bodyBuf, nil
+}
+
+// detectContentType method is used to figure out `Request.Body` content type for request header
+func detectContentType(body interface{}) string {
+	contentType := "text/plain; charset=utf-8"
+	kind := reflect.TypeOf(body).Kind()
+
+	switch kind {
+	case reflect.Struct, reflect.Map, reflect.Ptr:
+		contentType = "application/json; charset=utf-8"
+	case reflect.String:
+		contentType = "text/plain; charset=utf-8"
+	default:
+		if b, ok := body.([]byte); ok {
+			contentType = http.DetectContentType(b)
+		} else if kind == reflect.Slice {
+			contentType = "application/json; charset=utf-8"
+		}
+	}
+
+	return contentType
 }

@@ -51,6 +51,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -81,6 +82,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 				path := mockHost + "/v1beta1/zones/1/data-stores"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -109,6 +111,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -128,7 +131,9 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 				"name": templateName,
 			},
 			cloudID: 0,
-			given:   func(m *MockAPIClientHandler) {},
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getVersion().Return(999999)
+			},
 			want:    models.DataStoresResp{},
 			wantErr: true,
 		},
@@ -187,6 +192,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -217,6 +223,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 				path := mockHost + "/v1beta1/zones/1/resource-pools"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -244,6 +251,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -263,7 +271,9 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 				"name": templateName,
 			},
 			cloudID: 0,
-			given:   func(m *MockAPIClientHandler) {},
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getVersion().Return(999999)
+			},
 			want:    models.ResourcePoolsResp{},
 			wantErr: true,
 		},
@@ -320,6 +330,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -349,6 +360,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				path := mockHost + "/v1beta1/zones"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -375,6 +387,7 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -444,6 +457,7 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -474,6 +488,7 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 				path := mockHost + "/v1beta1/zones/1/folders"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -501,6 +516,7 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -569,6 +585,7 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 						}
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"zoneId":          strconv.Itoa(1),
@@ -600,6 +617,7 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 				path := mockHost + "/v1beta1/options/zoneNetworkOptions"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"zoneId":          strconv.Itoa(1),
@@ -626,6 +644,7 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"zoneId":          strconv.Itoa(1),
@@ -694,6 +713,7 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 							}
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -718,6 +738,7 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 				path := mockHost + "/v1beta1/zones/1/folders/1"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -741,6 +762,7 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -756,9 +778,11 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 			name:     "Failed Test case 4: Cloud ID can not be less than 1",
 			cloudID:  0,
 			folderID: 1,
-			given:    func(m *MockAPIClientHandler) {},
-			want:     models.GetSpecificCloudFolder{},
-			wantErr:  true,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getVersion().Return(999999)
+			},
+			want:    models.GetSpecificCloudFolder{},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {

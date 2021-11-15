@@ -48,6 +48,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -76,6 +77,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 				path := mockHost + "/v1beta1/environments"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -102,6 +104,7 @@ func TestEnvironmentAPIService_GetAllEnvironment(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,

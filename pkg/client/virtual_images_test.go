@@ -50,6 +50,7 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -80,6 +81,7 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -107,6 +109,7 @@ func TestVirtualImagesAPIService_GetAllVirtualImages(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,

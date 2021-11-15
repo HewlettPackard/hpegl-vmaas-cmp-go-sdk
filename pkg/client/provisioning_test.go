@@ -46,6 +46,7 @@ func TestProvisioningAPIService_GetAllProvisioningTypes(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -75,6 +76,7 @@ func TestProvisioningAPIService_GetAllProvisioningTypes(t *testing.T) {
 				path := mockHost + "/v1beta1/provision-types"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -101,6 +103,7 @@ func TestProvisioningAPIService_GetAllProvisioningTypes(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,

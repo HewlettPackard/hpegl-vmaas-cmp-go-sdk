@@ -49,6 +49,7 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 						"multiTenant": true
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -79,6 +80,7 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				path := mockHost + "/v1beta1/servers"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -105,6 +107,7 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -174,6 +177,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -198,6 +202,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -221,6 +226,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -235,9 +241,11 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 		{
 			name:     "Failed test case 4: server ID should be greater than 0",
 			serverID: 0,
-			given:    func(m *MockAPIClientHandler) {},
-			want:     models.GetSpecificServerResponse{},
-			wantErr:  true,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getVersion().Return(999999)
+			},
+			want:    models.GetSpecificServerResponse{},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {

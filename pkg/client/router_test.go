@@ -49,6 +49,7 @@ func TestRouterAPIService_GetAllRouters(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -78,6 +79,7 @@ func TestRouterAPIService_GetAllRouters(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/routers"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -104,6 +106,7 @@ func TestRouterAPIService_GetAllRouters(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -172,6 +175,7 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -201,6 +205,7 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 				path := mockHost + "/v1beta1/network-router-types"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -227,6 +232,7 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -287,6 +293,7 @@ func TestRouterAPIService_CreateRouter(t *testing.T) {
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
 
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method,
 					models.CreateRouterRequest{
 						NetworkRouter: models.CreateRouterRequestRouter{
@@ -374,6 +381,7 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 						Name: "test_update_router_name",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -403,6 +411,7 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 						Name: "test_update_router_name",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -440,6 +449,7 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 						Name: "test_update_router_name",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -500,6 +510,7 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 						"name": "test_template_get_a_specific_router"
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -521,6 +532,7 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/routers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
@@ -543,6 +555,7 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -604,6 +617,7 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 						"message": "test_template_delete_a_router"
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -625,6 +639,7 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/routers/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
 			},
@@ -647,6 +662,7 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
 
@@ -712,6 +728,7 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -741,6 +758,7 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 				path := mockHost + "/v1beta1/networks/services"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -767,6 +785,7 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -834,6 +853,7 @@ func TestRouterAPIService_DeleteRouterNat(t *testing.T) {
 						"success": true
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					url.Values{}, url.Values{}, "", nil).Return(req, nil)
 
@@ -903,6 +923,7 @@ func TestRouterAPIService_GetSpecificRouterNat(t *testing.T) {
 						}
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					url.Values{}, url.Values{}, "", nil).Return(req, nil)
 
@@ -986,6 +1007,7 @@ func TestRouterAPIService_CreateRouterNat(t *testing.T) {
 						"id": 2
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, reqModel, headers,
 					url.Values{}, url.Values{}, "", nil).Return(req, nil)
 
@@ -1070,6 +1092,7 @@ func TestRouterAPIService_UpdateRouterNat(t *testing.T) {
 						"id": 2
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, reqModel, headers,
 					url.Values{}, url.Values{}, "", nil).Return(req, nil)
 
@@ -1143,6 +1166,7 @@ func TestRouterAPIService_DeleteRouterFirewallRuleGroup(t *testing.T) {
 						"success": true
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					url.Values{}, url.Values{}, "", nil).Return(req, nil)
 
@@ -1212,6 +1236,7 @@ func TestRouterAPIService_GetSpecificRouterFirewallRuleGroup(t *testing.T) {
 						}
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					url.Values{}, url.Values{}, "", nil).Return(req, nil)
 
@@ -1295,6 +1320,7 @@ func TestRouterAPIService_CreateRouterFirewallRuleGroup(t *testing.T) {
 						"id": 2
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, reqModel, headers,
 					url.Values{}, url.Values{}, "", nil).Return(req, nil)
 

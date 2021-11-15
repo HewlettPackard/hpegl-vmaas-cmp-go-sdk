@@ -45,6 +45,7 @@ const (
 	OptionsPath            = "options"
 	ZoneNetworkOptionsPath = "zoneNetworkOptions"
 	ProvisionTypesPath     = "provision-types"
+	WhoamiPath             = "whoami"
 
 	// headers
 	ContentType = "application/json"

@@ -11,22 +11,14 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"io"
 	"mime/multipart"
 	"net/http"
 	"net/url"
-	"os"
 	"path/filepath"
-	"reflect"
-	"regexp"
 	"strings"
-	"time"
 )
 
-var (
-	jsonCheck = regexp.MustCompile("(?i:[application|text]/json)")
-	xmlCheck  = regexp.MustCompile("(?i:[application|text]/xml)")
-)
+type SetScmClientToken func(ctx *context.Context, meta interface{})
 
 type APIClientHandler interface {
 	ChangeBasePath(path string)
@@ -41,38 +33,22 @@ type APIClientHandler interface {
 		fileBytes []byte) (localVarRequest *http.Request, err error)
 	decode(v interface{}, b []byte, contentType string) (err error)
 	callAPI(request *http.Request) (*http.Response, error)
+	SetMeta(meta interface{}, fn SetScmClientToken) error
+	getVersion() int
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
-
-	// API Services
-
-	/*CloudsAPI *CloudsAPIService
-
-	GroupsAPI *GroupsAPIService
-
-	InstancesAPI *InstancesAPIService
-
-	KeysCertsAPI *KeysCertsAPIService
-
-	LibraryAPI *LibraryAPIService
-
-	NetworksAPI *NetworksAPIService
-
-	PlansAPI *PlansAPIService
-
-	PoliciesAPI *PoliciesAPIService
-
-	RolesAPI *RolesAPIService*/
+	cfg        *Configuration
+	cmpVersion int
+	meta       interface{}
+	tokenFunc  SetScmClientToken
 }
 
-type service struct {
-	client *APIClient
-}
+// defaultTokenFunc will use while defining httpClient. defaultTokenFunc
+// will not fetch any token or update context.
+func defaultTokenFunc(ctx *context.Context, meta interface{}) {}
 
 // NewAPIClient creates a new API Client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
@@ -80,60 +56,39 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
-
-	c := &APIClient{}
-	c.cfg = cfg
-	c.common.client = c
-
-	// API Services
-	/*c.CloudsAPI = (*CloudsAPIService)(&c.common)
-	c.GroupsAPI = (*GroupsAPIService)(&c.common)
-	c.InstancesAPI = (*InstancesAPIService)(&c.common)
-	c.KeysCertsAPI = (*KeysCertsAPIService)(&c.common)
-	c.LibraryAPI = (*LibraryAPIService)(&c.common)
-	c.NetworksAPI = (*NetworksAPIService)(&c.common)
-	c.PlansAPI = (*PlansAPIService)(&c.common)
-	c.PoliciesAPI = (*PoliciesAPIService)(&c.common)
-	c.RolesAPI = (*RolesAPIService)(&c.common)
-	*/
+	c := &APIClient{
+		cfg:       cfg,
+		tokenFunc: defaultTokenFunc,
+	}
 
 	return c
 }
 
-// selectHeaderContentType select a content type from the available list.
-func selectHeaderContentType(contentTypes []string) string {
-	if len(contentTypes) == 0 {
-		return ""
+func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
+	c.meta = meta
+	c.tokenFunc = fn
+	// if cmp version already set then skip
+	if c.cmpVersion != 0 {
+		return nil
 	}
-	if contains(contentTypes, "application/json") {
-		return "application/json"
+	// initialize cmp status client and get setup/check
+	// and set version
+	cmpClient := CmpStatus{
+		Client: c,
+		Cfg:    *c.cfg,
 	}
-
-	return contentTypes[0] // use the first content type specified in 'consumes'
-}
-
-// selectHeaderAccept join all accept types and return
-func selectHeaderAccept(accepts []string) string {
-	if len(accepts) == 0 {
-		return ""
+	// Get status of cmp
+	statusResp, err := cmpClient.GetCmpVersion(context.Background())
+	if err != nil {
+		return err
 	}
-
-	if contains(accepts, "application/json") {
-		return "application/json"
+	versionInt, err := parseVersion(statusResp.Appliance.BuildVersion)
+	if err != nil {
+		return fmt.Errorf("failed to parse cmp build, error: %v", err)
 	}
+	c.cmpVersion = versionInt
 
-	return strings.Join(accepts, ",")
-}
-
-// contains is a case insenstive match, finding needle in a haystack
-func contains(haystack []string, needle string) bool {
-	for _, a := range haystack {
-		if strings.EqualFold(a, needle) {
-			return true
-		}
-	}
-
-	return false
+	return nil
 }
 
 // callAPI do the request.
@@ -144,6 +99,10 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 // Change base path to allow switching to mocks
 func (c *APIClient) ChangeBasePath(path string) {
 	c.cfg.BasePath = path
+}
+
+func (c *APIClient) getVersion() int {
+	return c.cmpVersion
 }
 
 // prepareRequest build the request
@@ -268,6 +227,9 @@ func (c *APIClient) prepareRequest(
 
 	// Add the Authentication Token to header.
 	if ctx != nil {
+		// Set auth token. This implementation is temporary fix. Need to put
+		// this in a goroutine or implement cache in cmp-api
+		c.tokenFunc(&ctx, c.meta)
 		// add context to the request
 		localVarRequest = localVarRequest.WithContext(ctx)
 		// Basic HTTP Authentication
@@ -305,147 +267,4 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 	}
 
 	return errors.New("undefined response type")
-}
-
-// Add a file to the multipart request
-func addFile(w *multipart.Writer, fieldName, path string) error {
-	file, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
-	if err != nil {
-		return err
-	}
-	_, err = io.Copy(part, file)
-
-	return err
-}
-
-// Set request body from an interface{}
-func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
-	if bodyBuf == nil {
-		bodyBuf = &bytes.Buffer{}
-	}
-
-	switch v := body.(type) {
-	case io.Reader:
-		_, err = bodyBuf.ReadFrom(v)
-	case []byte:
-		_, err = bodyBuf.Write(v)
-	case string:
-		_, err = bodyBuf.WriteString(v)
-	case *string:
-		_, err = bodyBuf.WriteString(*v)
-	default:
-		if jsonCheck.MatchString(contentType) {
-			err = json.NewEncoder(bodyBuf).Encode(body)
-		} else if xmlCheck.MatchString(contentType) {
-			err = xml.NewEncoder(bodyBuf).Encode(body)
-		}
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	if bodyBuf.Len() == 0 {
-		err = fmt.Errorf("invalid body type %s", contentType)
-
-		return nil, err
-	}
-
-	return bodyBuf, nil
-}
-
-// detectContentType method is used to figure out `Request.Body` content type for request header
-func detectContentType(body interface{}) string {
-	contentType := "text/plain; charset=utf-8"
-	kind := reflect.TypeOf(body).Kind()
-
-	switch kind {
-	case reflect.Struct, reflect.Map, reflect.Ptr:
-		contentType = "application/json; charset=utf-8"
-	case reflect.String:
-		contentType = "text/plain; charset=utf-8"
-	default:
-		if b, ok := body.([]byte); ok {
-			contentType = http.DetectContentType(b)
-		} else if kind == reflect.Slice {
-			contentType = "application/json; charset=utf-8"
-		}
-	}
-
-	return contentType
-}
-
-// Ripped from https://github.com/gregjones/httpcache/blob/master/httpcache.go
-type cacheControl map[string]string
-
-func parseCacheControl(headers http.Header) cacheControl {
-	cc := cacheControl{}
-	ccHeader := headers.Get("Cache-Control")
-	for _, part := range strings.Split(ccHeader, ",") {
-		part = strings.Trim(part, " ")
-		if part == "" {
-			continue
-		}
-		if strings.ContainsRune(part, '=') {
-			keyval := strings.Split(part, "=")
-			cc[strings.Trim(keyval[0], " ")] = strings.Trim(keyval[1], ",")
-		} else {
-			cc[part] = ""
-		}
-	}
-
-	return cc
-}
-
-// CacheExpires helper function to determine remaining time before repeating a request.
-func CacheExpires(r *http.Response) time.Time {
-	// Figure out when the cache expires.
-	var expires time.Time
-	now, err := time.Parse(time.RFC1123, r.Header.Get("date"))
-	if err != nil {
-		return time.Now()
-	}
-	respCacheControl := parseCacheControl(r.Header)
-	if maxAge, ok := respCacheControl["max-age"]; ok {
-		if lifetime, err := time.ParseDuration(maxAge + "s"); err != nil {
-			expires = now
-		} else {
-			expires = now.Add(lifetime)
-		}
-	} else if expiresHeader := r.Header.Get("Expires"); expiresHeader != "" {
-		expires, err = time.Parse(time.RFC1123, expiresHeader)
-		if err != nil {
-			expires = now
-		}
-	}
-
-	return expires
-}
-
-// GenericSwaggerError Provides access to the body, error and model on returned errors.
-type GenericSwaggerError struct {
-	body  []byte
-	error string
-	model interface{}
-}
-
-// Error returns non-empty string if there was an error.
-func (e GenericSwaggerError) Error() string {
-	return e.error
-}
-
-// Body returns the raw bytes of the response
-func (e GenericSwaggerError) Body() []byte {
-	return e.body
-}
-
-// Model returns the unpacked model of the error
-func (e GenericSwaggerError) Model() interface{} {
-	return e.model
 }
