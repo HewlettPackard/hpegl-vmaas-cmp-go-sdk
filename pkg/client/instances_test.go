@@ -62,6 +62,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					Name:  "Instance_Clone",
 				}
 				// pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -95,6 +96,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					Name:  "Instance_Clone",
 				}
 				// pBody := []byte(`{"ZoneID":"1","CloneName":"Instance_Clone"}`)
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -138,6 +140,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					},
 					Name: "Instance_Clone",
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -214,6 +217,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					CloneName: "Instance_Create",
 				}
 
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -245,6 +249,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -281,6 +286,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -340,6 +346,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 					"message": "Successfully Deleted the instance"
 				}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -361,6 +368,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 				path := mockHost + "/v1beta1/instances/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(ctx, path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -383,6 +391,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(ctx, path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -452,6 +461,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				pBody := &models.ImportSnapshotBody{
 					StorageProviderID: 1,
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -478,6 +488,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				pBody := &models.ImportSnapshotBody{
 					StorageProviderID: 1,
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -509,6 +520,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				pBody := &models.ImportSnapshotBody{
 					StorageProviderID: 1,
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -595,6 +607,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 					}},
 					DeleteOriginalVolumes: false,
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -636,6 +649,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 					}},
 					DeleteOriginalVolumes: false,
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -683,6 +697,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 					}},
 					DeleteOriginalVolumes: false,
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -762,6 +777,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 						Description: "test_snapshot_description",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -797,6 +813,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 						Description: "test_snapshot_description",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -838,6 +855,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 						Description: "test_snapshot_description",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -916,6 +934,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 						Description: "test_update_instance_description",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -950,6 +969,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 						Description: "test_update_instance_description",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -990,6 +1010,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 						Description: "test_update_instance_description",
 					},
 				}
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, &pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -1052,6 +1073,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -1076,6 +1098,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1099,6 +1122,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -1166,6 +1190,7 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 						"success": true
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -1196,6 +1221,7 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 				path := mockHost + "/v1beta1/instances"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -1222,6 +1248,7 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -1287,6 +1314,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -1312,6 +1340,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 				path := mockHost + "/v1beta1/instances/1/snapshots"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1334,6 +1363,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -1406,6 +1436,7 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 					]
 				}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -1438,6 +1469,7 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 				path := mockHost + "/v1beta1/instances/1/history"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1460,6 +1492,7 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -1521,6 +1554,7 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 					"success": true
 				}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -1541,6 +1575,7 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1563,6 +1598,7 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -1621,6 +1657,7 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 					"success": true
 				}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -1641,6 +1678,7 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1663,6 +1701,7 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -1721,6 +1760,7 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 					"success": true
 				}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -1741,6 +1781,7 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1763,6 +1804,7 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -1821,6 +1863,7 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 					"success": true
 				}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{
@@ -1841,6 +1884,7 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -1863,6 +1907,7 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 				m.EXPECT().callAPI(req).Return(&http.Response{

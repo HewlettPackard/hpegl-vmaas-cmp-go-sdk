@@ -49,6 +49,7 @@ func TestPlansAPIService_GetAllServicePlans(t *testing.T) {
 					}
 				`)))
 				// mock the context only since it is not validated in this function
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -78,6 +79,7 @@ func TestPlansAPIService_GetAllServicePlans(t *testing.T) {
 				path := mockHost + "/v1beta1/service-plans"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -104,6 +106,7 @@ func TestPlansAPIService_GetAllServicePlans(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,

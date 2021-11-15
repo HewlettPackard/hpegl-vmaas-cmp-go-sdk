@@ -46,6 +46,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 						}
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -69,6 +70,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 				path := mockHost + "/v1beta1/groups/1"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -91,6 +93,7 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -158,6 +161,7 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 						}]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -187,6 +191,7 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 				path := mockHost + "/v1beta1/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,
@@ -213,6 +218,7 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 						]
 					}
 				`)))
+				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
 					getURLValues(map[string]string{
 						"name": templateName,

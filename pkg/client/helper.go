@@ -74,6 +74,10 @@ func ParseError(resp *http.Response) error {
 }
 
 func parseVersion(version string) (int, error) {
+	if version == "" {
+		return 0, nil
+	}
+
 	versionSplit := strings.Split(version, ".")
 
 	mul := 10000
