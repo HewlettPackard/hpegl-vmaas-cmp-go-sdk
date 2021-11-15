@@ -38,6 +38,7 @@ func (a *api) do(ctx context.Context, request interface{}, queryParams map[strin
 		if a.client.getVersion() == 0 {
 			return fmt.Errorf("failed to get meta data for cmp-sdk")
 		}
+
 		return errVersion
 	}
 	var (
