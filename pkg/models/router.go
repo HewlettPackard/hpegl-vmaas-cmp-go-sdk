@@ -266,3 +266,17 @@ type GetSpecificRouterFirewallRuleGroup struct {
 	GroupLayer   string `json:"groupLayer"`
 	IsDeprecated bool   `json:"-" tf:"is_deprecated,computed"`
 }
+
+type CreateStaticRoute struct {
+	StaticRoute StaticRoute `json:"networkRoute"`
+}
+type StaticRoute struct {
+	Name         string `json:"name" tf:"name"`
+	Description  string `json:"description" tf:"description"`
+	Enabled      bool   `json:"enabled" tf:"enabled"`
+	DefaultRoute bool   `json:"defaultRoute" tf:"default_route"`
+	Source       string `json:"source" tf:"network"`
+	Destination  string `json:"destination" tf:"next_hop"`
+	NetworkMtu   string `json:"networkMtu" tf:"mtu"`
+	Priority     int    `json:"priority" tf:"priority"`
+}

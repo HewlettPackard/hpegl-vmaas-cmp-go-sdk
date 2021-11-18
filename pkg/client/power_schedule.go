@@ -5,7 +5,6 @@ package client
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -31,8 +30,7 @@ func (a *PowerSchedulesAPIService) GetAllPowerSchedules(ctx context.Context,
 
 	allPowerScheduleAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.PowerSchedulPath),
+		path:   consts.PowerSchedulPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {

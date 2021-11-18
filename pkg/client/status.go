@@ -5,7 +5,6 @@ package client
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -21,8 +20,7 @@ func (a *CmpStatus) GetCmpVersion(ctx context.Context) (models.CmpVersionModel, 
 
 	allCloudDSAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.WhoamiPath),
+		path:   consts.WhoamiPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {

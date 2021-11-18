@@ -5,7 +5,6 @@ package client
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -22,8 +21,7 @@ func (e *EnvironmentAPIService) GetAllEnvironment(ctx context.Context,
 
 	allEnvAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", e.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.EnvironmentPath),
+		path:   consts.EnvironmentPath,
 		client: e.Client,
 
 		jsonParser: func(body []byte) error {

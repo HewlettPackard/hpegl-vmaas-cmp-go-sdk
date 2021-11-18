@@ -26,9 +26,8 @@ func (r *RouterAPIService) GetAllRouter(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.NetworksPath, consts.NetworkRouterPath),
-		client: r.Client,
+		path:              fmt.Sprintf("%s/%s", consts.NetworksPath, consts.NetworkRouterPath),
+		client:            r.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &routerResp)
 		},
@@ -46,7 +45,7 @@ func (r *RouterAPIService) GetSpecificRouter(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%s/%d",
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -66,9 +65,8 @@ func (r *RouterAPIService) CreateRouter(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
-		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.NetworksPath, consts.NetworkRouterPath),
-		client: r.Client,
+		path:              fmt.Sprintf("%s/%s", consts.NetworksPath, consts.NetworkRouterPath),
+		client:            r.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &routerResp)
 		},
@@ -87,7 +85,7 @@ func (r *RouterAPIService) UpdateRouter(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%s/%d",
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -107,7 +105,7 @@ func (r *RouterAPIService) DeleteRouter(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "DELETE",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%s/%d",
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -127,9 +125,8 @@ func (r *RouterAPIService) GetRouterTypes(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
-		path: fmt.Sprintf("%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.NetworkRouterTypePath),
-		client: r.Client,
+		path:              consts.NetworkRouterTypePath,
+		client:            r.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &routerResp)
 		},
@@ -147,7 +144,7 @@ func (r *RouterAPIService) GetNetworkServices(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s", consts.NetworksPath,
 			consts.NetworkServicePath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -168,7 +165,7 @@ func (r *RouterAPIService) CreateRouterNat(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -188,8 +185,7 @@ func (r *RouterAPIService) GetSpecificRouterNat(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
-			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -210,8 +206,7 @@ func (r *RouterAPIService) UpdateRouterNat(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
-			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -231,8 +226,7 @@ func (r *RouterAPIService) DeleteRouterNat(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "DELETE",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
-			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -253,7 +247,7 @@ func (r *RouterAPIService) CreateRouterFirewallRuleGroup(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s", r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -273,8 +267,7 @@ func (r *RouterAPIService) GetSpecificRouterFirewallRuleGroup(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
-			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath, firewallGroupID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
@@ -294,9 +287,28 @@ func (r *RouterAPIService) DeleteRouterFirewallRuleGroup(
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "DELETE",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
-			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath, firewallGroupID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &firewallGroupResp)
+		},
+	}
+	err := routerAPI.do(ctx, nil, nil)
+
+	return firewallGroupResp, err
+}
+
+func (r *RouterAPIService) CreateStaticRoute(
+	ctx context.Context,
+	routerID int,
+) (models.SuccessOrErrorMessage, error) {
+	firewallGroupResp := models.SuccessOrErrorMessage{}
+	routerAPI := &api{
+		compatibleVersion: routerCompatibleVersion,
+		method:            "POST",
+		path: fmt.Sprintf("%s/%s/%d", consts.NetworksPath,
+			consts.NetworkRouterPath, routerID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &firewallGroupResp)

@@ -23,8 +23,8 @@ func (d *DomainAPIService) GetAllDomains(
 	var domainResp models.GetAllDomains
 	networkAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s",
-			d.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.DomainPath),
+		path: fmt.Sprintf("%s/%s",
+			consts.NetworksPath, consts.DomainPath),
 		client: d.Client,
 
 		jsonParser: func(body []byte) error {
@@ -43,8 +43,8 @@ func (d *DomainAPIService) GetSpecificDomain(
 	var domainResp models.GetSpecificDomain
 	networkAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d",
-			d.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.DomainPath, domainID),
+		path: fmt.Sprintf("%s/%s/%d",
+			consts.NetworksPath, consts.DomainPath, domainID),
 		client: d.Client,
 
 		jsonParser: func(body []byte) error {

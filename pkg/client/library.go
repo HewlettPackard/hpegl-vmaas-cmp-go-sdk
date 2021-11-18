@@ -5,7 +5,6 @@ package client
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -30,8 +29,7 @@ func (a *LibraryAPIService) GetAllLayouts(ctx context.Context,
 
 	allLayoutsAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.LibraryLayoutPath),
+		path:   consts.LibraryLayoutPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
@@ -49,8 +47,7 @@ func (a *LibraryAPIService) GetAllInstanceTypes(ctx context.Context,
 
 	allInstTypeAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.LibraryInstanceTypesPath),
+		path:   consts.LibraryInstanceTypesPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
