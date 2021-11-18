@@ -13,6 +13,7 @@ import (
 	"reflect"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -37,7 +38,8 @@ func TestRouterAPIService_GetAllRouters(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -76,7 +78,8 @@ func TestRouterAPIService_GetAllRouters(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -94,7 +97,8 @@ func TestRouterAPIService_GetAllRouters(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -163,7 +167,8 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/network-router-types"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/network-router-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -202,7 +207,8 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/network-router-types"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/network-router-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -220,7 +226,8 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/network-router-types"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/network-router-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -288,7 +295,8 @@ func TestRouterAPIService_CreateRouter(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers"
 				method := "POST"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -364,7 +372,8 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "PUT"
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
@@ -403,7 +412,8 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "PUT"
 
 				pBody := models.CreateRouterRequest{
@@ -427,7 +437,8 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "PUT"
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
@@ -500,7 +511,8 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 			name:     "Normal Test case 1: Get a specific router",
 			routerID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -529,7 +541,8 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 			name:     "Failed Test case 2: Error in prepare request",
 			routerID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -543,7 +556,8 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 			name:     "Failed Test case 3: Error in callAPI",
 			routerID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -607,7 +621,8 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 			name:     "Normal Test case 1: Delete a  router",
 			routerID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -636,7 +651,8 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 			name:     "Failed Test case 2: Error in prepare request",
 			routerID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -650,7 +666,8 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 			name:     "Failed Test case 3: Error in callAPI",
 			routerID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -716,7 +733,8 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/services"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/services"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -755,7 +773,8 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/services"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/services"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -773,7 +792,8 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/services"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/services"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -844,7 +864,8 @@ func TestRouterAPIService_DeleteRouterNat(t *testing.T) {
 				natID:    2,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1/nats/2"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/nats/2"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -912,7 +933,8 @@ func TestRouterAPIService_GetSpecificRouterNat(t *testing.T) {
 				natID:    2,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1/nats/2"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/nats/2"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -990,7 +1012,8 @@ func TestRouterAPIService_CreateRouterNat(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1/nats"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/nats"
 				method := "POST"
 				headers := getDefaultHeaders()
 				reqModel := models.CreateRouterNatRequest{
@@ -1075,7 +1098,8 @@ func TestRouterAPIService_UpdateRouterNat(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1/nats/2"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/nats/2"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				reqModel := models.CreateRouterNatRequest{
@@ -1157,7 +1181,8 @@ func TestRouterAPIService_DeleteRouterFirewallRuleGroup(t *testing.T) {
 				firewallGroupID: 2,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups/2"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/firewall-rule-groups/2"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1225,7 +1250,8 @@ func TestRouterAPIService_GetSpecificRouterFirewallRuleGroup(t *testing.T) {
 				firewallGroupID: 2,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups/2"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/firewall-rule-groups/2"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1303,7 +1329,8 @@ func TestRouterAPIService_CreateRouterFirewallRuleGroup(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/routers/1/firewall-rule-groups"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/firewall-rule-groups"
 				method := "POST"
 				headers := getDefaultHeaders()
 				reqModel := models.CreateRouterFirewallRuleGroupRequest{

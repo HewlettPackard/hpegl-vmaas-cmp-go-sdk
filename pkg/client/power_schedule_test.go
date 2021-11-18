@@ -12,6 +12,7 @@ import (
 	"reflect"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -36,7 +37,8 @@ func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/power-schedules"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/power-schedules"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -75,7 +77,8 @@ func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/power-schedules"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/power-schedules"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -93,7 +96,8 @@ func TestPowerSchedulesAPIService_GetAllPowerSchedules(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/power-schedules"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/power-schedules"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

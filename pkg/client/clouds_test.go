@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	"github.com/golang/mock/gomock"
 )
@@ -38,7 +39,8 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/data-stores"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/data-stores"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -79,7 +81,8 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/data-stores"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/data-stores"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -98,7 +101,8 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/data-stores"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/data-stores"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -132,6 +136,7 @@ func TestCloudsAPIService_GetAllCloudDataStores(t *testing.T) {
 			},
 			cloudID: 0,
 			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
 				m.EXPECT().getVersion().Return(999999)
 			},
 			want:    models.DataStoresResp{},
@@ -180,7 +185,8 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/resource-pools"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/resource-pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -220,7 +226,8 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/resource-pools"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/resource-pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -239,7 +246,8 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/resource-pools"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/resource-pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -272,6 +280,7 @@ func TestCloudsAPIService_GetAllCloudResourcePools(t *testing.T) {
 			},
 			cloudID: 0,
 			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
 				m.EXPECT().getVersion().Return(999999)
 			},
 			want:    models.ResourcePoolsResp{},
@@ -318,7 +327,8 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -357,7 +367,8 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -375,7 +386,8 @@ func TestCloudsAPIService_GetAllClouds(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -445,7 +457,8 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/folders"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/folders"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -485,7 +498,8 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/folders"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/folders"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -504,7 +518,8 @@ func TestCloudsAPIService_GetAllCloudFolders(t *testing.T) {
 			},
 			cloudID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/folders"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/folders"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -571,7 +586,8 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 			cloudID:         1,
 			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/options/zoneNetworkOptions"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/options/zoneNetworkOptions"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -614,7 +630,8 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 			cloudID:         1,
 			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/options/zoneNetworkOptions"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/options/zoneNetworkOptions"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -632,7 +649,8 @@ func TestCloudsAPIService_GetAllCloudNetworks(t *testing.T) {
 			cloudID:         1,
 			provisionTypeID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/options/zoneNetworkOptions"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/options/zoneNetworkOptions"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -701,7 +719,8 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 			cloudID:  1,
 			folderID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/folders/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/folders/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -735,7 +754,8 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 			cloudID:  1,
 			folderID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/folders/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/folders/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -750,7 +770,8 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 			cloudID:  1,
 			folderID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/zones/1/folders/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/zones/1/folders/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -779,6 +800,7 @@ func TestCloudsAPIService_GetSpecificCloudFolder(t *testing.T) {
 			cloudID:  0,
 			folderID: 1,
 			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
 				m.EXPECT().getVersion().Return(999999)
 			},
 			want:    models.GetSpecificCloudFolder{},

@@ -12,6 +12,7 @@ import (
 	"reflect"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -34,7 +35,8 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 			name:    "Normal Test case 1: Get a specific group",
 			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/groups/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/groups/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -67,7 +69,8 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 			name:    "Failed Test case 2: Error in prepare requst",
 			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/groups/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/groups/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -81,7 +84,8 @@ func TestGroupsAPIService_GetASpecificGroup(t *testing.T) {
 			name:    "Failed Test case 3: Error in callAPI",
 			groupID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/groups/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/groups/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -149,7 +153,8 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/groups"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -188,7 +193,8 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/groups"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -206,7 +212,8 @@ func TestGroupsAPIService_GetAllGroups(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/groups"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/groups"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

@@ -12,6 +12,7 @@ import (
 	"reflect"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -36,7 +37,8 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -77,7 +79,8 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -95,7 +98,8 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -163,7 +167,8 @@ func TestNetworksAPIService_CreateNetwork(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks"
 				method := "POST"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -249,7 +254,8 @@ func TestNetworksAPIService_UpdateNetwork(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/1"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -316,7 +322,8 @@ func TestNetworksAPIService_GetNetworkProxy(t *testing.T) {
 				"name": "NSXT",
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/proxies"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/proxies"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -391,7 +398,8 @@ func TestNetworksAPIService_GetSpecificNetwork(t *testing.T) {
 			name:      "Normal Test case 1: Get specific network",
 			networkID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -424,7 +432,8 @@ func TestNetworksAPIService_GetSpecificNetwork(t *testing.T) {
 			name:      "Failed Test case 2: Error in prepare request",
 			networkID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -438,7 +447,8 @@ func TestNetworksAPIService_GetSpecificNetwork(t *testing.T) {
 			name:      "Failed Test case 3: Error in callAPI",
 			networkID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -503,7 +513,8 @@ func TestNetworksAPIService_DeleteNetwork(t *testing.T) {
 			name:      "Normal Test case 1: Delete a network",
 			networkID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -532,7 +543,8 @@ func TestNetworksAPIService_DeleteNetwork(t *testing.T) {
 			name:      "Failed Test case 2: Error in prepare request",
 			networkID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -546,7 +558,8 @@ func TestNetworksAPIService_DeleteNetwork(t *testing.T) {
 			name:      "Failed Test case 3: Error in callAPI",
 			networkID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -614,7 +627,8 @@ func TestNetworksAPIService_GetNetworkType(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/network-types"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/network-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -653,7 +667,8 @@ func TestNetworksAPIService_GetNetworkType(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/network-types"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/network-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -671,7 +686,8 @@ func TestNetworksAPIService_GetNetworkType(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/network-types"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/network-types"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -741,7 +757,8 @@ func TestNetworksAPIService_GetNetworkPool(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/pools"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -780,7 +797,8 @@ func TestNetworksAPIService_GetNetworkPool(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/pools"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -798,7 +816,8 @@ func TestNetworksAPIService_GetNetworkPool(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/pools"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/pools"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -865,7 +884,8 @@ func TestNetworksAPIService_GetSpecificNetworkPool(t *testing.T) {
 			name:          "Normal Test case 1: Get specific network",
 			networkPoolID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/pools/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/pools/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -898,7 +918,8 @@ func TestNetworksAPIService_GetSpecificNetworkPool(t *testing.T) {
 			name:          "Failed Test case 2: Error in prepare request",
 			networkPoolID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/pools/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/pools/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -912,7 +933,8 @@ func TestNetworksAPIService_GetSpecificNetworkPool(t *testing.T) {
 			name:          "Failed Test case 3: Error in callAPI",
 			networkPoolID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/pools/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/pools/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

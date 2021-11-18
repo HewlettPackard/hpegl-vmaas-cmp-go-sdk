@@ -12,6 +12,7 @@ import (
 	"reflect"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -35,7 +36,8 @@ func TestDomainAPIService_GetAllDomains(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/domains"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/domains"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -74,7 +76,8 @@ func TestDomainAPIService_GetAllDomains(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/domains"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/domains"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -92,7 +95,8 @@ func TestDomainAPIService_GetAllDomains(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/domains"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/domains"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -159,7 +163,8 @@ func TestDomainAPIService_GetSpecificDomain(t *testing.T) {
 			name:     "Normal Test case 1: Get a specific domain",
 			domainID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/domains/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/domains/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -192,7 +197,8 @@ func TestDomainAPIService_GetSpecificDomain(t *testing.T) {
 			name:     "Failed Test case 2: error in prepare request",
 			domainID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/domains/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/domains/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -206,7 +212,8 @@ func TestDomainAPIService_GetSpecificDomain(t *testing.T) {
 			name:     "Failed Test case 3: error in callAPI",
 			domainID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/networks/domains/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/domains/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
