@@ -260,14 +260,18 @@ type GetSpecificRouterFirewallRuleGroup struct {
 type CreateRouterRoute struct {
 	NetworkRoute RouterRouteBody `json:"networkRoute"`
 }
+
 type RouterRouteBody struct {
+	ID           int    `json:"-" tf:"id,computed"`
+	RouterID     int    `json:"-" tf:"router_id"`
+	IsDeprecated bool   `json:"-" tf:"is_deprecated,computed"`
 	Name         string `json:"name" tf:"name"`
 	Description  string `json:"description" tf:"description"`
 	Enabled      bool   `json:"enabled" tf:"enabled"`
 	DefaultRoute bool   `json:"defaultRoute" tf:"default_route"`
 	Source       string `json:"source" tf:"network"`
 	Destination  string `json:"destination" tf:"next_hop"`
-	NetworkMtu   string `json:"networkMtu" tf:"mtu"`
+	NetworkMtu   int    `json:"networkMtu" tf:"mtu"`
 	Priority     int    `json:"priority" tf:"priority"`
 }
 

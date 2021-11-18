@@ -68,6 +68,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 func (c *APIClient) getHost() string {
 	return c.cfg.Host
 }
+
 func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	c.meta = meta
 	c.tokenFunc = fn
