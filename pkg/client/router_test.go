@@ -997,7 +997,7 @@ func TestRouterAPIService_CreateRouterNat(t *testing.T) {
 		name    string
 		args    args
 		given   func(m *MockAPIClientHandler)
-		want    models.CreateRouterNatResponse
+		want    models.SuccessOrErrorMessage
 		wantErr bool
 	}{
 		{
@@ -1039,9 +1039,9 @@ func TestRouterAPIService_CreateRouterNat(t *testing.T) {
 					Body:       respBody,
 				}, nil)
 			},
-			want: models.CreateRouterNatResponse{
-				IDModel:               models.IDModel{ID: 2},
-				SuccessOrErrorMessage: models.SuccessOrErrorMessage{Success: true},
+			want: models.SuccessOrErrorMessage{
+				IDModel: models.IDModel{ID: 2},
+				Success: true,
 			},
 			wantErr: false,
 		},
@@ -1082,7 +1082,7 @@ func TestRouterAPIService_UpdateRouterNat(t *testing.T) {
 		name    string
 		args    args
 		given   func(m *MockAPIClientHandler)
-		want    models.CreateRouterNatResponse
+		want    models.SuccessOrErrorMessage
 		wantErr bool
 	}{
 		{
@@ -1125,10 +1125,8 @@ func TestRouterAPIService_UpdateRouterNat(t *testing.T) {
 					Body:       respBody,
 				}, nil)
 			},
-			want: models.CreateRouterNatResponse{
-				SuccessOrErrorMessage: models.SuccessOrErrorMessage{
-					Success: true,
-				},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
 				IDModel: models.IDModel{
 					ID: 2,
 				},
@@ -1314,7 +1312,7 @@ func TestRouterAPIService_CreateRouterFirewallRuleGroup(t *testing.T) {
 		name    string
 		args    args
 		given   func(m *MockAPIClientHandler)
-		want    models.CreateRouterFirewallRuleGroupResponse
+		want    models.SuccessOrErrorMessage
 		wantErr bool
 	}{
 		{
@@ -1356,9 +1354,9 @@ func TestRouterAPIService_CreateRouterFirewallRuleGroup(t *testing.T) {
 					Body:       respBody,
 				}, nil)
 			},
-			want: models.CreateRouterFirewallRuleGroupResponse{
-				IDModel:               models.IDModel{ID: 2},
-				SuccessOrErrorMessage: models.SuccessOrErrorMessage{Success: true},
+			want: models.SuccessOrErrorMessage{
+				IDModel: models.IDModel{ID: 2},
+				Success: true,
 			},
 			wantErr: false,
 		},

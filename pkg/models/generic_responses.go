@@ -29,6 +29,7 @@ type ErrUnauthorized struct {
 
 // Success Or Failure Message
 type SuccessOrErrorMessage struct {
+	IDModel
 	Success bool        `json:"success,omitempty"`
 	Msg     string      `json:"msg,omitempty"`
 	Message string      `json:"message,omitempty"`

@@ -160,8 +160,8 @@ func (r *RouterAPIService) CreateRouterNat(
 	ctx context.Context,
 	routerID int,
 	request models.CreateRouterNatRequest,
-) (models.CreateRouterNatResponse, error) {
-	natResp := models.CreateRouterNatResponse{}
+) (models.SuccessOrErrorMessage, error) {
+	natResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
@@ -201,8 +201,8 @@ func (r *RouterAPIService) UpdateRouterNat(
 	ctx context.Context,
 	routerID, natID int,
 	req models.CreateRouterNatRequest,
-) (models.CreateRouterNatResponse, error) {
-	natResp := models.CreateRouterNatResponse{}
+) (models.SuccessOrErrorMessage, error) {
+	natResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "PUT",
@@ -242,8 +242,8 @@ func (r *RouterAPIService) CreateRouterFirewallRuleGroup(
 	ctx context.Context,
 	routerID int,
 	request models.CreateRouterFirewallRuleGroupRequest,
-) (models.CreateRouterFirewallRuleGroupResponse, error) {
-	firewallGroupResp := models.CreateRouterFirewallRuleGroupResponse{}
+) (models.SuccessOrErrorMessage, error) {
+	firewallGroupResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
@@ -299,22 +299,63 @@ func (r *RouterAPIService) DeleteRouterFirewallRuleGroup(
 	return firewallGroupResp, err
 }
 
-func (r *RouterAPIService) CreateStaticRoute(
+func (r *RouterAPIService) CreateRouterRoute(
 	ctx context.Context,
 	routerID int,
+	req models.CreateRouterRoute,
 ) (models.SuccessOrErrorMessage, error) {
-	firewallGroupResp := models.SuccessOrErrorMessage{}
+	resp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
-		path: fmt.Sprintf("%s/%s/%d", consts.NetworksPath,
-			consts.NetworkRouterPath, routerID),
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RouterRoutePath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &firewallGroupResp)
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := routerAPI.do(ctx, req, nil)
+
+	return resp, err
+}
+
+func (r *RouterAPIService) GetSpecificRouterRoute(
+	ctx context.Context,
+	routerID, routeID int,
+) (models.GetSpecificRouterRoute, error) {
+	resp := models.GetSpecificRouterRoute{}
+	routerAPI := &api{
+		compatibleVersion: routerCompatibleVersion,
+		method:            "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RouterRoutePath, routeID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return firewallGroupResp, err
+	return resp, err
+}
+
+func (r *RouterAPIService) DeleteRouterRoute(
+	ctx context.Context,
+	routerID, routeID int,
+) (models.SuccessOrErrorMessage, error) {
+	resp := models.SuccessOrErrorMessage{}
+	routerAPI := &api{
+		compatibleVersion: routerCompatibleVersion,
+		method:            "DELETE",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RouterRoutePath, routeID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := routerAPI.do(ctx, nil, nil)
+
+	return resp, err
 }
