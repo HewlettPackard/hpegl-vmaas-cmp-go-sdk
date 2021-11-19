@@ -18,7 +18,7 @@ type CmpStatus struct {
 func (a *CmpStatus) GetCmpVersion(ctx context.Context) (models.CmpVersionModel, error) {
 	checkResp := models.CmpVersionModel{}
 
-	allCloudDSAPI := &api{
+	statusAPI := &api{
 		method: "GET",
 		path:   consts.WhoamiPath,
 		client: a.Client,
@@ -27,7 +27,7 @@ func (a *CmpStatus) GetCmpVersion(ctx context.Context) (models.CmpVersionModel, 
 			return json.Unmarshal(body, &checkResp)
 		},
 	}
-	err := allCloudDSAPI.do(ctx, nil, nil)
+	err := statusAPI.do(ctx, nil, nil)
 
 	return checkResp, err
 }
