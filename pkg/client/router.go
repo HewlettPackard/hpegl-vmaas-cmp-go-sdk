@@ -306,7 +306,7 @@ func (r *RouterAPIService) CreateRouterRoute(
 ) (models.SuccessOrErrorMessage, error) {
 	resp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
-		compatibleVersion: routerCompatibleVersion,
+		compatibleVersion: "5.2.12",
 		method:            "POST",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RouterRoutePath),
@@ -326,7 +326,7 @@ func (r *RouterAPIService) GetSpecificRouterRoute(
 ) (models.GetSpecificRouterRoute, error) {
 	resp := models.GetSpecificRouterRoute{}
 	routerAPI := &api{
-		compatibleVersion: routerCompatibleVersion,
+		compatibleVersion: "5.2.12",
 		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RouterRoutePath, routeID),
@@ -346,7 +346,7 @@ func (r *RouterAPIService) DeleteRouterRoute(
 ) (models.SuccessOrErrorMessage, error) {
 	resp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
-		compatibleVersion: routerCompatibleVersion,
+		compatibleVersion: "5.2.12",
 		method:            "DELETE",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RouterRoutePath, routeID),
