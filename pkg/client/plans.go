@@ -15,6 +15,13 @@ type PlansAPIService struct {
 	Cfg    Configuration
 }
 
+/*
+PlansAPIService
+Get All Service Plans
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+ 	Passed from http.Request or context.Background().
+ * @param serviceInstanceID
+*/
 func (a *PlansAPIService) GetAllServicePlans(ctx context.Context,
 	param map[string]string) (models.ServicePlans, error) {
 	response := models.ServicePlans{}
