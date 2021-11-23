@@ -41,8 +41,8 @@ func (r *RouterAPIService) GetAllRouter(
 func (r *RouterAPIService) GetSpecificRouter(
 	ctx context.Context,
 	routerID int,
-) (models.GetNetworkRouter, error) {
-	routerResp := models.GetNetworkRouter{}
+) (models.GetSpecificRouterResp, error) {
+	routerResp := models.GetSpecificRouterResp{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
