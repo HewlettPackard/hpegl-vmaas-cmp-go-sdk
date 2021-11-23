@@ -62,7 +62,7 @@ func (n *NetworksAPIService) CreateNetwork(
 ) (models.CreateNetworkResponse, error) {
 	var networksResp models.CreateNetworkResponse
 	networkAPI := &api{
-		compatibleVersion: networkCompatibleVersion,
+		compatibleVersion: "5.2.13",
 		method:            "POST",
 		path:              consts.NetworksPath,
 		client:            n.Client,
@@ -162,7 +162,7 @@ func (n *NetworksAPIService) UpdateNetwork(
 ) (models.SuccessOrErrorMessage, error) {
 	var output models.SuccessOrErrorMessage
 	networkAPI := &api{
-		compatibleVersion: networkCompatibleVersion,
+		compatibleVersion: "5.2.13",
 		method:            "PUT",
 		path:              fmt.Sprintf("%s/%d", consts.NetworksPath, networkID),
 		client:            n.Client,
