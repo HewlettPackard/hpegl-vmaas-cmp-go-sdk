@@ -109,6 +109,9 @@ type CloudsResp struct {
 	Clouds []CloudRespBody `json:"zones"`
 }
 
+type GetSpecificCloud struct {
+	Cloud CloudRespBody `json:"zone"`
+}
 type ResourcePoolRespBody struct {
 	ID          int         `json:"id"`
 	Name        string      `json:"name"`

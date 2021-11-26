@@ -205,3 +205,24 @@ func (a *CloudsAPIService) GetSpecificCloudFolder(
 
 	return folder, err
 }
+
+func (a *CloudsAPIService) GetSpecificCloud(
+	ctx context.Context,
+	cloudID int,
+) (models.GetSpecificCloud, error) {
+	folder := models.GetSpecificCloud{}
+
+	folderAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%d",
+			consts.ZonePath, cloudID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &folder)
+		},
+	}
+	err := folderAPI.do(ctx, nil, nil)
+
+	return folder, err
+}
