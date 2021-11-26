@@ -319,7 +319,7 @@ type CreateRouterRequestBgpNeighborBody struct {
 	BfdEnabled         bool   `json:"bfdEnabled" tf:"bfd_enabled"`
 	BfdInterval        int    `json:"bfdInterval" tf:"bfd_interval"`
 	BfdMultiple        int    `json:"bfdMultiple" tf:"bfd_multiple"`
-	AllowAsIn          bool   `json:"allowAsIn" tf:"allows_in"`
+	AllowAsIn          bool   `json:"allowAsIn" tf:"allow_as_in"`
 	HopLimit           int    `json:"hopLimit" tf:"hop_limit"`
 	RestartMode        string `json:"restartMode" tf:"restart_mode"`
 	RouterID           int    `json:"-" tf:"router_id"`
