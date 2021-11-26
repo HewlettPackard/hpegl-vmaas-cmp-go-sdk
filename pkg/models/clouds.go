@@ -181,6 +181,9 @@ type DataStoresResp struct {
 	Datastores []DataStoresRespBody `json:"datastores"`
 }
 
+type GetSpecificCloudDataStores struct {
+	Datastores DataStoresRespBody `json:"datastore"`
+}
 type GetAllCloudNetworks struct {
 	Data DataGetNetworkInterface `json:"data"`
 }
