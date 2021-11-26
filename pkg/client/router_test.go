@@ -504,7 +504,7 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 		name     string
 		routerID int
 		given    func(m *MockAPIClientHandler)
-		want     models.GetNetworkRouter
+		want     models.GetSpecificRouterResp
 		wantErr  bool
 	}{
 		{
@@ -518,8 +518,10 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 				req, _ := http.NewRequest(method, path, nil)
 				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 					{
-						"id": 1,
-						"name": "test_template_get_a_specific_router"
+						"networkRouter":{
+							"id": 1,
+							"name": "test_template_get_a_specific_router"
+						}
 					}
 				`)))
 				m.EXPECT().getVersion().Return(999999)
@@ -531,55 +533,13 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 					Body:       respBody,
 				}, nil)
 			},
-			want: models.GetNetworkRouter{
-				ID:   1,
-				Name: templateName,
+			want: models.GetSpecificRouterResp{
+				NetworkRouter: models.GetNetworkRouter{
+					ID:   1,
+					Name: templateName,
+				},
 			},
 			wantErr: false,
-		},
-		{
-			name:     "Failed Test case 2: Error in prepare request",
-			routerID: 1,
-			given: func(m *MockAPIClientHandler) {
-				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
-				method := "GET"
-				headers := getDefaultHeaders()
-				m.EXPECT().getVersion().Return(999999)
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getURLValues(nil), url.Values{}, "", nil).Return(nil, errors.New("prepare error request"))
-			},
-			want:    models.GetNetworkRouter{},
-			wantErr: true,
-		},
-		{
-			name:     "Failed Test case 3: Error in callAPI",
-			routerID: 1,
-			given: func(m *MockAPIClientHandler) {
-				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
-				method := "GET"
-				headers := getDefaultHeaders()
-				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
-					{
-						"message": "Internal Server Error",
-						"recommendedActions": [
-							"Unknown error occurred. Please contact the administrator"
-						]
-					}
-				`)))
-				m.EXPECT().getVersion().Return(999999)
-				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
-					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
-
-				m.EXPECT().callAPI(req).Return(&http.Response{
-					StatusCode: 500,
-					Body:       respBody,
-				}, nil)
-			},
-			want:    models.GetNetworkRouter{},
-			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
