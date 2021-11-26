@@ -25,7 +25,7 @@ func (n *NetworksAPIService) GetAllNetworks(
 	var networksResp models.ListNetworksBody
 	networkAPI := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
+		path:   consts.NetworksPath,
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
@@ -44,7 +44,7 @@ func (n *NetworksAPIService) GetSpecificNetwork(
 	var networksResp models.GetSpecificNetworkBody
 	networkAPI := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
+		path:   fmt.Sprintf("%s/%d", consts.NetworksPath, networkID),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
@@ -64,7 +64,7 @@ func (n *NetworksAPIService) CreateNetwork(
 	networkAPI := &api{
 		compatibleVersion: "5.2.13",
 		method:            "POST",
-		path:              fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath),
+		path:              consts.NetworksPath,
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
@@ -84,7 +84,7 @@ func (n *NetworksAPIService) DeleteNetwork(
 	networkAPI := &api{
 		compatibleVersion: networkCompatibleVersion,
 		method:            "DELETE",
-		path:              fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
+		path:              fmt.Sprintf("%s/%d", consts.NetworksPath, networkID),
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
@@ -104,7 +104,7 @@ func (n *NetworksAPIService) GetNetworkType(
 	networkAPI := &api{
 		compatibleVersion: networkCompatibleVersion,
 		method:            "GET",
-		path:              fmt.Sprintf("%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworkTypePath),
+		path:              consts.NetworkTypePath,
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
@@ -123,7 +123,7 @@ func (n *NetworksAPIService) GetNetworkPool(
 	var resp models.GetNetworkPoolsResp
 	networkAPI := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.NetworkPoolPath),
+		path:   fmt.Sprintf("%s/%s", consts.NetworksPath, consts.NetworkPoolPath),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
@@ -142,8 +142,8 @@ func (n *NetworksAPIService) GetSpecificNetworkPool(
 	var resp models.GetSpecificNetworkPool
 	networkAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d",
-			n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.NetworkPoolPath, networkPoolID),
+		path: fmt.Sprintf("%s/%s/%d",
+			consts.NetworksPath, consts.NetworkPoolPath, networkPoolID),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
@@ -164,7 +164,7 @@ func (n *NetworksAPIService) UpdateNetwork(
 	networkAPI := &api{
 		compatibleVersion: "5.2.13",
 		method:            "PUT",
-		path:              fmt.Sprintf("%s/%s/%s/%d", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, networkID),
+		path:              fmt.Sprintf("%s/%d", consts.NetworksPath, networkID),
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
@@ -183,7 +183,7 @@ func (n *NetworksAPIService) GetNetworkProxy(
 	var proxyResp models.GetAllNetworkProxies
 	networkAPI := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%s/%s/%s", n.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath, consts.NetworkProxyPath),
+		path:   fmt.Sprintf("%s/%s", consts.NetworksPath, consts.NetworkProxyPath),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {

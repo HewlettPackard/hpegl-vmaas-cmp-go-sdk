@@ -198,11 +198,6 @@ type CreateRouterNatConfig struct {
 	Logging  bool   `json:"logging" tf:"logging"`
 }
 
-type CreateRouterNatResponse struct {
-	IDModel
-	SuccessOrErrorMessage
-}
-
 type GetSpecificRouterNatResponse struct {
 	GetSpecificRouterNat GetSpecificRouterNat `json:"networkRouterNAT"`
 }
@@ -247,11 +242,6 @@ type TfCreateRouterFirewallRuleGroup struct {
 	FirewallRuleGroup []CreateRouterFirewallRuleGroup `tf:"firewall_rule_group"`
 }
 
-type CreateRouterFirewallRuleGroupResponse struct {
-	IDModel
-	SuccessOrErrorMessage
-}
-
 type GetSpecificRouterFirewallRuleGroupResponse struct {
 	GetSpecificRouterFirewallRuleGroup GetSpecificRouterFirewallRuleGroup `json:"ruleGroup"`
 }
@@ -265,4 +255,45 @@ type GetSpecificRouterFirewallRuleGroup struct {
 	Priority     int    `json:"priority"`
 	GroupLayer   string `json:"groupLayer"`
 	IsDeprecated bool   `json:"-" tf:"is_deprecated,computed"`
+}
+
+type CreateRouterRoute struct {
+	NetworkRoute RouterRouteBody `json:"networkRoute"`
+}
+
+type RouterRouteBody struct {
+	ID           int    `json:"-" tf:"id,computed"`
+	RouterID     int    `json:"-" tf:"router_id"`
+	IsDeprecated bool   `json:"-" tf:"is_deprecated,computed"`
+	Name         string `json:"name" tf:"name"`
+	Description  string `json:"description" tf:"description"`
+	Enabled      bool   `json:"enabled" tf:"enabled"`
+	DefaultRoute bool   `json:"defaultRoute" tf:"default_route"`
+	Source       string `json:"source" tf:"network"`
+	Destination  string `json:"destination" tf:"next_hop"`
+	NetworkMtu   int    `json:"networkMtu" tf:"mtu"`
+	Priority     int    `json:"priority" tf:"priority"`
+}
+
+type GetSpecificRouterRoute struct {
+	NetworkRoute GetSpecificRouterRouteBody `json:"networkRoute"`
+}
+
+type GetSpecificRouterRouteBody struct {
+	ID              int    `json:"id" tf:"id,computed"`
+	Name            string `json:"name"`
+	Code            string `json:"code" tf:"code,computed"`
+	Description     string `json:"description"`
+	Priority        int    `json:"priority"`
+	RouteType       string `json:"routeType" tf:"route_type,computed"`
+	Source          string `json:"source"`
+	SourceType      string `json:"sourceType" tf:"source_type,computed"`
+	Destination     string `json:"destination"`
+	DestinationType string `json:"destinationType"`
+	DefaultRoute    bool   `json:"defaultRoute"`
+	NetworkMtu      int    `json:"networkMtu"`
+	ExternalID      string `json:"externalId" tf:"external_id,computed"`
+	ProviderID      string `json:"providerId" tf:"provider_id,computed"`
+	Enabled         bool   `json:"enabled"`
+	Visible         bool   `json:"visible"`
 }

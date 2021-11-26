@@ -35,6 +35,7 @@ type APIClientHandler interface {
 	callAPI(request *http.Request) (*http.Response, error)
 	SetMeta(meta interface{}, fn SetScmClientToken) error
 	getVersion() int
+	getHost() string
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
@@ -62,6 +63,10 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	}
 
 	return c
+}
+
+func (c *APIClient) getHost() string {
+	return c.cfg.Host
 }
 
 func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {

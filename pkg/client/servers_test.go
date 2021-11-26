@@ -12,6 +12,7 @@ import (
 	"reflect"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -36,7 +37,8 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/servers"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/servers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -77,7 +79,8 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/servers"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/servers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -95,7 +98,8 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/servers"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/servers"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -164,7 +168,8 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 			name:     "Normal Test case 1: Get a specific server",
 			serverID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/servers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/servers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -198,7 +203,8 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 			name:     "Failed test case 2: Error in call prepare request",
 			serverID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/servers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/servers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
@@ -213,7 +219,8 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 			name:     "Failed test case 3: error in callAPI",
 			serverID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/servers/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/servers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -242,6 +249,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 			name:     "Failed test case 4: server ID should be greater than 0",
 			serverID: 0,
 			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
 				m.EXPECT().getVersion().Return(999999)
 			},
 			want:    models.GetSpecificServerResponse{},

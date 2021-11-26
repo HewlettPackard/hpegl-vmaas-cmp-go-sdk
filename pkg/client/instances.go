@@ -6,10 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"net/url"
-	"strings"
 
 	"github.com/antihax/optional"
 
@@ -55,8 +51,7 @@ func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 
 	createInstanceAPI := &api{
 		method: "POST",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.InstancesPath),
+		path:   consts.InstancesPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
@@ -91,7 +86,7 @@ func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
 
 	delInstanceAPI := &api{
 		method: "DELETE",
-		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -119,7 +114,7 @@ func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
 
 	specificInstanceAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -171,8 +166,7 @@ func (a *InstancesAPIService) GetAllInstances(ctx context.Context,
 
 	instanceAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.InstancesPath),
+		path:   consts.InstancesPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
@@ -199,7 +193,7 @@ func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 
 	listSnapshotAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d/snapshots", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/snapshots",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -231,7 +225,7 @@ func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, in
 
 	importSnapshotAPI := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d/import-snapshot", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/import-snapshot",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -259,7 +253,7 @@ func (a *InstancesAPIService) RestartAnInstance(ctx context.Context,
 
 	restartInstAPI := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d/restart", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/restart",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -290,7 +284,7 @@ func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID
 
 	instanceAPI := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d/snapshot", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/snapshot",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -318,7 +312,7 @@ func (a *InstancesAPIService) StartAnInstance(ctx context.Context,
 
 	startInstanceAPI := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d/start", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/start",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -346,7 +340,7 @@ func (a *InstancesAPIService) StopAnInstance(ctx context.Context,
 
 	stopInstanceAPI := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d/stop", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/stop",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -373,7 +367,7 @@ func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
 	suspendResp := models.InstancePowerResponse{}
 	suspendInstanceAPI := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d/suspend", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/suspend",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -386,103 +380,13 @@ func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
 	return suspendResp, err
 }
 
-/*
-InstancesAPIService
-Undo the delete of an instance that is in pending removal state
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
-@return models.GetInstanceResponse
-*/
-func (a *InstancesAPIService) UndoDeleteOfAnInstance(ctx context.Context,
-	instanceID int) (models.GetInstanceResponse,
-	*http.Response, error) {
-	var (
-		localVarHTTPMethod  = strings.ToUpper("Put")
-		localVarPostBody    interface{}
-		localVarFileName    string
-		localVarFileBytes   []byte
-		localVarReturnValue models.GetInstanceResponse
-	)
-
-	// create path and map variables
-	localVarPath := fmt.Sprintf("%s/%s/%s/%d/cancel-removal", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-		consts.InstancesPath, instanceID)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	r, err := a.Client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody,
-		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-	if localVarHTTPResponse.StatusCode >= 300 {
-		return localVarReturnValue, localVarHTTPResponse, ParseError(localVarHTTPResponse)
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err == nil {
-			return localVarReturnValue, localVarHTTPResponse, err
-		}
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-/*
-InstancesAPIService
-It is possible to resize VMs within an instance by increasing their memory plan or storage limit.
-This is done by assigning a new service plan to the VM.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
- * @param optional nil or *InstancesAPIResizeAnInstanceOpts - Optional Parameters:
-     * @param "Body" (optional.Interface of ResizeInstanceBody) -
-@return models.GetInstanceResponse
-*/
-
 func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int,
 	request *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
 	resizeResp := models.ResizeInstanceResponse{}
 
 	instanceAPI := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d/resize", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/resize",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -504,7 +408,7 @@ func (a *InstancesAPIService) UpdatingAnInstance(
 
 	instanceAPI := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -523,7 +427,7 @@ func (a *InstancesAPIService) GetInstanceHistory(
 
 	historyAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d/history", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/history",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 
@@ -541,7 +445,7 @@ func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID in
 	var cloneResp models.SuccessOrErrorMessage
 	instanceClone := &api{
 		method: "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%d/clone", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/clone",
 			consts.InstancesPath, instanceID),
 		client: a.Client,
 

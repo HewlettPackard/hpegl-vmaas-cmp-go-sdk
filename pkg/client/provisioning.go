@@ -5,7 +5,6 @@ package client
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -22,8 +21,7 @@ func (a *ProvisioningAPIService) GetAllProvisioningTypes(ctx context.Context,
 
 	allProvisionAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.ProvisionTypesPath),
+		path:   consts.ProvisionTypesPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {

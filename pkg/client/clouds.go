@@ -32,7 +32,7 @@ func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID in
 
 	allCloudDSAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.ZonePath, cloudID, consts.DatstorePath),
 		client: a.Client,
 
@@ -69,7 +69,7 @@ func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID
 
 	allCloudRPoolAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d/resource-pools", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d/resource-pools",
 			consts.ZonePath, cloudID),
 		client: a.Client,
 
@@ -105,8 +105,7 @@ func (a *CloudsAPIService) GetAllClouds(ctx context.Context,
 
 	allCloudAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.ZonePath),
+		path:   consts.ZonePath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
@@ -124,7 +123,7 @@ func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
 
 	allCloudNetworkAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%s",
 			consts.OptionsPath, consts.ZoneNetworkOptionsPath),
 		client: a.Client,
 
@@ -150,8 +149,8 @@ func (a *CloudsAPIService) GetAllCloudFolders(
 
 	folderAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d/%s",
-			a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.ZonePath, cloudID, consts.FolderPath),
+		path: fmt.Sprintf("%s/%d/%s",
+			consts.ZonePath, cloudID, consts.FolderPath),
 		client: a.Client,
 		// jsonParser also stores folder response, since folders is not a local variable
 		jsonParser: func(body []byte) error {
@@ -183,8 +182,8 @@ func (a *CloudsAPIService) GetSpecificCloudFolder(
 
 	folderAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d/%s/%d",
-			a.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.ZonePath, cloudID, consts.FolderPath, folderID),
+		path: fmt.Sprintf("%s/%d/%s/%d",
+			consts.ZonePath, cloudID, consts.FolderPath, folderID),
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {

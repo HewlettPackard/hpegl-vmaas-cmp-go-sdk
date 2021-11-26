@@ -12,6 +12,7 @@ import (
 	"reflect"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -37,7 +38,8 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 			},
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/clone"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
 				headers := getDefaultHeaders()
@@ -85,7 +87,8 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 			},
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/clone"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
 				headers := getDefaultHeaders()
@@ -111,7 +114,8 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 			},
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/clone"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/clone"
 				method := "PUT"
 				// headers := getDefaultHeaders()
 				headers := getDefaultHeaders()
@@ -194,7 +198,8 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 				CloneName: "Instance_Create",
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "POST"
 				headers := getDefaultHeaders()
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
@@ -241,7 +246,8 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 				CloneName: "Instance_Create",
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "POST"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
@@ -263,7 +269,8 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 				CloneName: "Instance_Create",
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "POST"
 				headers := getDefaultHeaders()
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
@@ -336,7 +343,8 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 			name:       "Normal Test case 1: Delete an Instance",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -365,7 +373,8 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -379,7 +388,8 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -445,7 +455,8 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				StorageProviderID: 1,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/import-snapshot"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/import-snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
@@ -482,7 +493,8 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				StorageProviderID: 1,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/import-snapshot"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/import-snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				pBody := &models.ImportSnapshotBody{
@@ -502,7 +514,8 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				StorageProviderID: 1,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/import-snapshot"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/import-snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
@@ -582,7 +595,8 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 				DeleteOriginalVolumes: false,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/resize"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/resize"
 				method := "PUT"
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
@@ -637,7 +651,8 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 				DeleteOriginalVolumes: false,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/resize"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/resize"
 				method := "PUT"
 				pBody := &models.ResizeInstanceBody{
 					Instance: &models.ResizeInstanceBodyInstance{
@@ -670,7 +685,8 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 				DeleteOriginalVolumes: false,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/resize"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/resize"
 				method := "PUT"
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
@@ -753,7 +769,8 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/snapshot"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
@@ -804,7 +821,8 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/snapshot"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				pBody := &models.SnapshotBody{
@@ -830,7 +848,8 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/snapshot"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
@@ -912,7 +931,8 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "PUT"
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
@@ -960,7 +980,8 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "PUT"
 
 				pBody := &models.UpdateInstanceBody{
@@ -986,7 +1007,8 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "PUT"
 				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
 				{
@@ -1060,7 +1082,8 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 			name:       "Normal Test case 1: Get a specific instance",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1094,7 +1117,8 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				// mock the context only since it is not validated in this function
@@ -1109,7 +1133,8 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1177,7 +1202,8 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1218,7 +1244,8 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -1236,7 +1263,8 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 				"name": templateName,
 			},
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1302,7 +1330,8 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 			name:       "Normal Test case 1: Get list of snapshots for an instance",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/snapshots"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/snapshots"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1337,7 +1366,8 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/snapshots"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/snapshots"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -1351,7 +1381,8 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/snapshots"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/snapshots"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1415,7 +1446,8 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 			name:       "Normal test case 1: Get all history",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/history"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/history"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1466,7 +1498,8 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/history"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/history"
 				method := "GET"
 				headers := getDefaultHeaders()
 				m.EXPECT().getVersion().Return(999999)
@@ -1480,7 +1513,8 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/history"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/history"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1545,7 +1579,8 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 			name:       "Normal Test case 1: Restart an Instance",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/restart"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/restart"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1571,7 +1606,8 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/restart"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/restart"
 				method := "PUT"
 				headers := getDefaultHeaders()
 
@@ -1586,7 +1622,8 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/restart"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/restart"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1648,7 +1685,8 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 			name:       "Normal Test case 1: Start an Instance",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/start"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/start"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1674,7 +1712,8 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/start"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/start"
 				method := "PUT"
 				headers := getDefaultHeaders()
 
@@ -1689,7 +1728,8 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/start"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/start"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1751,7 +1791,8 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 			name:       "Normal Test case 1: Stop an Instance",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/stop"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/stop"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1777,7 +1818,8 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/stop"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/stop"
 				method := "PUT"
 				headers := getDefaultHeaders()
 
@@ -1792,7 +1834,8 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/stop"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/stop"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1854,7 +1897,8 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 			name:       "Normal Test case 1: Suspend an Instance",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/suspend"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/suspend"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1880,7 +1924,8 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 			name:       "Failed test case 2: Error in call prepare request",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/suspend"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/suspend"
 				method := "PUT"
 				headers := getDefaultHeaders()
 
@@ -1895,7 +1940,8 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 			name:       "Failed test case 3: error in callAPI",
 			instanceID: 1,
 			given: func(m *MockAPIClientHandler) {
-				path := mockHost + "/v1beta1/instances/1/suspend"
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/suspend"
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

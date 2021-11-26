@@ -31,8 +31,7 @@ func (a *ServersAPIService) GetAllServers(
 	serversResponse := models.ServersResponse{}
 	serverAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.ServerPath),
+		path:   consts.ServerPath,
 		client: a.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &serversResponse)
@@ -49,7 +48,7 @@ func (a *ServersAPIService) GetSpecificServer(
 	serversResponse := models.GetSpecificServerResponse{}
 	serverAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d",
 			consts.ServerPath, serverID),
 		client: a.Client,
 		jsonParser: func(body []byte) error {

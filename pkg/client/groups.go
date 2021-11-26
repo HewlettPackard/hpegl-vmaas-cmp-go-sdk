@@ -31,7 +31,7 @@ func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context,
 
 	specificGrpRespAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s/%d", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
+		path: fmt.Sprintf("%s/%d",
 			consts.GroupsPath, groupID),
 		client: a.Client,
 
@@ -67,8 +67,7 @@ func (a *GroupsAPIService) GetAllGroups(ctx context.Context,
 
 	allGrpRespAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.GroupsPath),
+		path:   consts.GroupsPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {

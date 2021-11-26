@@ -5,7 +5,6 @@ package client
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -31,8 +30,7 @@ func (a *VirtualImagesAPIService) GetAllVirtualImages(ctx context.Context,
 
 	allVirtualImagesAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%s", a.Cfg.Host, consts.VmaasCmpAPIBasePath,
-			consts.VirtualImagePath),
+		path:   consts.VirtualImagePath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
