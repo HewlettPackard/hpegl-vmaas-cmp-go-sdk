@@ -11,3 +11,7 @@ type GetEnvironment struct {
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
+
+type GetSpecificEnvironment struct {
+	Environments GetEnvironment `json:"environment"`
+}

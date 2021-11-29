@@ -5,6 +5,7 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -55,6 +56,26 @@ func (a *LibraryAPIService) GetAllInstanceTypes(ctx context.Context,
 		},
 	}
 	err := allInstTypeAPI.do(ctx, nil, param)
+
+	return response, err
+}
+
+func (a *LibraryAPIService) GetSpecificLayout(
+	ctx context.Context,
+	layoutID int,
+) (models.GetSpecificLayout, error) {
+	response := models.GetSpecificLayout{}
+
+	allLayoutsAPI := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%d", consts.LibraryLayoutPath, layoutID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &response)
+		},
+	}
+	err := allLayoutsAPI.do(ctx, nil, nil)
 
 	return response, err
 }
