@@ -410,8 +410,7 @@ func (r *RouterAPIService) UpdateRouterBgpNeighbor(
 	routerAPI := &api{
 		compatibleVersion: "5.2.12",
 		method:            "PUT",
-		path: fmt.Sprintf("%s/%s/%s/%s/%d/%s/%d",
-			r.Cfg.Host, consts.VmaasCmpAPIBasePath, consts.NetworksPath,
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
 			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath, bgpNeighborID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
