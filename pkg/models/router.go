@@ -304,7 +304,7 @@ type CreateNetworkRouterBgpNeighborRequest struct {
 }
 
 type Config struct {
-	SourceAddresses string `json:"sourceAddresses" tf:"source_addresses"`
+	SourceAddresses []string `json:"sourceAddresses" tf:"source_addresses"`
 }
 
 type CreateRouterRequestBgpNeighborBody struct {
@@ -323,7 +323,7 @@ type CreateRouterRequestBgpNeighborBody struct {
 	HopLimit           int    `json:"hopLimit" tf:"hop_limit"`
 	RestartMode        string `json:"restartMode" tf:"restart_mode"`
 	RouterID           int    `json:"-" tf:"router_id"`
-	Config             Config `json:"config" tf:"config"`
+	Config             Config `json:"config" tf:"config,sub"`
 }
 
 type GetSpecificNetworkRouterBgpNeighbor struct {
