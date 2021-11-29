@@ -359,3 +359,85 @@ func (r *RouterAPIService) DeleteRouterRoute(
 
 	return resp, err
 }
+
+func (r *RouterAPIService) CreateRouterBgpNeighbor(
+	ctx context.Context,
+	routerID int,
+	req models.CreateNetworkRouterBgpNeighborRequest,
+) (models.SuccessOrErrorMessage, error) {
+	resp := models.SuccessOrErrorMessage{}
+	routerAPI := &api{
+		compatibleVersion: "5.2.12",
+		method:            "POST",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := routerAPI.do(ctx, req, nil)
+
+	return resp, err
+}
+
+func (r *RouterAPIService) GetSpecificRouterBgpNeighbor(
+	ctx context.Context,
+	routerID, bgpNeighborID int,
+) (models.GetSpecificNetworkRouterBgpNeighbor, error) {
+	resp := models.GetSpecificNetworkRouterBgpNeighbor{}
+	routerAPI := &api{
+		compatibleVersion: "5.2.12",
+		method:            "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath, bgpNeighborID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := routerAPI.do(ctx, nil, nil)
+
+	return resp, err
+}
+
+func (r *RouterAPIService) UpdateRouterBgpNeighbor(
+	ctx context.Context,
+	routerID, bgpNeighborID int,
+	req models.CreateNetworkRouterBgpNeighborRequest,
+) (models.SuccessOrErrorMessage, error) {
+	resp := models.SuccessOrErrorMessage{}
+	routerAPI := &api{
+		compatibleVersion: "5.2.12",
+		method:            "PUT",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath, bgpNeighborID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := routerAPI.do(ctx, req, nil)
+
+	return resp, err
+}
+
+func (r *RouterAPIService) DeleteRouterBgpNeighbor(
+	ctx context.Context,
+	routerID, bgpNeighborID int,
+) (models.SuccessOrErrorMessage, error) {
+	resp := models.SuccessOrErrorMessage{}
+	routerAPI := &api{
+		compatibleVersion: "5.2.12",
+		method:            "DELETE",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworksPath,
+			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath, bgpNeighborID),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := routerAPI.do(ctx, nil, nil)
+
+	return resp, err
+}
