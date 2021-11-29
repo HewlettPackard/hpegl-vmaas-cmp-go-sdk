@@ -133,32 +133,7 @@ Get All Instances
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
  	Passed from http.Request or context.Background().
  * @param serviceInstanceID
- * @param optional nil or *InstancesAPIGetAllInstancesOpts - Optional Parameters:
-     * @param "Max" (optional.Int32) -  Max number of results to return
-     * @param "Name" (optional.String) -  Filter by name
-     * @param "Phrase" (optional.String) -  Filter by wildcard search of name and description
-     * @param "InstanceType" (optional.Int32) -  Filter by instance type code
-     * @param "CreatedBy" (optional.String) -  Filter by Created By (User) ID. Accepts multiple values
-     * @param "Status" (optional.String) -  Filter by instance status
-     * @param "ShowDeleted" (optional.Bool) -  If true, includes instances in pending removal status.
-     * @param "Deleted" (optional.Bool) -  If true, only instances in pending removal status are returned.
-     * @param "Labels" (optional.String) -  Filter by labels
-     * @param "Tags" (optional.String) -  Filter by tags
-
 */
-
-type InstancesAPIGetAllInstancesOpts struct {
-	Max          optional.Int32
-	Name         optional.String
-	Phrase       optional.String
-	InstanceType optional.Int32
-	CreatedBy    optional.String
-	Status       optional.String
-	ShowDeleted  optional.Bool
-	Deleted      optional.Bool
-	Labels       optional.String
-	Tags         optional.String
-}
 
 func (a *InstancesAPIService) GetAllInstances(ctx context.Context,
 	queryParams map[string]string) (models.Instances, error) {

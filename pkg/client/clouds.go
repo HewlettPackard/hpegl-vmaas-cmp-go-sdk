@@ -69,8 +69,8 @@ func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID
 
 	allCloudRPoolAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%d/resource-pools",
-			consts.ZonePath, cloudID),
+		path: fmt.Sprintf("%s/%d/%s",
+			consts.ZonePath, cloudID, consts.ResourcePoolPath),
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
@@ -204,4 +204,67 @@ func (a *CloudsAPIService) GetSpecificCloudFolder(
 	err := folderAPI.do(ctx, nil, nil)
 
 	return folder, err
+}
+
+func (a *CloudsAPIService) GetSpecificCloud(
+	ctx context.Context,
+	cloudID int,
+) (models.GetSpecificCloud, error) {
+	folder := models.GetSpecificCloud{}
+
+	folderAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%d",
+			consts.ZonePath, cloudID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &folder)
+		},
+	}
+	err := folderAPI.do(ctx, nil, nil)
+
+	return folder, err
+}
+
+func (a *CloudsAPIService) GetSpecificCloudDataStores(
+	ctx context.Context,
+	cloudID, datastoreID int,
+) (models.GetSpecificCloudDataStores, error) {
+	folder := models.GetSpecificCloudDataStores{}
+
+	folderAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%d/%s/%d",
+			consts.ZonePath, cloudID, consts.DatstorePath, datastoreID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &folder)
+		},
+	}
+	err := folderAPI.do(ctx, nil, nil)
+
+	return folder, err
+}
+
+func (a *CloudsAPIService) GetSpecificCloudResourcePool(
+	ctx context.Context,
+	cloudID int,
+	id int,
+) (models.GetSpecificCloudResourcePool, error) {
+	resp := models.GetSpecificCloudResourcePool{}
+
+	api := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%d/%s/%d",
+			consts.ZonePath, cloudID, consts.ResourcePoolPath, id),
+		client: a.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := api.do(ctx, nil, nil)
+
+	return resp, err
 }

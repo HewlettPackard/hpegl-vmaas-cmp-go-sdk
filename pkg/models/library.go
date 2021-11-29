@@ -227,6 +227,10 @@ type LayoutsResp struct {
 	InstanceTypeLayouts []LayoutRespBody `json:"instanceTypeLayouts"`
 }
 
+type GetSpecificLayout struct {
+	InstanceTypeLayouts LayoutRespBody `json:"instanceTypeLayout"`
+}
+
 type InstanceTypeRespBody struct {
 	ID      int `json:"id"`
 	Account struct {

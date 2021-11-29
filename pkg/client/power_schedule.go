@@ -5,6 +5,7 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -38,6 +39,26 @@ func (a *PowerSchedulesAPIService) GetAllPowerSchedules(ctx context.Context,
 		},
 	}
 	err := allPowerScheduleAPI.do(ctx, nil, param)
+
+	return response, err
+}
+
+func (a *PowerSchedulesAPIService) GetSpecificPowerSchedule(
+	ctx context.Context,
+	powerID int,
+) (models.GetSpecificPowerSchedule, error) {
+	response := models.GetSpecificPowerSchedule{}
+
+	allPowerScheduleAPI := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%d", consts.PowerSchedulPath, powerID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &response)
+		},
+	}
+	err := allPowerScheduleAPI.do(ctx, nil, nil)
 
 	return response, err
 }

@@ -8,6 +8,10 @@ type GetAllNetworkProxies struct {
 	Meta              Meta              `json:"meta"`
 }
 
+type GetSpecificNetworkProxy struct {
+	GetNetworkProxies GetNetworkProxy `json:"networkProxy"`
+}
+
 type GetNetworkProxy struct {
 	ID         int     `json:"id" tf:"id,computed"`
 	Name       string  `json:"name" tf:"name"`
