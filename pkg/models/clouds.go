@@ -151,6 +151,9 @@ type ResourcePoolsResp struct {
 	ResourcePools []ResourcePoolRespBody `json:"resourcePools"`
 }
 
+type GetSpecificCloudResourcePool struct {
+	ResourcePools ResourcePoolRespBody `json:"resourcePool"`
+}
 type DataStoresRespBody struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`

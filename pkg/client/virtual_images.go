@@ -5,6 +5,7 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	models "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -39,6 +40,27 @@ func (a *VirtualImagesAPIService) GetAllVirtualImages(ctx context.Context,
 	}
 
 	err := allVirtualImagesAPI.do(ctx, nil, param)
+
+	return response, err
+}
+
+func (a *VirtualImagesAPIService) GetSpecificVirtualImage(
+	ctx context.Context,
+	id int,
+) (models.GetSpecificVirtualImage, error) {
+	response := models.GetSpecificVirtualImage{}
+
+	api := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%d", consts.VirtualImagePath, id),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &response)
+		},
+	}
+
+	err := api.do(ctx, nil, nil)
 
 	return response, err
 }

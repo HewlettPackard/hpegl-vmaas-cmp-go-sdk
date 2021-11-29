@@ -111,6 +111,10 @@ type GetNetworkTypesResponse struct {
 	NetworkTypes []GetSpecificNetworkType `json:"networkTypes"`
 }
 
+type GetaNetworkType struct {
+	NetworkTypes GetSpecificNetworkType `json:"networkType"`
+}
+
 type GetSpecificNetworkType struct {
 	ID          int    `json:"id"`
 	Code        string `json:"code"`

@@ -33,6 +33,7 @@ const (
 	// DatstorePath
 	DatstorePath = "data-stores"
 	// Virtual-Images Path
+	ResourcePoolPath       = "resource-pools"
 	NetworkRouterPath      = "routers"
 	NetworkRouterTypePath  = "network-router-types"
 	NetworkServicePath     = "services"

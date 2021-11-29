@@ -30,3 +30,7 @@ type GetAllPowerSchedulesSchedules struct {
 type GetAllPowerSchedules struct {
 	Schedules []GetAllPowerSchedulesSchedules `json:"schedules"`
 }
+
+type GetSpecificPowerSchedule struct {
+	Schedule GetAllPowerSchedulesSchedules `json:"schedule"`
+}

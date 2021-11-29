@@ -194,3 +194,42 @@ func (n *NetworksAPIService) GetNetworkProxy(
 
 	return proxyResp, err
 }
+
+func (n *NetworksAPIService) GetSpecificNetworkProxy(
+	ctx context.Context,
+	proxyID int,
+) (models.GetSpecificNetworkProxy, error) {
+	var proxyResp models.GetSpecificNetworkProxy
+	networkAPI := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%s/%d", consts.NetworksPath, consts.NetworkProxyPath, proxyID),
+		client: n.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &proxyResp)
+		},
+	}
+	err := networkAPI.do(ctx, nil, nil)
+
+	return proxyResp, err
+}
+
+func (n *NetworksAPIService) GetSpecificNetworkType(
+	ctx context.Context,
+	typeID int,
+) (models.GetaNetworkType, error) {
+	var resp models.GetaNetworkType
+	networkAPI := &api{
+		compatibleVersion: networkCompatibleVersion,
+		method:            "GET",
+		path:              fmt.Sprintf("%s/%d", consts.NetworkTypePath, typeID),
+		client:            n.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+	err := networkAPI.do(ctx, nil, nil)
+
+	return resp, err
+}

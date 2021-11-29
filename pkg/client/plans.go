@@ -5,6 +5,7 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -36,6 +37,26 @@ func (a *PlansAPIService) GetAllServicePlans(ctx context.Context,
 		},
 	}
 	err := allServicePlansAPI.do(ctx, nil, param)
+
+	return response, err
+}
+
+func (a *PlansAPIService) GetSpecificServicePlan(
+	ctx context.Context,
+	planID int,
+) (models.GetSpecificServicePlan, error) {
+	response := models.GetSpecificServicePlan{}
+
+	allServicePlansAPI := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%d", consts.ServicePlansPath, planID),
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &response)
+		},
+	}
+	err := allServicePlansAPI.do(ctx, nil, nil)
 
 	return response, err
 }
