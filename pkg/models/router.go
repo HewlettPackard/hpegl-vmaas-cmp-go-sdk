@@ -16,26 +16,28 @@ type CreateRouterResp struct {
 }
 
 type GetNetworkRouter struct {
-	ID              int           `json:"id" tf:"id,computed"`
-	Code            string        `json:"code"`
-	Name            string        `json:"name"`
-	Description     interface{}   `json:"description"`
-	Category        string        `json:"category"`
-	DateCreated     string        `json:"dateCreated"`
-	LastUpdated     string        `json:"lastUpdated"`
-	RouterType      string        `json:"routerType"`
-	Status          string        `json:"status"`
-	Enabled         bool          `json:"enabled"`
-	ExternalIP      interface{}   `json:"externalIp"`
-	ExternalID      string        `json:"externalId"`
-	ProviderID      string        `json:"providerId" tf:"provider_id,computed"`
-	Type            IDModel       `json:"type"`
-	NetworkServer   IDModel       `json:"networkServer"`
-	Zone            IDModel       `json:"zone"`
-	Instance        interface{}   `json:"instance"`
-	ExternalNetwork interface{}   `json:"externalNetwork"`
-	Site            interface{}   `json:"site"`
-	Interfaces      []interface{} `json:"interfaces"`
+	ID            int                `json:"id" tf:"id,computed"`
+	Code          string             `json:"code"`
+	Name          string             `json:"name"`
+	Category      string             `json:"category"`
+	DateCreated   string             `json:"dateCreated"`
+	LastUpdated   string             `json:"lastUpdated"`
+	RouterType    string             `json:"routerType"`
+	Status        string             `json:"status"`
+	Enabled       bool               `json:"enabled"`
+	ExternalID    string             `json:"externalId"`
+	ProviderID    string             `json:"providerId" tf:"provider_id,computed"`
+	Type          IDModel            `json:"type"`
+	NetworkServer IDModel            `json:"networkServer"`
+	Zone          IDModel            `json:"zone"`
+	Interfaces    []RouterInterfaces `json:"interfaces" tf:"interfaces,computed"`
+}
+
+type RouterInterfaces struct {
+	ID        int    `json:"id" tf:"id,computed"`
+	IPAddress string `json:"ipAddress" tf:"source_addresses,computed"`
+	Cidr      string `json:"cidr" tf:"cidr,computed"`
+	Enabled   bool   `json:"enabled"`
 }
 
 type CreateRouterRequest struct {
@@ -152,19 +154,18 @@ type GetNetworkServicesResp struct {
 }
 
 type GetNetworkServices struct {
-	ServiceType               string      `json:"serviceType"`
-	ServiceTypeName           string      `json:"serviceTypeName"`
-	Type                      string      `json:"type"`
-	TypeName                  string      `json:"typeName"`
-	Name                      string      `json:"name"`
-	ID                        int         `json:"id"`
-	IntegrationID             int         `json:"integrationId"`
-	CanEdit                   bool        `json:"canEdit"`
-	CanDelete                 bool        `json:"canDelete"`
-	Status                    string      `json:"status"`
-	LastUpdated               string      `json:"lastUpdated"`
-	BrandingImageName         interface{} `json:"brandingImageName"`
-	SupportsTenantPermissions bool        `json:"supportsTenantPermissions"`
+	ServiceType               string `json:"serviceType"`
+	ServiceTypeName           string `json:"serviceTypeName"`
+	Type                      string `json:"type"`
+	TypeName                  string `json:"typeName"`
+	Name                      string `json:"name"`
+	ID                        int    `json:"id"`
+	IntegrationID             int    `json:"integrationId"`
+	CanEdit                   bool   `json:"canEdit"`
+	CanDelete                 bool   `json:"canDelete"`
+	Status                    string `json:"status"`
+	LastUpdated               string `json:"lastUpdated"`
+	SupportsTenantPermissions bool   `json:"supportsTenantPermissions"`
 }
 
 type CreateRouterNatRequest struct {
@@ -296,4 +297,57 @@ type GetSpecificRouterRouteBody struct {
 	ProviderID      string `json:"providerId" tf:"provider_id,computed"`
 	Enabled         bool   `json:"enabled"`
 	Visible         bool   `json:"visible"`
+}
+
+type CreateNetworkRouterBgpNeighborRequest struct {
+	NetworkRouterBgpNeighbor CreateRouterRequestBgpNeighborBody `json:"networkRouterBgpNeighbor"`
+}
+
+type Config struct {
+	SourceAddresses []string `json:"sourceAddresses" tf:"source_addresses"`
+}
+
+type CreateRouterRequestBgpNeighborBody struct {
+	ID                 int    `json:"-" tf:"id,computed"`
+	IPAddress          string `json:"ipAddress" tf:"ip_address"`
+	RemoteAs           int    `json:"remoteAs" tf:"remote_as"`
+	KeepAlive          int    `json:"keepAlive" tf:"keepalive"`
+	HoldDown           int    `json:"holdDown" tf:"holddown"`
+	RouteFilteringType string `json:"routeFilteringType" tf:"router_filtering_type"`
+	RouteFilteringIn   string `json:"routeFilteringIn" tf:"router_filtering_in"`
+	RouteFilteringOut  string `json:"routeFilteringOut" tf:"router_filtering_out"`
+	BfdEnabled         bool   `json:"bfdEnabled" tf:"bfd_enabled"`
+	BfdInterval        int    `json:"bfdInterval" tf:"bfd_interval"`
+	BfdMultiple        int    `json:"bfdMultiple" tf:"bfd_multiple"`
+	AllowAsIn          bool   `json:"allowAsIn" tf:"allow_as_in"`
+	HopLimit           int    `json:"hopLimit" tf:"hop_limit"`
+	RestartMode        string `json:"restartMode" tf:"restart_mode"`
+	RouterID           int    `json:"-" tf:"router_id"`
+	Config             Config `json:"config" tf:"config,sub"`
+}
+
+type GetSpecificNetworkRouterBgpNeighbor struct {
+	NetworkRouterBgpNeighbor NetworkRouterBgpNeighborBody `json:"networkRouterBgpNeighbor"`
+}
+
+type NetworkRouterBgpNeighborBody struct {
+	ID                 int    `json:"id" tf:"id"`
+	IPAddress          string `json:"ipAddress"`
+	RemoteAs           string `json:"remoteAs"`
+	Weight             int    `json:"weight"`
+	KeepAlive          int    `json:"keepAlive"`
+	HoldDown           int    `json:"holdDown"`
+	RouteFilteringType string `json:"routeFilteringType"`
+	BfdEnabled         bool   `json:"bfdEnabled"`
+	BfdInterval        int    `json:"bfdInterval"`
+	BfdMultiple        int    `json:"bfdMultiple"`
+	AllowAsIn          bool   `json:"allowAsIn"`
+	RestartMode        string `json:"restartMode"`
+	ProviderID         string `json:"providerId"`
+	HopLimit           int    `json:"hopLimit"`
+	SyncSource         string `json:"syncSource"`
+	ExternalID         string `json:"externalId"`
+	Config             Config `json:"config"`
+	DateCreated        string `json:"dateCreated"`
+	LastUpdated        string `json:"lastUpdated"`
 }

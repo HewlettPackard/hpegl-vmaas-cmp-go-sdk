@@ -47,6 +47,7 @@ const (
 	ZoneNetworkOptionsPath = "zoneNetworkOptions"
 	ProvisionTypesPath     = "provision-types"
 	RouterRoutePath        = "routes"
+	RouterBgpNeighborPath  = "bgp-neighbors"
 
 	WhoamiPath = "whoami"
 
