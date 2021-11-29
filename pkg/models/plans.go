@@ -9,6 +9,7 @@ type ServicePlans struct {
 type GetSpecificServicePlan struct {
 	ServicePlansResponse ServicePlanResponse `json:"servicePlan"`
 }
+
 type ServicePlanResponse struct {
 	ID                   int         `json:"id"`
 	Name                 string      `json:"name"`

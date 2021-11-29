@@ -4,6 +4,7 @@ package models
 type VirtualImages struct {
 	VirtualImages []VirtualImage `json:"virtualImages"`
 }
+
 type GetSpecificVirtualImage struct {
 	VirtualImages VirtualImage `json:"virtualImage"`
 }

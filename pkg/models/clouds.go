@@ -112,6 +112,7 @@ type CloudsResp struct {
 type GetSpecificCloud struct {
 	Cloud CloudRespBody `json:"zone"`
 }
+
 type ResourcePoolRespBody struct {
 	ID          int         `json:"id"`
 	Name        string      `json:"name"`
@@ -154,6 +155,7 @@ type ResourcePoolsResp struct {
 type GetSpecificCloudResourcePool struct {
 	ResourcePools ResourcePoolRespBody `json:"resourcePool"`
 }
+
 type DataStoresRespBody struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
@@ -187,6 +189,7 @@ type DataStoresResp struct {
 type GetSpecificCloudDataStores struct {
 	Datastores DataStoresRespBody `json:"datastore"`
 }
+
 type GetAllCloudNetworks struct {
 	Data DataGetNetworkInterface `json:"data"`
 }
