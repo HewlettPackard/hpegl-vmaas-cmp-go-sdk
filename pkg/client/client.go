@@ -7,8 +7,6 @@ package client
 import (
 	"bytes"
 	"context"
-	"encoding/json"
-	"encoding/xml"
 	"errors"
 	"fmt"
 	"mime/multipart"
@@ -21,7 +19,6 @@ import (
 type SetScmClientToken func(ctx *context.Context, meta interface{})
 
 type APIClientHandler interface {
-	ChangeBasePath(path string)
 	prepareRequest(
 		ctx context.Context,
 		path string, method string,
@@ -31,7 +28,6 @@ type APIClientHandler interface {
 		formParams url.Values,
 		fileName string,
 		fileBytes []byte) (localVarRequest *http.Request, err error)
-	decode(v interface{}, b []byte, contentType string) (err error)
 	callAPI(request *http.Request) (*http.Response, error)
 	SetMeta(meta interface{}, fn SetScmClientToken) error
 	getVersion() int
@@ -70,8 +66,13 @@ func (c *APIClient) getHost() string {
 }
 
 func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
-	c.meta = meta
 	c.tokenFunc = fn
+	// if meta is nil then skip entire steps. meta will be empty on acc test
+	// first fly
+	if meta == nil {
+		return nil
+	}
+	c.meta = meta
 	// if cmp version already set then skip
 	if c.cmpVersion != 0 {
 		return nil
@@ -99,11 +100,6 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	return c.cfg.HTTPClient.Do(request)
-}
-
-// Change base path to allow switching to mocks
-func (c *APIClient) ChangeBasePath(path string) {
-	c.cfg.BasePath = path
 }
 
 func (c *APIClient) getVersion() int {
@@ -254,22 +250,4 @@ func (c *APIClient) prepareRequest(
 	}
 
 	return localVarRequest, nil
-}
-
-func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {
-	if strings.Contains(contentType, "application/xml") {
-		if err = xml.Unmarshal(b, v); err != nil {
-			return err
-		}
-
-		return nil
-	} else if strings.Contains(contentType, "application/json") {
-		if err = json.Unmarshal(b, v); err != nil {
-			return err
-		}
-
-		return nil
-	}
-
-	return errors.New("undefined response type")
 }

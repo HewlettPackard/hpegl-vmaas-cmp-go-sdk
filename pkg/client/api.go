@@ -32,13 +32,12 @@ type api struct {
 func (a *api) do(ctx context.Context, request interface{}, queryParams map[string]string) error {
 	currentVersion, err := parseVersion(a.compatibleVersion)
 	if err != nil {
-		panic(fmt.Sprintf("failed to parse the current version, error: %v", err))
+		return fmt.Errorf("failed to parse the current version, error: %v", err)
+	}
+	if a.client.getVersion() == 0 {
+		return fmt.Errorf("failed to get meta data for cmp-sdk")
 	}
 	if a.client.getVersion() < currentVersion {
-		if a.client.getVersion() == 0 {
-			return fmt.Errorf("failed to get meta data for cmp-sdk")
-		}
-
 		return errVersion
 	}
 	var (
