@@ -37,6 +37,7 @@ const (
 	NetworkRouterPath      = "routers"
 	NetworkRouterTypePath  = "network-router-types"
 	NetworkServicePath     = "services"
+	NetworkScopePath       = "scopes"
 	ServerPath             = "servers"
 	VirtualImagePath       = "virtual-images"
 	FolderPath             = "folders"

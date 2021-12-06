@@ -351,3 +351,34 @@ type NetworkRouterBgpNeighborBody struct {
 	DateCreated        string `json:"dateCreated"`
 	LastUpdated        string `json:"lastUpdated"`
 }
+
+type TransportZonesResp struct {
+	NetworkScopes []NetworkScope `json:"networkScopes"`
+	Meta          Meta           `json:"meta"`
+}
+
+type NetworkScope struct {
+	ID            int                `json:"id"`
+	InternalID    string             `json:"internalId"`
+	Visibility    string             `json:"visibility"`
+	DateCreated   string             `json:"dateCreated"`
+	ProviderID    string             `json:"providerId"`
+	LastUpdated   string             `json:"lastUpdated"`
+	Active        bool               `json:"active"`
+	StreamType    string             `json:"streamType"`
+	DisplayName   string             `json:"displayName"`
+	StatusMessage string             `json:"statusMessage,omitempty"`
+	Name          string             `json:"name"`
+	Status        string             `json:"status"`
+	Enabled       bool               `json:"enabled"`
+	ExternalID    string             `json:"externalId"`
+	Config        NetworkScopeConfig `json:"config"`
+	Owner         IDModel            `json:"owner"`
+	NetworkServer IDModel            `json:"networkServer"`
+	Zone          IDModel            `json:"zone"`
+}
+
+type NetworkScopeConfig struct {
+	NvdsName               string `json:"nvdsName"`
+	HostMembershipCriteria string `json:"hostMembershipCriteria"`
+}
