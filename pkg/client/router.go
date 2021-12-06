@@ -449,7 +449,7 @@ func (r *RouterAPIService) GetTransportZones(
 ) (models.NetworkScope, error) {
 	resp := models.TransportZonesResp{}
 	routerAPI := &api{
-		compatibleVersion: routerCompatibleVersion,
+		compatibleVersion: "5.2.13",
 		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s",
 			consts.NetworksPath, consts.ServerPath, serviceID, consts.NetworkScopePath),

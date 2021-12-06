@@ -358,20 +358,21 @@ type TransportZonesResp struct {
 }
 
 type NetworkScope struct {
-	ID            int                `json:"id"`
-	InternalID    string             `json:"internalId"`
+	ID            int                `json:"id" tf:"id,computed"`
+	ServiceID     int                `json:"-" tf:"service_id,computed"`
+	InternalID    string             `json:"internalId" tf:"internal_id,computed"`
 	Visibility    string             `json:"visibility"`
 	DateCreated   string             `json:"dateCreated"`
-	ProviderID    string             `json:"providerId"`
+	ProviderID    string             `json:"providerId" tf:"provider_id,computed"`
 	LastUpdated   string             `json:"lastUpdated"`
 	Active        bool               `json:"active"`
 	StreamType    string             `json:"streamType"`
 	DisplayName   string             `json:"displayName"`
 	StatusMessage string             `json:"statusMessage,omitempty"`
-	Name          string             `json:"name"`
+	Name          string             `json:"name" tf:"name"`
 	Status        string             `json:"status"`
 	Enabled       bool               `json:"enabled"`
-	ExternalID    string             `json:"externalId"`
+	ExternalID    string             `json:"externalId" tf:"external_id,computed"`
 	Config        NetworkScopeConfig `json:"config"`
 	Owner         IDModel            `json:"owner"`
 	NetworkServer IDModel            `json:"networkServer"`

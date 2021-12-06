@@ -2,6 +2,8 @@
 
 package models
 
+import "encoding/json"
+
 type IDModel struct {
 	ID int `json:"id,omitempty" tf:"id"`
 }
@@ -19,8 +21,8 @@ type NameModel struct {
 }
 
 type Meta struct {
-	Max    int `json:"max"`
-	Offset int `json:"offset"`
-	Size   int `json:"size"`
-	Total  int `json:"total"`
+	Max    json.Number `json:"max"`
+	Offset json.Number `json:"offset"`
+	Size   json.Number `json:"size"`
+	Total  json.Number `json:"total"`
 }
