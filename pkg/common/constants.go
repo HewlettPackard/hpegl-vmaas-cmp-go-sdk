@@ -48,6 +48,7 @@ const (
 	ProvisionTypesPath     = "provision-types"
 	RouterRoutePath        = "routes"
 	RouterBgpNeighborPath  = "bgp-neighbors"
+	NetworkEdgeClusterPath = "edge-clusters"
 
 	WhoamiPath = "whoami"
 

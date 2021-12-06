@@ -441,3 +441,33 @@ func (r *RouterAPIService) DeleteRouterBgpNeighbor(
 
 	return resp, err
 }
+
+func (r *RouterAPIService) GetEdgeClusters(
+	ctx context.Context,
+	serviceID int,
+	EdgeClusterName string,
+) (models.NetworkEdgeClusters, error) {
+	resp := models.NetworkEdgeClustersResp{}
+	routerAPI := &api{
+		compatibleVersion: "5.2.13",
+		method:            "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s",
+			consts.NetworksPath, consts.ServerPath, serviceID, consts.NetworkEdgeClusterPath),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+
+	if err := routerAPI.do(ctx, nil, nil); err != nil {
+		return models.NetworkEdgeClusters{}, err
+	}
+
+	for _, t := range resp.NetworkEdgeClusters {
+		if t.Name == EdgeClusterName {
+			return t, nil
+		}
+	}
+
+	return models.NetworkEdgeClusters{}, nil
+}
