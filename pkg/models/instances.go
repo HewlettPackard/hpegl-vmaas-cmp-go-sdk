@@ -556,6 +556,7 @@ type CreateInstanceCloneBody struct {
 	NetworkInterfaces []CreateInstanceBodyNetworkInterfaces `json:"networkInterfaces,omitempty"`
 	Evars             []GetInstanceResponseInstanceEvars    `json:"evars,omitempty"`
 	Metadata          []CreateInstanceBodyTag               `json:"metadata,omitempty"`
+	Tags              []CreateInstanceBodyTag               `json:"tags,omitempty"`
 }
 
 type GetInstanceContainer struct {

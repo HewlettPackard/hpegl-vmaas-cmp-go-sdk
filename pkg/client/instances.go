@@ -418,6 +418,10 @@ func (a *InstancesAPIService) GetInstanceHistory(
 func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int,
 	cloneRequest models.CreateInstanceCloneBody) (models.SuccessOrErrorMessage, error) {
 	var cloneResp models.SuccessOrErrorMessage
+	if v, _ := parseVersion("5.2.12"); v >= a.Client.getVersion() {
+		cloneRequest.Tags = cloneRequest.Metadata
+		cloneRequest.Metadata = nil
+	}
 	instanceClone := &api{
 		method: "PUT",
 		path: fmt.Sprintf("%s/%d/clone",
