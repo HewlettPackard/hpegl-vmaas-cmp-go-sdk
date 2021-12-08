@@ -421,6 +421,8 @@ func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID in
 	if v, _ := parseVersion("5.2.12"); v >= a.Client.getVersion() {
 		cloneRequest.Tags = cloneRequest.Metadata
 		cloneRequest.Metadata = nil
+		cloneRequest.Instance.Labels = cloneRequest.Instance.Tags
+		cloneRequest.Instance.Tags = nil
 	}
 	instanceClone := &api{
 		method: "PUT",

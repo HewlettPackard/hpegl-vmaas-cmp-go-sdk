@@ -534,6 +534,7 @@ type CreateInstanceCloneInstanceTypeBody struct {
 
 type CreateInstanceCloneInstanceBody struct {
 	Tags              []string `json:"tags,omitempty"`
+	Labels            []string `json:"labels,omitempty"`
 	InstanceContext   string   `json:"instanceContext,omitempty"`
 	EnvironmentPrefix string   `json:"environmentPrefix,omitempty"`
 	PowerScheduleType int      `json:"powerScheduleType,omitempty"`
