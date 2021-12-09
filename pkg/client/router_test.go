@@ -1342,3 +1342,314 @@ func TestRouterAPIService_CreateRouterFirewallRuleGroup(t *testing.T) {
 		})
 	}
 }
+
+func TestRouterAPIService_DeleteRouterBgpNeighbor(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		routerID      int
+		bgpNeighborID int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.SuccessOrErrorMessage
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID:      1,
+				bgpNeighborID: 2,
+			},
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/bgp-neighbors/2"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.DeleteRouterBgpNeighbor(context.Background(), tt.args.routerID, tt.args.bgpNeighborID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.DeleteRouterBgpNeighbor() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.DeleteRouterBgpNeighbor() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_GetSpecificRouterBgpNeighbor(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		routerID      int
+		bgpNeighborID int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.GetSpecificNetworkRouterBgpNeighbor
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID:      1,
+				bgpNeighborID: 2,
+			},
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/bgp-neighbors/2"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"networkRouterBgpNeighbor": {
+							"id": 1
+						}
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetSpecificNetworkRouterBgpNeighbor{
+				NetworkRouterBgpNeighbor: models.NetworkRouterBgpNeighborBody{
+					ID: 1,
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.GetSpecificRouterBgpNeighbor(context.Background(), tt.args.routerID, tt.args.bgpNeighborID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.GetSpecificRouterBgpNeighbor() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.GetSpecificRouterBgpNeighbor() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_CreateRouterBgpNeighbor(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		ctx      context.Context
+		routerID int
+		request  models.CreateNetworkRouterBgpNeighborRequest
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.SuccessOrErrorMessage
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				routerID: 1,
+				ctx:      context.Background(),
+				request: models.CreateNetworkRouterBgpNeighborRequest{
+					NetworkRouterBgpNeighbor: models.CreateRouterRequestBgpNeighborBody{
+						IPAddress: "10.201.227.84",
+					},
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/bgp-neighbors"
+				method := "POST"
+				headers := getDefaultHeaders()
+				reqModel := models.CreateNetworkRouterBgpNeighborRequest{
+					NetworkRouterBgpNeighbor: models.CreateRouterRequestBgpNeighborBody{
+						IPAddress: "10.201.227.84",
+					},
+				}
+				jsonByte, _ := json.Marshal(reqModel)
+				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true,
+						"id": 2
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, reqModel, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				IDModel: models.IDModel{ID: 2},
+				Success: true,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := r.CreateRouterBgpNeighbor(tt.args.ctx, tt.args.routerID, tt.args.request)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.CreateRouterBgpNeighbor() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.CreateRouterBgpNeighbor() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRouterAPIService_UpdateRouterBgpNeighbor(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	type args struct {
+		ctx           context.Context
+		routerID      int
+		bgpNeighborID int
+		req           models.CreateNetworkRouterBgpNeighborRequest
+	}
+	tests := []struct {
+		name    string
+		args    args
+		given   func(m *MockAPIClientHandler)
+		want    models.SuccessOrErrorMessage
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1",
+			args: args{
+				ctx:           context.Background(),
+				routerID:      1,
+				bgpNeighborID: 2,
+				req: models.CreateNetworkRouterBgpNeighborRequest{
+					NetworkRouterBgpNeighbor: models.CreateRouterRequestBgpNeighborBody{
+						IPAddress: "10.201.227.85",
+					},
+				},
+			},
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1/bgp-neighbors/2"
+				method := "PUT"
+				headers := getDefaultHeaders()
+				reqModel := models.CreateNetworkRouterBgpNeighborRequest{
+					NetworkRouterBgpNeighbor: models.CreateRouterRequestBgpNeighborBody{
+						IPAddress: "10.201.227.85",
+					},
+				}
+				jsonByte, _ := json.Marshal(reqModel)
+				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, reqModel, headers,
+					url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			r := RouterAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+
+			got, err := r.UpdateRouterBgpNeighbor(tt.args.ctx, tt.args.routerID, tt.args.bgpNeighborID, tt.args.req)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RouterAPIService.UpdateRouterBgpNeighbor() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("RouterAPIService.UpdateRouterBgpNeighbor() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

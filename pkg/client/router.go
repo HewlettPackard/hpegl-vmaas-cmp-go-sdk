@@ -442,7 +442,7 @@ func (r *RouterAPIService) DeleteRouterBgpNeighbor(
 	return resp, err
 }
 
-func (r *RouterAPIService) GetEdgeClusters(
+func (r *RouterAPIService) GetEdgeCluster(
 	ctx context.Context,
 	serviceID int,
 	EdgeClusterName string,
