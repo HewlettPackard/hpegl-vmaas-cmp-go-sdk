@@ -441,3 +441,33 @@ func (r *RouterAPIService) DeleteRouterBgpNeighbor(
 
 	return resp, err
 }
+
+func (r *RouterAPIService) GetTransportZones(
+	ctx context.Context,
+	serviceID int,
+	transportName string,
+) (models.NetworkScope, error) {
+	resp := models.TransportZonesResp{}
+	routerAPI := &api{
+		compatibleVersion: "5.2.13",
+		method:            "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s",
+			consts.NetworksPath, consts.ServerPath, serviceID, consts.NetworkScopePath),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &resp)
+		},
+	}
+
+	if err := routerAPI.do(ctx, nil, nil); err != nil {
+		return models.NetworkScope{}, err
+	}
+
+	for _, t := range resp.NetworkScopes {
+		if t.Name == transportName {
+			return t, nil
+		}
+	}
+
+	return models.NetworkScope{}, nil
+}
