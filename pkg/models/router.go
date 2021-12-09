@@ -37,7 +37,6 @@ type RouterInterfaces struct {
 	ID        int    `json:"id" tf:"id,computed"`
 	IPAddress string `json:"ipAddress" tf:"source_addresses,computed"`
 	Cidr      string `json:"cidr" tf:"cidr,computed"`
-	Enabled   bool   `json:"enabled"`
 }
 
 type CreateRouterRequest struct {
@@ -382,4 +381,33 @@ type NetworkScope struct {
 type NetworkScopeConfig struct {
 	NvdsName               string `json:"nvdsName"`
 	HostMembershipCriteria string `json:"hostMembershipCriteria"`
+}
+
+type NetworkEdgeClustersResp struct {
+	NetworkEdgeClusters []NetworkEdgeClusters `json:"networkEdgeClusters"`
+}
+type EdgeClusterConfig struct {
+	ClusterProfileBindings string `json:"clusterProfileBindings"`
+	Members                int    `json:"members"`
+	DeploymentType         string `json:"deploymentType"`
+	MemberNodeType         string `json:"memberNodeType"`
+}
+
+type NetworkEdgeClusters struct {
+	ID            int               `json:"id" tf:"id,computed"`
+	InternalID    string            `json:"internalId" tf:"internal_id,computed"`
+	Visibility    string            `json:"visibility"`
+	DateCreated   string            `json:"dateCreated"`
+	ProviderID    string            `json:"providerId" tf:"provider_id,computed"`
+	LastUpdated   string            `json:"lastUpdated"`
+	Active        bool              `json:"active"`
+	DisplayName   string            `json:"displayName"`
+	Name          string            `json:"name" tf:"name"`
+	Enabled       bool              `json:"enabled"`
+	Description   string            `json:"description"`
+	ExternalID    string            `json:"externalId" tf:"external_id,computed"`
+	Config        EdgeClusterConfig `json:"config"`
+	Owner         IDModel           `json:"owner"`
+	NetworkServer IDModel           `json:"networkServer"`
+	Zone          IDModel           `json:"zone"`
 }
