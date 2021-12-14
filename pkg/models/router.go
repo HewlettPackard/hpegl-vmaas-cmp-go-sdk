@@ -62,10 +62,10 @@ type CreateRouterRequestRouter struct {
 }
 
 type CreateRouterRequestConfig struct {
-	EdgeCluster   string `json:"edgeCluster,omitempty"`
+	EdgeCluster   string `json:"edgeCluster"`
 	HaMode        string `json:"haMode,omitempty"`
 	FailOver      string `json:"failOver,omitempty"`
-	Tier0Gateways string `json:"tier0Gateway,omitempty"`
+	Tier0Gateways string `json:"tier0Gateway"`
 	CreateRouterTier0Config
 }
 
