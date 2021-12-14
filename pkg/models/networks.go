@@ -76,11 +76,10 @@ type CreateNetwork struct {
 	CloudID             int                  `json:"-" tf:"cloud_id"`
 	GroupID             string               `json:"-" tf:"group_id"`
 	TypeID              int                  `json:"-" tf:"type_id"`
-	PoolID              int                  `json:"-" tf:"pool_id"`
+	PoolID              int                  `json:"pool,omitempty" tf:"pool_id"`
 	NetworkDomainID     int                  `json:"-" tf:"domain_id"`
 	Site                IDStringModel        `json:"site,omitempty"`
 	Type                IDModel              `json:"type,omitempty"`
-	Pool                *IDModel             `json:"pool,omitempty"`
 	NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
 	NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
 	NetworkServer       IDModel              `json:"networkServer,omitempty"`
