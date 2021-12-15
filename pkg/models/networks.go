@@ -26,7 +26,7 @@ type GetSpecificNetwork struct {
 	ID                      int                  `json:"id" tf:"id,computed"`
 	Name                    string               `json:"name" tf:"name"`
 	Zone                    IDNameModel          `json:"zone"`
-	DisplayName             string               `json:"displayName" tf:"display_name,computed"`
+	DisplayName             string               `json:"displayName" tf:"display_name"`
 	Type                    IDModel              `json:"type"`
 	TypeID                  int                  `json:"-" tf:"type_id,computed"`
 	Owner                   IDNameModel          `json:"owner"`
@@ -38,9 +38,9 @@ type GetSpecificNetwork struct {
 	ExternalType            string               `json:"externalType"`
 	RefType                 string               `json:"refType"`
 	RefID                   int                  `json:"refId"`
-	DhcpServer              bool                 `json:"dhcpServer" tf:"dhcp_server"`
+	DhcpServer              bool                 `json:"dhcpServer"`
 	Status                  string               `json:"status" tf:"status,computed"`
-	Visibility              string               `json:"visibility" tf:"visibility"`
+	Visibility              string               `json:"visibility"`
 	EnableAdmin             bool                 `json:"enableAdmin"`
 	ScanNetwork             bool                 `json:"scanNetwork" tf:"scan_network"`
 	Active                  bool                 `json:"active" tf:"active"`
@@ -59,8 +59,8 @@ type NetworkResPermission struct {
 }
 
 type NetworkResPermissionSites struct {
-	ID      int    `json:"id,omitempty" tf:"id"`
-	Default string `json:"default,omitempty" tf:"default"`
+	ID      int  `json:"id,omitempty" tf:"id"`
+	Default bool `json:"default,omitempty" tf:"default"`
 }
 
 type CreateNetworkRequest struct {
@@ -93,10 +93,10 @@ type CreateNetwork struct {
 	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
 	Config              *CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
 	Active              bool                 `json:"active" tf:"active"`
-	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_server"`
+	DhcpServer          bool                 `json:"dhcpServer"`
 	ScanNetwork         bool                 `json:"scanNetwork" tf:"scan_network"`
 	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_static_override"`
-	AppURLProxyBypass   string               `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
+	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
 	ScopeID             string               `json:"scopeId,omitempty" tf:"scode_id"`
 	ResourcePermissions NetworkResPermission `json:"-" tf:"resource_permissions,sub"`
