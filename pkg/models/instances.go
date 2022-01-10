@@ -63,7 +63,7 @@ type CreateInstanceBodyConfig struct {
 	VmwareDomainName     string      `json:"vmwareDomainName,omitempty"`
 	VmwareCustomSpec     string      `json:"vmwareCustomSpec,omitempty"`
 	NestedVirtualization string      `json:"nestedVirtualization,omitempty"`
-	CreateUser           bool        `json:"createUser,omitempty"`
+	CreateUser           string      `json:"createUser,omitempty"`
 	VMwareFolderID       string      `json:"vmwareFolderId,omitempty"`
 }
 
@@ -192,7 +192,7 @@ type GetInstanceResponseInstanceConfig struct {
 	Isvpcselectable      bool          `json:"isVpcSelectable,omitempty"`
 	Smbiosassettag       string        `json:"smbiosAssetTag,omitempty"`
 	Isec2                bool          `json:"isEC2,omitempty"`
-	Createuser           bool          `json:"createUser,omitempty"`
+	Createuser           interface{}   `json:"createUser,omitempty"`
 	Nestedvirtualization interface{}   `json:"nestedVirtualization,omitempty"`
 	Vmwarefolderid       string        `json:"vmwareFolderId,omitempty"`
 	Expose               []interface{} `json:"expose,omitempty"`
