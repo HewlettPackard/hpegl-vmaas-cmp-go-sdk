@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2022 Hewlett Packard Enterprise Development LP
 
 package common
 
@@ -13,6 +13,8 @@ const (
 	GroupsPath = "groups"
 	// NetworksPath
 	NetworksPath = "networks"
+	// LoadBalancerPath
+	NetworkLoadBalancerPath = "api"
 	// NetworkTypePath
 	NetworkTypePath              = "network-types"
 	NetworkPoolPath              = "pools"
@@ -33,23 +35,27 @@ const (
 	// DatstorePath
 	DatstorePath = "data-stores"
 	// Virtual-Images Path
-	ResourcePoolPath       = "resource-pools"
-	NetworkRouterPath      = "routers"
-	NetworkRouterTypePath  = "network-router-types"
-	NetworkServicePath     = "services"
-	NetworkScopePath       = "scopes"
-	ServerPath             = "servers"
-	VirtualImagePath       = "virtual-images"
-	FolderPath             = "folders"
-	ConfigOptionPath       = "config-options"
-	PowerSchedulPath       = "power-schedules"
-	EnvironmentPath        = "environments"
-	OptionsPath            = "options"
-	ZoneNetworkOptionsPath = "zoneNetworkOptions"
-	ProvisionTypesPath     = "provision-types"
-	RouterRoutePath        = "routes"
-	RouterBgpNeighborPath  = "bgp-neighbors"
-	NetworkEdgeClusterPath = "edge-clusters"
+	ResourcePoolPath        = "resource-pools"
+	NetworkRouterPath       = "routers"
+	LoadBalancerPath        = "load-balancers"
+	LoadBalancerMonitorPath = "monitors"
+	LoadBalancerProfilePath = "profiles"
+	LoadBalancerPoolPath    = "pools"
+	NetworkRouterTypePath   = "network-router-types"
+	NetworkServicePath      = "services"
+	NetworkScopePath        = "scopes"
+	ServerPath              = "servers"
+	VirtualImagePath        = "virtual-images"
+	FolderPath              = "folders"
+	ConfigOptionPath        = "config-options"
+	PowerSchedulPath        = "power-schedules"
+	EnvironmentPath         = "environments"
+	OptionsPath             = "options"
+	ZoneNetworkOptionsPath  = "zoneNetworkOptions"
+	ProvisionTypesPath      = "provision-types"
+	RouterRoutePath         = "routes"
+	RouterBgpNeighborPath   = "bgp-neighbors"
+	NetworkEdgeClusterPath  = "edge-clusters"
 
 	WhoamiPath = "whoami"
 
