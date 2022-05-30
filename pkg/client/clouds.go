@@ -29,6 +29,8 @@ Get All Cloud Data Stores
 func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID int,
 	queryParams map[string]string) (models.DataStoresResp, error) {
 	allCloudDSResp := models.DataStoresResp{}
+	var i = 3
+	fmt.Println("111", i)
 
 	allCloudDSAPI := &api{
 		method: "GET",
