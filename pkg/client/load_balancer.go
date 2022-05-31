@@ -97,7 +97,7 @@ func (lb *loadBalancerAPIService) GetSpecificLoadBalancers(
 
 func (lb *loadBalancerAPIService) CreateLBMonitor(
 	ctx context.Context,
-	request models.CreateLBMonitorReq,
+	request models.CreateLBMonitor,
 	lbID int,
 ) (models.CreateLBMonitorResp, error) {
 	LBMonitorResp := models.CreateLBMonitorResp{}
@@ -141,8 +141,8 @@ func (lb *loadBalancerAPIService) DeleteLBMonitor(
 func (lb *loadBalancerAPIService) GetLBMonitors(
 	ctx context.Context,
 	lbID int,
-) (models.GetLBMonitorsResp, error) {
-	LBMonitorResp := models.GetLBMonitorsResp{}
+) (models.GetLBMonitors, error) {
+	LBMonitorResp := models.GetLBMonitors{}
 	LBMonitorAPI := &api{
 		compatibleVersion: lbCompatibleVersion,
 		method:            "GET",
@@ -181,7 +181,7 @@ func (lb *loadBalancerAPIService) GetSpecificLBMonitor(
 
 func (lb *loadBalancerAPIService) CreateLBProfile(
 	ctx context.Context,
-	request models.CreateLBProfileReq,
+	request models.CreateLBProfile,
 	lbID int,
 ) (models.CreateLBProfileResp, error) {
 	LBProfileResp := models.CreateLBProfileResp{}
@@ -225,8 +225,8 @@ func (lb *loadBalancerAPIService) DeleteLBProfile(
 func (lb *loadBalancerAPIService) GetLBProfiles(
 	ctx context.Context,
 	lbID int,
-) (models.GetLBProfilesResp, error) {
-	LBProfileResp := models.GetLBProfilesResp{}
+) (models.GetLBProfile, error) {
+	LBProfileResp := models.GetLBProfile{}
 	LBProfileAPI := &api{
 		compatibleVersion: lbCompatibleVersion,
 		method:            "GET",

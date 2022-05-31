@@ -284,7 +284,7 @@ type LBprofileConfig struct {
 	Resource_type      string `json:"resource_type"`
 }
 
-//Get LB Profile
+//Get LB Specific Profile
 type GetLBSpecificProfile struct {
 	GetLBSpecificProfilesResp GetLBSpecificProfilesResp `json:"loadBalancerProfile"`
 }
@@ -369,6 +369,7 @@ type GetSpecificLBMonitorResp struct {
 	LoadBalancer       LBMonitor `json:"loadBalancer"`
 }
 
+// Create LB Pool
 type CreateLBPool struct {
 	CreateLBPoolReq CreateLBPoolReq `json:"loadBalancerPool"`
 }
