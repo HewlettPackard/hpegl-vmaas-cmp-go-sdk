@@ -256,7 +256,7 @@ type GetLBProfile struct {
 }
 
 type GetLBProfilesResp struct {
-	ID                  string          `json:"id"`
+	ID                  int             `json:"id"`
 	Name                string          `json:"name"`
 	Category            string          `json:"category"`
 	ServiceType         string          `json:"serviceType"`
@@ -290,7 +290,7 @@ type GetLBSpecificProfile struct {
 }
 
 type GetLBSpecificProfilesResp struct {
-	ID                  string          `json:"id"`
+	ID                  int             `json:"id"`
 	Name                string          `json:"name"`
 	Category            string          `json:"category"`
 	ServiceType         string          `json:"serviceType"`
@@ -482,7 +482,7 @@ type GetSpecificLBPool struct {
 }
 
 type GetSpecificLBPoolResp struct {
-	ID               string       `json:"id"`
+	ID               int          `json:"id"`
 	Name             string       `json:"name"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`
