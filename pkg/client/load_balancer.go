@@ -13,21 +13,21 @@ import (
 
 const lbCompatibleVersion = "5.4.6"
 
-type loadBalancerAPIService struct {
+type LoadBalancerAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
 }
 
-func (lb *loadBalancerAPIService) CreateLoadBalancer(
+func (lb *LoadBalancerAPIService) CreateLoadBalancer(
 	ctx context.Context,
 	request models.CreateLoadBalancerRequest,
 ) (models.CreateNetworkLoadBalancerResp, error) {
 	loadBalancerResp := models.CreateNetworkLoadBalancerResp{}
 	loadBalancerAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "POST",
-		path:              fmt.Sprintf("%s/%s", consts.NetworkLoadBalancerPath, consts.LoadBalancerPath),
-		client:            lb.Client,
+		//compatibleVersion: lbCompatibleVersion,
+		method: "POST",
+		path:   fmt.Sprintf("%s/%s", consts.NetworkLoadBalancerPath, consts.LoadBalancerPath),
+		client: lb.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &loadBalancerResp)
 		},
@@ -37,14 +37,14 @@ func (lb *loadBalancerAPIService) CreateLoadBalancer(
 	return loadBalancerResp, err
 }
 
-func (lb *loadBalancerAPIService) DeleteLoadBalancer(
+func (lb *LoadBalancerAPIService) DeleteLoadBalancer(
 	ctx context.Context,
 	lbID int,
 ) (models.SuccessOrErrorMessage, error) {
 	loadBalancerResp := models.SuccessOrErrorMessage{}
 	loadBalancerAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "DELETE",
+		//	compatibleVersion: lbCompatibleVersion,
+		method: "DELETE",
 		path: fmt.Sprintf("%s/%s/%d",
 			consts.NetworkLoadBalancerPath, consts.LoadBalancerPath, lbID),
 		client: lb.Client,
@@ -52,12 +52,13 @@ func (lb *loadBalancerAPIService) DeleteLoadBalancer(
 			return json.Unmarshal(body, &loadBalancerResp)
 		},
 	}
+	fmt.Println("1111111", loadBalancerAPI)
 	err := loadBalancerAPI.do(ctx, nil, nil)
 
 	return loadBalancerResp, err
 }
 
-func (lb *loadBalancerAPIService) GetLoadBalancers(
+func (lb *LoadBalancerAPIService) GetLoadBalancers(
 	ctx context.Context,
 ) (models.GetNetworkLoadBalancers, error) {
 	loadBalancerResp := models.GetNetworkLoadBalancers{}
@@ -75,7 +76,7 @@ func (lb *loadBalancerAPIService) GetLoadBalancers(
 	return loadBalancerResp, err
 }
 
-func (lb *loadBalancerAPIService) GetSpecificLoadBalancers(
+func (lb *LoadBalancerAPIService) GetSpecificLoadBalancers(
 	ctx context.Context,
 	lbID int,
 ) (models.GetSpecificNetworkLoadBalancer, error) {
@@ -95,7 +96,7 @@ func (lb *loadBalancerAPIService) GetSpecificLoadBalancers(
 	return loadBalancerResp, err
 }
 
-func (lb *loadBalancerAPIService) CreateLBMonitor(
+func (lb *LoadBalancerAPIService) CreateLBMonitor(
 	ctx context.Context,
 	request models.CreateLBMonitor,
 	lbID int,
@@ -116,7 +117,7 @@ func (lb *loadBalancerAPIService) CreateLBMonitor(
 	return LBMonitorResp, err
 }
 
-func (lb *loadBalancerAPIService) DeleteLBMonitor(
+func (lb *LoadBalancerAPIService) DeleteLBMonitor(
 	ctx context.Context,
 	lbID int,
 	lbMonitorID int,
@@ -138,7 +139,7 @@ func (lb *loadBalancerAPIService) DeleteLBMonitor(
 	return LBMonitorResp, err
 }
 
-func (lb *loadBalancerAPIService) GetLBMonitors(
+func (lb *LoadBalancerAPIService) GetLBMonitors(
 	ctx context.Context,
 	lbID int,
 ) (models.GetLBMonitors, error) {
@@ -158,7 +159,7 @@ func (lb *loadBalancerAPIService) GetLBMonitors(
 	return LBMonitorResp, err
 }
 
-func (lb *loadBalancerAPIService) GetSpecificLBMonitor(
+func (lb *LoadBalancerAPIService) GetSpecificLBMonitor(
 	ctx context.Context,
 	lbID int,
 	lbmonitorID int,
@@ -179,7 +180,7 @@ func (lb *loadBalancerAPIService) GetSpecificLBMonitor(
 	return LBMonitorResp, err
 }
 
-func (lb *loadBalancerAPIService) CreateLBProfile(
+func (lb *LoadBalancerAPIService) CreateLBProfile(
 	ctx context.Context,
 	request models.CreateLBProfile,
 	lbID int,
@@ -200,7 +201,7 @@ func (lb *loadBalancerAPIService) CreateLBProfile(
 	return LBProfileResp, err
 }
 
-func (lb *loadBalancerAPIService) DeleteLBProfile(
+func (lb *LoadBalancerAPIService) DeleteLBProfile(
 	ctx context.Context,
 	lbID int,
 	lbProfileID int,
@@ -222,7 +223,7 @@ func (lb *loadBalancerAPIService) DeleteLBProfile(
 	return LBProfileResp, err
 }
 
-func (lb *loadBalancerAPIService) GetLBProfiles(
+func (lb *LoadBalancerAPIService) GetLBProfiles(
 	ctx context.Context,
 	lbID int,
 ) (models.GetLBProfile, error) {
@@ -242,7 +243,7 @@ func (lb *loadBalancerAPIService) GetLBProfiles(
 	return LBProfileResp, err
 }
 
-func (lb *loadBalancerAPIService) GetSpecificLBProfile(
+func (lb *LoadBalancerAPIService) GetSpecificLBProfile(
 	ctx context.Context,
 	lbID int,
 	lbProfileID int,
@@ -263,7 +264,7 @@ func (lb *loadBalancerAPIService) GetSpecificLBProfile(
 	return LBProfileResp, err
 }
 
-func (lb *loadBalancerAPIService) CreateLBPool(
+func (lb *LoadBalancerAPIService) CreateLBPool(
 	ctx context.Context,
 	request models.CreateLBPool,
 	lbID int,
@@ -284,7 +285,7 @@ func (lb *loadBalancerAPIService) CreateLBPool(
 	return LBPoolResp, err
 }
 
-func (lb *loadBalancerAPIService) DeleteLBPool(
+func (lb *LoadBalancerAPIService) DeleteLBPool(
 	ctx context.Context,
 	lbID int,
 	lbPoolID int,
@@ -306,7 +307,7 @@ func (lb *loadBalancerAPIService) DeleteLBPool(
 	return LBPoolResp, err
 }
 
-func (lb *loadBalancerAPIService) GetLBPools(
+func (lb *LoadBalancerAPIService) GetLBPools(
 	ctx context.Context,
 	lbID int,
 ) (models.GetLBPools, error) {
@@ -326,7 +327,7 @@ func (lb *loadBalancerAPIService) GetLBPools(
 	return LBPoolResp, err
 }
 
-func (lb *loadBalancerAPIService) GetSpecificLBPool(
+func (lb *LoadBalancerAPIService) GetSpecificLBPool(
 	ctx context.Context,
 	lbID int,
 	lbPoolID int,
@@ -347,7 +348,7 @@ func (lb *loadBalancerAPIService) GetSpecificLBPool(
 	return LBPoolResp, err
 }
 
-func (lb *loadBalancerAPIService) DeleteLBVirtualServers(
+func (lb *LoadBalancerAPIService) DeleteLBVirtualServers(
 	ctx context.Context,
 	lbID int,
 	lbVirtualServerID int,
@@ -369,7 +370,7 @@ func (lb *loadBalancerAPIService) DeleteLBVirtualServers(
 	return LBVSResp, err
 }
 
-func (lb *loadBalancerAPIService) GetLBVirtualServers(
+func (lb *LoadBalancerAPIService) GetLBVirtualServers(
 	ctx context.Context,
 	lbID int,
 ) (models.GetLBVirtualServers, error) {
@@ -389,7 +390,7 @@ func (lb *loadBalancerAPIService) GetLBVirtualServers(
 	return LBVSResp, err
 }
 
-func (lb *loadBalancerAPIService) GetSpecificLBVirtualServer(
+func (lb *LoadBalancerAPIService) GetSpecificLBVirtualServer(
 	ctx context.Context,
 	lbID int,
 	lbVSID int,

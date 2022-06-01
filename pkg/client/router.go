@@ -475,7 +475,7 @@ func (r *RouterAPIService) GetTransportZones(
 func (r *RouterAPIService) GetEdgeCluster(
 	ctx context.Context,
 	serviceID int,
-	EdgeClusterName string,
+	edgeClusterName string,
 ) (models.NetworkEdgeClusters, error) {
 	resp := models.NetworkEdgeClustersResp{}
 	routerAPI := &api{
@@ -494,7 +494,7 @@ func (r *RouterAPIService) GetEdgeCluster(
 	}
 
 	for _, t := range resp.NetworkEdgeClusters {
-		if t.Name == EdgeClusterName {
+		if t.Name == edgeClusterName {
 			return t, nil
 		}
 	}

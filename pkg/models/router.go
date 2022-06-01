@@ -386,6 +386,7 @@ type NetworkScopeConfig struct {
 type NetworkEdgeClustersResp struct {
 	NetworkEdgeClusters []NetworkEdgeClusters `json:"networkEdgeClusters"`
 }
+
 type EdgeClusterConfig struct {
 	ClusterProfileBindings string `json:"clusterProfileBindings"`
 	Members                int    `json:"members"`

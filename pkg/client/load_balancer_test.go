@@ -1,99 +1,127 @@
 package client
 
 import (
+	"bytes"
 	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	gomock "github.com/golang/mock/gomock"
 )
 
 func Test_loadBalancerAPIService_CreateLoadBalancer(t *testing.T) {
-	ctx1 := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx     context.Context
-		request models.CreateLoadBalancerRequest
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		args    models.CreateLoadBalancerRequest
+		given   func(m *MockAPIClientHandler)
 		want    models.CreateNetworkLoadBalancerResp
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
 			name: "Normal test case 1: Create Router",
-			args: args{
-				ctx: ctx1,
-				request: models.CreateLoadBalancerRequest{
-					NetworkLoadBalancer: models.CreateNetworkLoadBalancerRequest{
-						Name:            "tf_LB",
-						Type:            "nsx-t",
-						Description:     "creating LB",
-						NetworkServerID: 1,
-					},
-				},
-			},
-			want: models.CreateNetworkLoadBalancerResp{
-				Success: true,
-				NetworkLoadBalancerResp: models.NetworkLoadBalancerResp{
-					ID:   1,
+			args: models.CreateLoadBalancerRequest{
+				NetworkLoadBalancer: models.CreateNetworkLoadBalancerRequest{
 					Name: "tf_LB",
 				},
+			},
+
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers"
+				method := "POST"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method,
+					models.CreateLoadBalancerRequest{
+						NetworkLoadBalancer: models.CreateNetworkLoadBalancerRequest{
+							Name: "tf_LB",
+						},
+					},
+					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`))),
+				}, nil)
+			},
+			want: models.CreateNetworkLoadBalancerResp{
+				Success:                 true,
+				NetworkLoadBalancerResp: models.NetworkLoadBalancerResp{},
 			},
 			wantErr: false,
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.CreateLoadBalancer(tt.args.ctx, tt.args.request)
+			got, err := lb.CreateLoadBalancer(context.Background(), tt.args)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.CreateLoadBalancer() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.CreateLoadBalancer() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.CreateLoadBalancer() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.CreateLoadBalancer() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_DeleteLoadBalancer(t *testing.T) {
-	ctx1 := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx  context.Context
-		lbID int
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		lbID    int
+		given   func(m *MockAPIClientHandler)
 		want    models.SuccessOrErrorMessage
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "Normal Test case 1: Delete a  router",
-			args: args{ctx: ctx1,
-				lbID: 1},
+			name: "Normal Test case 1: Delete a LB",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
 			want: models.SuccessOrErrorMessage{
 				Success: true,
 			},
@@ -102,168 +130,206 @@ func Test_loadBalancerAPIService_DeleteLoadBalancer(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.DeleteLoadBalancer(tt.args.ctx, tt.args.lbID)
+
+			got, err := lb.DeleteLoadBalancer(context.Background(), tt.lbID)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.DeleteLoadBalancer() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.DeleteLoadBalancer() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.DeleteLoadBalancer() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.DeleteLoadBalancer() = %v, want %v", got, tt.want)
 			}
+
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_GetSpecificLoadBalancers(t *testing.T) {
-	ctx1 := context.Background()
+	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx  context.Context
-		lbID int
-	}
+
+	templateName := "test_template_get_a_specific_LB"
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		lbID    int
+		given   func(m *MockAPIClientHandler)
 		want    models.GetSpecificNetworkLoadBalancer
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "Get specific LB",
-			args: args{
-				ctx:  ctx1,
-				lbID: 1,
+			name: "Normal Test case 1: Get a specific LB",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"loadBalancer":{
+							"id": 1,
+							"name":"test_template_get_a_specific_LB"
+
+						}
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
 			},
 			want: models.GetSpecificNetworkLoadBalancer{
 				GetSpecificNetworkLoadBalancerResp: models.GetSpecificNetworkLoadBalancerResp{
 					ID:   1,
-					Name: "LB-1",
+					Name: templateName,
 				},
 			},
+			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.GetSpecificLoadBalancers(tt.args.ctx, tt.args.lbID)
+			tt.given(mockAPIClient)
+			got, err := lb.GetSpecificLoadBalancers(ctx, tt.lbID)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.GetSpecificLoadBalancers() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.GetSpecificLoadBalancers() = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.GetSpecificLoadBalancers() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.GetSpecificLoadBalancers() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_CreateLBMonitor(t *testing.T) {
-	ctx1 := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx     context.Context
-		request models.CreateLBMonitor
-		lbID    int
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		args    models.CreateLBMonitor
+		given   func(m *MockAPIClientHandler)
 		want    models.CreateLBMonitorResp
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "create LB monitor",
-			args: args{
-				ctx: ctx1,
-				request: models.CreateLBMonitor{
-					CreateLBMonitorReq: models.CreateLBMonitorReq{
-						Name:            "Test-Monitor1",
-						Description:     "a test monitor",
-						MonitorType:     "LBHttpsMonitorProfile",
-						MonitorTimeout:  15,
-						MonitorInterval: 30,
-					},
+			name: "Normal test case 1: Create Router",
+			args: models.CreateLBMonitor{
+				CreateLBMonitorReq: models.CreateLBMonitorReq{
+					Name: "tf_LBMonitor",
 				},
-				lbID: 1,
+			},
+
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/monitors"
+				method := "POST"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method,
+					models.CreateLBMonitor{
+						CreateLBMonitorReq: models.CreateLBMonitorReq{
+							Name: "tf_LBMonitor",
+						},
+					},
+					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`))),
+				}, nil)
 			},
 			want: models.CreateLBMonitorResp{
-				Success: true,
-				LBMonitorResp: models.LBMonitorResp{
-					ID:              1,
-					Name:            "Test-Monitor1",
-					Description:     "a test monitor",
-					MonitorType:     "LBHttpsMonitorProfile",
-					MonitorTimeout:  15,
-					MonitorInterval: 30,
-				},
+				Success:       true,
+				LBMonitorResp: models.LBMonitorResp{},
 			},
+			wantErr: false,
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.CreateLBMonitor(tt.args.ctx, tt.args.request, tt.args.lbID)
+			got, err := lb.CreateLBMonitor(context.Background(), tt.args, 1)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.CreateLBMonitor() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.CreateLBMonitor() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.CreateLBMonitor() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.CreateLBMonitor() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_DeleteLBMonitor(t *testing.T) {
-	ctx1 := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx         context.Context
-		lbID        int
-		lbMonitorID int
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		lbID    int
+		given   func(m *MockAPIClientHandler)
 		want    models.SuccessOrErrorMessage
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "Delete LB monitor",
-			args: args{
-				ctx:         ctx1,
-				lbID:        1,
-				lbMonitorID: 2,
+			name: "Normal Test case 1: Delete a LB-M",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/monitors/1"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
 			},
 			want: models.SuccessOrErrorMessage{
 				Success: true,
@@ -273,159 +339,136 @@ func Test_loadBalancerAPIService_DeleteLBMonitor(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
-			}
-			got, err := lb.DeleteLBMonitor(tt.args.ctx, tt.args.lbID, tt.args.lbMonitorID)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.DeleteLBMonitor() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.DeleteLBMonitor() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_loadBalancerAPIService_GetSpecificLBMonitor(t *testing.T) {
-	ctx1 := context.Background()
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx         context.Context
-		lbID        int
-		lbmonitorID int
-	}
-	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		want    models.GetSpecificNetworkLoadBalancer
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-		{
-			name: "GET LB monitor",
-			args: args{
-				ctx:         ctx1,
-				lbID:        1,
-				lbmonitorID: 2,
-			},
-			want: models.GetSpecificNetworkLoadBalancer{
-				GetSpecificNetworkLoadBalancerResp: models.GetSpecificNetworkLoadBalancerResp{
-					ID:          1,
-					Name:        "LB monitor",
-					Description: "LB",
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
 				},
-			},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
 			}
-			got, err := lb.GetSpecificLBMonitor(tt.args.ctx, tt.args.lbID, tt.args.lbmonitorID)
+
+			got, err := lb.DeleteLBMonitor(context.Background(), tt.lbID, 1)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.GetSpecificLBMonitor() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.DeleteLBMonitor() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.GetSpecificLBMonitor() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.DeleteLBMonitor() = %v, want %v", got, tt.want)
 			}
+
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_CreateLBProfile(t *testing.T) {
-	ctx1 := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx     context.Context
-		request models.CreateLBProfile
-		lbID    int
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		args    models.CreateLBProfile
+		given   func(m *MockAPIClientHandler)
 		want    models.CreateLBProfileResp
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "Create LB profile",
-			args: args{
-				ctx: ctx1,
-				request: models.CreateLBProfile{
-					CreateLBProfileReq: models.CreateLBProfileReq{
-						Name:        "LB profile",
-						Description: "creating",
-					},
+			name: "Normal test case 1: Create Router",
+			args: models.CreateLBProfile{
+				CreateLBProfileReq: models.CreateLBProfileReq{
+					Name: "tf_LB-Profile",
 				},
 			},
-			want: models.CreateLBProfileResp{
-				Success: true,
+
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/profiles"
+				method := "POST"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method,
+					models.CreateLBProfile{
+						CreateLBProfileReq: models.CreateLBProfileReq{
+							Name: "tf_LB-Profile",
+						},
+					},
+					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`))),
+				}, nil)
 			},
+			want: models.CreateLBProfileResp{
+				Success:       true,
+				LBProfileResp: models.LBProfileResp{},
+			},
+			wantErr: false,
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.CreateLBProfile(tt.args.ctx, tt.args.request, tt.args.lbID)
+			got, err := lb.CreateLBProfile(context.Background(), tt.args, 1)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.CreateLBProfile() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.CreateLBProfile() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.CreateLBProfile() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.CreateLBProfile() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_DeleteLBProfile(t *testing.T) {
-	ctx1 := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx         context.Context
-		lbID        int
-		lbProfileID int
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		lbID    int
+		given   func(m *MockAPIClientHandler)
 		want    models.SuccessOrErrorMessage
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "Delete LB Profile",
-			args: args{ctx: ctx1,
-				lbID:        1,
-				lbProfileID: 2},
+			name: "Normal Test case 1: Delete a LB-P",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/profiles/1"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
 			want: models.SuccessOrErrorMessage{
 				Success: true,
 			},
@@ -434,52 +477,72 @@ func Test_loadBalancerAPIService_DeleteLBProfile(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.DeleteLBProfile(tt.args.ctx, tt.args.lbID, tt.args.lbProfileID)
+
+			got, err := lb.DeleteLBProfile(context.Background(), tt.lbID, 1)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.DeleteLBProfile() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.DeleteLBProfile() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.DeleteLBProfile() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.DeleteLBProfile() = %v, want %v", got, tt.want)
 			}
+
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_GetSpecificLBProfile(t *testing.T) {
-	ctx1 := context.Background()
+	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx         context.Context
-		lbID        int
-		lbProfileID int
-	}
+
+	templateName := "test_template_get_a_specific_LB-P"
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		lbID    int
+		given   func(m *MockAPIClientHandler)
 		want    models.GetLBSpecificProfile
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "GET LB Profile",
-			args: args{ctx: ctx1,
-				lbID:        1,
-				lbProfileID: 2},
+			name: "Normal Test case 1: Get a specific LB-P",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/profiles/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"loadBalancerProfile":{
+							"id": 1,
+							"name":"test_template_get_a_specific_LB-P"
+
+						}
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
 			want: models.GetLBSpecificProfile{
 				GetLBSpecificProfilesResp: models.GetLBSpecificProfilesResp{
-					ID:   2,
-					Name: "LB Profile",
+					ID:   1,
+					Name: templateName,
 				},
 			},
 			wantErr: false,
@@ -487,103 +550,133 @@ func Test_loadBalancerAPIService_GetSpecificLBProfile(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.GetSpecificLBProfile(tt.args.ctx, tt.args.lbID, tt.args.lbProfileID)
+			tt.given(mockAPIClient)
+			got, err := lb.GetSpecificLBProfile(ctx, tt.lbID, 1)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.GetSpecificLBProfile() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.GetSpecificLBProfile() = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.GetSpecificLBProfile() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.GetSpecificLBProfile() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_CreateLBPool(t *testing.T) {
-	ctx1 := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx     context.Context
-		request models.CreateLBPool
-		lbID    int
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		args    models.CreateLBPool
+		given   func(m *MockAPIClientHandler)
 		want    models.CreateLBPoolResp
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "LB Pool",
-			args: args{ctx: ctx1,
-				request: models.CreateLBPool{
-					CreateLBPoolReq: models.CreateLBPoolReq{
-						Name:        "LB Pool",
-						Description: "creating Pool",
-					},
+			name: "Normal test case 1: Create LB-Pool",
+			args: models.CreateLBPool{
+				CreateLBPoolReq: models.CreateLBPoolReq{
+					Name: "tf_LB-Pool",
 				},
 			},
-			want: models.CreateLBPoolResp{
-				Success: true,
+
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/pools"
+				method := "POST"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method,
+					models.CreateLBPool{
+						CreateLBPoolReq: models.CreateLBPoolReq{
+							Name: "tf_LB-Pool",
+						},
+					},
+					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`))),
+				}, nil)
 			},
-			wantErr: true,
+			want: models.CreateLBPoolResp{
+				Success:    true,
+				LBPoolResp: models.LBPoolResp{},
+			},
+			wantErr: false,
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.CreateLBPool(tt.args.ctx, tt.args.request, tt.args.lbID)
+			got, err := lb.CreateLBPool(context.Background(), tt.args, 1)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.CreateLBPool() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.CreateLBPool() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.CreateLBPool() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.CreateLBPool() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_DeleteLBPool(t *testing.T) {
-	ctx1 := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx      context.Context
-		lbID     int
-		lbPoolID int
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		lbID    int
+		given   func(m *MockAPIClientHandler)
 		want    models.SuccessOrErrorMessage
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "Delete LB Pool",
-			args: args{ctx: ctx1,
-				lbID:     1,
-				lbPoolID: 2,
+			name: "Normal Test case 1: Delete a LB-P",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/pools/1"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
 			},
 			want: models.SuccessOrErrorMessage{
 				Success: true,
@@ -593,71 +686,229 @@ func Test_loadBalancerAPIService_DeleteLBPool(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.DeleteLBPool(tt.args.ctx, tt.args.lbID, tt.args.lbPoolID)
+
+			got, err := lb.DeleteLBPool(context.Background(), tt.lbID, 1)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.DeleteLBPool() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.DeleteLBPool() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.DeleteLBPool() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.DeleteLBPool() = %v, want %v", got, tt.want)
 			}
+
 		})
 	}
 }
 
 func Test_loadBalancerAPIService_GetSpecificLBPool(t *testing.T) {
-	ctx1 := context.Background()
+	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	type fields struct {
-		Client APIClientHandler
-		Cfg    Configuration
-	}
-	type args struct {
-		ctx      context.Context
-		lbID     int
-		lbPoolID int
-	}
+
+	templateName := "test_template_get_a_specific_LB-P"
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		lbID    int
+		given   func(m *MockAPIClientHandler)
 		want    models.GetSpecificLBPool
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
-			name: "GET LB Pool",
-			args: args{
-				ctx:      ctx1,
-				lbID:     1,
-				lbPoolID: 2,
+			name: "Normal Test case 1: Get a specific LB-P",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/pools/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"loadBalancerPool":{
+							"id": 1,
+							"name":"test_template_get_a_specific_LB-P"
+
+						}
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
 			},
 			want: models.GetSpecificLBPool{
 				GetSpecificLBPoolResp: models.GetSpecificLBPoolResp{
-					ID:   2,
-					Name: "GET LB POOL",
+					ID:   1,
+					Name: templateName,
 				},
 			},
+			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := &loadBalancerAPIService{
-				Client: tt.fields.Client,
-				Cfg:    tt.fields.Cfg,
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
 			}
-			got, err := lb.GetSpecificLBPool(tt.args.ctx, tt.args.lbID, tt.args.lbPoolID)
+			tt.given(mockAPIClient)
+			got, err := lb.GetSpecificLBPool(ctx, tt.lbID, 1)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("loadBalancerAPIService.GetSpecificLBPool() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("LoadBalancerAPIService.GetSpecificLBPool() = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("loadBalancerAPIService.GetSpecificLBPool() = %v, want %v", got, tt.want)
+				t.Errorf("LoadBalancerAPIService.GetSpecificLBPool() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_loadBalancerAPIService_DeleteLBVirtualServers(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name    string
+		lbID    int
+		given   func(m *MockAPIClientHandler)
+		want    models.SuccessOrErrorMessage
+		wantErr bool
+	}{
+		{
+			name: "Normal Test case 1: Delete a LB-VS",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/virtual-servers/1"
+				method := "DELETE"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.SuccessOrErrorMessage{
+				Success: true,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+
+			got, err := lb.DeleteLBVirtualServers(context.Background(), tt.lbID, 1)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("LoadBalancerAPIService.DeleteLBVirtualServers() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("LoadBalancerAPIService.DeleteLBVirtualServers() = %v, want %v", got, tt.want)
+			}
+
+		})
+	}
+}
+
+func Test_loadBalancerAPIService_GetSpecificLBVirtualServers(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	templateName := "test_template_get_a_specific_LB-VS"
+	tests := []struct {
+		name    string
+		lbID    int
+		given   func(m *MockAPIClientHandler)
+		want    models.GetSpecificLBVirtualServers
+		wantErr bool
+	}{
+		{
+			name: "Normal Test case 1: Get a specific LB-VS",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/virtual-servers/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"loadBalancerInstance":{
+							"id": 1,
+							"name":"test_template_get_a_specific_LB-VS"
+
+						}
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetSpecificLBVirtualServers{
+				GetSpecificLBVirtualServersResp: models.GetSpecificLBVirtualServersResp{
+					ID:   1,
+					Name: templateName,
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := lb.GetSpecificLBVirtualServer(ctx, tt.lbID, 1)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("LoadBalancerAPIService.GetSpecificLBVirtualServer() = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("LoadBalancerAPIService.GetSpecificLBVirtualServer() = %v, want %v", got, tt.want)
 			}
 		})
 	}

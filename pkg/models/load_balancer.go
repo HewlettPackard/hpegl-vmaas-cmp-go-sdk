@@ -40,7 +40,7 @@ type CreateNetworkLoadBalancerResp struct {
 type NetworkLoadBalancerResp struct {
 	ID          int          `json:"id" tf:"id,computed"`
 	Name        string       `json:"name"`
-	AccountId   int          `json:"accountId"`
+	AccountID   int          `json:"accountId"`
 	Cloud       CloudInfo    `json:"cloud"`
 	Type        Types        `json:"type"`
 	Description string       `json:"description"`
@@ -57,6 +57,7 @@ type CloudInfo struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
+
 type Types struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
@@ -67,10 +68,11 @@ type Types struct {
 type GetNetworkLoadBalancers struct {
 	GetNetworkLoadBalancerResp []GetNetworkLoadBalancerResp `json:"loadBalancers"`
 }
+
 type GetNetworkLoadBalancerResp struct {
 	ID          int          `json:"id" tf:"id,computed"`
 	Name        string       `json:"name"`
-	AccountId   int          `json:"accountId"`
+	AccountID   int          `json:"accountId"`
 	Cloud       CloudInfo    `json:"cloud"`
 	Type        Types        `json:"type"`
 	Description string       `json:"description"`
@@ -101,7 +103,7 @@ type GetSpecificNetworkLoadBalancer struct {
 type GetSpecificNetworkLoadBalancerResp struct {
 	ID          int          `json:"id" tf:"id,computed"`
 	Name        string       `json:"name"`
-	AccountId   int          `json:"accountId"`
+	AccountID   int          `json:"accountId"`
 	Cloud       CloudInfo    `json:"cloud"`
 	Type        Types        `json:"type"`
 	Description string       `json:"description"`
@@ -117,7 +119,7 @@ type GetSpecificNetworkLoadBalancerResp struct {
 	Meta        MetaInfo     `json:"meta"`
 }
 
-//Create LB Monitor Req
+// Create LB Monitor Req
 type CreateLBMonitor struct {
 	CreateLBMonitorReq CreateLBMonitorReq `json:"loadBalancerMonitor"`
 }
@@ -140,7 +142,7 @@ type CreateLBMonitorReq struct {
 	AliasPort          int    `json:"aliasPort"`
 }
 
-//Create LB Monitor Resp
+// Create LB Monitor Resp
 type CreateLBMonitorResp struct {
 	Success       bool          `json:"success"`
 	LBMonitorResp LBMonitorResp `json:"loadBalancerMonitor"`
@@ -162,7 +164,7 @@ type LBMonitorResp struct {
 	MonitorTransparent bool      `json:"monitorTransparent"`
 	MonitorAdaptive    bool      `json:"monitorAdaptive"`
 	AliasPort          string    `json:"aliasPort"`
-	InternalId         string    `json:"internalId"`
+	InternalID         string    `json:"internalId"`
 	MonitorSource      string    `json:"monitorSource"`
 	Status             string    `json:"status"`
 	Enabled            bool      `json:"enabled"`
@@ -186,7 +188,7 @@ type LBMonitorType struct {
 	Code string `json:"code"`
 }
 
-//Create LB Profile Req
+// Create LB Profile Req
 type CreateLBProfile struct {
 	CreateLBProfileReq CreateLBProfileReq `json:"loadBalancerProfile"`
 }
@@ -203,13 +205,13 @@ type LBProfile struct {
 	RequestHeaderSize      int    `json:"requestHeaderSize"`
 	ResponseHeaderSize     int    `json:"responseHeaderSize"`
 	ResponseTimeout        int    `json:"responseTimeout"`
-	HttpIdleTimeoutName    int    `json:"httpIdleTimeout"`
-	FastTcpIdleTimeout     int    `json:"fastTcpIdleTimeout"`
+	HTTPIdleTimeoutName    int    `json:"httpIdleTimeout"`
+	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout"`
 	ConnectionCloseTimeout int    `json:"connectionCloseTimeout"`
 	HaFlowMirroring        bool   `json:"haFlowMirroring"`
 }
 
-//Create LB Profile Resp
+// Create LB Profile Resp
 type CreateLBProfileResp struct {
 	Success       bool          `json:"success"`
 	LBProfileResp LBProfileResp `json:"loadBalancerProfile"`
@@ -224,7 +226,7 @@ type LBProfileResp struct {
 	Visibility          string        `json:"visibility"`
 	Description         string        `json:"description"`
 	InternalID          string        `json:"internalId"`
-	ExternalID          string        `json:"ExternalID"`
+	ExternalID          string        `json:"externalId"`
 	Enabled             string        `json:"enabled"`
 	InsertXforwardedFor string        `json:"insertXforwardedFor"`
 	Editable            string        `json:"editable"`
@@ -232,7 +234,7 @@ type LBProfileResp struct {
 }
 
 type profileConfig struct {
-	HttpIdleTimeout        string `json:"httpIdleTimeout"`
+	HTTPIdleTimeout        string `json:"httpIdleTimeout"`
 	ResponseHeaderSize     string `json:"responseHeaderSize"`
 	SharePersistence       string `json:"sharePersistence"`
 	RequestHeaderSize      string `json:"requestHeaderSize"`
@@ -247,10 +249,10 @@ type profileConfig struct {
 	ResponseTimeout        string `json:"responseTimeout"`
 	PurgeEntries           string `json:"purgeEntries"`
 	ConnectionCloseTimeout string `json:"connectionCloseTimeout"`
-	FastTcpIdleTimeout     string `json:"fastTcpIdleTimeout"`
+	FastTCPIdleTimeout     string `json:"fastTcpIdleTimeout"`
 }
 
-//Get LB Profile
+// Get LB Profile
 type GetLBProfile struct {
 	GetLBProfilesResp []GetLBProfilesResp `json:"loadBalancerProfiles"`
 }
@@ -263,8 +265,8 @@ type GetLBProfilesResp struct {
 	ServiceTypeDisplay  string          `json:"serviceTypeDisplay"`
 	Visibility          string          `json:"visibility"`
 	Description         string          `json:"description"`
-	InternalId          string          `json:"internalId"`
-	ExternalId          string          `json:"externalId"`
+	InternalID          string          `json:"internalId"`
+	ExternalID          string          `json:"externalId"`
 	Enabled             string          `json:"enabled"`
 	InsertXforwardedFor string          `json:"insertXforwardedFor"`
 	Editable            string          `json:"editable"`
@@ -274,17 +276,17 @@ type GetLBProfilesResp struct {
 }
 
 type LBprofileConfig struct {
-	HttpIdleTimeout    string `json:"httpIdleTimeout"`
+	HTTPIdleTimeout    string `json:"httpIdleTimeout"`
 	NtlmAuthentication string `json:"ntlmAuthentication"`
 	RequestHeaderSize  string `json:"requestHeaderSize"`
 	ResponseHeaderSize string `json:"responseHeaderSize"`
 	ResponseTimeout    string `json:"responseTimeout"`
 	XForwardedFor      string `json:"xForwardedFor"`
 	ProfileType        string `json:"profileType"`
-	Resource_type      string `json:"resource_type"`
+	ResourceType       string `json:"resource_type"`
 }
 
-//Get LB Specific Profile
+// Get LB Specific Profile
 type GetLBSpecificProfile struct {
 	GetLBSpecificProfilesResp GetLBSpecificProfilesResp `json:"loadBalancerProfile"`
 }
@@ -297,8 +299,8 @@ type GetLBSpecificProfilesResp struct {
 	ServiceTypeDisplay  string          `json:"serviceTypeDisplay"`
 	Visibility          string          `json:"visibility"`
 	Description         string          `json:"description"`
-	InternalId          string          `json:"internalId"`
-	ExternalId          string          `json:"externalId"`
+	InternalID          string          `json:"internalId"`
+	ExternalID          string          `json:"externalId"`
 	Enabled             string          `json:"enabled"`
 	InsertXforwardedFor string          `json:"insertXforwardedFor"`
 	Editable            string          `json:"editable"`
@@ -307,7 +309,7 @@ type GetLBSpecificProfilesResp struct {
 	LBProfileConfig     LBprofileConfig `json:"config"`
 }
 
-//Get LB Monitors
+// Get LB Monitors
 type GetLBMonitors struct {
 	GetLBMonitorsResp []GetLBMonitorsResp `json:"loadBalancerMonitors"`
 }
@@ -323,8 +325,8 @@ type GetLBMonitorsResp struct {
 	MonitorReverse     bool      `json:"monitorReverse"`
 	MonitorTransparent bool      `json:"monitorTransparent"`
 	MonitorAdaptive    bool      `json:"monitorAdaptive"`
-	InternalId         string    `json:"internalId"`
-	ExternalId         string    `json:"externalId"`
+	InternalID         string    `json:"internalId"`
+	ExternalID         string    `json:"externalId"`
 	MonitorSource      string    `json:"monitorSource"`
 	Status             string    `json:"status"`
 	Enabled            bool      `json:"enabled"`
@@ -337,7 +339,7 @@ type GetLBMonitorsResp struct {
 	LoadBalancer       LBMonitor `json:"loadBalancer"`
 }
 
-//Get Specific LB Monitor
+// Get Specific LB Monitor
 type GetSpecificLBMonitor struct {
 	GetSpecificLBMonitorResp GetSpecificLBMonitorResp `json:"loadBalancerMonitor"`
 }
@@ -356,8 +358,8 @@ type GetSpecificLBMonitorResp struct {
 	MonitorReverse     bool      `json:"monitorReverse"`
 	MonitorTransparent bool      `json:"monitorTransparent"`
 	MonitorAdaptive    bool      `json:"monitorAdaptive"`
-	InternalId         string    `json:"internalId"`
-	ExternalId         string    `json:"externalId"`
+	InternalID         string    `json:"internalId"`
+	ExternalID         string    `json:"externalId"`
 	MonitorSource      string    `json:"monitorSource"`
 	Status             string    `json:"status"`
 	Enabled            bool      `json:"enabled"`
@@ -386,20 +388,20 @@ type PoolConfig struct {
 	SnatTranslationType   string      `json:"snatTranslationType"`
 	PassiveMonitorPath    int         `json:"passiveMonitorPath"`
 	ActiveMonitorPaths    int         `json:"activeMonitorPaths"`
-	TcpMultiplexing       bool        `json:"tcpMultiplexing"`
-	TcpMultiplexingNumber int         `json:"tcpMultiplexingNumber"`
-	SnatIpAddress         string      `json:"snatIpAddress"`
+	TCPMultiplexing       bool        `json:"tcpMultiplexing"`
+	TCPMultiplexingNumber int         `json:"tcpMultiplexingNumber"`
+	SnatIPAddress         string      `json:"snatIpAddress"`
 	MemberGroup           MemberGroup `json:"memberGroup"`
 }
 
 type MemberGroup struct {
 	Name             string `json:"name"`
 	Path             string `json:"path"`
-	IpRevisionFilter string `json:"ipRevisionFilter"`
+	IPRevisionFilter string `json:"ipRevisionFilter"`
 	Port             int    `json:"port"`
 }
 
-//Create LB Pool Resp
+// Create LB Pool Resp
 type CreateLBPoolResp struct {
 	Success    bool       `json:"success"`
 	LBPoolResp LBPoolResp `json:"loadBalancerPool"`
@@ -411,8 +413,8 @@ type LBPoolResp struct {
 	Category         string       `json:"category"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`
-	InternalId       string       `json:"internalId"`
-	ExternalId       string       `json:"externalId"`
+	InternalID       string       `json:"internalId"`
+	ExternalID       string       `json:"externalId"`
 	Enabled          bool         `json:"enabled"`
 	VipBalance       string       `json:"vipBalance"`
 	MinActive        int          `json:"minActive"`
@@ -434,16 +436,16 @@ type LBPoolResp struct {
 }
 
 type LBPoolConfig struct {
-	SnatIpAddresses       []string    `json:"snatIpAddresses"`
-	TcpMultiplexingNumber int         `json:"tcpMultiplexingNumber"`
+	SnatIPAddresses       []string    `json:"snatIpAddresses"`
+	TCPMultiplexingNumber int         `json:"tcpMultiplexingNumber"`
 	PassiveMonitorPath    int         `json:"passiveMonitorPath"`
-	TcpMultiplexing       bool        `json:"tcpMultiplexing"`
-	SnatIpAddress         string      `json:"snatIpAddress"`
+	TCPMultiplexing       bool        `json:"tcpMultiplexing"`
+	SnatIPAddress         string      `json:"snatIpAddress"`
 	SnatTranslationType   string      `json:"snatTranslationType"`
 	MemberGroup           MemberGroup `json:"memberGroup"`
 }
 
-//Get LB Pools
+// Get LB Pools
 type GetLBPools struct {
 	GetLBPoolsResp []GetLBPoolsResp `json:"loadBalancerPools"`
 }
@@ -453,8 +455,8 @@ type GetLBPoolsResp struct {
 	Name             string       `json:"name"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`
-	InternalId       string       `json:"internalId"`
-	ExternalId       string       `json:"externalId"`
+	InternalID       string       `json:"internalId"`
+	ExternalID       string       `json:"externalId"`
 	Enabled          bool         `json:"enabled"`
 	VipBalance       string       `json:"vipBalance"`
 	MinActive        int          `json:"minActive"`
@@ -476,7 +478,7 @@ type GetLBPoolsResp struct {
 	Meta             MetaInfo     `json:"meta"`
 }
 
-//Get Specific LB Pools
+// Get Specific LB Pools
 type GetSpecificLBPool struct {
 	GetSpecificLBPoolResp GetSpecificLBPoolResp `json:"loadBalancerPool"`
 }
@@ -486,8 +488,8 @@ type GetSpecificLBPoolResp struct {
 	Name             string       `json:"name"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`
-	InternalId       string       `json:"internalId"`
-	ExternalId       string       `json:"externalId"`
+	InternalID       string       `json:"internalId"`
+	ExternalID       string       `json:"externalId"`
 	Enabled          bool         `json:"enabled"`
 	VipBalance       string       `json:"vipBalance"`
 	MinActive        int          `json:"minActive"`
@@ -555,6 +557,7 @@ type VSPool struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
+
 type SSLCert struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
