@@ -779,6 +779,79 @@ func Test_loadBalancerAPIService_GetSpecificLBPool(t *testing.T) {
 	}
 }
 
+func Test_loadBalancerAPIService_CreateLBVirtualServers(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name    string
+		args    models.CreateLBVirtualServers
+		given   func(m *MockAPIClientHandler)
+		want    models.LBVirtualServersResp
+		wantErr bool
+	}{
+		{
+			name: "Normal test case 1: Create LB-VS",
+			args: models.CreateLBVirtualServers{
+				CreateLBVirtualServersReq: models.CreateLBVirtualServersReq{
+					VipName: "tf_LB",
+				},
+			},
+
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/virtual-servers"
+				method := "POST"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method,
+					models.CreateLBVirtualServers{
+						CreateLBVirtualServersReq: models.CreateLBVirtualServersReq{
+							VipName: "tf_LB",
+						},
+					},
+					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"success": true
+					}
+				`))),
+				}, nil)
+			},
+			want: models.LBVirtualServersResp{
+				Success:                    true,
+				CreateLBVirtualServersResp: models.CreateLBVirtualServersResp{},
+			},
+			wantErr: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			tt.given(mockAPIClient)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			got, err := lb.CreateLBVirtualServers(context.Background(), tt.args, 1)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("LoadBalancerAPIService.CreateLBVirtualServers() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("LoadBalancerAPIService.CreateLBVirtualServers() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 func Test_loadBalancerAPIService_DeleteLBVirtualServers(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()

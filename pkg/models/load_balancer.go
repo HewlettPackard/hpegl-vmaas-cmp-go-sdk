@@ -510,6 +510,65 @@ type GetSpecificLBPoolResp struct {
 	LBPoolConfig     LBPoolConfig `json:"config"`
 }
 
+// CREATE LB Virtual servers
+
+type CreateLBVirtualServers struct {
+	CreateLBVirtualServersReq CreateLBVirtualServersReq `json:"loadBalancerInstance"`
+}
+
+type CreateLBVirtualServersReq struct {
+	Description         string              `json:"description"`
+	VipName             string              `json:"vipName"`
+	VipAddress          string              `json:"vipAddress"`
+	VipProtocol         string              `json:"vipProtocol"`
+	VipPort             string              `json:"vipPort"`
+	Pool                int                 `json:"pool"`
+	SSLServerCert       int                 `json:"sslServerCert"`
+	SSLCert             int                 `json:"sslCert"`
+	VirtualServerConfig VirtualServerConfig `json:"config"`
+}
+
+type VirtualServerConfig struct {
+	Persistence        string `json:"persistence"`
+	PersistenceProfile int    `json:"persistenceProfile"`
+	ApplicationProfile string `json:"applicationProfile"`
+	SSLClientProfile   int    `json:"sslClientProfile"`
+	SSLServerProfile   int    `json:"sslServerProfile"`
+}
+
+// CREATE LB Virtual Server Resp
+type LBVirtualServersResp struct {
+	CreateLBVirtualServersResp CreateLBVirtualServersResp `json:"loadBalancerInstance"`
+	Success                    bool                       `json:"success"`
+}
+
+type CreateLBVirtualServersResp struct {
+	ID                 int           `json:"id"`
+	Name               string        `json:"name"`
+	Description        string        `json:"description"`
+	Active             bool          `json:"active"`
+	Sticky             bool          `json:"sticky"`
+	SslEnabled         bool          `json:"sslEnabled"`
+	ExternalAddress    bool          `json:"externalAddress"`
+	VipName            string        `json:"vipName"`
+	VipAddress         string        `json:"vipAddress"`
+	VipProtocol        string        `json:"vipProtocol"`
+	VipMode            string        `json:"vipMode"`
+	VipPort            int           `json:"vipPort"`
+	VipShared          bool          `json:"vipShared"`
+	VipDirectAddress   string        `json:"vipDirectAddress"`
+	Removing           bool          `json:"removing"`
+	VirtualServiceName string        `json:"virtualServiceName"`
+	VipSource          string        `json:"vipSource"`
+	DateCreated        string        `json:"dateCreated"`
+	LastUpdated        string        `json:"lastUpdated"`
+	LoadBalancer       LBMonitor     `json:"loadBalancer"`
+	VSConfig           VSConfig      `json:"config"`
+	VSPool             VSPool        `json:"pool"`
+	SSLCert            SSLCert       `json:"sslCert"`
+	SSLServerCert      SSLServerCert `json:"sslServerCert"`
+}
+
 // GET LB Virtual servers
 
 type GetLBVirtualServers struct {

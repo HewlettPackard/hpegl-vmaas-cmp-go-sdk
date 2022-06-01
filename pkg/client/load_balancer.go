@@ -24,10 +24,10 @@ func (lb *LoadBalancerAPIService) CreateLoadBalancer(
 ) (models.CreateNetworkLoadBalancerResp, error) {
 	loadBalancerResp := models.CreateNetworkLoadBalancerResp{}
 	loadBalancerAPI := &api{
-		//compatibleVersion: lbCompatibleVersion,
-		method: "POST",
-		path:   fmt.Sprintf("%s/%s", consts.NetworkLoadBalancerPath, consts.LoadBalancerPath),
-		client: lb.Client,
+		compatibleVersion: lbCompatibleVersion,
+		method:            "POST",
+		path:              fmt.Sprintf("%s/%s", consts.NetworkLoadBalancerPath, consts.LoadBalancerPath),
+		client:            lb.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &loadBalancerResp)
 		},
@@ -43,8 +43,8 @@ func (lb *LoadBalancerAPIService) DeleteLoadBalancer(
 ) (models.SuccessOrErrorMessage, error) {
 	loadBalancerResp := models.SuccessOrErrorMessage{}
 	loadBalancerAPI := &api{
-		//	compatibleVersion: lbCompatibleVersion,
-		method: "DELETE",
+		compatibleVersion: lbCompatibleVersion,
+		method:            "DELETE",
 		path: fmt.Sprintf("%s/%s/%d",
 			consts.NetworkLoadBalancerPath, consts.LoadBalancerPath, lbID),
 		client: lb.Client,
@@ -52,7 +52,6 @@ func (lb *LoadBalancerAPIService) DeleteLoadBalancer(
 			return json.Unmarshal(body, &loadBalancerResp)
 		},
 	}
-	fmt.Println("1111111", loadBalancerAPI)
 	err := loadBalancerAPI.do(ctx, nil, nil)
 
 	return loadBalancerResp, err
@@ -346,6 +345,27 @@ func (lb *LoadBalancerAPIService) GetSpecificLBPool(
 	err := LBPoolAPI.do(ctx, nil, nil)
 
 	return LBPoolResp, err
+}
+
+func (lb *LoadBalancerAPIService) CreateLBVirtualServers(
+	ctx context.Context,
+	request models.CreateLBVirtualServers,
+	lbID int,
+) (models.LBVirtualServersResp, error) {
+	LBVSResp := models.LBVirtualServersResp{}
+	LBVSAPI := &api{
+		compatibleVersion: lbCompatibleVersion,
+		method:            "POST",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBVSResp)
+		},
+	}
+	err := LBVSAPI.do(ctx, request, nil)
+
+	return LBVSResp, err
 }
 
 func (lb *LoadBalancerAPIService) DeleteLBVirtualServers(
