@@ -346,3 +346,66 @@ func (lb *loadBalancerAPIService) GetSpecificLBPool(
 
 	return LBPoolResp, err
 }
+
+func (lb *loadBalancerAPIService) DeleteLBVirtualServers(
+	ctx context.Context,
+	lbID int,
+	lbVirtualServerID int,
+) (models.SuccessOrErrorMessage, error) {
+	LBVSResp := models.SuccessOrErrorMessage{}
+	LBVSAPI := &api{
+		compatibleVersion: lbCompatibleVersion,
+		method:            "DELETE",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d",
+			consts.NetworkLoadBalancerPath, consts.LoadBalancerPath, lbID,
+			consts.LoadBalancerVirtualServersPath, lbVirtualServerID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBVSResp)
+		},
+	}
+	err := LBVSAPI.do(ctx, nil, nil)
+
+	return LBVSResp, err
+}
+
+func (lb *loadBalancerAPIService) GetLBVirtualServers(
+	ctx context.Context,
+	lbID int,
+) (models.GetLBVirtualServers, error) {
+	LBVSResp := models.GetLBVirtualServers{}
+	LBVSAPI := &api{
+		compatibleVersion: lbCompatibleVersion,
+		method:            "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBVSResp)
+		},
+	}
+	err := LBVSAPI.do(ctx, nil, nil)
+
+	return LBVSResp, err
+}
+
+func (lb *loadBalancerAPIService) GetSpecificLBVirtualServer(
+	ctx context.Context,
+	lbID int,
+	lbVSID int,
+) (models.GetSpecificLBVirtualServers, error) {
+	LBVSResp := models.GetSpecificLBVirtualServers{}
+	LBVSAPI := &api{
+		compatibleVersion: lbCompatibleVersion,
+		method:            "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworkLoadBalancerPath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath, lbVSID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBVSResp)
+		},
+	}
+	err := LBVSAPI.do(ctx, nil, nil)
+
+	return LBVSResp, err
+}

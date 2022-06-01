@@ -507,3 +507,93 @@ type GetSpecificLBPoolResp struct {
 	LoadBalancer     LBMonitor    `json:"loadBalancer"`
 	LBPoolConfig     LBPoolConfig `json:"config"`
 }
+
+// GET LB Virtual servers
+
+type GetLBVirtualServers struct {
+	GetLBVirtualServersResp []GetLBVirtualServersResp `json:"loadBalancerInstances"`
+}
+
+type GetLBVirtualServersResp struct {
+	ID                 int           `json:"id"`
+	Name               string        `json:"name"`
+	Description        string        `json:"description"`
+	Active             bool          `json:"active"`
+	Sticky             bool          `json:"sticky"`
+	SslEnabled         bool          `json:"sslEnabled"`
+	ExternalAddress    bool          `json:"externalAddress"`
+	VipName            string        `json:"vipName"`
+	VipAddress         string        `json:"vipAddress"`
+	VipProtocol        string        `json:"vipProtocol"`
+	VipMode            string        `json:"vipMode"`
+	VipPort            int           `json:"vipPort"`
+	VipShared          bool          `json:"vipShared"`
+	VipDirectAddress   string        `json:"vipDirectAddress"`
+	Removing           bool          `json:"removing"`
+	VirtualServiceName string        `json:"virtualServiceName"`
+	VipSource          string        `json:"vipSource"`
+	DateCreated        string        `json:"dateCreated"`
+	LastUpdated        string        `json:"lastUpdated"`
+	LoadBalancer       LBMonitor     `json:"loadBalancer"`
+	VSConfig           VSConfig      `json:"config"`
+	VSPool             VSPool        `json:"pool"`
+	SSLCert            SSLCert       `json:"sslCert"`
+	SSLServerCert      SSLServerCert `json:"sslServerCert"`
+	Meta               MetaInfo      `json:"meta"`
+}
+
+type VSConfig struct {
+	Persistence        string   `json:"persistence"`
+	PersistenceProfile string   `json:"persistenceProfile"`
+	SslServerProfile   string   `json:"sslServerProfile"`
+	SslClientProfile   string   `json:"sslClientProfile"`
+	ApplicationProfile string   `json:"applicationProfile"`
+	Monitors           []string `json:"monitors"`
+}
+
+type VSPool struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+type SSLCert struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+type SSLServerCert struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+// GET LB Specific Virtual servers
+
+type GetSpecificLBVirtualServers struct {
+	GetSpecificLBVirtualServersResp GetSpecificLBVirtualServersResp `json:"loadBalancerInstance"`
+}
+
+type GetSpecificLBVirtualServersResp struct {
+	ID                 int           `json:"id"`
+	Name               string        `json:"name"`
+	Description        string        `json:"description"`
+	Active             bool          `json:"active"`
+	Sticky             bool          `json:"sticky"`
+	SslEnabled         bool          `json:"sslEnabled"`
+	ExternalAddress    bool          `json:"externalAddress"`
+	VipName            string        `json:"vipName"`
+	VipAddress         string        `json:"vipAddress"`
+	VipProtocol        string        `json:"vipProtocol"`
+	VipMode            string        `json:"vipMode"`
+	VipPort            int           `json:"vipPort"`
+	VipShared          bool          `json:"vipShared"`
+	VipDirectAddress   string        `json:"vipDirectAddress"`
+	Removing           bool          `json:"removing"`
+	VirtualServiceName string        `json:"virtualServiceName"`
+	VipSource          string        `json:"vipSource"`
+	DateCreated        string        `json:"dateCreated"`
+	LastUpdated        string        `json:"lastUpdated"`
+	LoadBalancer       LBMonitor     `json:"loadBalancer"`
+	VSConfig           VSConfig      `json:"config"`
+	VSPool             VSPool        `json:"pool"`
+	SSLCert            SSLCert       `json:"sslCert"`
+	SSLServerCert      SSLServerCert `json:"sslServerCert"`
+}
