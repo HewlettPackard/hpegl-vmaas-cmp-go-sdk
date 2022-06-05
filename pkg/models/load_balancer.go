@@ -44,7 +44,7 @@ type NetworkLoadBalancerResp struct {
 	Cloud       CloudInfo    `json:"cloud"`
 	Type        Types        `json:"type"`
 	Description string       `json:"description"`
-	Port        string       `json:"port"`
+	Port        int          `json:"port"`
 	SSLEnabled  bool         `json:"sslEnabled"`
 	Enabled     bool         `json:"enabled"`
 	Visibility  string       `json:"visibility"`
@@ -76,7 +76,7 @@ type GetNetworkLoadBalancerResp struct {
 	Cloud       CloudInfo    `json:"cloud"`
 	Type        Types        `json:"type"`
 	Description string       `json:"description"`
-	Port        string       `json:"port"`
+	Port        int          `json:"port"`
 	Host        string       `json:"host"`
 	IP          string       `json:"ip"`
 	SSLEnabled  bool         `json:"sslEnabled"`
@@ -107,7 +107,7 @@ type GetSpecificNetworkLoadBalancerResp struct {
 	Cloud       CloudInfo    `json:"cloud"`
 	Type        Types        `json:"type"`
 	Description string       `json:"description"`
-	Port        string       `json:"port"`
+	Port        int          `json:"port"`
 	Host        string       `json:"host"`
 	IP          string       `json:"ip"`
 	SSLEnabled  bool         `json:"sslEnabled"`
@@ -163,7 +163,7 @@ type LBMonitorResp struct {
 	MonitorReverse     bool      `json:"monitorReverse"`
 	MonitorTransparent bool      `json:"monitorTransparent"`
 	MonitorAdaptive    bool      `json:"monitorAdaptive"`
-	AliasPort          string    `json:"aliasPort"`
+	AliasPort          int       `json:"aliasPort"`
 	InternalID         string    `json:"internalId"`
 	MonitorSource      string    `json:"monitorSource"`
 	Status             string    `json:"status"`
@@ -176,7 +176,7 @@ type LBMonitorResp struct {
 }
 
 type LBMonitor struct {
-	ID   string        `json:"id"`
+	ID   int           `json:"id"`
 	Name string        `json:"name"`
 	IP   string        `json:"ip"`
 	Type LBMonitorType `json:"type"`
@@ -209,6 +209,11 @@ type LBProfile struct {
 	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout"`
 	ConnectionCloseTimeout int    `json:"connectionCloseTimeout"`
 	HaFlowMirroring        bool   `json:"haFlowMirroring"`
+	CookieMode             string `json:"cookieMode"`
+	CookieName             string `json:"cookieName"`
+	CookieType             string `json:"cookieType"`
+	CookieFallback         bool   `json:"cookieFallback"`
+	CookieGarbling         bool   `json:"cookieGarbling"`
 }
 
 // Create LB Profile Resp
@@ -227,29 +232,29 @@ type LBProfileResp struct {
 	Description         string        `json:"description"`
 	InternalID          string        `json:"internalId"`
 	ExternalID          string        `json:"externalId"`
-	Enabled             string        `json:"enabled"`
-	InsertXforwardedFor string        `json:"insertXforwardedFor"`
-	Editable            string        `json:"editable"`
+	Enabled             bool          `json:"enabled"`
+	InsertXforwardedFor bool          `json:"insertXforwardedFor"`
+	Editable            bool          `json:"editable"`
 	LBProfileConfig     profileConfig `json:"config"`
 }
 
 type profileConfig struct {
-	HTTPIdleTimeout        string `json:"httpIdleTimeout"`
-	ResponseHeaderSize     string `json:"responseHeaderSize"`
-	SharePersistence       string `json:"sharePersistence"`
-	RequestHeaderSize      string `json:"requestHeaderSize"`
-	HaPersistenceMirroring string `json:"haPersistenceMirroring"`
-	PreferServerCipher     string `json:"preferServerCipher"`
+	HTTPIdleTimeout        int    `json:"httpIdleTimeout"`
+	ResponseHeaderSize     int    `json:"responseHeaderSize"`
+	SharePersistence       bool   `json:"sharePersistence"`
+	RequestHeaderSize      int    `json:"requestHeaderSize"`
+	HaPersistenceMirroring bool   `json:"haPersistenceMirroring"`
+	PreferServerCipher     bool   `json:"preferServerCipher"`
 	ProfileType            string `json:"profileType"`
-	CookieGarbling         string `json:"cookieGarbling"`
-	NtlmAuthentication     string `json:"ntlmAuthentication"`
-	HaFlowMirroring        string `json:"haFlowMirroring"`
-	SessionCache           string `json:"sessionCache"`
-	CookieFallback         string `json:"cookieFallback"`
-	ResponseTimeout        string `json:"responseTimeout"`
-	PurgeEntries           string `json:"purgeEntries"`
-	ConnectionCloseTimeout string `json:"connectionCloseTimeout"`
-	FastTCPIdleTimeout     string `json:"fastTcpIdleTimeout"`
+	CookieGarbling         bool   `json:"cookieGarbling"`
+	NtlmAuthentication     bool   `json:"ntlmAuthentication"`
+	HaFlowMirroring        bool   `json:"haFlowMirroring"`
+	SessionCache           bool   `json:"sessionCache"`
+	CookieFallback         bool   `json:"cookieFallback"`
+	ResponseTimeout        int    `json:"responseTimeout"`
+	PurgeEntries           bool   `json:"purgeEntries"`
+	ConnectionCloseTimeout int    `json:"connectionCloseTimeout"`
+	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout"`
 }
 
 // Get LB Profile
@@ -267,20 +272,20 @@ type GetLBProfilesResp struct {
 	Description         string          `json:"description"`
 	InternalID          string          `json:"internalId"`
 	ExternalID          string          `json:"externalId"`
-	Enabled             string          `json:"enabled"`
-	InsertXforwardedFor string          `json:"insertXforwardedFor"`
-	Editable            string          `json:"editable"`
+	Enabled             bool            `json:"enabled"`
+	InsertXforwardedFor bool            `json:"insertXforwardedFor"`
+	Editable            bool            `json:"editable"`
 	DateCreated         string          `json:"dateCreated"`
 	LastUpdated         string          `json:"lastUpdated"`
 	LBProfileConfig     LBprofileConfig `json:"config"`
 }
 
 type LBprofileConfig struct {
-	HTTPIdleTimeout    string `json:"httpIdleTimeout"`
-	NtlmAuthentication string `json:"ntlmAuthentication"`
-	RequestHeaderSize  string `json:"requestHeaderSize"`
-	ResponseHeaderSize string `json:"responseHeaderSize"`
-	ResponseTimeout    string `json:"responseTimeout"`
+	HTTPIdleTimeout    int    `json:"httpIdleTimeout"`
+	NtlmAuthentication bool   `json:"ntlmAuthentication"`
+	RequestHeaderSize  int    `json:"requestHeaderSize"`
+	ResponseHeaderSize int    `json:"responseHeaderSize"`
+	ResponseTimeout    int    `json:"responseTimeout"`
 	XForwardedFor      string `json:"xForwardedFor"`
 	ProfileType        string `json:"profileType"`
 	ResourceType       string `json:"resource_type"`
@@ -301,9 +306,9 @@ type GetLBSpecificProfilesResp struct {
 	Description         string          `json:"description"`
 	InternalID          string          `json:"internalId"`
 	ExternalID          string          `json:"externalId"`
-	Enabled             string          `json:"enabled"`
-	InsertXforwardedFor string          `json:"insertXforwardedFor"`
-	Editable            string          `json:"editable"`
+	Enabled             bool            `json:"enabled"`
+	InsertXforwardedFor bool            `json:"insertXforwardedFor"`
+	Editable            bool            `json:"editable"`
 	DateCreated         string          `json:"dateCreated"`
 	LastUpdated         string          `json:"lastUpdated"`
 	LBProfileConfig     LBprofileConfig `json:"config"`
@@ -408,7 +413,7 @@ type CreateLBPoolResp struct {
 }
 
 type LBPoolResp struct {
-	ID               string       `json:"id"`
+	ID               int          `json:"id"`
 	Name             string       `json:"name"`
 	Category         string       `json:"category"`
 	Visibility       string       `json:"visibility"`
@@ -451,7 +456,7 @@ type GetLBPools struct {
 }
 
 type GetLBPoolsResp struct {
-	ID               string       `json:"id"`
+	ID               int          `json:"id"`
 	Name             string       `json:"name"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`

@@ -64,7 +64,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					Name:  "Instance_Clone",
 				}
 				// pBody := []byte(`{"zoneId":"1","CloneName":"Instance_Clone"}`)
-				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().getVersion().Return(999999).AnyTimes()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
@@ -99,7 +99,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					Name:  "Instance_Clone",
 				}
 				// pBody := []byte(`{"ZoneID":"1","CloneName":"Instance_Clone"}`)
-				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().getVersion().Return(999999).AnyTimes()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -144,7 +144,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					},
 					Name: "Instance_Clone",
 				}
-				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().getVersion().Return(999999).AnyTimes()
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 

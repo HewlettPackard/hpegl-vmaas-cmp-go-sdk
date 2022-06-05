@@ -11,8 +11,6 @@ import (
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
-const lbCompatibleVersion = "5.4.6"
-
 type LoadBalancerAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
@@ -24,10 +22,9 @@ func (lb *LoadBalancerAPIService) CreateLoadBalancer(
 ) (models.CreateNetworkLoadBalancerResp, error) {
 	loadBalancerResp := models.CreateNetworkLoadBalancerResp{}
 	loadBalancerAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "POST",
-		path:              fmt.Sprintf("%s/%s", consts.NetworkLoadBalancerPath, consts.LoadBalancerPath),
-		client:            lb.Client,
+		method: "POST",
+		path:   fmt.Sprintf("%s/%s", consts.NetworkLoadBalancerPath, consts.LoadBalancerPath),
+		client: lb.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &loadBalancerResp)
 		},
@@ -43,8 +40,7 @@ func (lb *LoadBalancerAPIService) DeleteLoadBalancer(
 ) (models.SuccessOrErrorMessage, error) {
 	loadBalancerResp := models.SuccessOrErrorMessage{}
 	loadBalancerAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "DELETE",
+		method: "DELETE",
 		path: fmt.Sprintf("%s/%s/%d",
 			consts.NetworkLoadBalancerPath, consts.LoadBalancerPath, lbID),
 		client: lb.Client,
@@ -62,10 +58,9 @@ func (lb *LoadBalancerAPIService) GetLoadBalancers(
 ) (models.GetNetworkLoadBalancers, error) {
 	loadBalancerResp := models.GetNetworkLoadBalancers{}
 	loadBalancerAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
-		path:              fmt.Sprintf("%s/%s", consts.NetworkLoadBalancerPath, consts.LoadBalancerPath),
-		client:            lb.Client,
+		method: "GET",
+		path:   fmt.Sprintf("%s/%s", consts.NetworkLoadBalancerPath, consts.LoadBalancerPath),
+		client: lb.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &loadBalancerResp)
 		},
@@ -81,8 +76,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLoadBalancers(
 ) (models.GetSpecificNetworkLoadBalancer, error) {
 	loadBalancerResp := models.GetSpecificNetworkLoadBalancer{}
 	loadBalancerAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID),
 		client: lb.Client,
@@ -102,8 +96,7 @@ func (lb *LoadBalancerAPIService) CreateLBMonitor(
 ) (models.CreateLBMonitorResp, error) {
 	LBMonitorResp := models.CreateLBMonitorResp{}
 	LBMonitorAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "POST",
+		method: "POST",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath),
 		client: lb.Client,
@@ -123,8 +116,7 @@ func (lb *LoadBalancerAPIService) DeleteLBMonitor(
 ) (models.SuccessOrErrorMessage, error) {
 	LBMonitorResp := models.SuccessOrErrorMessage{}
 	LBMonitorAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "DELETE",
+		method: "DELETE",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d",
 			consts.NetworkLoadBalancerPath, consts.LoadBalancerPath, lbID,
 			consts.LoadBalancerMonitorPath, lbMonitorID),
@@ -144,8 +136,7 @@ func (lb *LoadBalancerAPIService) GetLBMonitors(
 ) (models.GetLBMonitors, error) {
 	LBMonitorResp := models.GetLBMonitors{}
 	LBMonitorAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath),
 		client: lb.Client,
@@ -162,11 +153,10 @@ func (lb *LoadBalancerAPIService) GetSpecificLBMonitor(
 	ctx context.Context,
 	lbID int,
 	lbmonitorID int,
-) (models.GetSpecificNetworkLoadBalancer, error) {
-	LBMonitorResp := models.GetSpecificNetworkLoadBalancer{}
+) (models.GetSpecificLBMonitor, error) {
+	LBMonitorResp := models.GetSpecificLBMonitor{}
 	LBMonitorAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath, lbmonitorID),
 		client: lb.Client,
@@ -186,8 +176,7 @@ func (lb *LoadBalancerAPIService) CreateLBProfile(
 ) (models.CreateLBProfileResp, error) {
 	LBProfileResp := models.CreateLBProfileResp{}
 	LBProfileAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "POST",
+		method: "POST",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath),
 		client: lb.Client,
@@ -207,8 +196,7 @@ func (lb *LoadBalancerAPIService) DeleteLBProfile(
 ) (models.SuccessOrErrorMessage, error) {
 	LBProfileResp := models.SuccessOrErrorMessage{}
 	LBProfileAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "DELETE",
+		method: "DELETE",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d",
 			consts.NetworkLoadBalancerPath, consts.LoadBalancerPath, lbID,
 			consts.LoadBalancerProfilePath, lbProfileID),
@@ -228,8 +216,7 @@ func (lb *LoadBalancerAPIService) GetLBProfiles(
 ) (models.GetLBProfile, error) {
 	LBProfileResp := models.GetLBProfile{}
 	LBProfileAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath),
 		client: lb.Client,
@@ -249,8 +236,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLBProfile(
 ) (models.GetLBSpecificProfile, error) {
 	LBProfileResp := models.GetLBSpecificProfile{}
 	LBProfileAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath, lbProfileID),
 		client: lb.Client,
@@ -270,8 +256,7 @@ func (lb *LoadBalancerAPIService) CreateLBPool(
 ) (models.CreateLBPoolResp, error) {
 	LBPoolResp := models.CreateLBPoolResp{}
 	LBPoolAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "POST",
+		method: "POST",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath),
 		client: lb.Client,
@@ -291,8 +276,7 @@ func (lb *LoadBalancerAPIService) DeleteLBPool(
 ) (models.SuccessOrErrorMessage, error) {
 	LBPoolResp := models.SuccessOrErrorMessage{}
 	LBPoolAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "DELETE",
+		method: "DELETE",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d",
 			consts.NetworkLoadBalancerPath, consts.LoadBalancerPath, lbID,
 			consts.LoadBalancerPoolPath, lbPoolID),
@@ -312,8 +296,7 @@ func (lb *LoadBalancerAPIService) GetLBPools(
 ) (models.GetLBPools, error) {
 	LBPoolResp := models.GetLBPools{}
 	LBPoolAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath),
 		client: lb.Client,
@@ -333,8 +316,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLBPool(
 ) (models.GetSpecificLBPool, error) {
 	LBPoolResp := models.GetSpecificLBPool{}
 	LBPoolAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath, lbPoolID),
 		client: lb.Client,
@@ -354,8 +336,7 @@ func (lb *LoadBalancerAPIService) CreateLBVirtualServers(
 ) (models.LBVirtualServersResp, error) {
 	LBVSResp := models.LBVirtualServersResp{}
 	LBVSAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "POST",
+		method: "POST",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath),
 		client: lb.Client,
@@ -375,8 +356,7 @@ func (lb *LoadBalancerAPIService) DeleteLBVirtualServers(
 ) (models.SuccessOrErrorMessage, error) {
 	LBVSResp := models.SuccessOrErrorMessage{}
 	LBVSAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "DELETE",
+		method: "DELETE",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d",
 			consts.NetworkLoadBalancerPath, consts.LoadBalancerPath, lbID,
 			consts.LoadBalancerVirtualServersPath, lbVirtualServerID),
@@ -396,8 +376,7 @@ func (lb *LoadBalancerAPIService) GetLBVirtualServers(
 ) (models.GetLBVirtualServers, error) {
 	LBVSResp := models.GetLBVirtualServers{}
 	LBVSAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath),
 		client: lb.Client,
@@ -417,8 +396,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLBVirtualServer(
 ) (models.GetSpecificLBVirtualServers, error) {
 	LBVSResp := models.GetSpecificLBVirtualServers{}
 	LBVSAPI := &api{
-		compatibleVersion: lbCompatibleVersion,
-		method:            "GET",
+		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.NetworkLoadBalancerPath,
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath, lbVSID),
 		client: lb.Client,

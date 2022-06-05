@@ -50,6 +50,8 @@ func (a *api) do(ctx context.Context, request interface{}, queryParams map[strin
 		panic("api not properly configured")
 	}
 	a.path = fmt.Sprintf("%s/%s/%s", a.client.getHost(), consts.VmaasCmpAPIBasePath, a.path)
+	// a.path = fmt.Sprintf("%s/%s", a.client.getHost(), a.path)
+
 	for _, validations := range a.validations {
 		err := validations()
 		if err != nil {

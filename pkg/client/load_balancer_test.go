@@ -26,7 +26,7 @@ func Test_loadBalancerAPIService_CreateLoadBalancer(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Normal test case 1: Create Router",
+			name: "Normal test case 1: Create LB",
 			args: models.CreateLoadBalancerRequest{
 				NetworkLoadBalancer: models.CreateNetworkLoadBalancerRequest{
 					Name: "tf_LB",
@@ -235,7 +235,7 @@ func Test_loadBalancerAPIService_CreateLBMonitor(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Normal test case 1: Create Router",
+			name: "Normal test case 1: Create LB-Monitor",
 			args: models.CreateLBMonitor{
 				CreateLBMonitorReq: models.CreateLBMonitorReq{
 					Name: "tf_LBMonitor",
@@ -361,6 +361,74 @@ func Test_loadBalancerAPIService_DeleteLBMonitor(t *testing.T) {
 	}
 }
 
+func Test_loadBalancerAPIService_GetSpecificLBMonitor(t *testing.T) {
+	ctx := context.Background()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	tests := []struct {
+		name    string
+		lbID    int
+		given   func(m *MockAPIClientHandler)
+		want    models.GetSpecificLBMonitor
+		wantErr bool
+	}{
+		{
+			name: "Normal Test case 1: Get a specific LB-Monitor",
+			lbID: 1,
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/monitors/1"
+				method := "GET"
+				headers := getDefaultHeaders()
+				req, _ := http.NewRequest(method, path, nil)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"loadBalancerMonitor":{
+							"name":"test_template_get_a_specific_LB"
+
+						}
+					}
+				`)))
+				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, nil, headers,
+					getURLValues(nil), url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetSpecificLBMonitor{
+				GetSpecificLBMonitorResp: models.GetSpecificLBMonitorResp{
+					Name: "test_template_get_a_specific_LB",
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockAPIClient := NewMockAPIClientHandler(ctrl)
+			lb := LoadBalancerAPIService{
+				Client: mockAPIClient,
+				Cfg: Configuration{
+					Host: mockHost,
+				},
+			}
+			tt.given(mockAPIClient)
+			got, err := lb.GetSpecificLBMonitor(ctx, tt.lbID, 1)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("LoadBalancerAPIService.GetSpecificLBMonitor() = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("LoadBalancerAPIService.GetSpecificLBMonitor() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_loadBalancerAPIService_CreateLBProfile(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -373,7 +441,7 @@ func Test_loadBalancerAPIService_CreateLBProfile(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Normal test case 1: Create Router",
+			name: "Normal test case 1: Create LB Profile",
 			args: models.CreateLBProfile{
 				CreateLBProfileReq: models.CreateLBProfileReq{
 					Name: "tf_LB-Profile",
