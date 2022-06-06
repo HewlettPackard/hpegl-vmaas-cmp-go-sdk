@@ -49,7 +49,7 @@ const (
 	VirtualImagePath               = "virtual-images"
 	FolderPath                     = "folders"
 	ConfigOptionPath               = "config-options"
-	PowerSchedulPath               = "power-schedules"
+	PowerSchedulePath              = "power-schedules"
 	EnvironmentPath                = "environments"
 	OptionsPath                    = "options"
 	ZoneNetworkOptionsPath         = "zoneNetworkOptions"
@@ -57,7 +57,7 @@ const (
 	RouterRoutePath                = "routes"
 	RouterBgpNeighborPath          = "bgp-neighbors"
 	NetworkEdgeClusterPath         = "edge-clusters"
-
+	// Whoami Path
 	WhoamiPath = "whoami"
 
 	// headers

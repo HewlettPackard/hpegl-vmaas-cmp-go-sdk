@@ -31,7 +31,7 @@ func (a *PowerSchedulesAPIService) GetAllPowerSchedules(ctx context.Context,
 
 	allPowerScheduleAPI := &api{
 		method: "GET",
-		path:   consts.PowerSchedulPath,
+		path:   consts.PowerSchedulePath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
@@ -51,7 +51,7 @@ func (a *PowerSchedulesAPIService) GetSpecificPowerSchedule(
 
 	allPowerScheduleAPI := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%d", consts.PowerSchedulPath, powerID),
+		path:   fmt.Sprintf("%s/%d", consts.PowerSchedulePath, powerID),
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
