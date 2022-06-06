@@ -537,8 +537,8 @@ type VirtualServerConfig struct {
 	Persistence        string `json:"persistence"`
 	PersistenceProfile int    `json:"persistenceProfile"`
 	ApplicationProfile string `json:"applicationProfile"`
-	SSLClientProfile   int    `json:"sslClientProfile"`
-	SSLServerProfile   int    `json:"sslServerProfile"`
+	SSLClientProfile   string `json:"sslClientProfile"`
+	SSLServerProfile   string `json:"sslServerProfile"`
 }
 
 // CREATE LB Virtual Server Resp
@@ -610,7 +610,7 @@ type GetLBVirtualServersResp struct {
 
 type VSConfig struct {
 	Persistence        string   `json:"persistence"`
-	PersistenceProfile string   `json:"persistenceProfile"`
+	PersistenceProfile int      `json:"persistenceProfile"`
 	SslServerProfile   string   `json:"sslServerProfile"`
 	SslClientProfile   string   `json:"sslClientProfile"`
 	ApplicationProfile string   `json:"applicationProfile"`
