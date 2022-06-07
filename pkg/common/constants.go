@@ -13,8 +13,8 @@ const (
 	GroupsPath = "groups"
 	// NetworksPath
 	NetworksPath = "networks"
-	// LoadBalancerPath
-	NetworkLoadBalancerPath = "api"
+	// BasePath
+	BasePath = "api"
 	// NetworkTypePath
 	NetworkTypePath              = "network-types"
 	NetworkPoolPath              = "pools"
