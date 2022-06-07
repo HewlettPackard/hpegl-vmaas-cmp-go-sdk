@@ -1,0 +1,410 @@
+// (C) Copyright 2022 Hewlett Packard Enterprise Development LP
+
+package client
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
+	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
+)
+
+type LoadBalancerAPIService struct {
+	Client APIClientHandler
+	Cfg    Configuration
+}
+
+func (lb *LoadBalancerAPIService) CreateLoadBalancer(
+	ctx context.Context,
+	request models.CreateLoadBalancerRequest,
+) (models.CreateNetworkLoadBalancerResp, error) {
+	loadBalancerResp := models.CreateNetworkLoadBalancerResp{}
+	loadBalancerAPI := &api{
+		method: "POST",
+		path:   fmt.Sprintf("%s/%s", consts.BasePath, consts.LoadBalancerPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &loadBalancerResp)
+		},
+	}
+	err := loadBalancerAPI.do(ctx, request, nil)
+
+	return loadBalancerResp, err
+}
+
+func (lb *LoadBalancerAPIService) DeleteLoadBalancer(
+	ctx context.Context,
+	lbID int,
+) (models.SuccessOrErrorMessage, error) {
+	loadBalancerResp := models.SuccessOrErrorMessage{}
+	loadBalancerAPI := &api{
+		method: "DELETE",
+		path: fmt.Sprintf("%s/%s/%d",
+			consts.BasePath, consts.LoadBalancerPath, lbID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &loadBalancerResp)
+		},
+	}
+	err := loadBalancerAPI.do(ctx, nil, nil)
+
+	return loadBalancerResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetLoadBalancers(
+	ctx context.Context,
+) (models.GetNetworkLoadBalancers, error) {
+	loadBalancerResp := models.GetNetworkLoadBalancers{}
+	loadBalancerAPI := &api{
+		method: "GET",
+		path:   fmt.Sprintf("%s/%s", consts.BasePath, consts.LoadBalancerPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &loadBalancerResp)
+		},
+	}
+	err := loadBalancerAPI.do(ctx, nil, nil)
+
+	return loadBalancerResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetSpecificLoadBalancers(
+	ctx context.Context,
+	lbID int,
+) (models.GetSpecificNetworkLoadBalancer, error) {
+	loadBalancerResp := models.GetSpecificNetworkLoadBalancer{}
+	loadBalancerAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d", consts.BasePath,
+			consts.LoadBalancerPath, lbID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &loadBalancerResp)
+		},
+	}
+	err := loadBalancerAPI.do(ctx, nil, nil)
+
+	return loadBalancerResp, err
+}
+
+func (lb *LoadBalancerAPIService) CreateLBMonitor(
+	ctx context.Context,
+	request models.CreateLBMonitor,
+	lbID int,
+) (models.CreateLBMonitorResp, error) {
+	LBMonitorResp := models.CreateLBMonitorResp{}
+	LBMonitorAPI := &api{
+		method: "POST",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBMonitorResp)
+		},
+	}
+	err := LBMonitorAPI.do(ctx, request, nil)
+
+	return LBMonitorResp, err
+}
+
+func (lb *LoadBalancerAPIService) DeleteLBMonitor(
+	ctx context.Context,
+	lbID int,
+	lbMonitorID int,
+) (models.SuccessOrErrorMessage, error) {
+	LBMonitorResp := models.SuccessOrErrorMessage{}
+	LBMonitorAPI := &api{
+		method: "DELETE",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d",
+			consts.BasePath, consts.LoadBalancerPath, lbID,
+			consts.LoadBalancerMonitorPath, lbMonitorID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBMonitorResp)
+		},
+	}
+	err := LBMonitorAPI.do(ctx, nil, nil)
+
+	return LBMonitorResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetLBMonitors(
+	ctx context.Context,
+	lbID int,
+) (models.GetLBMonitors, error) {
+	LBMonitorResp := models.GetLBMonitors{}
+	LBMonitorAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBMonitorResp)
+		},
+	}
+	err := LBMonitorAPI.do(ctx, nil, nil)
+
+	return LBMonitorResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetSpecificLBMonitor(
+	ctx context.Context,
+	lbID int,
+	lbmonitorID int,
+) (models.GetSpecificLBMonitor, error) {
+	LBMonitorResp := models.GetSpecificLBMonitor{}
+	LBMonitorAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath, lbmonitorID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBMonitorResp)
+		},
+	}
+	err := LBMonitorAPI.do(ctx, nil, nil)
+
+	return LBMonitorResp, err
+}
+
+func (lb *LoadBalancerAPIService) CreateLBProfile(
+	ctx context.Context,
+	request models.CreateLBProfile,
+	lbID int,
+) (models.CreateLBProfileResp, error) {
+	LBProfileResp := models.CreateLBProfileResp{}
+	LBProfileAPI := &api{
+		method: "POST",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBProfileResp)
+		},
+	}
+	err := LBProfileAPI.do(ctx, request, nil)
+
+	return LBProfileResp, err
+}
+
+func (lb *LoadBalancerAPIService) DeleteLBProfile(
+	ctx context.Context,
+	lbID int,
+	lbProfileID int,
+) (models.SuccessOrErrorMessage, error) {
+	LBProfileResp := models.SuccessOrErrorMessage{}
+	LBProfileAPI := &api{
+		method: "DELETE",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d",
+			consts.BasePath, consts.LoadBalancerPath, lbID,
+			consts.LoadBalancerProfilePath, lbProfileID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBProfileResp)
+		},
+	}
+	err := LBProfileAPI.do(ctx, nil, nil)
+
+	return LBProfileResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetLBProfiles(
+	ctx context.Context,
+	lbID int,
+) (models.GetLBProfile, error) {
+	LBProfileResp := models.GetLBProfile{}
+	LBProfileAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBProfileResp)
+		},
+	}
+	err := LBProfileAPI.do(ctx, nil, nil)
+
+	return LBProfileResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetSpecificLBProfile(
+	ctx context.Context,
+	lbID int,
+	lbProfileID int,
+) (models.GetLBSpecificProfile, error) {
+	LBProfileResp := models.GetLBSpecificProfile{}
+	LBProfileAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath, lbProfileID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBProfileResp)
+		},
+	}
+	err := LBProfileAPI.do(ctx, nil, nil)
+
+	return LBProfileResp, err
+}
+
+func (lb *LoadBalancerAPIService) CreateLBPool(
+	ctx context.Context,
+	request models.CreateLBPool,
+	lbID int,
+) (models.CreateLBPoolResp, error) {
+	LBPoolResp := models.CreateLBPoolResp{}
+	LBPoolAPI := &api{
+		method: "POST",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBPoolResp)
+		},
+	}
+	err := LBPoolAPI.do(ctx, request, nil)
+
+	return LBPoolResp, err
+}
+
+func (lb *LoadBalancerAPIService) DeleteLBPool(
+	ctx context.Context,
+	lbID int,
+	lbPoolID int,
+) (models.SuccessOrErrorMessage, error) {
+	LBPoolResp := models.SuccessOrErrorMessage{}
+	LBPoolAPI := &api{
+		method: "DELETE",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d",
+			consts.BasePath, consts.LoadBalancerPath, lbID,
+			consts.LoadBalancerPoolPath, lbPoolID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBPoolResp)
+		},
+	}
+	err := LBPoolAPI.do(ctx, nil, nil)
+
+	return LBPoolResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetLBPools(
+	ctx context.Context,
+	lbID int,
+) (models.GetLBPools, error) {
+	LBPoolResp := models.GetLBPools{}
+	LBPoolAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBPoolResp)
+		},
+	}
+	err := LBPoolAPI.do(ctx, nil, nil)
+
+	return LBPoolResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetSpecificLBPool(
+	ctx context.Context,
+	lbID int,
+	lbPoolID int,
+) (models.GetSpecificLBPool, error) {
+	LBPoolResp := models.GetSpecificLBPool{}
+	LBPoolAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath, lbPoolID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBPoolResp)
+		},
+	}
+	err := LBPoolAPI.do(ctx, nil, nil)
+
+	return LBPoolResp, err
+}
+
+func (lb *LoadBalancerAPIService) CreateLBVirtualServers(
+	ctx context.Context,
+	request models.CreateLBVirtualServers,
+	lbID int,
+) (models.LBVirtualServersResp, error) {
+	LBVSResp := models.LBVirtualServersResp{}
+	LBVSAPI := &api{
+		method: "POST",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBVSResp)
+		},
+	}
+	err := LBVSAPI.do(ctx, request, nil)
+
+	return LBVSResp, err
+}
+
+func (lb *LoadBalancerAPIService) DeleteLBVirtualServers(
+	ctx context.Context,
+	lbID int,
+	lbVirtualServerID int,
+) (models.SuccessOrErrorMessage, error) {
+	LBVSResp := models.SuccessOrErrorMessage{}
+	LBVSAPI := &api{
+		method: "DELETE",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d",
+			consts.BasePath, consts.LoadBalancerPath, lbID,
+			consts.LoadBalancerVirtualServersPath, lbVirtualServerID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBVSResp)
+		},
+	}
+	err := LBVSAPI.do(ctx, nil, nil)
+
+	return LBVSResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetLBVirtualServers(
+	ctx context.Context,
+	lbID int,
+) (models.GetLBVirtualServers, error) {
+	LBVSResp := models.GetLBVirtualServers{}
+	LBVSAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBVSResp)
+		},
+	}
+	err := LBVSAPI.do(ctx, nil, nil)
+
+	return LBVSResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetSpecificLBVirtualServer(
+	ctx context.Context,
+	lbID int,
+	lbVSID int,
+) (models.GetSpecificLBVirtualServers, error) {
+	LBVSResp := models.GetSpecificLBVirtualServers{}
+	LBVSAPI := &api{
+		method: "GET",
+		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.BasePath,
+			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath, lbVSID),
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBVSResp)
+		},
+	}
+	err := LBVSAPI.do(ctx, nil, nil)
+
+	return LBVSResp, err
+}

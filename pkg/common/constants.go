@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2022 Hewlett Packard Enterprise Development LP
 
 package common
 
@@ -13,6 +13,8 @@ const (
 	GroupsPath = "groups"
 	// NetworksPath
 	NetworksPath = "networks"
+	// BasePath
+	BasePath = "api"
 	// NetworkTypePath
 	NetworkTypePath              = "network-types"
 	NetworkPoolPath              = "pools"
@@ -33,24 +35,29 @@ const (
 	// DatstorePath
 	DatstorePath = "data-stores"
 	// Virtual-Images Path
-	ResourcePoolPath       = "resource-pools"
-	NetworkRouterPath      = "routers"
-	NetworkRouterTypePath  = "network-router-types"
-	NetworkServicePath     = "services"
-	NetworkScopePath       = "scopes"
-	ServerPath             = "servers"
-	VirtualImagePath       = "virtual-images"
-	FolderPath             = "folders"
-	ConfigOptionPath       = "config-options"
-	PowerSchedulPath       = "power-schedules"
-	EnvironmentPath        = "environments"
-	OptionsPath            = "options"
-	ZoneNetworkOptionsPath = "zoneNetworkOptions"
-	ProvisionTypesPath     = "provision-types"
-	RouterRoutePath        = "routes"
-	RouterBgpNeighborPath  = "bgp-neighbors"
-	NetworkEdgeClusterPath = "edge-clusters"
-
+	ResourcePoolPath               = "resource-pools"
+	NetworkRouterPath              = "routers"
+	LoadBalancerPath               = "load-balancers"
+	LoadBalancerMonitorPath        = "monitors"
+	LoadBalancerProfilePath        = "profiles"
+	LoadBalancerPoolPath           = "pools"
+	LoadBalancerVirtualServersPath = "virtual-servers"
+	NetworkRouterTypePath          = "network-router-types"
+	NetworkServicePath             = "services"
+	NetworkScopePath               = "scopes"
+	ServerPath                     = "servers"
+	VirtualImagePath               = "virtual-images"
+	FolderPath                     = "folders"
+	ConfigOptionPath               = "config-options"
+	PowerSchedulePath              = "power-schedules"
+	EnvironmentPath                = "environments"
+	OptionsPath                    = "options"
+	ZoneNetworkOptionsPath         = "zoneNetworkOptions"
+	ProvisionTypesPath             = "provision-types"
+	RouterRoutePath                = "routes"
+	RouterBgpNeighborPath          = "bgp-neighbors"
+	NetworkEdgeClusterPath         = "edge-clusters"
+	// Whoami Path
 	WhoamiPath = "whoami"
 
 	// headers
