@@ -68,6 +68,9 @@ type CreateNetworkRequest struct {
 	ResourcePermissions NetworkResPermission `json:"resourcePermissions,omitempty"`
 }
 
+type PoolModel struct {
+	Pool int `json:"pool,omitempty"`
+}
 type CreateNetwork struct {
 	ID                  int                  `json:"-" tf:"id,computed"`
 	Name                string               `json:"name" tf:"name"`
@@ -83,6 +86,7 @@ type CreateNetwork struct {
 	NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
 	NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
 	NetworkServer       IDModel              `json:"networkServer,omitempty"`
+	NetworkPool         PoolModel            `json:"networkPool,omitempty"`
 	NetworkProxyID      int                  `json:"-" tf:"proxy_id"`
 	ProxyID             int                  `json:"-" tf:"proxy_id"`
 	SearchDomains       string               `json:"searchDomains,omitempty" tf:"search_domains"`
