@@ -173,7 +173,7 @@ func TestNetworksAPIService_CreateNetwork(t *testing.T) {
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
 
-				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().getVersion().Return(999999).MaxTimes(3)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method,
 					models.CreateNetworkRequest{
 						Network: models.CreateNetwork{
