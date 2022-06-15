@@ -71,6 +71,7 @@ type CreateNetworkRequest struct {
 type PoolModel struct {
 	Pool int `json:"pool,omitempty"`
 }
+
 type CreateNetwork struct {
 	ID                  int                  `json:"-" tf:"id,computed"`
 	Name                string               `json:"name" tf:"name"`

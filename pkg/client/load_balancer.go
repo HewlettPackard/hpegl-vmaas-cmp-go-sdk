@@ -23,7 +23,7 @@ func (lb *LoadBalancerAPIService) CreateLoadBalancer(
 	loadBalancerResp := models.CreateNetworkLoadBalancerResp{}
 	loadBalancerAPI := &api{
 		method: "POST",
-		path:   fmt.Sprintf("%s/%s", consts.BasePath, consts.LoadBalancerPath),
+		path:   consts.LoadBalancerPath,
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &loadBalancerResp)
@@ -41,8 +41,7 @@ func (lb *LoadBalancerAPIService) DeleteLoadBalancer(
 	loadBalancerResp := models.SuccessOrErrorMessage{}
 	loadBalancerAPI := &api{
 		method: "DELETE",
-		path: fmt.Sprintf("%s/%s/%d",
-			consts.BasePath, consts.LoadBalancerPath, lbID),
+		path:   fmt.Sprintf("%s/%d", consts.LoadBalancerPath, lbID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &loadBalancerResp)
@@ -59,7 +58,7 @@ func (lb *LoadBalancerAPIService) GetLoadBalancers(
 	loadBalancerResp := models.GetNetworkLoadBalancers{}
 	loadBalancerAPI := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%s", consts.BasePath, consts.LoadBalancerPath),
+		path:   consts.LoadBalancerPath,
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &loadBalancerResp)
@@ -77,7 +76,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLoadBalancers(
 	loadBalancerResp := models.GetSpecificNetworkLoadBalancer{}
 	loadBalancerAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d", consts.BasePath,
+		path: fmt.Sprintf("%s/%d",
 			consts.LoadBalancerPath, lbID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -97,7 +96,7 @@ func (lb *LoadBalancerAPIService) CreateLBMonitor(
 	LBMonitorResp := models.CreateLBMonitorResp{}
 	LBMonitorAPI := &api{
 		method: "POST",
-		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -117,8 +116,7 @@ func (lb *LoadBalancerAPIService) DeleteLBMonitor(
 	LBMonitorResp := models.SuccessOrErrorMessage{}
 	LBMonitorAPI := &api{
 		method: "DELETE",
-		path: fmt.Sprintf("%s/%s/%d/%s/%d",
-			consts.BasePath, consts.LoadBalancerPath, lbID,
+		path: fmt.Sprintf("%s/%d/%s/%d", consts.LoadBalancerPath, lbID,
 			consts.LoadBalancerMonitorPath, lbMonitorID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -137,7 +135,7 @@ func (lb *LoadBalancerAPIService) GetLBMonitors(
 	LBMonitorResp := models.GetLBMonitors{}
 	LBMonitorAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -157,7 +155,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLBMonitor(
 	LBMonitorResp := models.GetSpecificLBMonitor{}
 	LBMonitorAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s/%d",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerMonitorPath, lbmonitorID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -177,7 +175,7 @@ func (lb *LoadBalancerAPIService) CreateLBProfile(
 	LBProfileResp := models.CreateLBProfileResp{}
 	LBProfileAPI := &api{
 		method: "POST",
-		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -197,8 +195,8 @@ func (lb *LoadBalancerAPIService) DeleteLBProfile(
 	LBProfileResp := models.SuccessOrErrorMessage{}
 	LBProfileAPI := &api{
 		method: "DELETE",
-		path: fmt.Sprintf("%s/%s/%d/%s/%d",
-			consts.BasePath, consts.LoadBalancerPath, lbID,
+		path: fmt.Sprintf("%s/%d/%s/%d",
+			consts.LoadBalancerPath, lbID,
 			consts.LoadBalancerProfilePath, lbProfileID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -217,7 +215,7 @@ func (lb *LoadBalancerAPIService) GetLBProfiles(
 	LBProfileResp := models.GetLBProfile{}
 	LBProfileAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -237,7 +235,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLBProfile(
 	LBProfileResp := models.GetLBSpecificProfile{}
 	LBProfileAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s/%d",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerProfilePath, lbProfileID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -257,7 +255,7 @@ func (lb *LoadBalancerAPIService) CreateLBPool(
 	LBPoolResp := models.CreateLBPoolResp{}
 	LBPoolAPI := &api{
 		method: "POST",
-		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -277,8 +275,7 @@ func (lb *LoadBalancerAPIService) DeleteLBPool(
 	LBPoolResp := models.SuccessOrErrorMessage{}
 	LBPoolAPI := &api{
 		method: "DELETE",
-		path: fmt.Sprintf("%s/%s/%d/%s/%d",
-			consts.BasePath, consts.LoadBalancerPath, lbID,
+		path: fmt.Sprintf("%s/%d/%s/%d", consts.LoadBalancerPath, lbID,
 			consts.LoadBalancerPoolPath, lbPoolID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -297,7 +294,7 @@ func (lb *LoadBalancerAPIService) GetLBPools(
 	LBPoolResp := models.GetLBPools{}
 	LBPoolAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -317,7 +314,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLBPool(
 	LBPoolResp := models.GetSpecificLBPool{}
 	LBPoolAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s/%d",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerPoolPath, lbPoolID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -337,7 +334,7 @@ func (lb *LoadBalancerAPIService) CreateLBVirtualServers(
 	LBVSResp := models.LBVirtualServersResp{}
 	LBVSAPI := &api{
 		method: "POST",
-		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -357,8 +354,7 @@ func (lb *LoadBalancerAPIService) DeleteLBVirtualServers(
 	LBVSResp := models.SuccessOrErrorMessage{}
 	LBVSAPI := &api{
 		method: "DELETE",
-		path: fmt.Sprintf("%s/%s/%d/%s/%d",
-			consts.BasePath, consts.LoadBalancerPath, lbID,
+		path: fmt.Sprintf("%s/%d/%s/%d", consts.LoadBalancerPath, lbID,
 			consts.LoadBalancerVirtualServersPath, lbVirtualServerID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -377,7 +373,7 @@ func (lb *LoadBalancerAPIService) GetLBVirtualServers(
 	LBVSResp := models.GetLBVirtualServers{}
 	LBVSAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d/%s", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
@@ -397,7 +393,7 @@ func (lb *LoadBalancerAPIService) GetSpecificLBVirtualServer(
 	LBVSResp := models.GetSpecificLBVirtualServers{}
 	LBVSAPI := &api{
 		method: "GET",
-		path: fmt.Sprintf("%s/%s/%d/%s/%d", consts.BasePath,
+		path: fmt.Sprintf("%s/%d/%s/%d",
 			consts.LoadBalancerPath, lbID, consts.LoadBalancerVirtualServersPath, lbVSID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {

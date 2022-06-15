@@ -35,7 +35,7 @@ func Test_loadBalancerAPIService_CreateLoadBalancer(t *testing.T) {
 
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers"
 				method := "POST"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -104,7 +104,7 @@ func Test_loadBalancerAPIService_DeleteLoadBalancer(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -170,7 +170,7 @@ func Test_loadBalancerAPIService_GetSpecificLoadBalancers(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -244,7 +244,7 @@ func Test_loadBalancerAPIService_CreateLBMonitor(t *testing.T) {
 
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/monitors"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/monitors"
 				method := "POST"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -313,7 +313,7 @@ func Test_loadBalancerAPIService_DeleteLBMonitor(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/monitors/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/monitors/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -378,7 +378,7 @@ func Test_loadBalancerAPIService_GetSpecificLBMonitor(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/monitors/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/monitors/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -450,7 +450,7 @@ func Test_loadBalancerAPIService_CreateLBProfile(t *testing.T) {
 
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/profiles"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/profiles"
 				method := "POST"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -519,7 +519,7 @@ func Test_loadBalancerAPIService_DeleteLBProfile(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/profiles/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/profiles/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -585,7 +585,7 @@ func Test_loadBalancerAPIService_GetSpecificLBProfile(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/profiles/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/profiles/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -659,7 +659,7 @@ func Test_loadBalancerAPIService_CreateLBPool(t *testing.T) {
 
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/pools"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/pools"
 				method := "POST"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -728,7 +728,7 @@ func Test_loadBalancerAPIService_DeleteLBPool(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/pools/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/pools/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -794,7 +794,7 @@ func Test_loadBalancerAPIService_GetSpecificLBPool(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/pools/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/pools/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -868,7 +868,7 @@ func Test_loadBalancerAPIService_CreateLBVirtualServers(t *testing.T) {
 
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/virtual-servers"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/virtual-servers"
 				method := "POST"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -936,7 +936,7 @@ func Test_loadBalancerAPIService_DeleteLBVirtualServers(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/virtual-servers/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/virtual-servers/1"
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
@@ -1002,7 +1002,7 @@ func Test_loadBalancerAPIService_GetSpecificLBVirtualServers(t *testing.T) {
 			lbID: 1,
 			given: func(m *MockAPIClientHandler) {
 				m.EXPECT().getHost().Return(mockHost)
-				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/api/load-balancers/1/virtual-servers/1"
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/load-balancers/1/virtual-servers/1"
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)

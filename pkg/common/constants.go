@@ -13,8 +13,6 @@ const (
 	GroupsPath = "groups"
 	// NetworksPath
 	NetworksPath = "networks"
-	// BasePath
-	BasePath = "api"
 	// NetworkTypePath
 	NetworkTypePath              = "network-types"
 	NetworkPoolPath              = "pools"
