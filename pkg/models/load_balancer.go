@@ -13,15 +13,15 @@ type CreateNetworkLoadBalancerRequest struct {
 	Name                string                    `json:"name"`
 	Type                string                    `json:"type"`
 	Description         string                    `json:"description"`
-	NetworkServerID     int                       `json:"networkServerId"`
+	NetworkServerID     int                       `json:"networkServerId" tf:"network_server_id"`
 	Enabled             bool                      `json:"enabled"`
 	Visibility          string                    `json:"visibility"`
 	Config              CreateConfig              `json:"config"`
-	ResourcePermissions EnableResourcePermissions `json:"resourcePermission"`
+	ResourcePermissions EnableResourcePermissions `json:"resourcePermission" tf:"resource_permission"`
 }
 
 type CreateConfig struct {
-	AdminState bool   `json:"adminState"`
+	AdminState bool   `json:"adminState" tf:"admin_state"`
 	Loglevel   string `json:"loglevel"`
 	Size       string `json:"size"`
 	Tier1      string `json:"tier1"`
