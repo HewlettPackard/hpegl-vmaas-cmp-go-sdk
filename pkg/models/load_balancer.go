@@ -31,6 +31,18 @@ type EnableResourcePermissions struct {
 	All bool `json:"all"`
 }
 
+type GetLoadBalancerTypes struct {
+	LoadBalancerTypes []LoadBalancerTypes `json:"loadBalancerTypes"`
+}
+
+type LoadBalancerTypes struct {
+	ID          int    `json:"id"`
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Enabled     bool   `json:"enabled"`
+}
+
 // Create LB resp
 type CreateNetworkLoadBalancerResp struct {
 	Success                 bool                    `json:"success"`

@@ -69,6 +69,24 @@ func (lb *LoadBalancerAPIService) GetLoadBalancers(
 	return loadBalancerResp, err
 }
 
+func (lb *LoadBalancerAPIService) GetLoadBalancerTypes(
+	ctx context.Context,
+	queryParams map[string]string,
+) (models.GetLoadBalancerTypes, error) {
+	loadBalancerResp := models.GetLoadBalancerTypes{}
+	loadBalancerAPI := &api{
+		method: "GET",
+		path:   consts.LoadBalancerTypePath,
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &loadBalancerResp)
+		},
+	}
+	err := loadBalancerAPI.do(ctx, nil, nil)
+
+	return loadBalancerResp, err
+}
+
 func (lb *LoadBalancerAPIService) GetSpecificLoadBalancers(
 	ctx context.Context,
 	lbID int,
