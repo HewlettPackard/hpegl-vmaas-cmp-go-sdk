@@ -10,6 +10,7 @@ type CreateLoadBalancerRequest struct {
 }
 
 type CreateNetworkLoadBalancerRequest struct {
+	ID                  int                       `json:"-" tf:"id,computed"`
 	Name                string                    `json:"name"`
 	Type                string                    `json:"type"`
 	Description         string                    `json:"description"`
@@ -82,7 +83,7 @@ type GetNetworkLoadBalancers struct {
 }
 
 type GetNetworkLoadBalancerResp struct {
-	ID          int          `json:"id" tf:"id,computed"`
+	ID          int          `json:"id"`
 	Name        string       `json:"name"`
 	AccountID   int          `json:"accountId"`
 	Cloud       CloudInfo    `json:"cloud"`
@@ -137,6 +138,7 @@ type CreateLBMonitor struct {
 }
 
 type CreateLBMonitorReq struct {
+	ID                 int    `json:"-" tf:"id,computed"`
 	Name               string `json:"name"`
 	Description        string `json:"description"`
 	MonitorType        string `json:"monitorType" tf:"monitor_type"`
@@ -206,6 +208,7 @@ type CreateLBProfile struct {
 }
 
 type CreateLBProfileReq struct {
+	ID            int       `json:"-" tf:"id,computed"`
 	Name          string    `json:"name"`
 	Description   string    `json:"description"`
 	ServiceType   string    `json:"serviceType" tf:"service_type"`
@@ -219,6 +222,7 @@ type LBProfile struct {
 	ResponseTimeout        int    `json:"responseTimeout" tf:"response_timeout"`
 	HTTPIdleTimeoutName    int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
 	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
+	SSLSuite               string `json:"sslSuite" tf:"ssl_suite"`
 	ConnectionCloseTimeout int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
 	HaFlowMirroring        bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
 	CookieMode             string `json:"cookieMode" tf:"cookie_mode"`
@@ -309,7 +313,7 @@ type GetLBSpecificProfile struct {
 }
 
 type GetLBSpecificProfilesResp struct {
-	ID                  int             `json:"id"`
+	ID                  int             `json:"-" tf:"id,computed"`
 	Name                string          `json:"name"`
 	Category            string          `json:"category"`
 	ServiceType         string          `json:"serviceType"`
@@ -362,7 +366,7 @@ type GetSpecificLBMonitor struct {
 }
 
 type GetSpecificLBMonitorResp struct {
-	ID                 int       `json:"id"`
+	ID                 int       `json:"id" tf:"id,computed"`
 	Name               string    `json:"name"`
 	Visibility         string    `json:"visibility"`
 	Description        string    `json:"description"`
@@ -394,6 +398,7 @@ type CreateLBPool struct {
 }
 
 type CreateLBPoolReq struct {
+	ID          int        `json:"id" tf:"id,computed"`
 	Name        string     `json:"name"`
 	Description string     `json:"description"`
 	VipBalance  string     `json:"vipBalance" tf:"vip_balance"`
@@ -501,7 +506,7 @@ type GetSpecificLBPool struct {
 }
 
 type GetSpecificLBPoolResp struct {
-	ID               int          `json:"id"`
+	ID               int          `json:"-" tf:"id,computed"`
 	Name             string       `json:"name"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`
@@ -534,6 +539,7 @@ type CreateLBVirtualServers struct {
 }
 
 type CreateLBVirtualServersReq struct {
+	ID                  int                 `json:"id" tf:"id,computed"`
 	Description         string              `json:"description"`
 	VipName             string              `json:"vipName" tf:"vip_name"`
 	VipAddress          string              `json:"vipAddress" tf:"vip_address"`
@@ -548,7 +554,7 @@ type CreateLBVirtualServersReq struct {
 type VirtualServerConfig struct {
 	Persistence        string `json:"persistence"`
 	PersistenceProfile int    `json:"persistenceProfile" tf:"persistence_profile"`
-	ApplicationProfile string `json:"applicationProfile" tf:"application_profile"`
+	ApplicationProfile int    `json:"applicationProfile" tf:"application_profile"`
 	SSLClientProfile   string `json:"sslClientProfile" tf:"ssl_client_profile"`
 	SSLServerProfile   string `json:"sslServerProfile" tf:"ssl_server_profile"`
 }
@@ -625,7 +631,7 @@ type VSConfig struct {
 	PersistenceProfile int      `json:"persistenceProfile"`
 	SslServerProfile   string   `json:"sslServerProfile"`
 	SslClientProfile   string   `json:"sslClientProfile"`
-	ApplicationProfile string   `json:"applicationProfile"`
+	ApplicationProfile int      `json:"applicationProfile"`
 	Monitors           []string `json:"monitors"`
 }
 
@@ -651,7 +657,7 @@ type GetSpecificLBVirtualServers struct {
 }
 
 type GetSpecificLBVirtualServersResp struct {
-	ID                 int           `json:"id"`
+	ID                 int           `json:"id" tf:"id,computed"`
 	Name               string        `json:"name"`
 	Description        string        `json:"description"`
 	Active             bool          `json:"active"`
