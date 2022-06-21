@@ -36,6 +36,7 @@ const (
 	ResourcePoolPath               = "resource-pools"
 	NetworkRouterPath              = "routers"
 	LoadBalancerPath               = "load-balancers"
+	LoadBalancerTypePath           = "load-balancer-types"
 	LoadBalancerMonitorPath        = "monitors"
 	LoadBalancerProfilePath        = "profiles"
 	LoadBalancerPoolPath           = "pools"

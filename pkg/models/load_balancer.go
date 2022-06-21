@@ -10,18 +10,19 @@ type CreateLoadBalancerRequest struct {
 }
 
 type CreateNetworkLoadBalancerRequest struct {
+	ID                  int                       `json:"-" tf:"id,computed"`
 	Name                string                    `json:"name"`
 	Type                string                    `json:"type"`
 	Description         string                    `json:"description"`
-	NetworkServerID     int                       `json:"networkServerId"`
+	NetworkServerID     int                       `json:"networkServerId" tf:"network_server_id"`
 	Enabled             bool                      `json:"enabled"`
 	Visibility          string                    `json:"visibility"`
 	Config              CreateConfig              `json:"config"`
-	ResourcePermissions EnableResourcePermissions `json:"resourcePermission"`
+	ResourcePermissions EnableResourcePermissions `json:"resourcePermission" tf:"resource_permission"`
 }
 
 type CreateConfig struct {
-	AdminState bool   `json:"adminState"`
+	AdminState bool   `json:"adminState" tf:"admin_state"`
 	Loglevel   string `json:"loglevel"`
 	Size       string `json:"size"`
 	Tier1      string `json:"tier1"`
@@ -29,6 +30,18 @@ type CreateConfig struct {
 
 type EnableResourcePermissions struct {
 	All bool `json:"all"`
+}
+
+type GetLoadBalancerTypes struct {
+	LoadBalancerTypes []LoadBalancerTypes `json:"loadBalancerTypes"`
+}
+
+type LoadBalancerTypes struct {
+	ID          int    `json:"id"`
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Enabled     bool   `json:"enabled"`
 }
 
 // Create LB resp
@@ -70,7 +83,7 @@ type GetNetworkLoadBalancers struct {
 }
 
 type GetNetworkLoadBalancerResp struct {
-	ID          int          `json:"id" tf:"id,computed"`
+	ID          int          `json:"id"`
 	Name        string       `json:"name"`
 	AccountID   int          `json:"accountId"`
 	Cloud       CloudInfo    `json:"cloud"`
@@ -125,21 +138,22 @@ type CreateLBMonitor struct {
 }
 
 type CreateLBMonitorReq struct {
+	ID                 int    `json:"-" tf:"id,computed"`
 	Name               string `json:"name"`
 	Description        string `json:"description"`
-	MonitorType        string `json:"monitorType"`
-	MonitorTimeout     int    `json:"monitorTimeout"`
-	MonitorInterval    int    `json:"monitorInterval"`
-	SendVersion        string `json:"sendVersion"`
-	SendType           string `json:"sendType"`
-	ReceiveCode        string `json:"receiveCode"`
-	MonitorDestination string `json:"monitorDestination"`
-	MonitorReverse     bool   `json:"monitorReverse"`
-	MonitorTransparent bool   `json:"monitorTransparent"`
-	MonitorAdaptive    bool   `json:"monitorAdaptive"`
-	FallCount          int    `json:"fallCount"`
-	RiseCount          int    `json:"riseCount"`
-	AliasPort          int    `json:"aliasPort"`
+	MonitorType        string `json:"monitorType" tf:"monitor_type"`
+	MonitorTimeout     int    `json:"monitorTimeout" tf:"monitor_timeout"`
+	MonitorInterval    int    `json:"monitorInterval" tf:"monitor_interval"`
+	SendVersion        string `json:"sendVersion" tf:"send_version"`
+	SendType           string `json:"sendType" tf:"send_type"`
+	ReceiveCode        string `json:"receiveCode" tf:"receive_code"`
+	MonitorDestination string `json:"monitorDestination" tf:"monitor_destination"`
+	MonitorReverse     bool   `json:"monitorReverse" tf:"monitor_reverse"`
+	MonitorTransparent bool   `json:"monitorTransparent" tf:"monitor_transparent"`
+	MonitorAdaptive    bool   `json:"monitorAdaptive" tf:"monitor_adaptive"`
+	FallCount          int    `json:"fallCount" tf:"fall_count"`
+	RiseCount          int    `json:"riseCount" tf:"rise_count"`
+	AliasPort          int    `json:"aliasPort" tf:"alias_port"`
 }
 
 // Create LB Monitor Resp
@@ -194,26 +208,28 @@ type CreateLBProfile struct {
 }
 
 type CreateLBProfileReq struct {
+	ID            int       `json:"-" tf:"id,computed"`
 	Name          string    `json:"name"`
 	Description   string    `json:"description"`
-	ServiceType   string    `json:"serviceType"`
+	ServiceType   string    `json:"serviceType" tf:"service_type"`
 	ProfileConfig LBProfile `json:"config"`
 }
 
 type LBProfile struct {
-	ProfileType            string `json:"profileType"`
-	RequestHeaderSize      int    `json:"requestHeaderSize"`
-	ResponseHeaderSize     int    `json:"responseHeaderSize"`
-	ResponseTimeout        int    `json:"responseTimeout"`
-	HTTPIdleTimeoutName    int    `json:"httpIdleTimeout"`
-	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout"`
-	ConnectionCloseTimeout int    `json:"connectionCloseTimeout"`
-	HaFlowMirroring        bool   `json:"haFlowMirroring"`
-	CookieMode             string `json:"cookieMode"`
-	CookieName             string `json:"cookieName"`
-	CookieType             string `json:"cookieType"`
-	CookieFallback         bool   `json:"cookieFallback"`
-	CookieGarbling         bool   `json:"cookieGarbling"`
+	ProfileType            string `json:"profileType" tf:"profile_type"`
+	RequestHeaderSize      int    `json:"requestHeaderSize" tf:"request_header_size"`
+	ResponseHeaderSize     int    `json:"responseHeaderSize" tf:"response_header_size"`
+	ResponseTimeout        int    `json:"responseTimeout" tf:"response_timeout"`
+	HTTPIdleTimeoutName    int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
+	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
+	SSLSuite               string `json:"sslSuite" tf:"ssl_suite"`
+	ConnectionCloseTimeout int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
+	HaFlowMirroring        bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
+	CookieMode             string `json:"cookieMode" tf:"cookie_mode"`
+	CookieName             string `json:"cookieName" tf:"cookie_name"`
+	CookieType             string `json:"cookieType" tf:"cookie_type"`
+	CookieFallback         bool   `json:"cookieFallback" tf:"cookie_fallback"`
+	CookieGarbling         bool   `json:"cookieGarbling" tf:"cookie_garbling"`
 }
 
 // Create LB Profile Resp
@@ -297,7 +313,7 @@ type GetLBSpecificProfile struct {
 }
 
 type GetLBSpecificProfilesResp struct {
-	ID                  int             `json:"id"`
+	ID                  int             `json:"-" tf:"id,computed"`
 	Name                string          `json:"name"`
 	Category            string          `json:"category"`
 	ServiceType         string          `json:"serviceType"`
@@ -350,7 +366,7 @@ type GetSpecificLBMonitor struct {
 }
 
 type GetSpecificLBMonitorResp struct {
-	ID                 int       `json:"id"`
+	ID                 int       `json:"id" tf:"id,computed"`
 	Name               string    `json:"name"`
 	Visibility         string    `json:"visibility"`
 	Description        string    `json:"description"`
@@ -382,27 +398,28 @@ type CreateLBPool struct {
 }
 
 type CreateLBPoolReq struct {
+	ID          int        `json:"id" tf:"id,computed"`
 	Name        string     `json:"name"`
 	Description string     `json:"description"`
-	VipBalance  string     `json:"vipBalance"`
-	MinActive   int        `json:"minActive"`
+	VipBalance  string     `json:"vipBalance" tf:"vip_balance"`
+	MinActive   int        `json:"minActive" tf:"min_active"`
 	PoolConfig  PoolConfig `json:"config"`
 }
 
 type PoolConfig struct {
-	SnatTranslationType   string      `json:"snatTranslationType"`
-	PassiveMonitorPath    int         `json:"passiveMonitorPath"`
-	ActiveMonitorPaths    int         `json:"activeMonitorPaths"`
-	TCPMultiplexing       bool        `json:"tcpMultiplexing"`
-	TCPMultiplexingNumber int         `json:"tcpMultiplexingNumber"`
-	SnatIPAddress         string      `json:"snatIpAddress"`
-	MemberGroup           MemberGroup `json:"memberGroup"`
+	SnatTranslationType   string      `json:"snatTranslationType" tf:"snat_translation_type"`
+	PassiveMonitorPath    int         `json:"passiveMonitorPath" tf:"passive_monitor_path"`
+	ActiveMonitorPaths    int         `json:"activeMonitorPaths" tf:"active_monitor_paths"`
+	TCPMultiplexing       bool        `json:"tcpMultiplexing" tf:"tcp_multiplexing"`
+	TCPMultiplexingNumber int         `json:"tcpMultiplexingNumber" tf:"tcp_multiplexing_number"`
+	SnatIPAddress         string      `json:"snatIpAddress" tf:"snat_ip_address"`
+	MemberGroup           MemberGroup `json:"memberGroup" tf:"member_group"`
 }
 
 type MemberGroup struct {
 	Name             string `json:"name"`
 	Path             string `json:"path"`
-	IPRevisionFilter string `json:"ipRevisionFilter"`
+	IPRevisionFilter string `json:"ipRevisionFilter" tf:"ip_revision_filter"`
 	Port             int    `json:"port"`
 }
 
@@ -489,7 +506,7 @@ type GetSpecificLBPool struct {
 }
 
 type GetSpecificLBPoolResp struct {
-	ID               int          `json:"id"`
+	ID               int          `json:"-" tf:"id,computed"`
 	Name             string       `json:"name"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`
@@ -522,23 +539,24 @@ type CreateLBVirtualServers struct {
 }
 
 type CreateLBVirtualServersReq struct {
+	ID                  int                 `json:"id" tf:"id,computed"`
 	Description         string              `json:"description"`
-	VipName             string              `json:"vipName"`
-	VipAddress          string              `json:"vipAddress"`
-	VipProtocol         string              `json:"vipProtocol"`
-	VipPort             string              `json:"vipPort"`
+	VipName             string              `json:"vipName" tf:"vip_name"`
+	VipAddress          string              `json:"vipAddress" tf:"vip_address"`
+	VipProtocol         string              `json:"vipProtocol" tf:"vip_protocol"`
+	VipPort             string              `json:"vipPort" tf:"vip_port"`
 	Pool                int                 `json:"pool"`
-	SSLServerCert       int                 `json:"sslServerCert"`
-	SSLCert             int                 `json:"sslCert"`
+	SSLServerCert       int                 `json:"sslServerCert" tf:"ssl_server_cert"`
+	SSLCert             int                 `json:"sslCert" tf:"ssl_cert"`
 	VirtualServerConfig VirtualServerConfig `json:"config"`
 }
 
 type VirtualServerConfig struct {
 	Persistence        string `json:"persistence"`
-	PersistenceProfile int    `json:"persistenceProfile"`
-	ApplicationProfile string `json:"applicationProfile"`
-	SSLClientProfile   string `json:"sslClientProfile"`
-	SSLServerProfile   string `json:"sslServerProfile"`
+	PersistenceProfile int    `json:"persistenceProfile" tf:"persistence_profile"`
+	ApplicationProfile int    `json:"applicationProfile" tf:"application_profile"`
+	SSLClientProfile   string `json:"sslClientProfile" tf:"ssl_client_profile"`
+	SSLServerProfile   string `json:"sslServerProfile" tf:"ssl_server_profile"`
 }
 
 // CREATE LB Virtual Server Resp
@@ -613,7 +631,7 @@ type VSConfig struct {
 	PersistenceProfile int      `json:"persistenceProfile"`
 	SslServerProfile   string   `json:"sslServerProfile"`
 	SslClientProfile   string   `json:"sslClientProfile"`
-	ApplicationProfile string   `json:"applicationProfile"`
+	ApplicationProfile int      `json:"applicationProfile"`
 	Monitors           []string `json:"monitors"`
 }
 
@@ -639,7 +657,7 @@ type GetSpecificLBVirtualServers struct {
 }
 
 type GetSpecificLBVirtualServersResp struct {
-	ID                 int           `json:"id"`
+	ID                 int           `json:"id" tf:"id,computed"`
 	Name               string        `json:"name"`
 	Description        string        `json:"description"`
 	Active             bool          `json:"active"`
