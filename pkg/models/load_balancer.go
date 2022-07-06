@@ -12,19 +12,18 @@ type CreateLoadBalancerRequest struct {
 type CreateNetworkLoadBalancerRequest struct {
 	ID                  int                       `json:"-" tf:"id,computed"`
 	Name                string                    `json:"name"`
-	Type                string                    `json:"type"`
+	Type                string                    `json:"type" tf:"type,computed"`
 	Description         string                    `json:"description"`
-	NetworkServerID     int                       `json:"networkServerId" tf:"network_server_id"`
+	NetworkServerID     int                       `json:"networkServerId" tf:"network_server_id,computed"`
 	Enabled             bool                      `json:"enabled"`
-	Visibility          string                    `json:"visibility"`
 	Config              CreateConfig              `json:"config"`
 	ResourcePermissions EnableResourcePermissions `json:"resourcePermission" tf:"resource_permission"`
 }
 
 type CreateConfig struct {
 	AdminState bool   `json:"adminState" tf:"admin_state"`
-	Loglevel   string `json:"loglevel"`
-	Size       string `json:"size"`
+	Loglevel   string `json:"loglevel" tf:"log_level"`
+	Size       string `json:"size" tf:"size"`
 	Tier1      string `json:"tier1"`
 }
 
@@ -52,6 +51,7 @@ type CreateNetworkLoadBalancerResp struct {
 
 type NetworkLoadBalancerResp struct {
 	ID          int          `json:"id" tf:"id,computed"`
+	LbID        int          `json:"lb_id" tf:"lb_id,computed"`
 	Name        string       `json:"name"`
 	AccountID   int          `json:"accountId"`
 	Cloud       CloudInfo    `json:"cloud"`
@@ -83,7 +83,8 @@ type GetNetworkLoadBalancers struct {
 }
 
 type GetNetworkLoadBalancerResp struct {
-	ID          int          `json:"id"`
+	ID          int          `json:"id" tf:"id,computed"`
+	LbID        int          `json:"lb_id" tf:"lb_id,computed"`
 	Name        string       `json:"name"`
 	AccountID   int          `json:"accountId"`
 	Cloud       CloudInfo    `json:"cloud"`
@@ -139,6 +140,7 @@ type CreateLBMonitor struct {
 
 type CreateLBMonitorReq struct {
 	ID                 int    `json:"-" tf:"id,computed"`
+	LbID               int    `json:"-" tf:"lb_id"`
 	Name               string `json:"name"`
 	Description        string `json:"description"`
 	MonitorType        string `json:"monitorType" tf:"monitor_type"`
@@ -163,7 +165,7 @@ type CreateLBMonitorResp struct {
 }
 
 type LBMonitorResp struct {
-	ID                 int       `json:"id"`
+	ID                 int       `json:"id" tf:"id,computed"`
 	Name               string    `json:"name"`
 	Visibility         string    `json:"visibility"`
 	Description        string    `json:"description"`
@@ -209,6 +211,7 @@ type CreateLBProfile struct {
 
 type CreateLBProfileReq struct {
 	ID            int       `json:"-" tf:"id,computed"`
+	LbID          int       `json:"-" tf:"lb_id"`
 	Name          string    `json:"name"`
 	Description   string    `json:"description"`
 	ServiceType   string    `json:"serviceType" tf:"service_type"`
@@ -220,7 +223,7 @@ type LBProfile struct {
 	RequestHeaderSize      int    `json:"requestHeaderSize" tf:"request_header_size"`
 	ResponseHeaderSize     int    `json:"responseHeaderSize" tf:"response_header_size"`
 	ResponseTimeout        int    `json:"responseTimeout" tf:"response_timeout"`
-	HTTPIdleTimeoutName    int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
+	HTTPIdleTimeout        int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
 	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
 	SSLSuite               string `json:"sslSuite" tf:"ssl_suite"`
 	ConnectionCloseTimeout int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
@@ -239,7 +242,7 @@ type CreateLBProfileResp struct {
 }
 
 type LBProfileResp struct {
-	ID                  int           `json:"id"`
+	ID                  int           `json:"id" tf:"id,computed"`
 	Name                string        `json:"name"`
 	Category            string        `json:"category"`
 	ServiceType         string        `json:"serviceType"`
@@ -399,6 +402,7 @@ type CreateLBPool struct {
 
 type CreateLBPoolReq struct {
 	ID          int        `json:"id" tf:"id,computed"`
+	LbID        int        `json:"lb_id" tf:"lb_id"`
 	Name        string     `json:"name"`
 	Description string     `json:"description"`
 	VipBalance  string     `json:"vipBalance" tf:"vip_balance"`
@@ -430,7 +434,8 @@ type CreateLBPoolResp struct {
 }
 
 type LBPoolResp struct {
-	ID               int          `json:"id"`
+	ID               int          `json:"id" tf:"id,computed"`
+	LbID             int          `json:"lb_id" tf:"lb_id"`
 	Name             string       `json:"name"`
 	Category         string       `json:"category"`
 	Visibility       string       `json:"visibility"`
@@ -473,7 +478,8 @@ type GetLBPools struct {
 }
 
 type GetLBPoolsResp struct {
-	ID               int          `json:"id"`
+	ID               int          `json:"id" tf:"id,computed"`
+	LbID             int          `json:"-" tf:"lb_id,computed"`
 	Name             string       `json:"name"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`
@@ -507,6 +513,7 @@ type GetSpecificLBPool struct {
 
 type GetSpecificLBPoolResp struct {
 	ID               int          `json:"-" tf:"id,computed"`
+	LbID             int          `json:"-" tf:"lb_id,computed"`
 	Name             string       `json:"name"`
 	Visibility       string       `json:"visibility"`
 	Description      string       `json:"description"`
@@ -540,6 +547,7 @@ type CreateLBVirtualServers struct {
 
 type CreateLBVirtualServersReq struct {
 	ID                  int                 `json:"id" tf:"id,computed"`
+	LbID                int                 `json:"-" tf:"lb_id"`
 	Description         string              `json:"description"`
 	VipName             string              `json:"vipName" tf:"vip_name"`
 	VipAddress          string              `json:"vipAddress" tf:"vip_address"`
@@ -566,7 +574,7 @@ type LBVirtualServersResp struct {
 }
 
 type CreateLBVirtualServersResp struct {
-	ID                 int           `json:"id"`
+	ID                 int           `json:"id" tf:"id,computed"`
 	Name               string        `json:"name"`
 	Description        string        `json:"description"`
 	Active             bool          `json:"active"`
