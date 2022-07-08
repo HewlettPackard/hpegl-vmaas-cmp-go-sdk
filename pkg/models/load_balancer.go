@@ -17,7 +17,17 @@ type CreateNetworkLoadBalancerRequest struct {
 	NetworkServerID     int                       `json:"networkServerId" tf:"network_server_id,computed"`
 	Enabled             bool                      `json:"enabled"`
 	Config              CreateConfig              `json:"config"`
-	ResourcePermissions EnableResourcePermissions `json:"resourcePermission" tf:"resource_permission"`
+	ResourcePermissions EnableResourcePermissions `json:"resourcePermissions" tf:"resource_permissions"`
+}
+
+type EnableResourcePermissions struct {
+	All   bool              `json:"all,omitempty" tf:"all"`
+	Sites []PermissionSites `json:"sites,omitempty" tf:"sites"`
+}
+
+type PermissionSites struct {
+	ID      int  `json:"id,omitempty" tf:"id"`
+	Default bool `json:"default,omitempty" tf:"default"`
 }
 
 type CreateConfig struct {
@@ -27,9 +37,9 @@ type CreateConfig struct {
 	Tier1      string `json:"tier1"`
 }
 
-type EnableResourcePermissions struct {
-	All bool `json:"all"`
-}
+// type EnableResourcePermissions struct {
+// 	All bool `json:"all"`
+// }
 
 type GetLoadBalancerTypes struct {
 	LoadBalancerTypes []LoadBalancerTypes `json:"loadBalancerTypes"`
