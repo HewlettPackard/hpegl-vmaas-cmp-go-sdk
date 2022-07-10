@@ -147,8 +147,8 @@ type CreateLBMonitor struct {
 type CreateLBMonitorReq struct {
 	ID                  int    `json:"-" tf:"id,computed"`
 	LbID                int    `json:"-" tf:"lb_id"`
-	Name                string `json:"name"`
-	Description         string `json:"description"`
+	Name                string `json:"name" tf:"name"`
+	Description         string `json:"description" tf:"description"`
 	Type                string `json:"monitorType" tf:"type"`
 	Timeout             int    `json:"monitorTimeout" tf:"timeout"`
 	Interval            int    `json:"monitorInterval" tf:"interval"`
@@ -162,7 +162,7 @@ type CreateLBMonitorReq struct {
 	AliasPort           int    `json:"monitorPort" tf:"alias_port"`
 	RiseCount           int    `json:"riseCount" tf:"rise_count"`
 	FallCount           int    `json:"fallCount" tf:"fall_count"`
-	DataLength          int    `json:"DataLength" tf:"data_length"`
+	DataLength          int    `json:"dataLength" tf:"data_length"`
 }
 
 // Create LB Monitor Resp
@@ -219,27 +219,47 @@ type CreateLBProfile struct {
 type CreateLBProfileReq struct {
 	ID            int       `json:"-" tf:"id,computed"`
 	LbID          int       `json:"-" tf:"lb_id"`
-	Name          string    `json:"name"`
-	Description   string    `json:"description"`
+	Name          string    `json:"name" tf:"name"`
+	Description   string    `json:"description" tf:"description"`
 	ServiceType   string    `json:"serviceType" tf:"service_type"`
-	ProfileConfig LBProfile `json:"config"`
+	ProfileConfig LBProfile `json:"config"  tf:"config"`
 }
 
 type LBProfile struct {
-	ProfileType            string `json:"profileType" tf:"profile_type"`
-	RequestHeaderSize      int    `json:"requestHeaderSize" tf:"request_header_size"`
-	ResponseHeaderSize     int    `json:"responseHeaderSize" tf:"response_header_size"`
-	ResponseTimeout        int    `json:"responseTimeout" tf:"response_timeout"`
-	HTTPIdleTimeout        int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
-	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
-	SSLSuite               string `json:"sslSuite" tf:"ssl_suite"`
-	ConnectionCloseTimeout int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
-	HaFlowMirroring        bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
-	CookieMode             string `json:"cookieMode" tf:"cookie_mode"`
-	CookieName             string `json:"cookieName" tf:"cookie_name"`
-	CookieType             string `json:"cookieType" tf:"cookie_type"`
-	CookieFallback         bool   `json:"cookieFallback" tf:"cookie_fallback"`
-	CookieGarbling         bool   `json:"cookieGarbling" tf:"cookie_garbling"`
+	ProfileType             string `json:"profileType" tf:"profile_type"`
+	FastTCPIdleTimeout      int    `json:"fastTcpIdleTimeout" tf:"idle_timeout"`
+	ConnectionCloseTimeout  int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
+	HaFlowMirroring         bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
+	RequestHeaderSize       int    `json:"requestHeaderSize" tf:"request_header_size"`
+	ResponseHeaderSize      int    `json:"responseHeaderSize" tf:"response_header_size"`
+	HTTPsRedirect           string `json:"httpsRedirect" tf:"redirection"`
+	XForwardedFor           string `json:"xForwardedFor" tf:"x_forwarded_for"`
+	RequestBodySize         string `json:"requestBodySize" tf:"request_body_size"`
+	ResponseTimeout         int    `json:"responseTimeout" tf:"response_timeout"`
+	NtlmAuthentication      bool   `json:"ntlmAuthentication" tf:"ntlm_authentication"`
+	SharePersistence        bool   `json:"sharePersistence" tf:"share_persistence"`
+	CookieName              string `json:"cookieName" tf:"cookie_name"`
+	CookieFallback          bool   `json:"cookieFallback" tf:"cookie_fallback"`
+	CookieGarbling          bool   `json:"cookieGarbling" tf:"cookie_garbling"`
+	CookieMode              string `json:"cookieMode" tf:"cookie_mode"`
+	CookieType              string `json:"cookieType" tf:"cookie_type"`
+	CookieDomain            string `json:"cookieDomain" tf:"cookie_domain"`
+	CookiePath              string `json:"cookiePath" tf:"cookie_path"`
+	MaxIdleTime             int    `json:"maxIdleTime" tf:"max_idle_time"`
+	CookieAge               int    `json:"cookieAge" tf:"cookie_age"`
+	HaPersistenceMirroring  bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
+	PersistenceEntryTimeout int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
+	PurgeEntries            bool   `json:"purgeEntries" tf:"purge_entries_when_full"`
+	SSLSuite                string `json:"sslSuite" tf:"ssl_suite"`
+	SessionCache            bool   `json:"sessionCache" tf:"session_cache"`
+	SessionCacheTimeout     int    `json:"sessionCacheTimeout" tf:"session_cache_timeout"`
+	PreferServerCipher      bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
+	Tag                     []Tags `json:"tags" tf:"tags"`
+}
+
+type Tags struct {
+	Tag   string `json:"tag" tf:"tag"`
+	Scope string `json:"scope" tf:"scope"`
 }
 
 // Create LB Profile Resp
