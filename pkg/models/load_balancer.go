@@ -226,35 +226,35 @@ type CreateLBProfileReq struct {
 }
 
 type LBProfile struct {
-	ProfileType             string `json:"profileType" tf:"profile_type"`
-	FastTCPIdleTimeout      int    `json:"fastTcpIdleTimeout" tf:"idle_timeout"`
-	ConnectionCloseTimeout  int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
-	HaFlowMirroring         bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
-	RequestHeaderSize       int    `json:"requestHeaderSize" tf:"request_header_size"`
-	ResponseHeaderSize      int    `json:"responseHeaderSize" tf:"response_header_size"`
-	HTTPsRedirect           string `json:"httpsRedirect" tf:"redirection"`
-	XForwardedFor           string `json:"xForwardedFor" tf:"x_forwarded_for"`
-	RequestBodySize         string `json:"requestBodySize" tf:"request_body_size"`
-	ResponseTimeout         int    `json:"responseTimeout" tf:"response_timeout"`
-	NtlmAuthentication      bool   `json:"ntlmAuthentication" tf:"ntlm_authentication"`
-	SharePersistence        bool   `json:"sharePersistence" tf:"share_persistence"`
-	CookieName              string `json:"cookieName" tf:"cookie_name"`
-	CookieFallback          bool   `json:"cookieFallback" tf:"cookie_fallback"`
-	CookieGarbling          bool   `json:"cookieGarbling" tf:"cookie_garbling"`
-	CookieMode              string `json:"cookieMode" tf:"cookie_mode"`
-	CookieType              string `json:"cookieType" tf:"cookie_type"`
-	CookieDomain            string `json:"cookieDomain" tf:"cookie_domain"`
-	CookiePath              string `json:"cookiePath" tf:"cookie_path"`
-	MaxIdleTime             int    `json:"maxIdleTime" tf:"max_idle_time"`
-	CookieAge               int    `json:"cookieAge" tf:"cookie_age"`
-	HaPersistenceMirroring  bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
-	PersistenceEntryTimeout int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
-	PurgeEntries            bool   `json:"purgeEntries" tf:"purge_entries_when_full"`
-	SSLSuite                string `json:"sslSuite" tf:"ssl_suite"`
-	SessionCache            bool   `json:"sessionCache" tf:"session_cache"`
-	SessionCacheTimeout     int    `json:"sessionCacheTimeout" tf:"session_cache_timeout"`
-	PreferServerCipher      bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
-	Tag                     []Tags `json:"tags" tf:"tags"`
+	ProfileType              string `json:"profileType" tf:"profile_type"`
+	FastTCPIdleTimeout       int    `json:"fastTcpIdleTimeout" tf:"idle_timeout"`
+	ConnectionCloseTimeout   int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
+	HaFlowMirroring          bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
+	RequestHeaderSize        int    `json:"requestHeaderSize" tf:"request_header_size"`
+	ResponseHeaderSize       int    `json:"responseHeaderSize" tf:"response_header_size"`
+	HTTPsRedirect            string `json:"httpsRedirect" tf:"redirection"`
+	XForwardedFor            string `json:"xForwardedFor" tf:"x_forwarded_for"`
+	RequestBodySize          string `json:"requestBodySize" tf:"request_body_size"`
+	ResponseTimeout          int    `json:"responseTimeout" tf:"response_timeout"`
+	NtlmAuthentication       bool   `json:"ntlmAuthentication" tf:"ntlm_authentication"`
+	SharePersistence         bool   `json:"sharePersistence" tf:"share_persistence"`
+	CookieName               string `json:"cookieName" tf:"cookie_name"`
+	CookieFallback           bool   `json:"cookieFallback" tf:"cookie_fallback"`
+	CookieGarbling           bool   `json:"cookieGarbling" tf:"cookie_garbling"`
+	CookieMode               string `json:"cookieMode" tf:"cookie_mode"`
+	CookieType               string `json:"cookieType" tf:"cookie_type"`
+	CookieDomain             string `json:"cookieDomain" tf:"cookie_domain"`
+	CookiePath               string `json:"cookiePath" tf:"cookie_path"`
+	MaxIdleTime              int    `json:"maxIdleTime" tf:"max_idle_time"`
+	MaxCookieAge             int    `json:"maxCookieAge" tf:"max_cookie_age"`
+	HaPersistenceMirroring   bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
+	PersistenceEntryTimeout  int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
+	PurgeEntries             bool   `json:"purgeEntries" tf:"purge_entries_when_full"`
+	SSLSuite                 string `json:"sslSuite" tf:"ssl_suite"`
+	SessionCache             bool   `json:"sessionCache" tf:"session_cache"`
+	SessionCacheEntryTimeout int    `json:"sessionCacheEntryTimeout" tf:"session_cache_timeout"`
+	PreferServerCipher       bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
+	Tag                      []Tags `json:"tags" tf:"tags"`
 }
 
 type Tags struct {
