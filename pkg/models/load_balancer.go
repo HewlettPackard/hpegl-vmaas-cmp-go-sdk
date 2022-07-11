@@ -227,7 +227,9 @@ type CreateLBProfileReq struct {
 
 type LBProfile struct {
 	ProfileType              string `json:"profileType" tf:"profile_type"`
-	FastTCPIdleTimeout       int    `json:"fastTcpIdleTimeout" tf:"idle_timeout"`
+	FastTCPIdleTimeout       int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
+	FastUDPIdleTimeout       int    `json:"fastUdpIdleTimeout" tf:"fast_udp_idle_timeout"`
+	HTTPIdleTimeout          int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
 	ConnectionCloseTimeout   int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
 	HaFlowMirroring          bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
 	RequestHeaderSize        int    `json:"requestHeaderSize" tf:"request_header_size"`
