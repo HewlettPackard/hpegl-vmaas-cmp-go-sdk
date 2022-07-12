@@ -446,8 +446,8 @@ type PoolConfig struct {
 }
 
 type MemberGroup struct {
-	Group            string `json:"group" tf:"group"`
-	MaxIpListSize    int    `json:"maxIpListSize" tf:"max_ip_list_size"`
+	Name             string `json:"name"`
+	Path             string `json:"path"`
 	IPRevisionFilter string `json:"ipRevisionFilter" tf:"ip_revision_filter"`
 	Port             int    `json:"port"`
 }
