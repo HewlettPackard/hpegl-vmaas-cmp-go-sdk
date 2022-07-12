@@ -368,8 +368,8 @@ type GetLBMonitors struct {
 }
 
 type GetLBMonitorsResp struct {
-	ID                  int       `json:"-" tf:"id,computed"`
-	LbID                int       `json:"-" tf:"lb_id"`
+	ID                  int       `json:"id" tf:"id,computed"`
+	LbID                int       `json:"lb_id" tf:"lb_id,computed"`
 	Name                string    `json:"name" tf:"name"`
 	Description         string    `json:"description" tf:"description"`
 	Type                string    `json:"monitorType" tf:"type"`
