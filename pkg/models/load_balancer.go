@@ -254,7 +254,7 @@ type LBProfile struct {
 	PurgeEntries             bool   `json:"purgeEntries" tf:"purge_entries_when_full"`
 	SSLSuite                 string `json:"sslSuite" tf:"ssl_suite"`
 	SessionCache             bool   `json:"sessionCache" tf:"session_cache"`
-	SessionCacheEntryTimeout int    `json:"sessionCacheEntryTimeout" tf:"session_cache_timeout"`
+	SessionCacheEntryTimeout int    `json:"sessionCacheTimeout" tf:"session_cache_entry_timeout"`
 	PreferServerCipher       bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
 	Tag                      []Tags `json:"tags" tf:"tags"`
 }
@@ -368,28 +368,27 @@ type GetLBMonitors struct {
 }
 
 type GetLBMonitorsResp struct {
-	ID                 int       `json:"id"`
-	Name               string    `json:"name"`
-	Visibility         string    `json:"visibility"`
-	Description        string    `json:"description"`
-	MonitorType        string    `json:"monitorType"`
-	MonitorInterval    int       `json:"monitorInterval"`
-	MonitorTimeout     int       `json:"monitorTimeout"`
-	MonitorReverse     bool      `json:"monitorReverse"`
-	MonitorTransparent bool      `json:"monitorTransparent"`
-	MonitorAdaptive    bool      `json:"monitorAdaptive"`
-	InternalID         string    `json:"internalId"`
-	ExternalID         string    `json:"externalId"`
-	MonitorSource      string    `json:"monitorSource"`
-	Status             string    `json:"status"`
-	Enabled            bool      `json:"enabled"`
-	MaxRetry           int       `json:"maxRetry"`
-	FallCount          int       `json:"fallCount"`
-	RiseCount          int       `json:"riseCount"`
-	DataLength         int       `json:"dataLength"`
-	DateCreated        string    `json:"dateCreated"`
-	LastUpdated        string    `json:"lastUpdated"`
-	LoadBalancer       LBMonitor `json:"loadBalancer"`
+	ID                  int       `json:"-" tf:"id,computed"`
+	LbID                int       `json:"-" tf:"lb_id"`
+	Name                string    `json:"name" tf:"name"`
+	Description         string    `json:"description" tf:"description"`
+	Type                string    `json:"monitorType" tf:"type"`
+	Timeout             int       `json:"monitorTimeout" tf:"timeout"`
+	Interval            int       `json:"monitorInterval" tf:"interval"`
+	RequestVersion      string    `json:"sendVersion" tf:"request_version"`
+	RequestMethod       string    `json:"sendType" tf:"request_method"`
+	ResponseStatusCodes string    `json:"receiveCode" tf:"response_status_codes"`
+	MaxFail             int       `json:"maxRetry" tf:"max_fail"`
+	ResponseData        string    `json:"receiveData" tf:"response_data"`
+	RequestURL          string    `json:"monitorDestination" tf:"request_url"`
+	RequestBody         string    `json:"sendData" tf:"request_body"`
+	AliasPort           int       `json:"monitorPort" tf:"alias_port"`
+	RiseCount           int       `json:"riseCount" tf:"rise_count"`
+	FallCount           int       `json:"fallCount" tf:"fall_count"`
+	DataLength          int       `json:"dataLength" tf:"data_length"`
+	DateCreated         string    `json:"dateCreated"`
+	LastUpdated         string    `json:"lastUpdated"`
+	LoadBalancer        LBMonitor `json:"loadBalancer"`
 }
 
 // Get Specific LB Monitor
@@ -398,30 +397,27 @@ type GetSpecificLBMonitor struct {
 }
 
 type GetSpecificLBMonitorResp struct {
-	ID                 int       `json:"id" tf:"id,computed"`
-	Name               string    `json:"name"`
-	Visibility         string    `json:"visibility"`
-	Description        string    `json:"description"`
-	MonitorType        string    `json:"monitorType"`
-	MonitorInterval    int       `json:"monitorInterval"`
-	MonitorTimeout     int       `json:"monitorTimeout"`
-	SendVersion        string    `json:"sendVersion"`
-	SendType           string    `json:"sendType"`
-	ReceiveCode        string    `json:"receiveCode"`
-	MonitorReverse     bool      `json:"monitorReverse"`
-	MonitorTransparent bool      `json:"monitorTransparent"`
-	MonitorAdaptive    bool      `json:"monitorAdaptive"`
-	InternalID         string    `json:"internalId"`
-	ExternalID         string    `json:"externalId"`
-	MonitorSource      string    `json:"monitorSource"`
-	Status             string    `json:"status"`
-	Enabled            bool      `json:"enabled"`
-	MaxRetry           int       `json:"maxRetry"`
-	FallCount          int       `json:"fallCount"`
-	RiseCount          int       `json:"riseCount"`
-	DateCreated        string    `json:"dateCreated"`
-	LastUpdated        string    `json:"lastUpdated"`
-	LoadBalancer       LBMonitor `json:"loadBalancer"`
+	ID                  int       `json:"-" tf:"id,computed"`
+	LbID                int       `json:"-" tf:"lb_id"`
+	Name                string    `json:"name" tf:"name"`
+	Description         string    `json:"description" tf:"description"`
+	Type                string    `json:"monitorType" tf:"type"`
+	Timeout             int       `json:"monitorTimeout" tf:"timeout"`
+	Interval            int       `json:"monitorInterval" tf:"interval"`
+	RequestVersion      string    `json:"sendVersion" tf:"request_version"`
+	RequestMethod       string    `json:"sendType" tf:"request_method"`
+	ResponseStatusCodes string    `json:"receiveCode" tf:"response_status_codes"`
+	MaxFail             int       `json:"maxRetry" tf:"max_fail"`
+	ResponseData        string    `json:"receiveData" tf:"response_data"`
+	RequestURL          string    `json:"monitorDestination" tf:"request_url"`
+	RequestBody         string    `json:"sendData" tf:"request_body"`
+	AliasPort           int       `json:"monitorPort" tf:"alias_port"`
+	RiseCount           int       `json:"riseCount" tf:"rise_count"`
+	FallCount           int       `json:"fallCount" tf:"fall_count"`
+	DataLength          int       `json:"dataLength" tf:"data_length"`
+	DateCreated         string    `json:"dateCreated"`
+	LastUpdated         string    `json:"lastUpdated"`
+	LoadBalancer        LBMonitor `json:"loadBalancer"`
 }
 
 // Create LB Pool
@@ -432,17 +428,11 @@ type CreateLBPool struct {
 type CreateLBPoolReq struct {
 	ID          int        `json:"id" tf:"id,computed"`
 	LbID        int        `json:"lb_id" tf:"lb_id"`
-	Name        string     `json:"name"  tf:"name"`
-	Description string     `json:"description"  tf:"description"`
-	VipBalance  string     `json:"vipBalance" tf:"algorithm"`
-	MinActive   int        `json:"minActive" tf:"min_active_members"`
-	PoolConfig  PoolConfig `json:"config"  tf:"config"`
-	Tag         []Tag      `json:"tags" tf:"tags"`
-}
-
-type Tag struct {
-	Name  string `json:"name" tf:"tag"`
-	Scope string `json:"value" tf:"scope"`
+	Name        string     `json:"name"`
+	Description string     `json:"description"`
+	VipBalance  string     `json:"vipBalance" tf:"vip_balance"`
+	MinActive   int        `json:"minActive" tf:"min_active"`
+	PoolConfig  PoolConfig `json:"config"`
 }
 
 type PoolConfig struct {
@@ -456,10 +446,10 @@ type PoolConfig struct {
 }
 
 type MemberGroup struct {
-	Group            string `json:"group" tf:"group"`
-	Path             string `json:"maxIpListSize" tf:"max_ip_list_size"`
+	Name             string `json:"name"`
+	Path             string `json:"path"`
 	IPRevisionFilter string `json:"ipRevisionFilter" tf:"ip_revision_filter"`
-	Port             int    `json:"port" tf:"port"`
+	Port             int    `json:"port"`
 }
 
 // Create LB Pool Resp
@@ -583,19 +573,19 @@ type CreateLBVirtualServers struct {
 type CreateLBVirtualServersReq struct {
 	ID                  int                 `json:"id" tf:"id,computed"`
 	LbID                int                 `json:"-" tf:"lb_id"`
-	Description         string              `json:"description" tf:"description"`
+	Description         string              `json:"description"`
 	VipName             string              `json:"vipName" tf:"vip_name"`
 	VipAddress          string              `json:"vipAddress" tf:"vip_address"`
-	VipProtocol         string              `json:"vipProtocol" tf:"type"`
+	VipProtocol         string              `json:"vipProtocol" tf:"vip_protocol"`
 	VipPort             string              `json:"vipPort" tf:"vip_port"`
-	Pool                int                 `json:"pool" tf:"pool"`
+	Pool                int                 `json:"pool"`
 	SSLServerCert       int                 `json:"sslServerCert" tf:"ssl_server_cert"`
-	SSLCert             int                 `json:"sslCert" tf:"ssl_client_cert"`
-	VirtualServerConfig VirtualServerConfig `json:"config" tf:"config"`
+	SSLCert             int                 `json:"sslCert" tf:"ssl_cert"`
+	VirtualServerConfig VirtualServerConfig `json:"config"`
 }
 
 type VirtualServerConfig struct {
-	Persistence        string `json:"persistence" tf:"persistence"`
+	Persistence        string `json:"persistence"`
 	PersistenceProfile int    `json:"persistenceProfile" tf:"persistence_profile"`
 	ApplicationProfile int    `json:"applicationProfile" tf:"application_profile"`
 	SSLClientProfile   string `json:"sslClientProfile" tf:"ssl_client_profile"`
