@@ -487,16 +487,6 @@ type LBPoolResp struct {
 	LBPoolConfig     PoolConfig `json:"config" tf:"config"`
 }
 
-// type LBPoolConfig struct {
-// 	SnatIPAddresses       []string    `json:"snatIpAddresses"`
-// 	TCPMultiplexingNumber int         `json:"tcpMultiplexingNumber"`
-// 	PassiveMonitorPath    int         `json:"passiveMonitorPath"`
-// 	TCPMultiplexing       bool        `json:"tcpMultiplexing"`
-// 	SnatIPAddress         string      `json:"snatIpAddress"`
-// 	SnatTranslationType   string      `json:"snatTranslationType"`
-// 	MemberGroup           MemberGroup `json:"memberGroup"`
-// }
-
 // Get LB Pools
 type GetLBPools struct {
 	GetLBPoolsResp []GetLBPoolsResp `json:"loadBalancerPools"`
@@ -581,7 +571,7 @@ type CreateLBVirtualServersReq struct {
 	Pool                int                 `json:"pool" tf:"pool"`
 	VipHostName         string              `json:"vipHostName" tf:"vip_host_name"`
 	SSLServerCert       int                 `json:"sslServerCert" tf:"ssl_server_cert"`
-	SSLCert             int                 `json:"sslCert" tf:"ssl_server_cert"`
+	SSLCert             int                 `json:"sslCert" tf:"ssl_client_cert"`
 	VirtualServerConfig VirtualServerConfig `json:"config" tf:"config"`
 }
 
@@ -589,8 +579,8 @@ type VirtualServerConfig struct {
 	Persistence        string `json:"persistence"  tf:"persistence"`
 	PersistenceProfile int    `json:"persistenceProfile" tf:"persistence_profile"`
 	ApplicationProfile int    `json:"applicationProfile" tf:"application_profile"`
-	SSLClientProfile   string `json:"sslClientProfile" tf:"ssl_client_profile"`
-	SSLServerProfile   string `json:"sslServerProfile" tf:"ssl_server_profile"`
+	SSLClientProfile   int    `json:"sslClientProfile" tf:"ssl_client_profile"`
+	SSLServerProfile   int    `json:"sslServerProfile" tf:"ssl_server_profile"`
 }
 
 // CREATE LB Virtual Server Resp
