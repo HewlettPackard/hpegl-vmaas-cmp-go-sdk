@@ -573,19 +573,20 @@ type CreateLBVirtualServers struct {
 type CreateLBVirtualServersReq struct {
 	ID                  int                 `json:"id" tf:"id,computed"`
 	LbID                int                 `json:"-" tf:"lb_id"`
-	Description         string              `json:"description"`
-	VipName             string              `json:"vipName" tf:"vip_name"`
+	Description         string              `json:"description" tf:"description"`
+	VipName             string              `json:"vipName" tf:"name"`
 	VipAddress          string              `json:"vipAddress" tf:"vip_address"`
-	VipProtocol         string              `json:"vipProtocol" tf:"vip_protocol"`
+	VipProtocol         string              `json:"vipProtocol" tf:"type"`
 	VipPort             string              `json:"vipPort" tf:"vip_port"`
-	Pool                int                 `json:"pool"`
+	Pool                int                 `json:"pool" tf:"pool"`
+	VipHostName         string              `json:"vipHostName" tf:"vip_host_name"`
 	SSLServerCert       int                 `json:"sslServerCert" tf:"ssl_server_cert"`
-	SSLCert             int                 `json:"sslCert" tf:"ssl_cert"`
-	VirtualServerConfig VirtualServerConfig `json:"config"`
+	SSLCert             int                 `json:"sslCert" tf:"ssl_server_cert"`
+	VirtualServerConfig VirtualServerConfig `json:"config" tf:"config"`
 }
 
 type VirtualServerConfig struct {
-	Persistence        string `json:"persistence"`
+	Persistence        string `json:"persistence"  tf:"persistence"`
 	PersistenceProfile int    `json:"persistenceProfile" tf:"persistence_profile"`
 	ApplicationProfile int    `json:"applicationProfile" tf:"application_profile"`
 	SSLClientProfile   string `json:"sslClientProfile" tf:"ssl_client_profile"`
