@@ -427,7 +427,7 @@ type CreateLBPool struct {
 
 type CreateLBPoolReq struct {
 	ID          int        `json:"id" tf:"id,computed"`
-	LbID        int        `json:"lb_id" tf:"lb_id"`
+	LbID        int        `json:"-" tf:"lb_id"`
 	Name        string     `json:"name" tf:"name"`
 	Description string     `json:"description" tf:"description"`
 	VipBalance  string     `json:"vipBalance" tf:"algorithm"`
@@ -459,43 +459,43 @@ type CreateLBPoolResp struct {
 }
 
 type LBPoolResp struct {
-	ID               int          `json:"id" tf:"id,computed"`
-	LbID             int          `json:"lb_id" tf:"lb_id"`
-	Name             string       `json:"name"`
-	Category         string       `json:"category"`
-	Visibility       string       `json:"visibility"`
-	Description      string       `json:"description"`
-	InternalID       string       `json:"internalId"`
-	ExternalID       string       `json:"externalId"`
-	Enabled          bool         `json:"enabled"`
-	VipBalance       string       `json:"vipBalance"`
-	MinActive        int          `json:"minActive"`
-	NumberActive     int          `json:"numberActive"`
-	NumberInService  int          `json:"numberInService"`
-	HealthScore      float32      `json:"healthScore"`
-	PerformanceScore float32      `json:"performanceScore"`
-	HealthPenalty    float32      `json:"healthPenalty"`
-	SecurityPenalty  float32      `json:"securityPenalty"`
-	ErrorPenalty     float32      `json:"errorPenalty"`
-	Status           string       `json:"status"`
-	DateCreated      string       `json:"dateCreated"`
-	LastUpdated      string       `json:"lastUpdated"`
-	Nodes            []string     `json:"nodes"`
-	Monitors         []string     `json:"monitors"`
-	Members          []string     `json:"members"`
-	LoadBalancer     LBMonitor    `json:"loadBalancer"`
-	LBPoolConfig     LBPoolConfig `json:"config"`
+	ID               int        `json:"id" tf:"id,computed"`
+	LbID             int        `json:"lb_id" tf:"lb_id"`
+	Name             string     `json:"name"`
+	Category         string     `json:"category"`
+	Visibility       string     `json:"visibility"`
+	Description      string     `json:"description"`
+	InternalID       string     `json:"internalId"`
+	ExternalID       string     `json:"externalId"`
+	Enabled          bool       `json:"enabled"`
+	VipBalance       string     `json:"vipBalance"`
+	MinActive        int        `json:"minActive"`
+	NumberActive     int        `json:"numberActive"`
+	NumberInService  int        `json:"numberInService"`
+	HealthScore      float32    `json:"healthScore"`
+	PerformanceScore float32    `json:"performanceScore"`
+	HealthPenalty    float32    `json:"healthPenalty"`
+	SecurityPenalty  float32    `json:"securityPenalty"`
+	ErrorPenalty     float32    `json:"errorPenalty"`
+	Status           string     `json:"status"`
+	DateCreated      string     `json:"dateCreated"`
+	LastUpdated      string     `json:"lastUpdated"`
+	Nodes            []string   `json:"nodes"`
+	Monitors         []string   `json:"monitors"`
+	Members          []string   `json:"members"`
+	LoadBalancer     LBMonitor  `json:"loadBalancer"`
+	LBPoolConfig     PoolConfig `json:"config" tf:"config"`
 }
 
-type LBPoolConfig struct {
-	SnatIPAddresses       []string    `json:"snatIpAddresses"`
-	TCPMultiplexingNumber int         `json:"tcpMultiplexingNumber"`
-	PassiveMonitorPath    int         `json:"passiveMonitorPath"`
-	TCPMultiplexing       bool        `json:"tcpMultiplexing"`
-	SnatIPAddress         string      `json:"snatIpAddress"`
-	SnatTranslationType   string      `json:"snatTranslationType"`
-	MemberGroup           MemberGroup `json:"memberGroup"`
-}
+// type LBPoolConfig struct {
+// 	SnatIPAddresses       []string    `json:"snatIpAddresses"`
+// 	TCPMultiplexingNumber int         `json:"tcpMultiplexingNumber"`
+// 	PassiveMonitorPath    int         `json:"passiveMonitorPath"`
+// 	TCPMultiplexing       bool        `json:"tcpMultiplexing"`
+// 	SnatIPAddress         string      `json:"snatIpAddress"`
+// 	SnatTranslationType   string      `json:"snatTranslationType"`
+// 	MemberGroup           MemberGroup `json:"memberGroup"`
+// }
 
 // Get LB Pools
 type GetLBPools struct {
@@ -503,32 +503,32 @@ type GetLBPools struct {
 }
 
 type GetLBPoolsResp struct {
-	ID               int          `json:"id" tf:"id,computed"`
-	LbID             int          `json:"-" tf:"lb_id,computed"`
-	Name             string       `json:"name"`
-	Visibility       string       `json:"visibility"`
-	Description      string       `json:"description"`
-	InternalID       string       `json:"internalId"`
-	ExternalID       string       `json:"externalId"`
-	Enabled          bool         `json:"enabled"`
-	VipBalance       string       `json:"vipBalance"`
-	MinActive        int          `json:"minActive"`
-	NumberActive     int          `json:"numberActive"`
-	NumberInService  int          `json:"numberInService"`
-	HealthScore      float32      `json:"healthScore"`
-	PerformanceScore float32      `json:"performanceScore"`
-	HealthPenalty    float32      `json:"healthPenalty"`
-	SecurityPenalty  float32      `json:"securityPenalty"`
-	ErrorPenalty     float32      `json:"errorPenalty"`
-	Status           string       `json:"status"`
-	DateCreated      string       `json:"dateCreated"`
-	LastUpdated      string       `json:"lastUpdated"`
-	Nodes            []string     `json:"nodes"`
-	Monitors         []string     `json:"monitors"`
-	Members          []string     `json:"members"`
-	LoadBalancer     LBMonitor    `json:"loadBalancer"`
-	LBPoolConfig     LBPoolConfig `json:"config"`
-	Meta             MetaInfo     `json:"meta"`
+	ID               int        `json:"id" tf:"id,computed"`
+	LbID             int        `json:"-" tf:"lb_id,computed"`
+	Name             string     `json:"name"`
+	Visibility       string     `json:"visibility"`
+	Description      string     `json:"description"`
+	InternalID       string     `json:"internalId"`
+	ExternalID       string     `json:"externalId"`
+	Enabled          bool       `json:"enabled"`
+	VipBalance       string     `json:"vipBalance"`
+	MinActive        int        `json:"minActive"`
+	NumberActive     int        `json:"numberActive"`
+	NumberInService  int        `json:"numberInService"`
+	HealthScore      float32    `json:"healthScore"`
+	PerformanceScore float32    `json:"performanceScore"`
+	HealthPenalty    float32    `json:"healthPenalty"`
+	SecurityPenalty  float32    `json:"securityPenalty"`
+	ErrorPenalty     float32    `json:"errorPenalty"`
+	Status           string     `json:"status"`
+	DateCreated      string     `json:"dateCreated"`
+	LastUpdated      string     `json:"lastUpdated"`
+	Nodes            []string   `json:"nodes"`
+	Monitors         []string   `json:"monitors"`
+	Members          []string   `json:"members"`
+	LoadBalancer     LBMonitor  `json:"loadBalancer"`
+	LBPoolConfig     PoolConfig `json:"config" tf:"config"`
+	Meta             MetaInfo   `json:"meta"`
 }
 
 // Get Specific LB Pools
@@ -537,31 +537,31 @@ type GetSpecificLBPool struct {
 }
 
 type GetSpecificLBPoolResp struct {
-	ID               int          `json:"-" tf:"id,computed"`
-	LbID             int          `json:"-" tf:"lb_id,computed"`
-	Name             string       `json:"name"`
-	Visibility       string       `json:"visibility"`
-	Description      string       `json:"description"`
-	InternalID       string       `json:"internalId"`
-	ExternalID       string       `json:"externalId"`
-	Enabled          bool         `json:"enabled"`
-	VipBalance       string       `json:"vipBalance"`
-	MinActive        int          `json:"minActive"`
-	NumberActive     int          `json:"numberActive"`
-	NumberInService  int          `json:"numberInService"`
-	HealthScore      float32      `json:"healthScore"`
-	PerformanceScore float32      `json:"performanceScore"`
-	HealthPenalty    float32      `json:"healthPenalty"`
-	SecurityPenalty  float32      `json:"securityPenalty"`
-	ErrorPenalty     float32      `json:"errorPenalty"`
-	Status           string       `json:"status"`
-	DateCreated      string       `json:"dateCreated"`
-	LastUpdated      string       `json:"lastUpdated"`
-	Nodes            []string     `json:"nodes"`
-	Monitors         []string     `json:"monitors"`
-	Members          []string     `json:"members"`
-	LoadBalancer     LBMonitor    `json:"loadBalancer"`
-	LBPoolConfig     LBPoolConfig `json:"config"`
+	ID               int        `json:"-" tf:"id,computed"`
+	LbID             int        `json:"-" tf:"lb_id,computed"`
+	Name             string     `json:"name"`
+	Visibility       string     `json:"visibility"`
+	Description      string     `json:"description"`
+	InternalID       string     `json:"internalId"`
+	ExternalID       string     `json:"externalId"`
+	Enabled          bool       `json:"enabled"`
+	VipBalance       string     `json:"vipBalance"`
+	MinActive        int        `json:"minActive"`
+	NumberActive     int        `json:"numberActive"`
+	NumberInService  int        `json:"numberInService"`
+	HealthScore      float32    `json:"healthScore"`
+	PerformanceScore float32    `json:"performanceScore"`
+	HealthPenalty    float32    `json:"healthPenalty"`
+	SecurityPenalty  float32    `json:"securityPenalty"`
+	ErrorPenalty     float32    `json:"errorPenalty"`
+	Status           string     `json:"status"`
+	DateCreated      string     `json:"dateCreated"`
+	LastUpdated      string     `json:"lastUpdated"`
+	Nodes            []string   `json:"nodes"`
+	Monitors         []string   `json:"monitors"`
+	Members          []string   `json:"members"`
+	LoadBalancer     LBMonitor  `json:"loadBalancer"`
+	LBPoolConfig     PoolConfig `json:"config" tf:"config"`
 }
 
 // CREATE LB Virtual servers
