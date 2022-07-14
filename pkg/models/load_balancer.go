@@ -12,7 +12,7 @@ type CreateLoadBalancerRequest struct {
 type CreateNetworkLoadBalancerRequest struct {
 	ID                  int                       `json:"-" tf:"id,computed"`
 	Name                string                    `json:"name" tf:"name"`
-	Type                string                    `json:"type" tf:"nsx_t,computed"`
+	Type                string                    `json:"type" tf:"lb_type,computed"`
 	Description         string                    `json:"description" tf:"description"`
 	NetworkServerID     int                       `json:"networkServerId" tf:"network_server_id,computed"`
 	Enabled             bool                      `json:"enabled" tf:"enabled"`
