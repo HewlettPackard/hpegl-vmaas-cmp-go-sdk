@@ -12,12 +12,12 @@ type CreateLoadBalancerRequest struct {
 type CreateNetworkLoadBalancerRequest struct {
 	ID                  int                       `json:"-" tf:"id,computed"`
 	Name                string                    `json:"name" tf:"name"`
-	Type                string                    `json:"type" tf:"type,computed"`
+	Type                string                    `json:"type" tf:"nsx_t,computed"`
 	Description         string                    `json:"description" tf:"description"`
 	NetworkServerID     int                       `json:"networkServerId" tf:"network_server_id,computed"`
 	Enabled             bool                      `json:"enabled" tf:"enabled"`
-	Config              CreateConfig              `json:"config" tf:"config"`
-	ResourcePermissions EnableResourcePermissions `json:"resourcePermissions" tf:"resource_permissions"`
+	Config              *CreateConfig             `json:"config" tf:"config,sub"`
+	ResourcePermissions EnableResourcePermissions `json:"resourcePermissions" tf:"group_access"`
 }
 
 type EnableResourcePermissions struct {
@@ -34,7 +34,7 @@ type CreateConfig struct {
 	AdminState bool   `json:"adminState" tf:"admin_state"`
 	Loglevel   string `json:"loglevel" tf:"log_level"`
 	Size       string `json:"size" tf:"size"`
-	Tier1      string `json:"tier1" tf:"tier1"`
+	Tier1      string `json:"tier1" tf:"tier1_gateways"`
 }
 
 type GetLoadBalancerTypes struct {
