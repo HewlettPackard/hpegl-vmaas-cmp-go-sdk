@@ -426,13 +426,13 @@ type CreateLBPool struct {
 }
 
 type CreateLBPoolReq struct {
-	ID          int        `json:"id" tf:"id,computed"`
-	LbID        int        `json:"-" tf:"lb_id"`
-	Name        string     `json:"name" tf:"name"`
-	Description string     `json:"description" tf:"description"`
-	VipBalance  string     `json:"vipBalance" tf:"algorithm"`
-	MinActive   int        `json:"minActive" tf:"min_active_members"`
-	PoolConfig  PoolConfig `json:"config" tf:"config"`
+	ID          int         `json:"id" tf:"id,computed"`
+	LbID        int         `json:"-" tf:"lb_id"`
+	Name        string      `json:"name" tf:"name"`
+	Description string      `json:"description" tf:"description"`
+	VipBalance  string      `json:"vipBalance" tf:"algorithm"`
+	MinActive   int         `json:"minActive" tf:"min_active_members"`
+	PoolConfig  *PoolConfig `json:"config" tf:"config,sub"`
 }
 
 type PoolConfig struct {
