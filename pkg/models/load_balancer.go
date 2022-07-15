@@ -159,7 +159,7 @@ type CreateLBMonitorReq struct {
 	ResponseData        string `json:"receiveData" tf:"response_data"`
 	RequestURL          string `json:"monitorDestination" tf:"request_url"`
 	RequestBody         string `json:"sendData" tf:"request_body"`
-	AliasPort           int    `json:"monitorPort" tf:"alias_port"`
+	AliasPort           int    `json:"alias_port" tf:"monitor_port"`
 	RiseCount           int    `json:"riseCount" tf:"rise_count"`
 	FallCount           int    `json:"fallCount" tf:"fall_count"`
 	DataLength          int    `json:"dataLength" tf:"data_length"`
@@ -382,7 +382,7 @@ type GetLBMonitorsResp struct {
 	ResponseData        string    `json:"receiveData" tf:"response_data"`
 	RequestURL          string    `json:"monitorDestination" tf:"request_url"`
 	RequestBody         string    `json:"sendData" tf:"request_body"`
-	AliasPort           int       `json:"monitorPort" tf:"alias_port"`
+	AliasPort           int       `json:"monitorPort" tf:"monitor_port"`
 	RiseCount           int       `json:"riseCount" tf:"rise_count"`
 	FallCount           int       `json:"fallCount" tf:"fall_count"`
 	DataLength          int       `json:"dataLength" tf:"data_length"`
@@ -411,7 +411,7 @@ type GetSpecificLBMonitorResp struct {
 	ResponseData        string    `json:"receiveData" tf:"response_data"`
 	RequestURL          string    `json:"monitorDestination" tf:"request_url"`
 	RequestBody         string    `json:"sendData" tf:"request_body"`
-	AliasPort           int       `json:"monitorPort" tf:"alias_port"`
+	AliasPort           int       `json:"monitorPort" tf:"monitor_port"`
 	RiseCount           int       `json:"riseCount" tf:"rise_count"`
 	FallCount           int       `json:"fallCount" tf:"fall_count"`
 	DataLength          int       `json:"dataLength" tf:"data_length"`
