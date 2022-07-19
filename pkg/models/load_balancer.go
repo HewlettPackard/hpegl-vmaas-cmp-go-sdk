@@ -145,24 +145,81 @@ type CreateLBMonitor struct {
 }
 
 type CreateLBMonitorReq struct {
-	ID                  int    `json:"-" tf:"id,computed"`
-	LbID                int    `json:"-" tf:"lb_id"`
-	Name                string `json:"name" tf:"name"`
-	Description         string `json:"description" tf:"description"`
-	Type                string `json:"monitorType" tf:"type"`
+	ID              int                         `json:"-" tf:"id,computed"`
+	LbID            int                         `json:"-" tf:"lb_id"`
+	Name            string                      `json:"name" tf:"name"`
+	Description     string                      `json:"description" tf:"description"`
+	Type            string                      `json:"monitorType" tf:"type"`
+	TfHttpConfig    *CreateHttpMonitorConfig    `json:"_" tf:"http_monitor,sub"`
+	TfHttpsConfig   *CreateHttpsMonitorConfig   `json:"_" tf:"https_monitor,sub"`
+	TfIcmpConfig    *CreateIcmpMonitorConfig    `json:"_" tf:"icmp_monitor,sub"`
+	TfPAssiveConfig *CreatePassiveMonitorConfig `json:"_" tf:"passive_monitor,sub"`
+	TfTcpConfig     *CreateTcpMonitorConfig     `json:"_" tf:"tcp_monitor,sub"`
+	TfUdpConfig     *CreateUdpMonitorConfig     `json:"_" tf:"udp_monitor,sub"`
+}
+
+type CreateHttpMonitorConfig struct {
 	Timeout             int    `json:"monitorTimeout" tf:"timeout"`
 	Interval            int    `json:"monitorInterval" tf:"interval"`
 	RequestVersion      string `json:"sendVersion" tf:"request_version"`
 	RequestMethod       string `json:"sendType" tf:"request_method"`
 	ResponseStatusCodes string `json:"receiveCode" tf:"response_status_codes"`
-	MaxFail             int    `json:"maxRetry" tf:"max_fail"`
 	ResponseData        string `json:"receiveData" tf:"response_data"`
 	RequestURL          string `json:"monitorDestination" tf:"request_url"`
 	RequestBody         string `json:"sendData" tf:"request_body"`
-	AliasPort           int    `json:"alias_port" tf:"monitor_port"`
+	AliasPort           int    `json:"aliasPort" tf:"monitor_port"`
 	RiseCount           int    `json:"riseCount" tf:"rise_count"`
 	FallCount           int    `json:"fallCount" tf:"fall_count"`
-	DataLength          int    `json:"dataLength" tf:"data_length"`
+}
+
+type CreateHttpsMonitorConfig struct {
+	Timeout             int    `json:"monitorTimeout" tf:"timeout"`
+	Interval            int    `json:"monitorInterval" tf:"interval"`
+	RequestVersion      string `json:"sendVersion" tf:"request_version"`
+	RequestMethod       string `json:"sendType" tf:"request_method"`
+	ResponseStatusCodes string `json:"receiveCode" tf:"response_status_codes"`
+	ResponseData        string `json:"receiveData" tf:"response_data"`
+	RequestURL          string `json:"monitorDestination" tf:"request_url"`
+	RequestBody         string `json:"sendData" tf:"request_body"`
+	AliasPort           int    `json:"aliasPort" tf:"monitor_port"`
+	RiseCount           int    `json:"riseCount" tf:"rise_count"`
+	FallCount           int    `json:"fallCount" tf:"fall_count"`
+}
+
+type CreateIcmpMonitorConfig struct {
+	FallCount  int `json:"fallCount" tf:"fall_count"`
+	Interval   int `json:"monitorInterval" tf:"interval"`
+	AliasPort  int `json:"aliasPort" tf:"monitor_port"`
+	RiseCount  int `json:"riseCount" tf:"rise_count"`
+	DataLength int `json:"dataLength" tf:"data_length"`
+	Timeout    int `json:"monitorTimeout" tf:"timeout"`
+}
+
+type CreatePassiveMonitorConfig struct {
+	Timeout int `json:"monitorTimeout" tf:"timeout"`
+	MaxFail int `json:"maxRetry" tf:"max_fail"`
+}
+
+type CreateTcpMonitorConfig struct {
+	FallCount    int    `json:"fallCount" tf:"fall_count"`
+	Interval     int    `json:"monitorInterval" tf:"interval"`
+	AliasPort    int    `json:"aliasPort" tf:"monitor_port"`
+	RiseCount    int    `json:"riseCount" tf:"rise_count"`
+	Timeout      int    `json:"monitorTimeout" tf:"timeout"`
+	RequestBody  string `json:"sendData" tf:"request_body"`
+	ResponseData string `json:"receiveData" tf:"response_data"`
+}
+
+type CreateUdpMonitorConfig struct {
+	FallCount           int    `json:"fallCount" tf:"fall_count"`
+	Interval            int    `json:"monitorInterval" tf:"interval"`
+	AliasPort           int    `json:"aliasPort" tf:"monitor_port"`
+	RiseCount           int    `json:"riseCount" tf:"rise_count"`
+	Timeout             int    `json:"monitorTimeout" tf:"timeout"`
+	RequestBody         string `json:"sendData" tf:"request_body"`
+	ResponseData        string `json:"receiveData" tf:"response_data"`
+	RequestVersion      string `json:"sendVersion" tf:"request_version"`
+	ResponseStatusCodes string `json:"receiveCode" tf:"response_status_codes"`
 }
 
 // Create LB Monitor Resp
@@ -172,30 +229,29 @@ type CreateLBMonitorResp struct {
 }
 
 type LBMonitorResp struct {
-	ID                 int       `json:"id" tf:"id,computed"`
-	Name               string    `json:"name"`
-	Visibility         string    `json:"visibility"`
-	Description        string    `json:"description"`
-	MonitorType        string    `json:"monitorType"`
-	MonitorInterval    int       `json:"monitorInterval"`
-	MonitorTimeout     int       `json:"monitorTimeout"`
-	SendVersion        string    `json:"sendVersion"`
-	SendType           string    `json:"sendType"`
-	ReceiveCode        string    `json:"receiveCode"`
-	MonitorDestination string    `json:"monitorDestination"`
-	MonitorReverse     bool      `json:"monitorReverse"`
-	MonitorTransparent bool      `json:"monitorTransparent"`
-	MonitorAdaptive    bool      `json:"monitorAdaptive"`
-	AliasPort          int       `json:"aliasPort"`
-	InternalID         string    `json:"internalId"`
-	MonitorSource      string    `json:"monitorSource"`
-	Status             string    `json:"status"`
-	Enabled            bool      `json:"enabled"`
-	FallCount          int       `json:"fallCount"`
-	RiseCount          int       `json:"riseCount"`
-	DateCreated        string    `json:"dateCreated"`
-	LastUpdated        string    `json:"lastUpdated"`
-	LoadBalancer       LBMonitor `json:"loadBalancer"`
+	ID                  int       `json:"id" tf:"id,computed"`
+	Name                string    `json:"name"`
+	Visibility          string    `json:"visibility"`
+	Description         string    `json:"description"`
+	Timeout             int       `json:"monitorTimeout" tf:"timeout"`
+	Interval            int       `json:"monitorInterval" tf:"interval"`
+	RequestVersion      string    `json:"sendVersion" tf:"request_version"`
+	RequestMethod       string    `json:"sendType" tf:"request_method"`
+	ResponseStatusCodes string    `json:"receiveCode" tf:"response_status_codes"`
+	ResponseData        string    `json:"receiveData" tf:"response_data"`
+	RequestURL          string    `json:"monitorDestination" tf:"request_url"`
+	RequestBody         string    `json:"sendData" tf:"request_body"`
+	AliasPort           int       `json:"aliasPort" tf:"monitor_port"`
+	RiseCount           int       `json:"riseCount" tf:"rise_count"`
+	FallCount           int       `json:"fallCount" tf:"fall_count"`
+	DataLength          int       `json:"dataLength" tf:"data_length"`
+	InternalID          string    `json:"internalId"`
+	MonitorSource       string    `json:"monitorSource"`
+	Status              string    `json:"status"`
+	Enabled             bool      `json:"enabled"`
+	DateCreated         string    `json:"dateCreated"`
+	LastUpdated         string    `json:"lastUpdated"`
+	LoadBalancer        LBMonitor `json:"loadBalancer"`
 }
 
 type LBMonitor struct {
@@ -370,22 +426,25 @@ type GetLBMonitors struct {
 type GetLBMonitorsResp struct {
 	ID                  int       `json:"id" tf:"id,computed"`
 	LbID                int       `json:"lb_id" tf:"lb_id,computed"`
-	Name                string    `json:"name" tf:"name"`
-	Description         string    `json:"description" tf:"description"`
-	Type                string    `json:"monitorType" tf:"type"`
+	Name                string    `json:"name"`
+	Visibility          string    `json:"visibility"`
+	Description         string    `json:"description"`
 	Timeout             int       `json:"monitorTimeout" tf:"timeout"`
 	Interval            int       `json:"monitorInterval" tf:"interval"`
 	RequestVersion      string    `json:"sendVersion" tf:"request_version"`
 	RequestMethod       string    `json:"sendType" tf:"request_method"`
 	ResponseStatusCodes string    `json:"receiveCode" tf:"response_status_codes"`
-	MaxFail             int       `json:"maxRetry" tf:"max_fail"`
 	ResponseData        string    `json:"receiveData" tf:"response_data"`
 	RequestURL          string    `json:"monitorDestination" tf:"request_url"`
 	RequestBody         string    `json:"sendData" tf:"request_body"`
-	AliasPort           int       `json:"monitorPort" tf:"monitor_port"`
+	AliasPort           int       `json:"aliasPort" tf:"monitor_port"`
 	RiseCount           int       `json:"riseCount" tf:"rise_count"`
 	FallCount           int       `json:"fallCount" tf:"fall_count"`
 	DataLength          int       `json:"dataLength" tf:"data_length"`
+	InternalID          string    `json:"internalId"`
+	MonitorSource       string    `json:"monitorSource"`
+	Status              string    `json:"status"`
+	Enabled             bool      `json:"enabled"`
 	DateCreated         string    `json:"dateCreated"`
 	LastUpdated         string    `json:"lastUpdated"`
 	LoadBalancer        LBMonitor `json:"loadBalancer"`
@@ -399,22 +458,25 @@ type GetSpecificLBMonitor struct {
 type GetSpecificLBMonitorResp struct {
 	ID                  int       `json:"-" tf:"id,computed"`
 	LbID                int       `json:"-" tf:"lb_id"`
-	Name                string    `json:"name" tf:"name"`
-	Description         string    `json:"description" tf:"description"`
-	Type                string    `json:"monitorType" tf:"type"`
+	Name                string    `json:"name"`
+	Visibility          string    `json:"visibility"`
+	Description         string    `json:"description"`
 	Timeout             int       `json:"monitorTimeout" tf:"timeout"`
 	Interval            int       `json:"monitorInterval" tf:"interval"`
 	RequestVersion      string    `json:"sendVersion" tf:"request_version"`
 	RequestMethod       string    `json:"sendType" tf:"request_method"`
 	ResponseStatusCodes string    `json:"receiveCode" tf:"response_status_codes"`
-	MaxFail             int       `json:"maxRetry" tf:"max_fail"`
 	ResponseData        string    `json:"receiveData" tf:"response_data"`
 	RequestURL          string    `json:"monitorDestination" tf:"request_url"`
 	RequestBody         string    `json:"sendData" tf:"request_body"`
-	AliasPort           int       `json:"monitorPort" tf:"monitor_port"`
+	AliasPort           int       `json:"aliasPort" tf:"monitor_port"`
 	RiseCount           int       `json:"riseCount" tf:"rise_count"`
 	FallCount           int       `json:"fallCount" tf:"fall_count"`
 	DataLength          int       `json:"dataLength" tf:"data_length"`
+	InternalID          string    `json:"internalId"`
+	MonitorSource       string    `json:"monitorSource"`
+	Status              string    `json:"status"`
+	Enabled             bool      `json:"enabled"`
 	DateCreated         string    `json:"dateCreated"`
 	LastUpdated         string    `json:"lastUpdated"`
 	LoadBalancer        LBMonitor `json:"loadBalancer"`
