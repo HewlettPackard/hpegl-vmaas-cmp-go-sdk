@@ -293,6 +293,15 @@ type CreateLBProfileReq struct {
 }
 
 type LBProfile struct {
+	TfHttpConfig    *CreateHttpProfileConfig    `json:"-" tf:"http_monitor,sub"`
+	TfTcpConfig     *CreateTcpProfileConfig     `json:"-" tf:"tcp_monitor,sub"`
+	TfUdpConfig     *CreateUdpProfileConfig     `json:"-" tf:"udp_profile,sub"`
+	TfCookieConfig  *CreateCookieProfileConfig  `json:"-" tf:"cookie_profile,sub"`
+	TfGenericConfig *CreateGenericProfileConfig `json:"-" tf:"generic_profile,sub"`
+	TfSourceConfig  *CreateSourceProfileConfig  `json:"-" tf:"sourceip_profile,sub"`
+	TfClientConfig  *CreateClientProfileConfig  `json:"-" tf:"client_profile,sub"`
+	TfServerConfig  *CreateServerProfileConfig  `json:"-" tf:"server_profile,sub"`
+
 	ProfileType              string `json:"profileType" tf:"profile_type"`
 	FastTCPIdleTimeout       int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
 	FastUDPIdleTimeout       int    `json:"fastUdpIdleTimeout" tf:"fast_udp_idle_timeout"`
@@ -316,6 +325,7 @@ type LBProfile struct {
 	CookiePath               string `json:"cookiePath" tf:"cookie_path"`
 	MaxIdleTime              int    `json:"maxIdleTime" tf:"max_idle_time"`
 	MaxCookieAge             int    `json:"maxCookieAge" tf:"max_cookie_age"`
+	MaxCookieLife            int    `json:"maxCookieLife" tf:"max_cookie_life"`
 	HaPersistenceMirroring   bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
 	PersistenceEntryTimeout  int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
 	PurgeEntries             bool   `json:"purgeEntries" tf:"purge_entries_when_full"`
@@ -324,6 +334,75 @@ type LBProfile struct {
 	SessionCacheEntryTimeout int    `json:"sessionCacheTimeout" tf:"session_cache_entry_timeout"`
 	PreferServerCipher       bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
 	Tag                      []Tags `json:"tags" tf:"tags"`
+}
+
+type CreateClientProfileConfig struct {
+	SSLSuite                 string `json:"sslSuite" tf:"ssl_suite"`
+	SessionCache             bool   `json:"sessionCache" tf:"session_cache"`
+	ProfileType              string `json:"profileType" tf:"profile_type"`
+	SessionCacheEntryTimeout int    `json:"sessionCacheTimeout" tf:"session_cache_entry_timeout"`
+	PreferServerCipher       bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
+}
+
+type CreateServerProfileConfig struct {
+	SSLSuite     string `json:"sslSuite" tf:"ssl_suite"`
+	SessionCache bool   `json:"sessionCache" tf:"session_cache"`
+	ProfileType  string `json:"profileType" tf:"profile_type"`
+}
+
+type CreateSourceProfileConfig struct {
+	HaPersistenceMirroring  bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
+	PersistenceEntryTimeout int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
+	PurgeEntries            bool   `json:"purgeEntries" tf:"purge_entries_when_full"`
+	ProfileType             string `json:"profileType" tf:"profile_type"`
+	SharePersistence        bool   `json:"sharePersistence" tf:"share_persistence"`
+}
+
+type CreateGenericProfileConfig struct {
+	ProfileType             string `json:"profileType" tf:"profile_type"`
+	HaPersistenceMirroring  bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
+	PersistenceEntryTimeout int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
+	SharePersistence        bool   `json:"sharePersistence" tf:"share_persistence"`
+}
+
+type CreateCookieProfileConfig struct {
+	CookieName       string `json:"cookieName" tf:"cookie_name"`
+	CookieFallback   bool   `json:"cookieFallback" tf:"cookie_fallback"`
+	CookieGarbling   bool   `json:"cookieGarbling" tf:"cookie_garbling"`
+	CookieMode       string `json:"cookieMode" tf:"cookie_mode"`
+	CookieType       string `json:"cookieType" tf:"cookie_type"`
+	CookieDomain     string `json:"cookieDomain" tf:"cookie_domain"`
+	CookiePath       string `json:"cookiePath" tf:"cookie_path"`
+	MaxIdleTime      int    `json:"maxIdleTime" tf:"max_idle_time"`
+	MaxCookieAge     int    `json:"maxCookieAge" tf:"max_cookie_age"`
+	ProfileType      string `json:"profileType" tf:"profile_type"`
+	SharePersistence bool   `json:"sharePersistence" tf:"share_persistence"`
+	MaxCookieLife    int    `json:"maxCookieLife" tf:"max_cookie_life"`
+}
+
+type CreateHttpProfileConfig struct {
+	HTTPIdleTimeout    int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
+	HTTPsRedirect      string `json:"httpsRedirect" tf:"redirection"`
+	ProfileType        string `json:"profileType" tf:"profile_type"`
+	RequestHeaderSize  int    `json:"requestHeaderSize" tf:"request_header_size"`
+	ResponseHeaderSize int    `json:"responseHeaderSize" tf:"response_header_size"`
+	NtlmAuthentication bool   `json:"ntlmAuthentication" tf:"ntlm_authentication"`
+	RequestBodySize    string `json:"requestBodySize" tf:"request_body_size"`
+	ResponseTimeout    int    `json:"responseTimeout" tf:"response_timeout"`
+	XForwardedFor      string `json:"xForwardedFor" tf:"x_forwarded_for"`
+}
+
+type CreateTcpProfileConfig struct {
+	ConnectionCloseTimeout int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
+	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
+	HaFlowMirroring        bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
+	ProfileType            string `json:"profileType" tf:"profile_type"`
+}
+
+type CreateUdpProfileConfig struct {
+	FastUDPIdleTimeout int    `json:"fastUdpIdleTimeout" tf:"fast_udp_idle_timeout"`
+	ProfileType        string `json:"profileType" tf:"profile_type"`
+	HaFlowMirroring    bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
 }
 
 type Tags struct {
