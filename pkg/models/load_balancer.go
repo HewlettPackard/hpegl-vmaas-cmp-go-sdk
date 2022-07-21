@@ -409,6 +409,10 @@ type Tags struct {
 	Tag   string `json:"tag" tf:"tag"`
 	Scope string `json:"scope" tf:"scope"`
 }
+type PoolTags struct {
+	Tag   string `json:"name" tf:"tag"`
+	Scope string `json:"value" tf:"scope"`
+}
 
 // Create LB Profile Resp
 type CreateLBProfileResp struct {
@@ -585,6 +589,7 @@ type CreateLBPoolReq struct {
 	VipBalance  string      `json:"vipBalance" tf:"algorithm"`
 	MinActive   int         `json:"minActive" tf:"min_active_members"`
 	PoolConfig  *PoolConfig `json:"config" tf:"config,sub"`
+	Tag         []PoolTags  `json:"tags" tf:"tags,sub"`
 }
 
 type PoolConfig struct {
