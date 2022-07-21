@@ -713,18 +713,18 @@ type CreateLBVirtualServers struct {
 }
 
 type CreateLBVirtualServersReq struct {
-	ID                  int                 `json:"id" tf:"id,computed"`
-	LbID                int                 `json:"-" tf:"lb_id"`
-	Description         string              `json:"description" tf:"description"`
-	VipName             string              `json:"vipName" tf:"name"`
-	VipAddress          string              `json:"vipAddress" tf:"vip_address"`
-	VipProtocol         string              `json:"vipProtocol" tf:"type"`
-	VipPort             string              `json:"vipPort" tf:"vip_port"`
-	Pool                int                 `json:"pool" tf:"pool"`
-	VipHostName         string              `json:"vipHostName" tf:"vip_host_name"`
-	SSLServerCert       int                 `json:"sslServerCert" tf:"ssl_server_cert"`
-	SSLCert             int                 `json:"sslCert" tf:"ssl_client_cert"`
-	VirtualServerConfig VirtualServerConfig `json:"config" tf:"config"`
+	ID                  int                  `json:"id" tf:"id,computed"`
+	LbID                int                  `json:"-" tf:"lb_id"`
+	Description         string               `json:"description" tf:"description"`
+	VipName             string               `json:"vipName" tf:"name"`
+	VipAddress          string               `json:"vipAddress" tf:"vip_address"`
+	VipProtocol         string               `json:"vipProtocol" tf:"type"`
+	VipPort             string               `json:"vipPort" tf:"vip_port"`
+	Pool                int                  `json:"pool" tf:"pool"`
+	VipHostName         string               `json:"vipHostName" tf:"vip_host_name"`
+	SSLServerCert       int                  `json:"sslServerCert" tf:"ssl_server_cert"`
+	SSLCert             int                  `json:"sslCert" tf:"ssl_client_cert"`
+	VirtualServerConfig *VirtualServerConfig `json:"config" tf:"config,sub"`
 }
 
 type VirtualServerConfig struct {
