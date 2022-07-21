@@ -461,7 +461,8 @@ type GetLBProfile struct {
 }
 
 type GetLBProfilesResp struct {
-	ID                  int             `json:"id"`
+	ID                  int             `json:"id" tf:"id,computed"`
+	LbID                int             `json:"-" tf:"lb_id,computed"`
 	Name                string          `json:"name"`
 	Category            string          `json:"category"`
 	ServiceType         string          `json:"serviceType"`
@@ -810,8 +811,8 @@ type GetLBVirtualServersResp struct {
 type VSConfig struct {
 	Persistence        string   `json:"persistence"`
 	PersistenceProfile int      `json:"persistenceProfile"`
-	SslServerProfile   string   `json:"sslServerProfile"`
-	SslClientProfile   string   `json:"sslClientProfile"`
+	SslServerProfile   int      `json:"sslServerProfile"`
+	SslClientProfile   int      `json:"sslClientProfile"`
 	ApplicationProfile int      `json:"applicationProfile"`
 	Monitors           []string `json:"monitors"`
 }
