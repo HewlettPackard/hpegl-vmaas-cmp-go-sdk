@@ -184,51 +184,51 @@ type CreateHttpMonitorConfig struct {
 }
 
 type CreateHttpsMonitorConfig struct {
-	Timeout             int    `json:"monitorTimeout" tf:"timeout"`
-	Interval            int    `json:"monitorInterval" tf:"interval"`
-	RequestVersion      string `json:"sendVersion" tf:"request_version"`
-	RequestMethod       string `json:"sendType" tf:"request_method"`
-	ResponseStatusCodes string `json:"receiveCode" tf:"response_status_codes"`
-	ResponseData        string `json:"receiveData" tf:"response_data"`
-	RequestURL          string `json:"monitorDestination" tf:"request_url"`
-	RequestBody         string `json:"sendData" tf:"request_body"`
-	AliasPort           int    `json:"aliasPort" tf:"monitor_port"`
-	RiseCount           int    `json:"riseCount" tf:"rise_count"`
-	FallCount           int    `json:"fallCount" tf:"fall_count"`
+	Timeout             int    `json:"-" tf:"timeout"`
+	Interval            int    `json:"-" tf:"interval"`
+	RequestVersion      string `json:"-" tf:"request_version"`
+	RequestMethod       string `json:"-" tf:"request_method"`
+	ResponseStatusCodes string `json:"-" tf:"response_status_codes"`
+	ResponseData        string `json:"-" tf:"response_data"`
+	RequestURL          string `json:"-" tf:"request_url"`
+	RequestBody         string `json:"-" tf:"request_body"`
+	AliasPort           int    `json:"-" tf:"monitor_port"`
+	RiseCount           int    `json:"-" tf:"rise_count"`
+	FallCount           int    `json:"-" tf:"fall_count"`
 }
 
 type CreateIcmpMonitorConfig struct {
-	FallCount  int `json:"fallCount" tf:"fall_count"`
-	Interval   int `json:"monitorInterval" tf:"interval"`
-	AliasPort  int `json:"aliasPort" tf:"monitor_port"`
-	RiseCount  int `json:"riseCount" tf:"rise_count"`
-	DataLength int `json:"dataLength" tf:"data_length"`
-	Timeout    int `json:"monitorTimeout" tf:"timeout"`
+	FallCount  int `json:"-" tf:"fall_count"`
+	Interval   int `json:"-" tf:"interval"`
+	AliasPort  int `json:"-" tf:"monitor_port"`
+	RiseCount  int `json:"-" tf:"rise_count"`
+	DataLength int `json:"-" tf:"data_length"`
+	Timeout    int `json:"-" tf:"timeout"`
 }
 
 type CreatePassiveMonitorConfig struct {
-	Timeout int `json:"monitorTimeout" tf:"timeout"`
-	MaxFail int `json:"maxRetry" tf:"max_fail"`
+	Timeout int `json:"-" tf:"timeout"`
+	MaxFail int `json:"-" tf:"max_fail"`
 }
 
 type CreateTcpMonitorConfig struct {
-	FallCount    int    `json:"fallCount" tf:"fall_count"`
-	Interval     int    `json:"monitorInterval" tf:"interval"`
-	AliasPort    int    `json:"aliasPort" tf:"monitor_port"`
-	RiseCount    int    `json:"riseCount" tf:"rise_count"`
-	Timeout      int    `json:"monitorTimeout" tf:"timeout"`
-	RequestBody  string `json:"sendData" tf:"request_body"`
-	ResponseData string `json:"receiveData" tf:"response_data"`
+	FallCount    int    `json:"-" tf:"fall_count"`
+	Interval     int    `json:"-" tf:"interval"`
+	AliasPort    int    `json:"-" tf:"monitor_port"`
+	RiseCount    int    `json:"-" tf:"rise_count"`
+	Timeout      int    `json:"-" tf:"timeout"`
+	RequestBody  string `json:"-" tf:"request_body"`
+	ResponseData string `json:"-" tf:"response_data"`
 }
 
 type CreateUdpMonitorConfig struct {
-	FallCount    int    `json:"fallCount" tf:"fall_count"`
-	Interval     int    `json:"monitorInterval" tf:"interval"`
-	AliasPort    int    `json:"aliasPort" tf:"monitor_port"`
-	RiseCount    int    `json:"riseCount" tf:"rise_count"`
-	Timeout      int    `json:"monitorTimeout" tf:"timeout"`
-	RequestBody  string `json:"sendData" tf:"request_body"`
-	ResponseData string `json:"receiveData" tf:"response_data"`
+	FallCount    int    `json:"-" tf:"fall_count"`
+	Interval     int    `json:"-" tf:"interval"`
+	AliasPort    int    `json:"-" tf:"monitor_port"`
+	RiseCount    int    `json:"-" tf:"rise_count"`
+	Timeout      int    `json:"-" tf:"timeout"`
+	RequestBody  string `json:"-" tf:"request_body"`
+	ResponseData string `json:"-" tf:"response_data"`
 }
 
 // Create LB Monitor Resp
@@ -300,107 +300,107 @@ type CreateLBProfileReq struct {
 }
 
 type LBProfile struct {
-	ProfileType              string `json:"profileType" tf:"profile_type"`
-	FastTCPIdleTimeout       int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
-	FastUDPIdleTimeout       int    `json:"fastUdpIdleTimeout" tf:"fast_udp_idle_timeout"`
-	HTTPIdleTimeout          int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
-	ConnectionCloseTimeout   int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
-	HaFlowMirroring          bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
-	RequestHeaderSize        int    `json:"requestHeaderSize" tf:"request_header_size"`
-	ResponseHeaderSize       int    `json:"responseHeaderSize" tf:"response_header_size"`
-	HTTPsRedirect            string `json:"httpsRedirect" tf:"redirection"`
-	XForwardedFor            string `json:"xForwardedFor" tf:"x_forwarded_for"`
-	RequestBodySize          string `json:"requestBodySize" tf:"request_body_size"`
-	ResponseTimeout          int    `json:"responseTimeout" tf:"response_timeout"`
-	NtlmAuthentication       bool   `json:"ntlmAuthentication" tf:"ntlm_authentication"`
-	SharePersistence         bool   `json:"sharePersistence" tf:"share_persistence"`
-	CookieName               string `json:"cookieName" tf:"cookie_name"`
-	CookieFallback           bool   `json:"cookieFallback" tf:"cookie_fallback"`
-	CookieGarbling           bool   `json:"cookieGarbling" tf:"cookie_garbling"`
-	CookieMode               string `json:"cookieMode" tf:"cookie_mode"`
-	CookieType               string `json:"cookieType" tf:"cookie_type"`
-	CookieDomain             string `json:"cookieDomain" tf:"cookie_domain"`
-	CookiePath               string `json:"cookiePath" tf:"cookie_path"`
-	MaxIdleTime              int    `json:"maxIdleTime" tf:"max_idle_time"`
-	MaxCookieAge             int    `json:"maxCookieAge" tf:"max_cookie_age"`
-	MaxCookieLife            int    `json:"maxCookieLife" tf:"max_cookie_life"`
-	HaPersistenceMirroring   bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
-	PersistenceEntryTimeout  int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
-	PurgeEntries             bool   `json:"purgeEntries" tf:"purge_entries_when_full"`
-	SSLSuite                 string `json:"sslSuite" tf:"ssl_suite"`
-	SessionCache             bool   `json:"sessionCache" tf:"session_cache"`
-	SessionCacheEntryTimeout int    `json:"sessionCacheTimeout" tf:"session_cache_entry_timeout"`
-	PreferServerCipher       bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
-	Tag                      []Tags `json:"tags" tf:"tags,sub"`
+	ProfileType              string `json:"profileType"`
+	FastTCPIdleTimeout       int    `json:"fastTcpIdleTimeout"`
+	FastUDPIdleTimeout       int    `json:"fastUdpIdleTimeout"`
+	HTTPIdleTimeout          int    `json:"httpIdleTimeout"`
+	ConnectionCloseTimeout   int    `json:"connectionCloseTimeout"`
+	HaFlowMirroring          bool   `json:"haFlowMirroring"`
+	RequestHeaderSize        int    `json:"requestHeaderSize"`
+	ResponseHeaderSize       int    `json:"responseHeaderSize"`
+	HTTPsRedirect            string `json:"httpsRedirect"`
+	XForwardedFor            string `json:"xForwardedFor"`
+	RequestBodySize          string `json:"requestBodySize"`
+	ResponseTimeout          int    `json:"responseTimeout"`
+	NtlmAuthentication       bool   `json:"ntlmAuthentication"`
+	SharePersistence         bool   `json:"sharePersistence"`
+	CookieName               string `json:"cookieName"`
+	CookieFallback           bool   `json:"cookieFallback"`
+	CookieGarbling           bool   `json:"cookieGarbling"`
+	CookieMode               string `json:"cookieMode"`
+	CookieType               string `json:"cookieType"`
+	CookieDomain             string `json:"cookieDomain"`
+	CookiePath               string `json:"cookiePath"`
+	MaxIdleTime              int    `json:"maxIdleTime"`
+	MaxCookieAge             int    `json:"maxCookieAge"`
+	MaxCookieLife            int    `json:"maxCookieLife"`
+	HaPersistenceMirroring   bool   `json:"haPersistenceMirroring"`
+	PersistenceEntryTimeout  int    `json:"persistenceEntryTimeout"`
+	PurgeEntries             bool   `json:"purgeEntries"`
+	SSLSuite                 string `json:"sslSuite"`
+	SessionCache             bool   `json:"sessionCache"`
+	SessionCacheEntryTimeout int    `json:"sessionCacheTimeout"`
+	PreferServerCipher       bool   `json:"preferServerCipher"`
+	Tag                      []Tags `json:"tags" tf:"tags"`
 }
 
 type CreateClientProfileConfig struct {
-	SSLSuite                 string `json:"sslSuite" tf:"ssl_suite"`
-	SessionCache             bool   `json:"sessionCache" tf:"session_cache"`
-	ProfileType              string `json:"profileType" tf:"profile_type"`
-	SessionCacheEntryTimeout int    `json:"sessionCacheTimeout" tf:"session_cache_entry_timeout"`
-	PreferServerCipher       bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
+	SSLSuite                 string `json:"-" tf:"ssl_suite"`
+	SessionCache             bool   `json:"-" tf:"session_cache"`
+	ProfileType              string `json:"-" tf:"profile_type"`
+	SessionCacheEntryTimeout int    `json:"-" tf:"session_cache_entry_timeout"`
+	PreferServerCipher       bool   `json:"-" tf:"prefer_server_cipher"`
 }
 
 type CreateServerProfileConfig struct {
-	SSLSuite     string `json:"sslSuite" tf:"ssl_suite"`
-	SessionCache bool   `json:"sessionCache" tf:"session_cache"`
-	ProfileType  string `json:"profileType" tf:"profile_type"`
+	SSLSuite     string `json:"-" tf:"ssl_suite"`
+	SessionCache bool   `json:"-" tf:"session_cache"`
+	ProfileType  string `json:"-" tf:"profile_type"`
 }
 
 type CreateSourceProfileConfig struct {
-	HaPersistenceMirroring  bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
-	PersistenceEntryTimeout int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
-	PurgeEntries            bool   `json:"purgeEntries" tf:"purge_entries_when_full"`
-	ProfileType             string `json:"profileType" tf:"profile_type"`
-	SharePersistence        bool   `json:"sharePersistence" tf:"share_persistence"`
+	HaPersistenceMirroring  bool   `json:"-" tf:"ha_persistence_mirroring"`
+	PersistenceEntryTimeout int    `json:"-" tf:"persistence_entry_timeout"`
+	PurgeEntries            bool   `json:"-" tf:"purge_entries_when_full"`
+	ProfileType             string `json:"-" tf:"profile_type"`
+	SharePersistence        bool   `json:"-" tf:"share_persistence"`
 }
 
 type CreateGenericProfileConfig struct {
-	ProfileType             string `json:"profileType" tf:"profile_type"`
-	HaPersistenceMirroring  bool   `json:"haPersistenceMirroring" tf:"ha_persistence_mirroring"`
-	PersistenceEntryTimeout int    `json:"persistenceEntryTimeout" tf:"persistence_entry_timeout"`
-	SharePersistence        bool   `json:"sharePersistence" tf:"share_persistence"`
+	ProfileType             string `json:"-" tf:"profile_type"`
+	HaPersistenceMirroring  bool   `json:"-" tf:"ha_persistence_mirroring"`
+	PersistenceEntryTimeout int    `json:"-" tf:"persistence_entry_timeout"`
+	SharePersistence        bool   `json:"-" tf:"share_persistence"`
 }
 
 type CreateCookieProfileConfig struct {
-	CookieName       string `json:"cookieName" tf:"cookie_name"`
-	CookieFallback   bool   `json:"cookieFallback" tf:"cookie_fallback"`
-	CookieGarbling   bool   `json:"cookieGarbling" tf:"cookie_garbling"`
-	CookieMode       string `json:"cookieMode" tf:"cookie_mode"`
-	CookieType       string `json:"cookieType" tf:"cookie_type"`
-	CookieDomain     string `json:"cookieDomain" tf:"cookie_domain"`
-	CookiePath       string `json:"cookiePath" tf:"cookie_path"`
-	MaxIdleTime      int    `json:"maxIdleTime" tf:"max_idle_time"`
-	MaxCookieAge     int    `json:"maxCookieAge" tf:"max_cookie_age"`
-	ProfileType      string `json:"profileType" tf:"profile_type"`
-	SharePersistence bool   `json:"sharePersistence" tf:"share_persistence"`
-	MaxCookieLife    int    `json:"maxCookieLife" tf:"max_cookie_life"`
+	CookieName       string `json:"-" tf:"cookie_name"`
+	CookieFallback   bool   `json:"-" tf:"cookie_fallback"`
+	CookieGarbling   bool   `json:"-" tf:"cookie_garbling"`
+	CookieMode       string `json:"-" tf:"cookie_mode"`
+	CookieType       string `json:"-" tf:"cookie_type"`
+	CookieDomain     string `json:"-" tf:"cookie_domain"`
+	CookiePath       string `json:"-" tf:"cookie_path"`
+	MaxIdleTime      int    `json:"-" tf:"max_idle_time"`
+	MaxCookieAge     int    `json:"-" tf:"max_cookie_age"`
+	ProfileType      string `json:"-" tf:"profile_type"`
+	SharePersistence bool   `json:"-" tf:"share_persistence"`
+	MaxCookieLife    int    `json:"-" tf:"max_cookie_life"`
 }
 
 type CreateHttpProfileConfig struct {
-	HTTPIdleTimeout    int    `json:"httpIdleTimeout" tf:"http_idle_timeout"`
-	HTTPsRedirect      string `json:"httpsRedirect" tf:"redirection"`
-	ProfileType        string `json:"profileType" tf:"profile_type"`
-	RequestHeaderSize  int    `json:"requestHeaderSize" tf:"request_header_size"`
-	ResponseHeaderSize int    `json:"responseHeaderSize" tf:"response_header_size"`
-	NtlmAuthentication bool   `json:"ntlmAuthentication" tf:"ntlm_authentication"`
-	RequestBodySize    string `json:"requestBodySize" tf:"request_body_size"`
-	ResponseTimeout    int    `json:"responseTimeout" tf:"response_timeout"`
-	XForwardedFor      string `json:"xForwardedFor" tf:"x_forwarded_for"`
+	HTTPIdleTimeout    int    `json:"-" tf:"http_idle_timeout"`
+	HTTPsRedirect      string `json:"-" tf:"redirection"`
+	ProfileType        string `json:"-" tf:"profile_type"`
+	RequestHeaderSize  int    `json:"-" tf:"request_header_size"`
+	ResponseHeaderSize int    `json:"-" tf:"response_header_size"`
+	NtlmAuthentication bool   `json:"-" tf:"ntlm_authentication"`
+	RequestBodySize    string `json:"-" tf:"request_body_size"`
+	ResponseTimeout    int    `json:"-" tf:"response_timeout"`
+	XForwardedFor      string `json:"-" tf:"x_forwarded_for"`
 }
 
 type CreateTcpProfileConfig struct {
-	ConnectionCloseTimeout int    `json:"connectionCloseTimeout" tf:"connection_close_timeout"`
-	FastTCPIdleTimeout     int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
-	HaFlowMirroring        bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
-	ProfileType            string `json:"profileType" tf:"profile_type"`
+	ConnectionCloseTimeout int    `json:"-" tf:"connection_close_timeout"`
+	FastTCPIdleTimeout     int    `json:"-" tf:"fast_tcp_idle_timeout"`
+	HaFlowMirroring        bool   `json:"-" tf:"ha_flow_mirroring"`
+	ProfileType            string `json:"-" tf:"profile_type"`
 }
 
 type CreateUdpProfileConfig struct {
-	FastUDPIdleTimeout int    `json:"fastUdpIdleTimeout" tf:"fast_udp_idle_timeout"`
-	ProfileType        string `json:"profileType" tf:"profile_type"`
-	HaFlowMirroring    bool   `json:"haFlowMirroring" tf:"ha_flow_mirroring"`
+	FastUDPIdleTimeout int    `json:"-" tf:"fast_udp_idle_timeout"`
+	ProfileType        string `json:"-" tf:"profile_type"`
+	HaFlowMirroring    bool   `json:"-" tf:"ha_flow_mirroring"`
 }
 
 type Tags struct {
@@ -553,18 +553,18 @@ type GetSpecificLBMonitorResp struct {
 	Name                string    `json:"name"`
 	Visibility          string    `json:"visibility"`
 	Description         string    `json:"description"`
-	Timeout             int       `json:"monitorTimeout" tf:"timeout"`
-	Interval            int       `json:"monitorInterval" tf:"interval"`
-	RequestVersion      string    `json:"sendVersion" tf:"request_version"`
-	RequestMethod       string    `json:"sendType" tf:"request_method"`
-	ResponseStatusCodes string    `json:"receiveCode" tf:"response_status_codes"`
-	ResponseData        string    `json:"receiveData" tf:"response_data"`
-	RequestURL          string    `json:"monitorDestination" tf:"request_url"`
-	RequestBody         string    `json:"sendData" tf:"request_body"`
-	AliasPort           int       `json:"aliasPort" tf:"monitor_port"`
-	RiseCount           int       `json:"riseCount" tf:"rise_count"`
-	FallCount           int       `json:"fallCount" tf:"fall_count"`
-	DataLength          int       `json:"dataLength" tf:"data_length"`
+	Timeout             int       `json:"monitorTimeout"`
+	Interval            int       `json:"monitorInterval"`
+	RequestVersion      string    `json:"sendVersion"`
+	RequestMethod       string    `json:"sendType"`
+	ResponseStatusCodes string    `json:"receiveCode"`
+	ResponseData        string    `json:"receiveData"`
+	RequestURL          string    `json:"monitorDestination"`
+	RequestBody         string    `json:"sendData"`
+	AliasPort           int       `json:"aliasPort"`
+	RiseCount           int       `json:"riseCount"`
+	FallCount           int       `json:"fallCount"`
+	DataLength          int       `json:"dataLength"`
 	InternalID          string    `json:"internalId"`
 	MonitorSource       string    `json:"monitorSource"`
 	Status              string    `json:"status"`
