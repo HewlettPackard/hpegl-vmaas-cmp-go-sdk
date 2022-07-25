@@ -283,24 +283,23 @@ type CreateLBProfile struct {
 }
 
 type CreateLBProfileReq struct {
-	ID            int       `json:"-" tf:"id,computed"`
-	LbID          int       `json:"-" tf:"lb_id"`
-	Name          string    `json:"name" tf:"name"`
-	Description   string    `json:"description" tf:"description"`
-	ServiceType   string    `json:"serviceType" tf:"service_type"`
-	ProfileConfig LBProfile `json:"config"  tf:"config"`
-}
-
-type LBProfile struct {
-	TfHttpConfig    *CreateHttpProfileConfig    `json:"-" tf:"http_monitor,sub"`
-	TfTcpConfig     *CreateTcpProfileConfig     `json:"-" tf:"tcp_monitor,sub"`
+	ID              int                         `json:"-" tf:"id,computed"`
+	LbID            int                         `json:"-" tf:"lb_id"`
+	Name            string                      `json:"name" tf:"name"`
+	Description     string                      `json:"description" tf:"description"`
+	ServiceType     string                      `json:"serviceType" tf:"service_type"`
+	TfHttpConfig    *CreateHttpProfileConfig    `json:"-" tf:"http_profile,sub"`
+	TfTcpConfig     *CreateTcpProfileConfig     `json:"-" tf:"tcp_profile,sub"`
 	TfUdpConfig     *CreateUdpProfileConfig     `json:"-" tf:"udp_profile,sub"`
 	TfCookieConfig  *CreateCookieProfileConfig  `json:"-" tf:"cookie_profile,sub"`
 	TfGenericConfig *CreateGenericProfileConfig `json:"-" tf:"generic_profile,sub"`
 	TfSourceConfig  *CreateSourceProfileConfig  `json:"-" tf:"sourceip_profile,sub"`
 	TfClientConfig  *CreateClientProfileConfig  `json:"-" tf:"client_profile,sub"`
 	TfServerConfig  *CreateServerProfileConfig  `json:"-" tf:"server_profile,sub"`
+	ProfileConfig   LBProfile                   `json:"config"  tf:"config,sub"`
+}
 
+type LBProfile struct {
 	ProfileType              string `json:"profileType" tf:"profile_type"`
 	FastTCPIdleTimeout       int    `json:"fastTcpIdleTimeout" tf:"fast_tcp_idle_timeout"`
 	FastUDPIdleTimeout       int    `json:"fastUdpIdleTimeout" tf:"fast_udp_idle_timeout"`
@@ -332,7 +331,7 @@ type LBProfile struct {
 	SessionCache             bool   `json:"sessionCache" tf:"session_cache"`
 	SessionCacheEntryTimeout int    `json:"sessionCacheTimeout" tf:"session_cache_entry_timeout"`
 	PreferServerCipher       bool   `json:"preferServerCipher" tf:"prefer_server_cipher"`
-	Tag                      []Tags `json:"tags" tf:"tags"`
+	Tag                      []Tags `json:"tags" tf:"tags,sub"`
 }
 
 type CreateClientProfileConfig struct {
