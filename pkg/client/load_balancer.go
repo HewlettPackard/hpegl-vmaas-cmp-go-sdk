@@ -526,3 +526,21 @@ func (lb *LoadBalancerAPIService) GetSpecificLBVirtualServer(
 
 	return LBVSResp, err
 }
+
+func (lb *LoadBalancerAPIService) GetLBPoolMemberGroup(
+	ctx context.Context,
+	lbID int,
+) (models.GetMemeberGroupForPool, error) {
+	LBMemberGroupResp := models.GetMemeberGroupForPool{}
+	LBMemberGroupInput := &api{
+		method: "GET",
+		path:   consts.LBPoolMemberGroupPath,
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBMemberGroupResp)
+		},
+	}
+	err := LBMemberGroupInput.do(ctx, nil, nil)
+
+	return LBMemberGroupResp, err
+}

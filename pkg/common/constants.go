@@ -57,7 +57,8 @@ const (
 	RouterBgpNeighborPath          = "bgp-neighbors"
 	NetworkEdgeClusterPath         = "edge-clusters"
 	// Whoami Path
-	WhoamiPath = "whoami"
+	WhoamiPath            = "whoami"
+	LBPoolMemberGroupPath = "networks/servers/1/groups"
 
 	// headers
 	ContentType = "application/json"
