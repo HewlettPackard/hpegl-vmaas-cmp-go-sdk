@@ -21,7 +21,7 @@ jobs:
         run: make tools
 
       - name: Run unit tests
-        run: make unit-test
+        run: make test
 
       - name: Build the code
         run: make build
