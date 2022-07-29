@@ -529,7 +529,6 @@ func (lb *LoadBalancerAPIService) GetSpecificLBVirtualServer(
 
 func (lb *LoadBalancerAPIService) GetLBPoolMemberGroup(
 	ctx context.Context,
-	lbID int,
 ) (models.GetMemeberGroupForPool, error) {
 	LBMemberGroupResp := models.GetMemeberGroupForPool{}
 	LBMemberGroupInput := &api{
