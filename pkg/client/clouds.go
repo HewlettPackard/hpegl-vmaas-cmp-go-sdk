@@ -251,14 +251,14 @@ func (a *CloudsAPIService) GetSpecificCloudDataStores(
 func (a *CloudsAPIService) GetSpecificCloudResourcePool(
 	ctx context.Context,
 	cloudID int,
-	id int,
+	resourcePoolID int,
 ) (models.GetSpecificCloudResourcePool, error) {
 	resp := models.GetSpecificCloudResourcePool{}
 
 	api := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%d/%s/%d",
-			consts.ZonePath, cloudID, consts.ResourcePoolPath, id),
+			consts.ZonePath, cloudID, consts.ResourcePoolPath, resourcePoolID),
 		client: a.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &resp)

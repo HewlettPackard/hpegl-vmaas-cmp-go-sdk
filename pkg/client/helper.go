@@ -95,14 +95,14 @@ func parseVersion(version string) (int, error) {
 }
 
 // Add a file to the multipart request
-func addFile(w *multipart.Writer, fieldName, path string) error {
+func addFile(writer *multipart.Writer, fieldName, path string) error {
 	file, err := os.Open(path)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 
-	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
+	part, err := writer.CreateFormFile(fieldName, filepath.Base(path))
 	if err != nil {
 		return err
 	}
@@ -117,15 +117,15 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 		bodyBuf = &bytes.Buffer{}
 	}
 
-	switch v := body.(type) {
+	switch bodyType := body.(type) {
 	case io.Reader:
-		_, err = bodyBuf.ReadFrom(v)
+		_, err = bodyBuf.ReadFrom(bodyType)
 	case []byte:
-		_, err = bodyBuf.Write(v)
+		_, err = bodyBuf.Write(bodyType)
 	case string:
-		_, err = bodyBuf.WriteString(v)
+		_, err = bodyBuf.WriteString(bodyType)
 	case *string:
-		_, err = bodyBuf.WriteString(*v)
+		_, err = bodyBuf.WriteString(*bodyType)
 	default:
 		if jsonCheck.MatchString(contentType) {
 			err = json.NewEncoder(bodyBuf).Encode(body)
