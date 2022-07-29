@@ -598,7 +598,7 @@ type PoolConfig struct {
 	TCPMultiplexing       bool         `json:"tcpMultiplexing" tf:"tcp_multiplexing"`
 	TCPMultiplexingNumber int          `json:"tcpMultiplexingNumber" tf:"tcp_multiplexing_number"`
 	SnatIPAddress         string       `json:"snatIpAddress" tf:"snat_ip_address"`
-	MemberGroup           *MemberGroup `json:"memberGroup" tf:"member_group"`
+	MemberGroup           *MemberGroup `json:"memberGroup" tf:"member_group,sub"`
 }
 
 type MemberGroup struct {
@@ -909,19 +909,5 @@ type MemeberGroups struct {
 	Name        string      `json:"name"`
 	Description interface{} `json:"description"`
 	InternalID  string      `json:"internalId"`
-	ExternalID  string      `json:"externalId"`
-	Visibility  string      `json:"visibility"`
-	Account     struct {
-		ID int `json:"id"`
-	} `json:"account"`
-	Owner struct {
-		ID int `json:"id"`
-	} `json:"owner"`
-	NetworkServer struct {
-		ID          int         `json:"id"`
-		Name        string      `json:"name"`
-		Description interface{} `json:"description"`
-	} `json:"networkServer"`
-	Members []interface{} `json:"members"`
-	Tags    []interface{} `json:"tags"`
+	ExternalID  string      `json:"externalId" tf:"external_id"`
 }
