@@ -460,22 +460,22 @@ type GetLBProfile struct {
 }
 
 type GetLBProfilesResp struct {
-	ID                  int             `json:"id" tf:"id,computed"`
-	LbID                int             `json:"-" tf:"lb_id,computed"`
-	Name                string          `json:"name"`
-	Category            string          `json:"category"`
-	ServiceType         string          `json:"serviceType"`
-	ServiceTypeDisplay  string          `json:"serviceTypeDisplay"`
-	Visibility          string          `json:"visibility"`
-	Description         string          `json:"description"`
-	InternalID          string          `json:"internalId"`
-	ExternalID          string          `json:"externalId"`
-	Enabled             bool            `json:"enabled"`
-	InsertXforwardedFor bool            `json:"insertXforwardedFor"`
-	Editable            bool            `json:"editable"`
-	DateCreated         string          `json:"dateCreated"`
-	LastUpdated         string          `json:"lastUpdated"`
-	LBProfileConfig     LBprofileConfig `json:"config"`
+	ID                  int    `json:"id" tf:"id,computed"`
+	LbID                int    `json:"-" tf:"lb_id,computed"`
+	Name                string `json:"name"`
+	Category            string `json:"category"`
+	ServiceType         string `json:"serviceType"`
+	ServiceTypeDisplay  string `json:"serviceTypeDisplay"`
+	Visibility          string `json:"visibility"`
+	Description         string `json:"description"`
+	InternalID          string `json:"internalId"`
+	ExternalID          string `json:"externalId"`
+	Enabled             bool   `json:"enabled"`
+	InsertXforwardedFor bool   `json:"insertXforwardedFor"`
+	Editable            bool   `json:"editable"`
+	DateCreated         string `json:"dateCreated"`
+	LastUpdated         string `json:"lastUpdated"`
+	//	LBProfileConfig     LBprofileConfig `json:"config"`
 }
 
 type LBprofileConfig struct {
@@ -598,11 +598,11 @@ type PoolConfig struct {
 	TCPMultiplexing       bool         `json:"tcpMultiplexing" tf:"tcp_multiplexing"`
 	TCPMultiplexingNumber int          `json:"tcpMultiplexingNumber" tf:"tcp_multiplexing_number"`
 	SnatIPAddress         string       `json:"snatIpAddress" tf:"snat_ip_address"`
-	MemberGroup           *MemberGroup `json:"memberGroup" tf:"member_group,sub"`
+	MemberGroup           *MemberGroup `json:"memberGroup" tf:"member_group"`
 }
 
 type MemberGroup struct {
-	Group            string `json:"path" tf:"group"`
+	Group            int    `json:"path" tf:"group"`
 	MaxIpListSize    int    `json:"maxIpListSize" tf:"max_ip_list_size"`
 	IPRevisionFilter string `json:"ipRevisionFilter" tf:"ip_revision_filter"`
 	Port             int    `json:"port" tf:"port"`
@@ -731,7 +731,7 @@ type CreateLBVirtualServersReq struct {
 	UdpApplicationProfileConfig  *UdpApplicationProfileConfig  `json:"-" tf:"udp_application_profile,sub"`
 	HttpApplicationProfileConfig *HttpApplicationProfileConfig `json:"-" tf:"http_application_profile,sub"`
 
-	Persistence                      string                            `json:""  tf:"persistence"`
+	Persistence                      string                            `json:"-"  tf:"persistence"`
 	CookiePersistenceProfileConfig   *CookiePersistenceProfileConfig   `json:"-" tf:"cookie_persistence_profile,sub"`
 	SourceipPersistenceProfileConfig *SourceipPersistenceProfileConfig `json:"-" tf:"sourceip_persistence_profile,sub"`
 
@@ -741,7 +741,7 @@ type CreateLBVirtualServersReq struct {
 	SSLCert         int              `json:"sslCert" tf:"ssl_client_cert"`
 	SSLClientConfig *SSLClientConfig `json:"-" tf:"ssl_client_config,sub"`
 
-	VirtualServerConfig *VirtualServerConfig `json:"config"`
+	VirtualServerConfig *VirtualServerConfig `json:"config" tf:"config,sub"`
 }
 
 type TcpApplicationProfileConfig struct {
@@ -905,9 +905,23 @@ type GetMemeberGroupForPool struct {
 }
 
 type MemeberGroups struct {
-	ID          int         `json:"id" tf:"id,computed"`
+	ID          int         `json:"id"`
 	Name        string      `json:"name"`
 	Description interface{} `json:"description"`
 	InternalID  string      `json:"internalId"`
-	ExternalID  string      `json:"externalId" tf:"external_id,computed"`
+	ExternalID  string      `json:"externalId"`
+	Visibility  string      `json:"visibility"`
+	Account     struct {
+		ID int `json:"id"`
+	} `json:"account"`
+	Owner struct {
+		ID int `json:"id"`
+	} `json:"owner"`
+	NetworkServer struct {
+		ID          int         `json:"id"`
+		Name        string      `json:"name"`
+		Description interface{} `json:"description"`
+	} `json:"networkServer"`
+	Members []interface{} `json:"members"`
+	Tags    []interface{} `json:"tags"`
 }
