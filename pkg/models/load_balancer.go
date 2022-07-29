@@ -602,7 +602,7 @@ type PoolConfig struct {
 }
 
 type MemberGroup struct {
-	Group            int    `json:"path" tf:"group"`
+	Group            string `json:"path" tf:"group"`
 	MaxIpListSize    int    `json:"maxIpListSize" tf:"max_ip_list_size"`
 	IPRevisionFilter string `json:"ipRevisionFilter" tf:"ip_revision_filter"`
 	Port             int    `json:"port" tf:"port"`
@@ -905,9 +905,9 @@ type GetMemeberGroupForPool struct {
 }
 
 type MemeberGroups struct {
-	ID          int         `json:"id"`
+	ID          int         `json:"id" tf:"id,computed"`
 	Name        string      `json:"name"`
 	Description interface{} `json:"description"`
 	InternalID  string      `json:"internalId"`
-	ExternalID  string      `json:"externalId" tf:"external_id"`
+	ExternalID  string      `json:"externalId" tf:"external_id,computed"`
 }
