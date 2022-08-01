@@ -543,3 +543,20 @@ func (lb *LoadBalancerAPIService) GetLBPoolMemberGroup(
 
 	return LBMemberGroupResp, err
 }
+
+func (lb *LoadBalancerAPIService) GetLBVirtualServerSSLCerts(
+	ctx context.Context,
+) (models.GetSSLCertificates, error) {
+	LBCertResp := models.GetSSLCertificates{}
+	LBCertInput := &api{
+		method: "GET",
+		path:   consts.LBSSLCertificatesPath,
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBCertResp)
+		},
+	}
+	err := LBCertInput.do(ctx, nil, nil)
+
+	return LBCertResp, err
+}

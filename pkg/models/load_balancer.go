@@ -911,3 +911,13 @@ type MemeberGroups struct {
 	InternalID  string      `json:"internalId"`
 	ExternalID  string      `json:"externalId" tf:"external_id,computed"`
 }
+
+type GetSSLCertificates struct {
+	Certificates []Certificates `json:"certificates"`
+}
+
+type Certificates struct {
+	ID          int    `json:"id" tf:"id,computed"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
