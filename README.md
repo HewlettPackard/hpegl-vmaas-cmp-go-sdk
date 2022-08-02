@@ -1,10 +1,10 @@
 [![CircleCI](https://circleci.com/gh/hpe-hcss/vmaas-cmp-go-sdk.svg?style=svg&circle-token=18e112d5ef6c20a7dc516fc320b8cd2e329af629)](https://circleci.com/gh/hpe-hcss/vmaas-cmp-go-sdk)
 
-# vmaas-cmp-go-sdk
+# hpegl-vmaas-cmp-go-sdk
 
-This package provides the official [Go](https://golang.org/) library for the [CMP API](https://docs.greenlake.hpe.com/docs/greenlake/services/private-cloud/internal/openapi/private-cloud-cmp-latest/overview/).
+This package provides the official [Go](https://golang.org/) library for the [CMP API](https://developer.greenlake.hpe.com/docs/greenlake/services/private-cloud/internal/openapi/private-cloud-cmp-latest/overview/).
 
-This is being developed in conjunction with the [VMaaS Terraform Provider](https://github.com/hpe-hcss/vmaas-terraform-resources).
+This is being developed in conjunction with the [VMaaS Terraform Provider](https://github.com/HewlettPackard/hpegl-vmaas-terraform-resources).
 
 ## Sample Usage
 ```go

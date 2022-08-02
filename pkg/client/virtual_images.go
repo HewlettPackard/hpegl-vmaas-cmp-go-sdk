@@ -46,13 +46,13 @@ func (a *VirtualImagesAPIService) GetAllVirtualImages(ctx context.Context,
 
 func (a *VirtualImagesAPIService) GetSpecificVirtualImage(
 	ctx context.Context,
-	id int,
+	virtualImageID int,
 ) (models.GetSpecificVirtualImage, error) {
 	response := models.GetSpecificVirtualImage{}
 
 	api := &api{
 		method: "GET",
-		path:   fmt.Sprintf("%s/%d", consts.VirtualImagePath, id),
+		path:   fmt.Sprintf("%s/%d", consts.VirtualImagePath, virtualImageID),
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {

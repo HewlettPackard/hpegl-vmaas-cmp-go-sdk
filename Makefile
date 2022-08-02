@@ -54,5 +54,5 @@ all: lint test
 .PHONY: all
 
 tools:
-	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.31.0
+	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.43.0
 .PHONY: tools

@@ -89,7 +89,7 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	}
 	versionInt, err := parseVersion(statusResp.Appliance.BuildVersion)
 	if err != nil {
-		return fmt.Errorf("failed to parse cmp build, error: %v", err)
+		return fmt.Errorf("failed to parse cmp build, error: %w", err)
 	}
 	c.cmpVersion = versionInt
 
@@ -256,15 +256,15 @@ func (c *APIClient) prepareRequest(
 	return localVarRequest, nil
 }
 
-func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {
+func (c *APIClient) decode(content interface{}, bytes []byte, contentType string) (err error) {
 	if strings.Contains(contentType, "application/xml") {
-		if err = xml.Unmarshal(b, v); err != nil {
+		if err = xml.Unmarshal(bytes, content); err != nil {
 			return err
 		}
 
 		return nil
 	} else if strings.Contains(contentType, "application/json") {
-		if err = json.Unmarshal(b, v); err != nil {
+		if err = json.Unmarshal(bytes, content); err != nil {
 			return err
 		}
 

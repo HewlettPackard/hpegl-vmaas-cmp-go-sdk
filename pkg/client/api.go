@@ -67,13 +67,13 @@ func (a *api) do(ctx context.Context, request interface{}, queryParams map[strin
 	// set Accept header
 	localVarHeaderParams["Accept"] = consts.ContentType
 
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, request,
+	req, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, request,
 		localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return err
 	}
