@@ -289,9 +289,9 @@ type CreateLBProfileReq struct {
 	Description     string                      `json:"description" tf:"description"`
 	ServiceType     string                      `json:"serviceType"`
 	ProfileType     string                      `json:"" tf:"profile_type"`
-	TfHttpConfig    *CreateHttpProfileConfig    `json:"-" tf:"http_profile,sub"`
-	TfTcpConfig     *CreateTcpProfileConfig     `json:"-" tf:"tcp_profile,sub"`
-	TfUdpConfig     *CreateUdpProfileConfig     `json:"-" tf:"udp_profile,sub"`
+	TfHttpConfig    *CreateHttpProfileConfig    `json:"-" tf:"http_application,sub"`
+	TfTcpConfig     *CreateTcpProfileConfig     `json:"-" tf:"tcp_application,sub"`
+	TfUdpConfig     *CreateUdpProfileConfig     `json:"-" tf:"udp_application,sub"`
 	TfCookieConfig  *CreateCookieProfileConfig  `json:"-" tf:"cookie_profile,sub"`
 	TfGenericConfig *CreateGenericProfileConfig `json:"-" tf:"generic_profile,sub"`
 	TfSourceConfig  *CreateSourceProfileConfig  `json:"-" tf:"sourceip_profile,sub"`
@@ -715,7 +715,6 @@ type GetSpecificLBPoolResp struct {
 type CreateLBVirtualServers struct {
 	CreateLBVirtualServersReq CreateLBVirtualServersReq `json:"loadBalancerInstance"`
 }
-
 type CreateLBVirtualServersReq struct {
 	ID          int    `json:"id" tf:"id,computed"`
 	LbID        int    `json:"-" tf:"lb_id"`
@@ -724,7 +723,7 @@ type CreateLBVirtualServersReq struct {
 	VipAddress  string `json:"vipAddress" tf:"vip_address"`
 	Pool        int    `json:"pool" tf:"pool"`
 	VipPort     string `json:"vipPort" tf:"vip_port"`
-	VipHostName string `json:"vipHostName" tf:"vip_host_name"`
+	VipHostName string `json:"vipHostname" tf:"vip_host_name"`
 
 	VipProtocol                  string                        `json:"vipProtocol" tf:"type"`
 	TcpApplicationProfileConfig  *TcpApplicationProfileConfig  `json:"-" tf:"tcp_application_profile,sub"`
@@ -741,7 +740,7 @@ type CreateLBVirtualServersReq struct {
 	SSLCert         int              `json:"sslCert" tf:"ssl_client_cert"`
 	SSLClientConfig *SSLClientConfig `json:"-" tf:"ssl_client_config,sub"`
 
-	VirtualServerConfig *VirtualServerConfig `json:"config" tf:"config,sub"`
+	VirtualServerConfig VirtualServerConfig `json:"config" tf:"config,sub"`
 }
 
 type TcpApplicationProfileConfig struct {
