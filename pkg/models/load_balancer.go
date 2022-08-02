@@ -287,16 +287,29 @@ type CreateLBProfileReq struct {
 	LbID            int                         `json:"-" tf:"lb_id"`
 	Name            string                      `json:"name" tf:"name"`
 	Description     string                      `json:"description" tf:"description"`
-	ServiceType     string                      `json:"serviceType" tf:"service_type"`
-	TfHttpConfig    *CreateHttpProfileConfig    `json:"-" tf:"http_profile,sub"`
-	TfTcpConfig     *CreateTcpProfileConfig     `json:"-" tf:"tcp_profile,sub"`
-	TfUdpConfig     *CreateUdpProfileConfig     `json:"-" tf:"udp_profile,sub"`
+	ServiceType     string                      `json:"serviceType"`
+	ProfileType     string                      `json:"" tf:"profile_type"`
+	TfHttpConfig    *CreateHttpProfileConfig    `json:"-" tf:"http_application,sub"`
+	TfTcpConfig     *CreateTcpProfileConfig     `json:"-" tf:"tcp_application,sub"`
+	TfUdpConfig     *CreateUdpProfileConfig     `json:"-" tf:"udp_application,sub"`
 	TfCookieConfig  *CreateCookieProfileConfig  `json:"-" tf:"cookie_profile,sub"`
 	TfGenericConfig *CreateGenericProfileConfig `json:"-" tf:"generic_profile,sub"`
 	TfSourceConfig  *CreateSourceProfileConfig  `json:"-" tf:"sourceip_profile,sub"`
 	TfClientConfig  *CreateClientProfileConfig  `json:"-" tf:"client_profile,sub"`
 	TfServerConfig  *CreateServerProfileConfig  `json:"-" tf:"server_profile,sub"`
-	ProfileConfig   LBProfile                   `json:"config"  tf:"config,sub"`
+	ProfileConfig   *LBProfile                  `json:"config"  tf:"config,sub"`
+}
+
+type CreateHttpProfileConfig struct {
+	ServiceType        string `json:"-" tf:"service_type"`
+	HTTPIdleTimeout    int    `json:"-" tf:"http_idle_timeout"`
+	HTTPsRedirect      string `json:"-" tf:"redirection"`
+	RequestHeaderSize  int    `json:"-" tf:"request_header_size"`
+	ResponseHeaderSize int    `json:"-" tf:"response_header_size"`
+	NtlmAuthentication bool   `json:"-" tf:"ntlm_authentication"`
+	RequestBodySize    string `json:"-" tf:"request_body_size"`
+	ResponseTimeout    int    `json:"-" tf:"response_timeout"`
+	XForwardedFor      string `json:"-" tf:"x_forwarded_for"`
 }
 
 type LBProfile struct {
@@ -335,35 +348,36 @@ type LBProfile struct {
 }
 
 type CreateClientProfileConfig struct {
+	ServiceType              string `json:"-" tf:"service_type"`
 	SSLSuite                 string `json:"-" tf:"ssl_suite"`
 	SessionCache             bool   `json:"-" tf:"session_cache"`
-	ProfileType              string `json:"-" tf:"profile_type"`
 	SessionCacheEntryTimeout int    `json:"-" tf:"session_cache_entry_timeout"`
 	PreferServerCipher       bool   `json:"-" tf:"prefer_server_cipher"`
 }
 
 type CreateServerProfileConfig struct {
+	ServiceType  string `json:"-" tf:"service_type"`
 	SSLSuite     string `json:"-" tf:"ssl_suite"`
 	SessionCache bool   `json:"-" tf:"session_cache"`
-	ProfileType  string `json:"-" tf:"profile_type"`
 }
 
 type CreateSourceProfileConfig struct {
+	ServiceType             string `json:"-" tf:"service_type"`
 	HaPersistenceMirroring  bool   `json:"-" tf:"ha_persistence_mirroring"`
 	PersistenceEntryTimeout int    `json:"-" tf:"persistence_entry_timeout"`
 	PurgeEntries            bool   `json:"-" tf:"purge_entries_when_full"`
-	ProfileType             string `json:"-" tf:"profile_type"`
 	SharePersistence        bool   `json:"-" tf:"share_persistence"`
 }
 
 type CreateGenericProfileConfig struct {
-	ProfileType             string `json:"-" tf:"profile_type"`
+	ServiceType             string `json:"-" tf:"service_type"`
 	HaPersistenceMirroring  bool   `json:"-" tf:"ha_persistence_mirroring"`
 	PersistenceEntryTimeout int    `json:"-" tf:"persistence_entry_timeout"`
 	SharePersistence        bool   `json:"-" tf:"share_persistence"`
 }
 
 type CreateCookieProfileConfig struct {
+	ServiceType      string `json:"-" tf:"service_type"`
 	CookieName       string `json:"-" tf:"cookie_name"`
 	CookieFallback   bool   `json:"-" tf:"cookie_fallback"`
 	CookieGarbling   bool   `json:"-" tf:"cookie_garbling"`
@@ -373,33 +387,20 @@ type CreateCookieProfileConfig struct {
 	CookiePath       string `json:"-" tf:"cookie_path"`
 	MaxIdleTime      int    `json:"-" tf:"max_idle_time"`
 	MaxCookieAge     int    `json:"-" tf:"max_cookie_age"`
-	ProfileType      string `json:"-" tf:"profile_type"`
 	SharePersistence bool   `json:"-" tf:"share_persistence"`
 	MaxCookieLife    int    `json:"-" tf:"max_cookie_life"`
 }
 
-type CreateHttpProfileConfig struct {
-	HTTPIdleTimeout    int    `json:"-" tf:"http_idle_timeout"`
-	HTTPsRedirect      string `json:"-" tf:"redirection"`
-	ProfileType        string `json:"-" tf:"profile_type"`
-	RequestHeaderSize  int    `json:"-" tf:"request_header_size"`
-	ResponseHeaderSize int    `json:"-" tf:"response_header_size"`
-	NtlmAuthentication bool   `json:"-" tf:"ntlm_authentication"`
-	RequestBodySize    string `json:"-" tf:"request_body_size"`
-	ResponseTimeout    int    `json:"-" tf:"response_timeout"`
-	XForwardedFor      string `json:"-" tf:"x_forwarded_for"`
-}
-
 type CreateTcpProfileConfig struct {
+	ServiceType            string `json:"-" tf:"service_type"`
 	ConnectionCloseTimeout int    `json:"-" tf:"connection_close_timeout"`
 	FastTCPIdleTimeout     int    `json:"-" tf:"fast_tcp_idle_timeout"`
 	HaFlowMirroring        bool   `json:"-" tf:"ha_flow_mirroring"`
-	ProfileType            string `json:"-" tf:"profile_type"`
 }
 
 type CreateUdpProfileConfig struct {
+	ServiceType        string `json:"-" tf:"service_type"`
 	FastUDPIdleTimeout int    `json:"-" tf:"fast_udp_idle_timeout"`
-	ProfileType        string `json:"-" tf:"profile_type"`
 	HaFlowMirroring    bool   `json:"-" tf:"ha_flow_mirroring"`
 }
 
@@ -459,22 +460,22 @@ type GetLBProfile struct {
 }
 
 type GetLBProfilesResp struct {
-	ID                  int             `json:"id" tf:"id,computed"`
-	LbID                int             `json:"-" tf:"lb_id,computed"`
-	Name                string          `json:"name"`
-	Category            string          `json:"category"`
-	ServiceType         string          `json:"serviceType"`
-	ServiceTypeDisplay  string          `json:"serviceTypeDisplay"`
-	Visibility          string          `json:"visibility"`
-	Description         string          `json:"description"`
-	InternalID          string          `json:"internalId"`
-	ExternalID          string          `json:"externalId"`
-	Enabled             bool            `json:"enabled"`
-	InsertXforwardedFor bool            `json:"insertXforwardedFor"`
-	Editable            bool            `json:"editable"`
-	DateCreated         string          `json:"dateCreated"`
-	LastUpdated         string          `json:"lastUpdated"`
-	LBProfileConfig     LBprofileConfig `json:"config"`
+	ID                  int    `json:"id" tf:"id,computed"`
+	LbID                int    `json:"-" tf:"lb_id,computed"`
+	Name                string `json:"name"`
+	Category            string `json:"category"`
+	ServiceType         string `json:"serviceType"`
+	ServiceTypeDisplay  string `json:"serviceTypeDisplay"`
+	Visibility          string `json:"visibility"`
+	Description         string `json:"description"`
+	InternalID          string `json:"internalId"`
+	ExternalID          string `json:"externalId"`
+	Enabled             bool   `json:"enabled"`
+	InsertXforwardedFor bool   `json:"insertXforwardedFor"`
+	Editable            bool   `json:"editable"`
+	DateCreated         string `json:"dateCreated"`
+	LastUpdated         string `json:"lastUpdated"`
+	//	LBProfileConfig     LBprofileConfig `json:"config"`
 }
 
 type LBprofileConfig struct {
@@ -591,20 +592,20 @@ type CreateLBPoolReq struct {
 }
 
 type PoolConfig struct {
-	SnatTranslationType   string      `json:"snatTranslationType" tf:"snat_translation_type"`
-	PassiveMonitorPath    int         `json:"passiveMonitorPath" tf:"passive_monitor_path"`
-	ActiveMonitorPaths    int         `json:"activeMonitorPaths" tf:"active_monitor_paths"`
-	TCPMultiplexing       bool        `json:"tcpMultiplexing" tf:"tcp_multiplexing"`
-	TCPMultiplexingNumber int         `json:"tcpMultiplexingNumber" tf:"tcp_multiplexing_number"`
-	SnatIPAddress         string      `json:"snatIpAddress" tf:"snat_ip_address"`
-	MemberGroup           MemberGroup `json:"memberGroup" tf:"member_group"`
+	SnatTranslationType   string       `json:"snatTranslationType" tf:"snat_translation_type"`
+	PassiveMonitorPath    int          `json:"passiveMonitorPath" tf:"passive_monitor_path"`
+	ActiveMonitorPaths    int          `json:"activeMonitorPaths" tf:"active_monitor_paths"`
+	TCPMultiplexing       bool         `json:"tcpMultiplexing" tf:"tcp_multiplexing"`
+	TCPMultiplexingNumber int          `json:"tcpMultiplexingNumber" tf:"tcp_multiplexing_number"`
+	SnatIPAddress         string       `json:"snatIpAddress" tf:"snat_ip_address"`
+	MemberGroup           *MemberGroup `json:"memberGroup" tf:"member_group,sub"`
 }
 
 type MemberGroup struct {
-	Group            string `json:"group" tf:"group"`
+	Group            string `json:"path" tf:"group"`
 	MaxIpListSize    int    `json:"maxIpListSize" tf:"max_ip_list_size"`
 	IPRevisionFilter string `json:"ipRevisionFilter" tf:"ip_revision_filter"`
-	Port             int    `json:"port"`
+	Port             int    `json:"port" tf:"port"`
 }
 
 // Create LB Pool Resp
@@ -714,28 +715,64 @@ type GetSpecificLBPoolResp struct {
 type CreateLBVirtualServers struct {
 	CreateLBVirtualServersReq CreateLBVirtualServersReq `json:"loadBalancerInstance"`
 }
-
 type CreateLBVirtualServersReq struct {
-	ID                  int                  `json:"id" tf:"id,computed"`
-	LbID                int                  `json:"-" tf:"lb_id"`
-	Description         string               `json:"description" tf:"description"`
-	VipName             string               `json:"vipName" tf:"name"`
-	VipAddress          string               `json:"vipAddress" tf:"vip_address"`
-	VipProtocol         string               `json:"vipProtocol" tf:"type"`
-	VipPort             string               `json:"vipPort" tf:"vip_port"`
-	Pool                int                  `json:"pool" tf:"pool"`
-	VipHostName         string               `json:"vipHostName" tf:"vip_host_name"`
-	SSLServerCert       int                  `json:"sslServerCert" tf:"ssl_server_cert"`
-	SSLCert             int                  `json:"sslCert" tf:"ssl_client_cert"`
-	VirtualServerConfig *VirtualServerConfig `json:"config" tf:"config,sub"`
+	ID          int    `json:"id" tf:"id,computed"`
+	LbID        int    `json:"-" tf:"lb_id"`
+	Description string `json:"description" tf:"description"`
+	VipName     string `json:"vipName" tf:"name"`
+	VipAddress  string `json:"vipAddress" tf:"vip_address"`
+	Pool        int    `json:"pool" tf:"pool"`
+	VipPort     string `json:"vipPort" tf:"vip_port"`
+	VipHostName string `json:"vipHostname" tf:"vip_host_name"`
+
+	VipProtocol                  string                        `json:"vipProtocol" tf:"type"`
+	TcpApplicationProfileConfig  *TcpApplicationProfileConfig  `json:"-" tf:"tcp_application_profile,sub"`
+	UdpApplicationProfileConfig  *UdpApplicationProfileConfig  `json:"-" tf:"udp_application_profile,sub"`
+	HttpApplicationProfileConfig *HttpApplicationProfileConfig `json:"-" tf:"http_application_profile,sub"`
+
+	Persistence                      string                            `json:"-"  tf:"persistence"`
+	CookiePersistenceProfileConfig   *CookiePersistenceProfileConfig   `json:"-" tf:"cookie_persistence_profile,sub"`
+	SourceipPersistenceProfileConfig *SourceipPersistenceProfileConfig `json:"-" tf:"sourceip_persistence_profile,sub"`
+
+	SSLServerCert   int              `json:"sslServerCert" tf:"ssl_server_cert"`
+	SSLServerConfig *SSLServerConfig `json:"-" tf:"ssl_server_config,sub"`
+
+	SSLCert         int              `json:"sslCert" tf:"ssl_client_cert"`
+	SSLClientConfig *SSLClientConfig `json:"-" tf:"ssl_client_config,sub"`
+
+	VirtualServerConfig VirtualServerConfig `json:"config" tf:"config,sub"`
+}
+
+type TcpApplicationProfileConfig struct {
+	ApplicationProfile int `json:"-" tf:"application_profile"`
+}
+type UdpApplicationProfileConfig struct {
+	ApplicationProfile int `json:"-" tf:"application_profile"`
+}
+type HttpApplicationProfileConfig struct {
+	ApplicationProfile int `json:"-" tf:"application_profile"`
+}
+
+type CookiePersistenceProfileConfig struct {
+	PersistenceProfile int `json:"-" tf:"persistence_profile"`
+}
+type SourceipPersistenceProfileConfig struct {
+	PersistenceProfile int `json:"-" tf:"persistence_profile"`
+}
+
+type SSLClientConfig struct {
+	SSLClientProfile int `json:"-" tf:"ssl_client_profile"`
+}
+type SSLServerConfig struct {
+	SSLServerProfile int `json:"-" tf:"ssl_server_profile"`
 }
 
 type VirtualServerConfig struct {
-	Persistence        string `json:"persistence"  tf:"persistence"`
-	PersistenceProfile int    `json:"persistenceProfile" tf:"persistence_profile"`
-	ApplicationProfile int    `json:"applicationProfile" tf:"application_profile"`
-	SSLClientProfile   int    `json:"sslClientProfile" tf:"ssl_client_profile"`
-	SSLServerProfile   int    `json:"sslServerProfile" tf:"ssl_server_profile"`
+	Persistence        string `json:"persistence"`
+	PersistenceProfile int    `json:"persistenceProfile"`
+	ApplicationProfile int    `json:"applicationProfile"`
+	SSLClientProfile   int    `json:"sslClientProfile"`
+	SSLServerProfile   int    `json:"sslServerProfile"`
 }
 
 // CREATE LB Virtual Server Resp
@@ -860,4 +897,26 @@ type GetSpecificLBVirtualServersResp struct {
 	VSPool             VSPool        `json:"pool"`
 	SSLCert            SSLCert       `json:"sslCert"`
 	SSLServerCert      SSLServerCert `json:"sslServerCert"`
+}
+
+type GetMemeberGroupForPool struct {
+	MemeberGroup []MemeberGroups `json:"groups"`
+}
+
+type MemeberGroups struct {
+	ID          int         `json:"id" tf:"id,computed"`
+	Name        string      `json:"name"`
+	Description interface{} `json:"description"`
+	InternalID  string      `json:"internalId"`
+	ExternalID  string      `json:"externalId" tf:"external_id,computed"`
+}
+
+type GetSSLCertificates struct {
+	Certificates []Certificates `json:"certificates"`
+}
+
+type Certificates struct {
+	ID          int    `json:"id" tf:"id,computed"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }

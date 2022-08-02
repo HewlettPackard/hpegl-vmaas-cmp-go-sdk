@@ -526,3 +526,37 @@ func (lb *LoadBalancerAPIService) GetSpecificLBVirtualServer(
 
 	return LBVSResp, err
 }
+
+func (lb *LoadBalancerAPIService) GetLBPoolMemberGroup(
+	ctx context.Context,
+) (models.GetMemeberGroupForPool, error) {
+	LBMemberGroupResp := models.GetMemeberGroupForPool{}
+	LBMemberGroupInput := &api{
+		method: "GET",
+		path:   consts.LBPoolMemberGroupPath,
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBMemberGroupResp)
+		},
+	}
+	err := LBMemberGroupInput.do(ctx, nil, nil)
+
+	return LBMemberGroupResp, err
+}
+
+func (lb *LoadBalancerAPIService) GetLBVirtualServerSSLCerts(
+	ctx context.Context,
+) (models.GetSSLCertificates, error) {
+	LBCertResp := models.GetSSLCertificates{}
+	LBCertInput := &api{
+		method: "GET",
+		path:   consts.LBSSLCertificatesPath,
+		client: lb.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &LBCertResp)
+		},
+	}
+	err := LBCertInput.do(ctx, nil, nil)
+
+	return LBCertResp, err
+}
