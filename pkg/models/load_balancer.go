@@ -476,7 +476,6 @@ type GetLBProfilesResp struct {
 	Editable            bool   `json:"editable"`
 	DateCreated         string `json:"dateCreated"`
 	LastUpdated         string `json:"lastUpdated"`
-	//	LBProfileConfig     LBprofileConfig `json:"config"`
 }
 
 type LBprofileConfig struct {
