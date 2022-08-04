@@ -861,3 +861,15 @@ type GetSpecificLBVirtualServersResp struct {
 	SSLCert            SSLCert       `json:"sslCert"`
 	SSLServerCert      SSLServerCert `json:"sslServerCert"`
 }
+
+type GetMemeberGroupForPool struct {
+	MemeberGroup []MemeberGroups `json:"groups"`
+}
+
+type MemeberGroups struct {
+	ID          int         `json:"id" tf:"id,computed"`
+	Name        string      `json:"name"`
+	Description interface{} `json:"description"`
+	InternalID  string      `json:"internalId"`
+	ExternalID  string      `json:"externalId" tf:"external_id,computed"`
+}
