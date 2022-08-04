@@ -289,9 +289,9 @@ type CreateLBProfileReq struct {
 	Description     string                      `json:"description" tf:"description"`
 	ServiceType     string                      `json:"serviceType"`
 	ProfileType     string                      `json:"" tf:"profile_type"`
-	TfHTTPConfig    *CreateHTTPProfileConfig    `json:"-" tf:"http_application,sub"`
-	TfTCPConfig     *CreateTCPProfileConfig     `json:"-" tf:"tcp_application,sub"`
-	TfUDPConfig     *CreateUDPProfileConfig     `json:"-" tf:"udp_application,sub"`
+	TfHTTPConfig    *CreateHTTPProfileConfig    `json:"-" tf:"http_profile,sub"`
+	TfTCPConfig     *CreateTCPProfileConfig     `json:"-" tf:"tcp_profile,sub"`
+	TfUDPConfig     *CreateUDPProfileConfig     `json:"-" tf:"udp_profile,sub"`
 	TfCookieConfig  *CreateCookieProfileConfig  `json:"-" tf:"cookie_profile,sub"`
 	TfGenericConfig *CreateGenericProfileConfig `json:"-" tf:"generic_profile,sub"`
 	TfSourceConfig  *CreateSourceProfileConfig  `json:"-" tf:"sourceip_profile,sub"`
