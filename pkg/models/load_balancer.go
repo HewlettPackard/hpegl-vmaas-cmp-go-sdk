@@ -161,15 +161,15 @@ type CreateLBMonitorReq struct {
 	FallCount           int                         `json:"fallCount"`
 	DataLength          int                         `json:"dataLength"`
 	MaxFail             int                         `json:"maxRetry"`
-	TfHttpConfig        *CreateHttpMonitorConfig    `json:"-" tf:"http_monitor,sub"`
-	TfHttpsConfig       *CreateHttpsMonitorConfig   `json:"-" tf:"https_monitor,sub"`
+	TfHTTPConfig        *CreateHTTPMonitorConfig    `json:"-" tf:"http_monitor,sub"`
+	TfHTTPSConfig       *CreateHTTPSMonitorConfig   `json:"-" tf:"https_monitor,sub"`
 	TfIcmpConfig        *CreateIcmpMonitorConfig    `json:"-" tf:"icmp_monitor,sub"`
 	TfPassiveConfig     *CreatePassiveMonitorConfig `json:"-" tf:"passive_monitor,sub"`
-	TfTcpConfig         *CreateTcpMonitorConfig     `json:"-" tf:"tcp_monitor,sub"`
-	TfUdpConfig         *CreateUdpMonitorConfig     `json:"-" tf:"udp_monitor,sub"`
+	TfTCPConfig         *CreateTCPMonitorConfig     `json:"-" tf:"tcp_monitor,sub"`
+	TfUDPConfig         *CreateUDPMonitorConfig     `json:"-" tf:"udp_monitor,sub"`
 }
 
-type CreateHttpMonitorConfig struct {
+type CreateHTTPMonitorConfig struct {
 	Timeout             int    `json:"-" tf:"timeout"`
 	Interval            int    `json:"-" tf:"interval"`
 	RequestVersion      string `json:"-" tf:"request_version"`
@@ -183,7 +183,7 @@ type CreateHttpMonitorConfig struct {
 	FallCount           int    `json:"-" tf:"fall_count"`
 }
 
-type CreateHttpsMonitorConfig struct {
+type CreateHTTPSMonitorConfig struct {
 	Timeout             int    `json:"-" tf:"timeout"`
 	Interval            int    `json:"-" tf:"interval"`
 	RequestVersion      string `json:"-" tf:"request_version"`
@@ -211,7 +211,7 @@ type CreatePassiveMonitorConfig struct {
 	MaxFail int `json:"-" tf:"max_fail"`
 }
 
-type CreateTcpMonitorConfig struct {
+type CreateTCPMonitorConfig struct {
 	FallCount    int    `json:"-" tf:"fall_count"`
 	Interval     int    `json:"-" tf:"interval"`
 	AliasPort    int    `json:"-" tf:"monitor_port"`
@@ -221,7 +221,7 @@ type CreateTcpMonitorConfig struct {
 	ResponseData string `json:"-" tf:"response_data"`
 }
 
-type CreateUdpMonitorConfig struct {
+type CreateUDPMonitorConfig struct {
 	FallCount    int    `json:"-" tf:"fall_count"`
 	Interval     int    `json:"-" tf:"interval"`
 	AliasPort    int    `json:"-" tf:"monitor_port"`
@@ -289,9 +289,9 @@ type CreateLBProfileReq struct {
 	Description     string                      `json:"description" tf:"description"`
 	ServiceType     string                      `json:"serviceType"`
 	ProfileType     string                      `json:"" tf:"profile_type"`
-	TfHttpConfig    *CreateHttpProfileConfig    `json:"-" tf:"http_application,sub"`
-	TfTcpConfig     *CreateTcpProfileConfig     `json:"-" tf:"tcp_application,sub"`
-	TfUdpConfig     *CreateUdpProfileConfig     `json:"-" tf:"udp_application,sub"`
+	TfHTTPConfig    *CreateHTTPProfileConfig    `json:"-" tf:"http_application,sub"`
+	TfTCPConfig     *CreateTCPProfileConfig     `json:"-" tf:"tcp_application,sub"`
+	TfUDPConfig     *CreateUDPProfileConfig     `json:"-" tf:"udp_application,sub"`
 	TfCookieConfig  *CreateCookieProfileConfig  `json:"-" tf:"cookie_profile,sub"`
 	TfGenericConfig *CreateGenericProfileConfig `json:"-" tf:"generic_profile,sub"`
 	TfSourceConfig  *CreateSourceProfileConfig  `json:"-" tf:"sourceip_profile,sub"`
@@ -300,10 +300,10 @@ type CreateLBProfileReq struct {
 	ProfileConfig   *LBProfile                  `json:"config"  tf:"config,sub"`
 }
 
-type CreateHttpProfileConfig struct {
+type CreateHTTPProfileConfig struct {
 	ServiceType        string `json:"-" tf:"service_type"`
 	HTTPIdleTimeout    int    `json:"-" tf:"http_idle_timeout"`
-	HTTPsRedirect      string `json:"-" tf:"redirection"`
+	HTTPSRedirect      string `json:"-" tf:"redirection"`
 	RequestHeaderSize  int    `json:"-" tf:"request_header_size"`
 	ResponseHeaderSize int    `json:"-" tf:"response_header_size"`
 	NtlmAuthentication bool   `json:"-" tf:"ntlm_authentication"`
@@ -321,7 +321,7 @@ type LBProfile struct {
 	HaFlowMirroring          bool   `json:"haFlowMirroring"`
 	RequestHeaderSize        int    `json:"requestHeaderSize"`
 	ResponseHeaderSize       int    `json:"responseHeaderSize"`
-	HTTPsRedirect            string `json:"httpsRedirect"`
+	HTTPSRedirect            string `json:"HTTPSRedirect"`
 	XForwardedFor            string `json:"xForwardedFor"`
 	RequestBodySize          string `json:"requestBodySize"`
 	ResponseTimeout          int    `json:"responseTimeout"`
@@ -391,14 +391,14 @@ type CreateCookieProfileConfig struct {
 	MaxCookieLife    int    `json:"-" tf:"max_cookie_life"`
 }
 
-type CreateTcpProfileConfig struct {
+type CreateTCPProfileConfig struct {
 	ServiceType            string `json:"-" tf:"service_type"`
 	ConnectionCloseTimeout int    `json:"-" tf:"connection_close_timeout"`
 	FastTCPIdleTimeout     int    `json:"-" tf:"fast_tcp_idle_timeout"`
 	HaFlowMirroring        bool   `json:"-" tf:"ha_flow_mirroring"`
 }
 
-type CreateUdpProfileConfig struct {
+type CreateUDPProfileConfig struct {
 	ServiceType        string `json:"-" tf:"service_type"`
 	FastUDPIdleTimeout int    `json:"-" tf:"fast_udp_idle_timeout"`
 	HaFlowMirroring    bool   `json:"-" tf:"ha_flow_mirroring"`
@@ -603,7 +603,7 @@ type PoolConfig struct {
 
 type MemberGroup struct {
 	Group            string `json:"path" tf:"group"`
-	MaxIpListSize    int    `json:"maxIpListSize" tf:"max_ip_list_size"`
+	MaxIPListSize    int    `json:"MaxIPListSize" tf:"max_ip_list_size"`
 	IPRevisionFilter string `json:"ipRevisionFilter" tf:"ip_revision_filter"`
 	Port             int    `json:"port" tf:"port"`
 }
@@ -726,9 +726,9 @@ type CreateLBVirtualServersReq struct {
 	VipHostName string `json:"vipHostname" tf:"vip_host_name"`
 
 	VipProtocol                  string                        `json:"vipProtocol" tf:"type"`
-	TcpApplicationProfileConfig  *TcpApplicationProfileConfig  `json:"-" tf:"tcp_application_profile,sub"`
-	UdpApplicationProfileConfig  *UdpApplicationProfileConfig  `json:"-" tf:"udp_application_profile,sub"`
-	HttpApplicationProfileConfig *HttpApplicationProfileConfig `json:"-" tf:"http_application_profile,sub"`
+	TCPApplicationProfileConfig  *TCPApplicationProfileConfig  `json:"-" tf:"tcp_application_profile,sub"`
+	UDPApplicationProfileConfig  *UDPApplicationProfileConfig  `json:"-" tf:"udp_application_profile,sub"`
+	HTTPApplicationProfileConfig *HTTPApplicationProfileConfig `json:"-" tf:"http_application_profile,sub"`
 
 	Persistence                      string                            `json:"-"  tf:"persistence"`
 	CookiePersistenceProfileConfig   *CookiePersistenceProfileConfig   `json:"-" tf:"cookie_persistence_profile,sub"`
@@ -743,13 +743,13 @@ type CreateLBVirtualServersReq struct {
 	VirtualServerConfig VirtualServerConfig `json:"config" tf:"config,sub"`
 }
 
-type TcpApplicationProfileConfig struct {
+type TCPApplicationProfileConfig struct {
 	ApplicationProfile int `json:"-" tf:"application_profile"`
 }
-type UdpApplicationProfileConfig struct {
+type UDPApplicationProfileConfig struct {
 	ApplicationProfile int `json:"-" tf:"application_profile"`
 }
-type HttpApplicationProfileConfig struct {
+type HTTPApplicationProfileConfig struct {
 	ApplicationProfile int `json:"-" tf:"application_profile"`
 }
 
