@@ -58,7 +58,6 @@ const (
 	NetworkEdgeClusterPath         = "edge-clusters"
 	// Whoami Path
 	WhoamiPath            = "whoami"
-	LBPoolMemberGroupPath = "networks/servers/1/groups"
 	LBSSLCertificatesPath = "certificates"
 
 	// headers
