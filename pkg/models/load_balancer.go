@@ -408,6 +408,7 @@ type Tags struct {
 	Tag   string `json:"tag" tf:"tag"`
 	Scope string `json:"scope" tf:"scope"`
 }
+
 type PoolTags struct {
 	Tag   string `json:"name" tf:"tag"`
 	Scope string `json:"value" tf:"scope"`
@@ -715,6 +716,7 @@ type GetSpecificLBPoolResp struct {
 type CreateLBVirtualServers struct {
 	CreateLBVirtualServersReq CreateLBVirtualServersReq `json:"loadBalancerInstance"`
 }
+
 type CreateLBVirtualServersReq struct {
 	ID          int    `json:"id" tf:"id,computed"`
 	LbID        int    `json:"-" tf:"lb_id"`
@@ -746,9 +748,11 @@ type CreateLBVirtualServersReq struct {
 type TCPApplicationProfileConfig struct {
 	ApplicationProfile int `json:"-" tf:"application_profile"`
 }
+
 type UDPApplicationProfileConfig struct {
 	ApplicationProfile int `json:"-" tf:"application_profile"`
 }
+
 type HTTPApplicationProfileConfig struct {
 	ApplicationProfile int `json:"-" tf:"application_profile"`
 }
@@ -756,6 +760,7 @@ type HTTPApplicationProfileConfig struct {
 type CookiePersistenceProfileConfig struct {
 	PersistenceProfile int `json:"-" tf:"persistence_profile"`
 }
+
 type SourceipPersistenceProfileConfig struct {
 	PersistenceProfile int `json:"-" tf:"persistence_profile"`
 }
@@ -763,6 +768,7 @@ type SourceipPersistenceProfileConfig struct {
 type SSLClientConfig struct {
 	SSLClientProfile int `json:"-" tf:"ssl_client_profile"`
 }
+
 type SSLServerConfig struct {
 	SSLServerProfile int `json:"-" tf:"ssl_server_profile"`
 }
