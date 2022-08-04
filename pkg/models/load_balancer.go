@@ -321,7 +321,7 @@ type LBProfile struct {
 	HaFlowMirroring          bool   `json:"haFlowMirroring"`
 	RequestHeaderSize        int    `json:"requestHeaderSize"`
 	ResponseHeaderSize       int    `json:"responseHeaderSize"`
-	HTTPSRedirect            string `json:"HTTPSRedirect"`
+	HTTPSRedirect            string `json:"httpsRedirect"`
 	XForwardedFor            string `json:"xForwardedFor"`
 	RequestBodySize          string `json:"requestBodySize"`
 	ResponseTimeout          int    `json:"responseTimeout"`
