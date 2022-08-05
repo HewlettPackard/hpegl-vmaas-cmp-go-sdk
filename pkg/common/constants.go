@@ -57,7 +57,8 @@ const (
 	RouterBgpNeighborPath          = "bgp-neighbors"
 	NetworkEdgeClusterPath         = "edge-clusters"
 	// Whoami Path
-	WhoamiPath = "whoami"
+	WhoamiPath            = "whoami"
+	LBSSLCertificatesPath = "certificates"
 
 	// headers
 	ContentType = "application/json"
