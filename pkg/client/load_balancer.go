@@ -544,7 +544,6 @@ func (lb *LoadBalancerAPIService) GetLBPoolMemberGroup(
 	err := LBMemberGroupInput.do(ctx, nil, nil)
 
 	return LBMemberGroupResp, err
-
 }
 
 func (lb *LoadBalancerAPIService) GetLBVirtualServerSSLCerts(
