@@ -649,32 +649,32 @@ type GetLBPools struct {
 }
 
 type GetLBPoolsResp struct {
-	ID               int        `json:"id" tf:"id,computed"`
-	LbID             int        `json:"-" tf:"lb_id,computed"`
-	Name             string     `json:"name"`
-	Visibility       string     `json:"visibility"`
-	Description      string     `json:"description"`
-	InternalID       string     `json:"internalId"`
-	ExternalID       string     `json:"externalId"`
-	Enabled          bool       `json:"enabled"`
-	VipBalance       string     `json:"vipBalance"`
-	MinActive        int        `json:"minActive"`
-	NumberActive     int        `json:"numberActive"`
-	NumberInService  int        `json:"numberInService"`
-	HealthScore      float32    `json:"healthScore"`
-	PerformanceScore float32    `json:"performanceScore"`
-	HealthPenalty    float32    `json:"healthPenalty"`
-	SecurityPenalty  float32    `json:"securityPenalty"`
-	ErrorPenalty     float32    `json:"errorPenalty"`
-	Status           string     `json:"status"`
-	DateCreated      string     `json:"dateCreated"`
-	LastUpdated      string     `json:"lastUpdated"`
-	Nodes            []string   `json:"nodes"`
-	Monitors         []string   `json:"monitors"`
-	Members          []string   `json:"members"`
-	LoadBalancer     LBMonitor  `json:"loadBalancer"`
-	LBPoolConfig     PoolConfig `json:"config" tf:"config"`
-	Meta             MetaInfo   `json:"meta"`
+	ID               int      `json:"id" tf:"id,computed"`
+	LbID             int      `json:"-" tf:"lb_id,computed"`
+	Name             string   `json:"name"`
+	Visibility       string   `json:"visibility"`
+	Description      string   `json:"description"`
+	InternalID       string   `json:"internalId"`
+	ExternalID       string   `json:"externalId"`
+	Enabled          bool     `json:"enabled"`
+	VipBalance       string   `json:"vipBalance"`
+	MinActive        int      `json:"minActive"`
+	NumberActive     int      `json:"numberActive"`
+	NumberInService  int      `json:"numberInService"`
+	HealthScore      float32  `json:"healthScore"`
+	PerformanceScore float32  `json:"performanceScore"`
+	HealthPenalty    float32  `json:"healthPenalty"`
+	SecurityPenalty  float32  `json:"securityPenalty"`
+	ErrorPenalty     float32  `json:"errorPenalty"`
+	Status           string   `json:"status"`
+	DateCreated      string   `json:"dateCreated"`
+	LastUpdated      string   `json:"lastUpdated"`
+	Nodes            []string `json:"nodes"`
+	//Monitors         []string   `json:"monitors"`
+	Members      []string   `json:"members"`
+	LoadBalancer LBMonitor  `json:"loadBalancer"`
+	LBPoolConfig PoolConfig `json:"config" tf:"config"`
+	Meta         MetaInfo   `json:"meta"`
 }
 
 // Get Specific LB Pools
@@ -717,7 +717,7 @@ type CreateLBVirtualServers struct {
 }
 
 type CreateLBVirtualServersReq struct {
-	ID          int    `json:"id" tf:"id,computed"`
+	ID          int    `json:"-" tf:"id,computed"`
 	LbID        int    `json:"-" tf:"lb_id"`
 	Description string `json:"description" tf:"description"`
 	VipName     string `json:"vipName" tf:"name"`
@@ -731,7 +731,7 @@ type CreateLBVirtualServersReq struct {
 	UDPApplicationProfileConfig  *UDPApplicationProfileConfig  `json:"-" tf:"udp_application_profile,sub"`
 	HTTPApplicationProfileConfig *HTTPApplicationProfileConfig `json:"-" tf:"http_application_profile,sub"`
 
-	Persistence                      string                            `json:"-"  tf:"persistence"`
+	Persistence                      string                            `json:"-" tf:"persistence"`
 	CookiePersistenceProfileConfig   *CookiePersistenceProfileConfig   `json:"-" tf:"cookie_persistence_profile,sub"`
 	SourceipPersistenceProfileConfig *SourceipPersistenceProfileConfig `json:"-" tf:"sourceip_persistence_profile,sub"`
 
@@ -753,7 +753,7 @@ type UDPApplicationProfileConfig struct {
 }
 
 type HTTPApplicationProfileConfig struct {
-	ApplicationProfile int `json:"-" tf:"application_profile"`
+	HttpApplicationProfile int `json:"-" tf:"application_profile"`
 }
 
 type CookiePersistenceProfileConfig struct {
@@ -878,7 +878,7 @@ type GetSpecificLBVirtualServers struct {
 }
 
 type GetSpecificLBVirtualServersResp struct {
-	ID                 int           `json:"id" tf:"id,computed"`
+	ID                 int           `json:"-" tf:"id,computed"`
 	Name               string        `json:"name"`
 	Description        string        `json:"description"`
 	Active             bool          `json:"active"`
