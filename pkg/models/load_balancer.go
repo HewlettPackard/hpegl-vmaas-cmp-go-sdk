@@ -335,7 +335,6 @@ type LBProfile struct {
 	CookieDomain             string `json:"cookieDomain"`
 	CookiePath               string `json:"cookiePath"`
 	MaxIdleTime              int    `json:"maxIdleTime"`
-	MaxCookieLife            int    `json:"maxCookieLife"`
 	HaPersistenceMirroring   bool   `json:"haPersistenceMirroring"`
 	PersistenceEntryTimeout  int    `json:"persistenceEntryTimeout"`
 	PurgeEntries             bool   `json:"purgeEntries"`
@@ -386,7 +385,6 @@ type CreateCookieProfileConfig struct {
 	CookiePath       string `json:"-" tf:"cookie_path"`
 	MaxIdleTime      int    `json:"-" tf:"max_idle_time"`
 	SharePersistence bool   `json:"-" tf:"share_persistence"`
-	MaxCookieLife    int    `json:"-" tf:"max_cookie_life"`
 }
 
 type CreateTCPProfileConfig struct {
