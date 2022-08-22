@@ -335,8 +335,6 @@ type LBProfile struct {
 	CookieDomain             string `json:"cookieDomain"`
 	CookiePath               string `json:"cookiePath"`
 	MaxIdleTime              int    `json:"maxIdleTime"`
-	MaxCookieAge             int    `json:"maxCookieAge"`
-	MaxCookieLife            int    `json:"maxCookieLife"`
 	HaPersistenceMirroring   bool   `json:"haPersistenceMirroring"`
 	PersistenceEntryTimeout  int    `json:"persistenceEntryTimeout"`
 	PurgeEntries             bool   `json:"purgeEntries"`
@@ -386,9 +384,7 @@ type CreateCookieProfileConfig struct {
 	CookieDomain     string `json:"-" tf:"cookie_domain"`
 	CookiePath       string `json:"-" tf:"cookie_path"`
 	MaxIdleTime      int    `json:"-" tf:"max_idle_time"`
-	MaxCookieAge     int    `json:"-" tf:"max_cookie_age"`
 	SharePersistence bool   `json:"-" tf:"share_persistence"`
-	MaxCookieLife    int    `json:"-" tf:"max_cookie_life"`
 }
 
 type CreateTCPProfileConfig struct {
@@ -496,6 +492,7 @@ type GetLBSpecificProfile struct {
 
 type GetLBSpecificProfilesResp struct {
 	ID                  int             `json:"-" tf:"id,computed"`
+	LbID                int             `json:"-" tf:"lb_id"`
 	Name                string          `json:"name"`
 	Category            string          `json:"category"`
 	ServiceType         string          `json:"serviceType"`
