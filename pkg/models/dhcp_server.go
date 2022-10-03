@@ -11,7 +11,7 @@ type CreateNetworkDhcpServerRequest struct {
 
 type CreateNetworkDhcpServer struct {
 	ID              int         `json:"-" tf:"id,computed"`
-	ServerID        int         `json:"-" tf:"server_id"`
+	NetworkServerID int         `json:"networkServerId" tf:"network_server_id,computed"`
 	Name            string      `json:"name" tf:"name"`
 	LeaseTime       int         `json:"leaseTime" tf:"lease_time"`
 	ServerIPAddress string      `json:"serverIpAddress" tf:"server_address"`
