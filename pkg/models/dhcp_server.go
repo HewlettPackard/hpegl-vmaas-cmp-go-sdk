@@ -19,9 +19,7 @@ type CreateNetworkDhcpServer struct {
 }
 
 type DhcpConfig struct {
-	EdgeCluster        string `json:"edgeCluster"  tf:"edge_cluster"`
-	PreferredEdgeNode1 string `json:"preferredEdgeNode1"  tf:"active_edge_node"`
-	PreferredEdgeNode2 string `json:"preferredEdgeNode2"  tf:"standby_edge_node"`
+	EdgeCluster string `json:"edgeCluster"  tf:"edge_cluster"`
 }
 
 type CreateNetworkDhcpServerResp struct {
