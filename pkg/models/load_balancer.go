@@ -666,9 +666,6 @@ type GetLBPoolsResp struct {
 	Status           string     `json:"status"`
 	DateCreated      string     `json:"dateCreated"`
 	LastUpdated      string     `json:"lastUpdated"`
-	Nodes            []string   `json:"nodes"`
-	Monitors         []string   `json:"monitors"`
-	Members          []string   `json:"members"`
 	LoadBalancer     LBMonitor  `json:"loadBalancer"`
 	LBPoolConfig     PoolConfig `json:"config" tf:"config"`
 	Meta             MetaInfo   `json:"meta"`
@@ -700,9 +697,6 @@ type GetSpecificLBPoolResp struct {
 	Status           string     `json:"status"`
 	DateCreated      string     `json:"dateCreated"`
 	LastUpdated      string     `json:"lastUpdated"`
-	Nodes            []string   `json:"nodes"`
-	Monitors         []string   `json:"monitors"`
-	Members          []string   `json:"members"`
 	LoadBalancer     LBMonitor  `json:"loadBalancer"`
 	LBPoolConfig     PoolConfig `json:"config" tf:"config"`
 }
