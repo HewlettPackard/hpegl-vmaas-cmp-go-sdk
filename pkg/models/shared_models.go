@@ -5,11 +5,11 @@ package models
 import "encoding/json"
 
 type IDModel struct {
-	ID int `json:"id,omitempty" tf:"id"`
+	ID int `json:"id" tf:"id"`
 }
 
 type IDStringModel struct {
-	ID string `json:"id,omitempty" tf:"id"`
+	ID string `json:"id" tf:"id"`
 }
 
 type UserNameModel struct {
