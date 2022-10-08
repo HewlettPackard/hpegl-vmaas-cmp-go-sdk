@@ -77,25 +77,17 @@ type CreateNetwork struct {
 	Name                string               `json:"name" tf:"name"`
 	Description         string               `json:"description,omitempty" tf:"description"`
 	DisplayName         string               `json:"displayName,omitempty" tf:"display_name"`
-	CloudID             int                  `json:"-" tf:"cloud_id"`
-	GroupID             string               `json:"-" tf:"group_id"`
-	TypeID              int                  `json:"-" tf:"type_id"`
-	PoolID              int                  `json:"pool,omitempty" tf:"pool_id"`
-	NetworkDomainID     int                  `json:"-" tf:"domain_id"`
 	Site                IDStringModel        `json:"site,omitempty"`
 	Type                IDModel              `json:"type,omitempty"`
 	NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
 	NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
 	NetworkServer       IDModel              `json:"networkServer,omitempty"`
-	NetworkPool         PoolModel            `json:"networkPool,omitempty"`
-	NetworkProxyID      int                  `json:"-" tf:"proxy_id"`
-	ProxyID             int                  `json:"-" tf:"proxy_id"`
 	SearchDomains       string               `json:"searchDomains,omitempty" tf:"search_domains"`
 	Cidr                string               `json:"cidr,omitempty" tf:"cidr"`
 	Gateway             string               `json:"gateway,omitempty" tf:"gateway"`
 	DNSPrimary          string               `json:"dnsPrimary,omitempty" tf:"primary_dns"`
 	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
-	Config              *CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
+	Config              *CreateNetworkConfig `json:"config" tf:"config,sub"`
 	Active              bool                 `json:"active" tf:"active"`
 	DhcpServer          bool                 `json:"dhcpServer"`
 	ScanNetwork         bool                 `json:"scanNetwork" tf:"scan_network"`
@@ -107,8 +99,13 @@ type CreateNetwork struct {
 }
 
 type CreateNetworkConfig struct {
-	ConnectedGateway string `json:"connectedGateway,omitempty" tf:"connected_gateway"`
-	VlanIDs          string `json:"vlanIDs,omitempty" tf:"vlan_ids"`
+	ConnectedGateway        string `json:"connectedGateway,omitempty" tf:"connected_gateway"`
+	VlanIDs                 string `json:"vlanIDs,omitempty" tf:"vlan_ids"`
+	SubnetIPManagementType  string `json:"subnetIPManagementType" tf:"Subnet_ip_management_type"`
+	SubnetIPServerID        string `json:"subnetIPServerID" tf:"subnet_ip_serverid"`
+	SubnetDhcpServerAddress string `json:"subnetDhcpServerAddress" tf:"subnet_dhcp_server_address"`
+	DhcpRange               string `json:"dhcpRange" tf:"dhcp_range"`
+	SubnetDhcpLeaseTime     string `json:"subnetDhcpLeaseTime" tf:"subnet_dhcp_lease_time"`
 }
 
 type GetNetworkTypesResponse struct {
