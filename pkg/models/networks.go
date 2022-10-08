@@ -101,8 +101,8 @@ type CreateNetwork struct {
 type CreateNetworkConfig struct {
 	ConnectedGateway        string `json:"connectedGateway,omitempty" tf:"connected_gateway"`
 	VlanIDs                 string `json:"vlanIDs,omitempty" tf:"vlan_ids"`
-	SubnetIPManagementType  string `json:"subnetIPManagementType" tf:"Subnet_ip_management_type"`
-	SubnetIPServerID        string `json:"subnetIPServerID" tf:"subnet_ip_serverid"`
+	SubnetIPManagementType  string `json:"subnetIpManagementType" tf:"subnet_ip_management_type"`
+	SubnetIPServerID        string `json:"subnetIpServerId" tf:"subnet_ip_server_id"`
 	SubnetDhcpServerAddress string `json:"subnetDhcpServerAddress" tf:"subnet_dhcp_server_address"`
 	DhcpRange               string `json:"dhcpRange" tf:"dhcp_range"`
 	SubnetDhcpLeaseTime     string `json:"subnetDhcpLeaseTime" tf:"subnet_dhcp_lease_time"`
