@@ -77,24 +77,24 @@ type CreateNetwork struct {
 	Name                string               `json:"name" tf:"name"`
 	Description         string               `json:"description,omitempty" tf:"description"`
 	DisplayName         string               `json:"displayName,omitempty" tf:"display_name"`
-	Site                IDStringModel        `json:"site,omitempty"`
-	Type                IDModel              `json:"type,omitempty"`
-	NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
-	NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
-	NetworkServer       IDModel              `json:"networkServer,omitempty"`
+	Site                IDStringModel        `json:"site" tf:"site"`
+	Type                IDModel              `json:"type" tf:"type"`
+	NetworkDomain       *IDModel             `json:"networkDomain" tf:"network_domain"`
+	NetworkProxy        *IDModel             `json:"networkProxy" tf:"network_proxy"`
+	NetworkServer       IDModel              `json:"networkServer" tf:"network_server"`
 	SearchDomains       string               `json:"searchDomains,omitempty" tf:"search_domains"`
-	Cidr                string               `json:"cidr,omitempty" tf:"cidr"`
+	Cidr                string               `json:"cidr" tf:"cidr"`
 	Gateway             string               `json:"gateway,omitempty" tf:"gateway"`
 	DNSPrimary          string               `json:"dnsPrimary,omitempty" tf:"primary_dns"`
 	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
 	Config              *CreateNetworkConfig `json:"config" tf:"config,sub"`
 	Active              bool                 `json:"active" tf:"active"`
-	DhcpServer          bool                 `json:"dhcpServer"`
+	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_server"`
 	ScanNetwork         bool                 `json:"scanNetwork" tf:"scan_network"`
 	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_static_override"`
 	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
-	ScopeID             string               `json:"scopeId,omitempty" tf:"scode_id"`
+	ScopeID             string               `json:"scopeId" tf:"scode_id"`
 	ResourcePermissions NetworkResPermission `json:"-" tf:"resource_permissions,sub"`
 }
 
