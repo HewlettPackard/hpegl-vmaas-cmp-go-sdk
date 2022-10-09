@@ -92,7 +92,7 @@ type CreateNetwork struct {
 	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_enabled"`
 	ScanNetwork         bool                 `json:"scanNetwork" tf:"scan_network"`
 	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_ip_override"`
-	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"bypass_for_appliance_url"`
+	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"bypass_proxy_for_appliance_url"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
 	ScopeID             string               `json:"scopeId" tf:"transport_zone"`
 	ResourcePermissions NetworkResPermission `json:"-" tf:"resource_permissions,sub"`
