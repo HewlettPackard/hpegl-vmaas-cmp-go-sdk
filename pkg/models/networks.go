@@ -77,35 +77,35 @@ type CreateNetwork struct {
 	Name                string               `json:"name" tf:"name"`
 	Description         string               `json:"description,omitempty" tf:"description"`
 	DisplayName         string               `json:"displayName,omitempty" tf:"display_name"`
-	Site                IDStringModel        `json:"site" tf:"site"`
+	Site                IDStringModel        `json:"site" tf:"group"`
 	Type                IDModel              `json:"type" tf:"type"`
-	NetworkDomain       *IDModel             `json:"networkDomain" tf:"network_domain"`
+	NetworkDomain       *IDModel             `json:"networkDomain" tf:"domain"`
 	NetworkProxy        *IDModel             `json:"networkProxy" tf:"network_proxy"`
 	NetworkServer       IDModel              `json:"networkServer" tf:"network_server"`
 	SearchDomains       string               `json:"searchDomains,omitempty" tf:"search_domains"`
-	Cidr                string               `json:"cidr" tf:"cidr"`
+	Cidr                string               `json:"cidr" tf:"gateway_cidr"`
 	Gateway             string               `json:"gateway,omitempty" tf:"gateway"`
 	DNSPrimary          string               `json:"dnsPrimary,omitempty" tf:"primary_dns"`
 	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
 	Config              *CreateNetworkConfig `json:"config" tf:"config,sub"`
 	Active              bool                 `json:"active" tf:"active"`
-	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_server"`
+	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_enabled"`
 	ScanNetwork         bool                 `json:"scanNetwork" tf:"scan_network"`
-	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_static_override"`
-	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
+	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_ip_override"`
+	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"bypass_for_appliance_url"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
-	ScopeID             string               `json:"scopeId" tf:"scode_id"`
+	ScopeID             string               `json:"scopeId" tf:"transport_zone"`
 	ResourcePermissions NetworkResPermission `json:"-" tf:"resource_permissions,sub"`
 }
 
 type CreateNetworkConfig struct {
 	ConnectedGateway        string `json:"connectedGateway,omitempty" tf:"connected_gateway"`
-	VlanIDs                 string `json:"vlanIDs,omitempty" tf:"vlan_ids"`
-	SubnetIPManagementType  string `json:"subnetIpManagementType" tf:"subnet_ip_management_type"`
-	SubnetIPServerID        string `json:"subnetIpServerId" tf:"subnet_ip_server_id"`
-	SubnetDhcpServerAddress string `json:"subnetDhcpServerAddress" tf:"subnet_dhcp_server_address"`
+	VlanIDs                 string `json:"vlanIDs,omitempty" tf:"vlan"`
+	SubnetIPManagementType  string `json:"subnetIpManagementType" tf:"dhcp_type"`
+	SubnetIPServerID        string `json:"subnetIpServerId" tf:"dhcp_server"`
+	SubnetDhcpServerAddress string `json:"subnetDhcpServerAddress" tf:"dhcp_server_address"`
 	DhcpRange               string `json:"dhcpRange" tf:"dhcp_range"`
-	SubnetDhcpLeaseTime     string `json:"subnetDhcpLeaseTime" tf:"subnet_dhcp_lease_time"`
+	SubnetDhcpLeaseTime     string `json:"subnetDhcpLeaseTime" tf:"dhcp_lease_time"`
 }
 
 type GetNetworkTypesResponse struct {
