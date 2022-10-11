@@ -65,8 +65,6 @@ type NetworkResPermissionSites struct {
 
 type CreateNetworkRequest struct {
 	Network CreateNetwork `json:"network"`
-	//ResourcePermissions   NetworkResPermission `json:"resourcePermissions,omitempty"`
-
 }
 
 type CreateNetwork struct {
