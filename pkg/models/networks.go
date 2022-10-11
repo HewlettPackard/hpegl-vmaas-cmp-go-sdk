@@ -71,6 +71,7 @@ type CreateNetwork struct {
 	TfStaticNetworkConfig *CreateStaticNetwork `json:"-" tf:"static_network,sub"`
 	TfDhcpNetworkConfig   *CreateDhcpNetwork   `json:"-" tf:"dhcp_network,sub"`
 }
+
 type PoolModel struct {
 	Pool int `json:"pool,omitempty"`
 }
