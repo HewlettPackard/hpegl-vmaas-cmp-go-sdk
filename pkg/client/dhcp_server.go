@@ -11,6 +11,8 @@ import (
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
+const dhcpCompatibleVersion = "5.2.13"
+
 type DhcpServerAPIService struct {
 	Client APIClientHandler
 	Cfg    Configuration
@@ -23,7 +25,8 @@ func (lb *DhcpServerAPIService) CreateDhcpServer(
 ) (models.CreateNetworkDhcpServerResp, error) {
 	dhcpServerResp := models.CreateNetworkDhcpServerResp{}
 	dhcpServerAPI := &api{
-		method: "POST",
+		compatibleVersion: dhcpCompatibleVersion,
+		method:            "POST",
 		path: fmt.Sprintf("%s/%s/%d/%s",
 			consts.NetworksPath, consts.ServerPath,
 			serverID, consts.DhcpServerPath),
@@ -45,7 +48,8 @@ func (lb *DhcpServerAPIService) UpdateDhcpServer(
 ) (models.CreateNetworkDhcpServerResp, error) {
 	dhcpServerResp := models.CreateNetworkDhcpServerResp{}
 	dhcpServerAPI := &api{
-		method: "PUT",
+		compatibleVersion: dhcpCompatibleVersion,
+		method:            "PUT",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d",
 			consts.NetworksPath, consts.ServerPath,
 			serverID, consts.DhcpServerPath, dhcpID),
@@ -66,7 +70,8 @@ func (lb *DhcpServerAPIService) DeleteDhcpServer(
 ) (models.SuccessOrErrorMessage, error) {
 	dhcpServerResp := models.SuccessOrErrorMessage{}
 	dhcpServerAPI := &api{
-		method: "DELETE",
+		compatibleVersion: dhcpCompatibleVersion,
+		method:            "DELETE",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d",
 			consts.NetworksPath, consts.ServerPath,
 			serverID, consts.DhcpServerPath, dhcpID),
@@ -86,7 +91,8 @@ func (lb *DhcpServerAPIService) GetDhcpServers(
 ) (models.GetNetworkDhcpServers, error) {
 	dhcpServerResp := models.GetNetworkDhcpServers{}
 	dhcpServerAPI := &api{
-		method: "GET",
+		compatibleVersion: dhcpCompatibleVersion,
+		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s",
 			consts.NetworksPath, consts.ServerPath,
 			serverID, consts.DhcpServerPath),
@@ -107,7 +113,8 @@ func (lb *DhcpServerAPIService) GetSpecificDhcpServer(
 ) (models.GetSpecificNetworkDhcpServer, error) {
 	dhcpServerResp := models.GetSpecificNetworkDhcpServer{}
 	dhcpServerAPI := &api{
-		method: "GET",
+		compatibleVersion: dhcpCompatibleVersion,
+		method:            "GET",
 		path: fmt.Sprintf("%s/%s/%d/%s/%d",
 			consts.NetworksPath, consts.ServerPath,
 			serverID, consts.DhcpServerPath, dhcpID),
