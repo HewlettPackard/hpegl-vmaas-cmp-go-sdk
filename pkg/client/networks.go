@@ -61,6 +61,10 @@ func (n *NetworksAPIService) CreateNetwork(
 	networkReq models.CreateNetworkRequest,
 ) (models.CreateNetworkResponse, error) {
 	var networksResp models.CreateNetworkResponse
+	if v, _ := parseVersion("5.4.4"); v <= n.Client.getVersion() {
+		networkReq.Network.TfStaticNetworkConfig.NetworkPool.Pool = networkReq.Network.TfStaticNetworkConfig.PoolID
+		networkReq.Network.TfStaticNetworkConfig.PoolID = 0
+	}
 	networkAPI := &api{
 		compatibleVersion: "5.2.13",
 		method:            "POST",
