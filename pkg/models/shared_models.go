@@ -9,7 +9,7 @@ type IDModel struct {
 }
 
 type IDStringModel struct {
-	ID string `json:"id" tf:"id"`
+	ID string `json:"id,omitempty" tf:"id"`
 }
 
 type UserNameModel struct {
