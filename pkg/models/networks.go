@@ -68,6 +68,9 @@ type CreateNetworkRequest struct {
 }
 
 type CreateNetwork struct {
+	ID                    int                  `json:"-" tf:"id,computed"`
+	Type                  IDModel              `json:"type,omitempty"`
+	NetworkServer         IDModel              `json:"networkServer,omitempty"`
 	TfStaticNetworkConfig *CreateStaticNetwork `json:"-" tf:"static_network,sub"`
 	TfDhcpNetworkConfig   *CreateDhcpNetwork   `json:"-" tf:"dhcp_network,sub"`
 }
@@ -77,7 +80,6 @@ type PoolModel struct {
 }
 
 type CreateStaticNetwork struct {
-	ID                  int                        `json:"-" tf:"id,computed"`
 	Name                string                     `json:"name" tf:"name"`
 	Description         string                     `json:"description,omitempty" tf:"description"`
 	DisplayName         string                     `json:"displayName,omitempty" tf:"display_name"`
@@ -90,7 +92,6 @@ type CreateStaticNetwork struct {
 	Type                IDModel                    `json:"type,omitempty"`
 	NetworkDomain       *IDModel                   `json:"networkDomain,omitempty"`
 	NetworkProxy        *IDModel                   `json:"networkProxy,omitempty"`
-	NetworkServer       IDModel                    `json:"networkServer,omitempty"`
 	NetworkPool         PoolModel                  `json:"networkPool,omitempty"`
 	NetworkProxyID      int                        `json:"-" tf:"proxy_id"`
 	ProxyID             int                        `json:"-" tf:"proxy_id"`
@@ -124,7 +125,6 @@ type CreateDhcpNetwork struct {
 	Type                IDModel                  `json:"type" tf:"type"`
 	NetworkDomain       *IDModel                 `json:"networkDomain" tf:"domain"`
 	NetworkProxy        *IDModel                 `json:"networkProxy" tf:"network_proxy"`
-	NetworkServer       IDModel                  `json:"networkServer" tf:"network_server"`
 	SearchDomains       string                   `json:"searchDomains,omitempty" tf:"search_domains"`
 	Cidr                string                   `json:"cidr" tf:"gateway_cidr"`
 	Gateway             string                   `json:"gateway,omitempty" tf:"gateway"`
