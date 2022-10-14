@@ -163,9 +163,7 @@ func TestNetworksAPIService_CreateNetwork(t *testing.T) {
 			name: "Normal test case 1: Create network",
 			args: models.CreateNetworkRequest{
 				Network: models.CreateNetwork{
-					TfStaticNetworkConfig: &models.CreateStaticNetwork{
-						Name: "tf_net",
-					},
+					Name: "tf_net",
 				},
 			},
 			given: func(m *MockAPIClientHandler) {
@@ -179,9 +177,7 @@ func TestNetworksAPIService_CreateNetwork(t *testing.T) {
 				m.EXPECT().prepareRequest(gomock.Any(), path, method,
 					models.CreateNetworkRequest{
 						Network: models.CreateNetwork{
-							TfStaticNetworkConfig: &models.CreateStaticNetwork{
-								Name: "tf_net",
-							},
+							Name: "tf_net",
 						},
 					},
 					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
@@ -253,9 +249,7 @@ func TestNetworksAPIService_UpdateNetwork(t *testing.T) {
 				networkID: 1,
 				request: models.CreateNetworkRequest{
 					Network: models.CreateNetwork{
-						TfStaticNetworkConfig: &models.CreateStaticNetwork{
-							Name: "tf_net",
-						},
+						Name: "tf_net",
 					},
 				},
 			},
@@ -270,9 +264,7 @@ func TestNetworksAPIService_UpdateNetwork(t *testing.T) {
 				m.EXPECT().prepareRequest(gomock.Any(), path, method,
 					models.CreateNetworkRequest{
 						Network: models.CreateNetwork{
-							TfStaticNetworkConfig: &models.CreateStaticNetwork{
-								Name: "tf_net",
-							},
+							Name: "tf_net",
 						},
 					},
 					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
