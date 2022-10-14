@@ -129,6 +129,7 @@ type CreateNetworkConfig struct {
 	DhcpRange               string `json:"dhcpRange"`
 	SubnetDhcpLeaseTime     string `json:"subnetDhcpLeaseTime"`
 }
+
 type CreateStaticNetwork struct {
 	Name                string                `json:"-" tf:"name"`
 	Description         string                `json:"-" tf:"description"`
