@@ -102,8 +102,7 @@ type CreateNetwork struct {
 	TfDhcpNetwork       *CreateDhcpNetwork           `json:"-" tf:"dhcp_network,sub"`
 	TfDhcpConfig        *TfCreateDhcpNetworkConfig   `json:"-" tf:"config,sub"`
 	TfStaticConfig      *TfCreateStaticNetworkConfig `json:"-" tf:"config,sub"`
-	StaticConfig        *CreateStaticConfig          `json:"config,omitempty"`
-	DhcpConfig          *CreateDhcpConfig            `json:"config"`
+	Config              *CreateNetworkConfig         `json:"config"`
 }
 
 type TfCreateStaticNetworkConfig struct {
@@ -120,12 +119,8 @@ type TfCreateDhcpNetworkConfig struct {
 	DhcpRange               string `json:"-" tf:"dhcp_range"`
 	SubnetDhcpLeaseTime     string `json:"-" tf:"dhcp_lease_time"`
 }
-type CreateStaticConfig struct {
-	ConnectedGateway string `json:"connectedGateway,omitempty"`
-	VlanIDs          string `json:"vlanIDs,omitempty"`
-}
 
-type CreateDhcpConfig struct {
+type CreateNetworkConfig struct {
 	ConnectedGateway        string `json:"connectedGateway,omitempty"`
 	VlanIDs                 string `json:"vlanIDs,omitempty"`
 	SubnetIPManagementType  string `json:"subnetIpManagementType"`
