@@ -116,6 +116,7 @@ type CreateDhcpNetwork struct {
 	DhcpServer bool           `json:"-" tf:"dhcp_enabled"`
 	Config     *NetworkConfig `json:"-" tf:"config,sub"`
 }
+
 type CreateStaticNetwork struct {
 	ExternalID string         `json:"-" tf:"external_id,computed"`
 	InternalID string         `json:"-" tf:"internal_id,computed"`
