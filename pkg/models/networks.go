@@ -117,19 +117,17 @@ type CreateDhcpNetwork struct {
 	Config     *NetworkConfig `json:"-" tf:"config,sub"`
 }
 type CreateStaticNetwork struct {
-	ExternalID string `json:"-" tf:"external_id,computed"`
-	InternalID string `json:"-" tf:"internal_id,computed"`
-	UniqueID   string `json:"-" tf:"unique_id,computed"`
-	Status     string `json:"-" tf:"status,computed"`
-	Code       string `json:"-" tf:"code,computed"`
-
-	Config *NetworkConfig `json:"-" tf:"config,sub"`
+	ExternalID string         `json:"-" tf:"external_id,computed"`
+	InternalID string         `json:"-" tf:"internal_id,computed"`
+	UniqueID   string         `json:"-" tf:"unique_id,computed"`
+	Status     string         `json:"-" tf:"status,computed"`
+	Code       string         `json:"-" tf:"code,computed"`
+	Config     *NetworkConfig `json:"-" tf:"config,sub"`
 }
 
 type CreateNetworkConfig struct {
-	ConnectedGateway string `json:"connectedGateway,omitempty"`
-	VlanIDs          string `json:"vlanIDs,omitempty"`
-	//DHCP Server
+	ConnectedGateway        string `json:"connectedGateway,omitempty"`
+	VlanIDs                 string `json:"vlanIDs,omitempty"`
 	SubnetIPManagementType  string `json:"subnetIpManagementType"`
 	SubnetIPServerID        string `json:"subnetIpServerId"`
 	SubnetDhcpServerAddress string `json:"subnetDhcpServerAddress"`
@@ -138,9 +136,8 @@ type CreateNetworkConfig struct {
 }
 
 type NetworkConfig struct {
-	ConnectedGateway string `json:"-" tf:"connected_gateway"`
-	VlanIDs          string `json:"-" tf:"vlan_ids"`
-	//DHCP Server
+	ConnectedGateway        string `json:"-" tf:"connected_gateway"`
+	VlanIDs                 string `json:"-" tf:"vlan_ids"`
 	SubnetIPManagementType  string `json:"-" tf:"dhcp_type"`
 	SubnetIPServerID        string `json:"-" tf:"dhcp_server"`
 	SubnetDhcpServerAddress string `json:"-" tf:"dhcp_server_address"`
