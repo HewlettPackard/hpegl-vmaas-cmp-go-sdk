@@ -73,18 +73,17 @@ type PoolModel struct {
 }
 
 type CreateNetwork struct {
-	ID              int     `json:"-" tf:"id,computed"`
-	Name            string  `json:"name" tf:"name"`
-	Description     string  `json:"description,omitempty" tf:"description"`
-	DisplayName     string  `json:"displayName,omitempty" tf:"display_name"`
-	CloudID         int     `json:"-" tf:"cloud_id"`
-	GroupID         string  `json:"-" tf:"group_id"`
-	TypeID          int     `json:"-" tf:"type_id"`
-	PoolID          int     `json:"pool,omitempty" tf:"pool_id"`
-	NetworkDomainID int     `json:"-" tf:"domain_id"`
-	Type            IDModel `json:"type,omitempty"`
-	//NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
-	//NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
+	ID                  int                  `json:"-" tf:"id,computed"`
+	Name                string               `json:"name" tf:"name"`
+	Description         string               `json:"description,omitempty" tf:"description"`
+	DisplayName         string               `json:"displayName,omitempty" tf:"display_name"`
+	CloudID             int                  `json:"-" tf:"cloud_id"`
+	TypeID              int                  `json:"-" tf:"type_id"`
+	PoolID              int                  `json:"pool,omitempty" tf:"pool_id"`
+	NetworkDomainID     int                  `json:"-" tf:"domain_id"`
+	Type                IDModel              `json:"type,omitempty"`
+	NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
+	NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
 	NetworkServer       IDModel              `json:"networkServer,omitempty"`
 	NetworkPool         *PoolModel           `json:"networkPool,omitempty"`
 	NetworkProxyID      int                  `json:"-" tf:"proxy_id"`
@@ -94,31 +93,79 @@ type CreateNetwork struct {
 	Gateway             string               `json:"gateway,omitempty" tf:"gateway"`
 	DNSPrimary          string               `json:"dnsPrimary,omitempty" tf:"primary_dns"`
 	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
-	Config              *CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
 	Active              bool                 `json:"active" tf:"active"`
 	ScanNetwork         bool                 `json:"scanNetwork" tf:"scan_network"`
 	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_static_override"`
 	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
 	ScopeID             string               `json:"scopeId,omitempty" tf:"scode_id"`
+	ExternalID          int                  `json:"externalId"`
+	InternalID          int                  `json:"internalId"`
+	UniqueID            int                  `json:"uniqueId"`
+	Status              string               `json:"status"`
+	Code                string               `json:"code"`
+	Group               IDStringModel        `json:"site" tf:"group"`
+	DhcpServer          bool                 `json:"dhcpServer"`
+	TfDhcpNetwork       *CreateDhcpNetwork   `json:"-" tf:"dhcp_network,sub"`
+	TfStaticNetwork     *CreateStaticNetwork `json:"-" tf:"static_network,sub"`
+	Config              CreateNetworkConfig  `json:"config"`
 	ResourcePermissions NetworkResPermission `json:"-" tf:"resource_permissions,sub"`
+}
 
-	//DhcpServer
-	Site          IDStringModel `json:"site" tf:"group"`
-	DhcpServer    bool          `json:"dhcpServer"  tf:"dhcp_enabled"`
-	NetworkDomain *IDModel      `json:"networkDomain" tf:"domain"`
-	NetworkProxy  *IDModel      `json:"networkProxy" tf:"network_proxy"`
+type CreateDhcpNetwork struct {
+	DhcpServer bool           `json:"-" tf:"dhcp_enabled"`
+	Config     *NetworkConfig `json:"-" tf:"config,sub"`
+}
+type CreateStaticNetwork struct {
+	ExternalID string `json:"-" tf:"external_id,computed"`
+	InternalID string `json:"-" tf:"internal_id,computed"`
+	UniqueID   string `json:"-" tf:"unique_id,computed"`
+	Status     string `json:"-" tf:"status,computed"`
+	Code       string `json:"-" tf:"code,computed"`
+
+	Config *NetworkConfig `json:"-" tf:"config,sub"`
 }
 
 type CreateNetworkConfig struct {
-	ConnectedGateway string `json:"connectedGateway,omitempty" tf:"connected_gateway"`
-	VlanIDs          string `json:"vlanIDs,omitempty" tf:"vlan_ids"`
+	ConnectedGateway string `json:"connectedGateway,omitempty"`
+	VlanIDs          string `json:"vlanIDs,omitempty"`
 	//DHCP Server
-	SubnetIPManagementType  string `json:"subnetIpManagementType" tf:"dhcp_type"`
-	SubnetIPServerID        string `json:"subnetIpServerId" tf:"dhcp_server"`
-	SubnetDhcpServerAddress string `json:"subnetDhcpServerAddress" tf:"dhcp_server_address"`
-	DhcpRange               string `json:"dhcpRange" tf:"dhcp_range"`
-	SubnetDhcpLeaseTime     string `json:"subnetDhcpLeaseTime" tf:"dhcp_lease_time"`
+	SubnetIPManagementType  string `json:"subnetIpManagementType"`
+	SubnetIPServerID        string `json:"subnetIpServerId"`
+	SubnetDhcpServerAddress string `json:"subnetDhcpServerAddress"`
+	DhcpRange               string `json:"dhcpRange"`
+	SubnetDhcpLeaseTime     string `json:"subnetDhcpLeaseTime"`
+}
+
+type NetworkConfig struct {
+	ConnectedGateway string `json:"-" tf:"connected_gateway"`
+	VlanIDs          string `json:"-" tf:"vlan_ids"`
+	//DHCP Server
+	SubnetIPManagementType  string `json:"-" tf:"dhcp_type"`
+	SubnetIPServerID        string `json:"-" tf:"dhcp_server"`
+	SubnetDhcpServerAddress string `json:"-" tf:"dhcp_server_address"`
+	DhcpRange               string `json:"-" tf:"dhcp_range"`
+	SubnetDhcpLeaseTime     string `json:"-" tf:"dhcp_lease_time"`
+}
+
+type TfDhcpNetworkConfig struct {
+	ConnectedGateway        string `json:"-" tf:"connected_gateway"`
+	VlanIDs                 string `json:"-" tf:"vlan_id"`
+	SubnetIPManagementType  string `json:"-" tf:"dhcp_type"`
+	SubnetIPServerID        string `json:"-" tf:"dhcp_server"`
+	SubnetDhcpServerAddress string `json:"-" tf:"dhcp_server_address"`
+	DhcpRange               string `json:"-" tf:"dhcp_range"`
+	SubnetDhcpLeaseTime     string `json:"-" tf:"dhcp_lease_time"`
+}
+
+type TfDhcpConfig struct {
+	ConnectedGateway        string `json:"-" tf:"connected_gateway"`
+	VlanIDs                 string `json:"-" tf:"vlan"`
+	SubnetIPManagementType  string `json:"-" tf:"dhcp_type"`
+	SubnetIPServerID        string `json:"-" tf:"dhcp_server"`
+	SubnetDhcpServerAddress string `json:"-" tf:"dhcp_server_address"`
+	DhcpRange               string `json:"-" tf:"dhcp_range"`
+	SubnetDhcpLeaseTime     string `json:"-" tf:"dhcp_lease_time"`
 }
 
 type GetNetworkTypesResponse struct {
