@@ -145,26 +145,6 @@ type NetworkConfig struct {
 	SubnetDhcpLeaseTime     string `json:"-" tf:"dhcp_lease_time"`
 }
 
-type TfDhcpNetworkConfig struct {
-	ConnectedGateway        string `json:"-" tf:"connected_gateway"`
-	VlanIDs                 string `json:"-" tf:"vlan_id"`
-	SubnetIPManagementType  string `json:"-" tf:"dhcp_type"`
-	SubnetIPServerID        string `json:"-" tf:"dhcp_server"`
-	SubnetDhcpServerAddress string `json:"-" tf:"dhcp_server_address"`
-	DhcpRange               string `json:"-" tf:"dhcp_range"`
-	SubnetDhcpLeaseTime     string `json:"-" tf:"dhcp_lease_time"`
-}
-
-type TfDhcpConfig struct {
-	ConnectedGateway        string `json:"-" tf:"connected_gateway"`
-	VlanIDs                 string `json:"-" tf:"vlan"`
-	SubnetIPManagementType  string `json:"-" tf:"dhcp_type"`
-	SubnetIPServerID        string `json:"-" tf:"dhcp_server"`
-	SubnetDhcpServerAddress string `json:"-" tf:"dhcp_server_address"`
-	DhcpRange               string `json:"-" tf:"dhcp_range"`
-	SubnetDhcpLeaseTime     string `json:"-" tf:"dhcp_lease_time"`
-}
-
 type GetNetworkTypesResponse struct {
 	NetworkTypes []GetSpecificNetworkType `json:"networkTypes"`
 }
