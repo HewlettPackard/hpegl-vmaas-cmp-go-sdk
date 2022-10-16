@@ -28,7 +28,7 @@ type CreateNetworkDhcpServerResp struct {
 }
 
 type GetNetworkDhcpServers struct {
-	GetNetworkDhcpServerRes []GetNetworkDhcpServerResp `json:"networkDhcpServers"`
+	GetNetworkDhcpServerResp []GetNetworkDhcpServerResp `json:"networkDhcpServers"`
 }
 
 type GetNetworkDhcpServerResp struct {
