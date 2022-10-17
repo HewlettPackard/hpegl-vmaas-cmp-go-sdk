@@ -105,8 +105,9 @@ type CreateNetwork struct {
 	//Status string `json:"status"`
 	//Code                string               `json:"code"`
 	//Group               IDStringModel        `json:"site" tf:"group"`
-	GroupID string `json:"-" tf:"group_id"`
-
+	GroupID             string               `json:"-" tf:"group_id"`
+	ConnectedGateway    string               `json:"connectedGateway,omitempty" tf:"connected_gateway"`
+	VlanIDs             string               `json:"vlanIDs,omitempty" tf:"vlan_ids"`
 	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_enabled"`
 	TfDhcpNetwork       *CreateDhcpNetwork   `json:"-" tf:"dhcp_network,sub"`
 	TfStaticNetwork     *CreateStaticNetwork `json:"-" tf:"static_network,sub"`
@@ -118,8 +119,8 @@ type CreateNetwork struct {
 // }
 type CreateDhcpNetwork struct {
 	//Config *NetworkConfig `json:"-" tf:"config,sub"`
-	ConnectedGateway        string `json:"-" tf:"connected_gateway"`
-	VlanIDs                 string `json:"-" tf:"vlan_ids"`
+	//ConnectedGateway        string `json:"-" tf:"connected_gateway"`
+	//VlanIDs                 string `json:"-" tf:"vlan_ids"`
 	SubnetIPManagementType  string `json:"-" tf:"dhcp_type"`
 	SubnetIPServerID        string `json:"-" tf:"dhcp_server"`
 	SubnetDhcpServerAddress string `json:"-" tf:"dhcp_server_address"`
@@ -130,8 +131,8 @@ type CreateDhcpNetwork struct {
 type CreateStaticNetwork struct {
 	PoolID int `json:"-" tf:"pool_id"`
 	//Config *NetworkConfig `json:"-" tf:"config,sub"`
-	ConnectedGateway string `json:"-" tf:"connected_gateway"`
-	VlanIDs          string `json:"-" tf:"vlan_ids"`
+	//ConnectedGateway string `json:"-" tf:"connected_gateway"`
+	//VlanIDs          string `json:"-" tf:"vlan_ids"`
 }
 
 type CreateNetworkConfig struct {
