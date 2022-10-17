@@ -78,16 +78,15 @@ type CreateNetwork struct {
 	Description         string               `json:"description,omitempty" tf:"description"`
 	DisplayName         string               `json:"displayName,omitempty" tf:"display_name"`
 	CloudID             int                  `json:"-" tf:"cloud_id"`
-	GroupID             string               `json:"-" tf:"group_id"`
 	TypeID              int                  `json:"-" tf:"type_id"`
-	PoolID              int                  `json:"pool,omitempty" tf:"pool_id"`
+	PoolID              int                  `json:"pool,omitempty"`
 	NetworkDomainID     int                  `json:"-" tf:"domain_id"`
 	Site                IDStringModel        `json:"site,omitempty"`
 	Type                IDModel              `json:"type,omitempty"`
 	NetworkDomain       *IDModel             `json:"networkDomain,omitempty"`
 	NetworkProxy        *IDModel             `json:"networkProxy,omitempty"`
 	NetworkServer       IDModel              `json:"networkServer,omitempty"`
-	NetworkPool         PoolModel            `json:"networkPool,omitempty"`
+	NetworkPool         *PoolModel           `json:"networkPool,omitempty"`
 	NetworkProxyID      int                  `json:"-" tf:"proxy_id"`
 	ProxyID             int                  `json:"-" tf:"proxy_id"`
 	SearchDomains       string               `json:"searchDomains,omitempty" tf:"search_domains"`
@@ -95,20 +94,42 @@ type CreateNetwork struct {
 	Gateway             string               `json:"gateway,omitempty" tf:"gateway"`
 	DNSPrimary          string               `json:"dnsPrimary,omitempty" tf:"primary_dns"`
 	DNSSecondary        string               `json:"dnsSecondary,omitempty" tf:"secondary_dns"`
-	Config              *CreateNetworkConfig `json:"config,omitempty" tf:"config,sub"`
 	Active              bool                 `json:"active" tf:"active"`
-	DhcpServer          bool                 `json:"dhcpServer"`
 	ScanNetwork         bool                 `json:"scanNetwork" tf:"scan_network"`
 	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_static_override"`
 	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
 	ScopeID             string               `json:"scopeId,omitempty" tf:"scode_id"`
+	GroupID             string               `json:"-" tf:"group_id"`
+	ConnectedGateway    string               `json:"connectedGateway,omitempty" tf:"connected_gateway"`
+	VlanIDs             string               `json:"vlanIDs,omitempty" tf:"vlan_ids"`
+	DhcpServer          bool                 `json:"dhcpServer" tf:"dhcp_enabled"`
+	TfDhcpNetwork       *CreateDhcpNetwork   `json:"-" tf:"dhcp_network,sub"`
+	TfStaticNetwork     *CreateStaticNetwork `json:"-" tf:"static_network,sub"`
+	Config              CreateNetworkConfig  `json:"config"`
 	ResourcePermissions NetworkResPermission `json:"-" tf:"resource_permissions,sub"`
 }
 
+type CreateDhcpNetwork struct {
+	SubnetIPManagementType  string `json:"-" tf:"dhcp_type"`
+	SubnetIPServerID        string `json:"-" tf:"dhcp_server"`
+	SubnetDhcpServerAddress string `json:"-" tf:"dhcp_server_address"`
+	DhcpRange               string `json:"-" tf:"dhcp_range"`
+	SubnetDhcpLeaseTime     string `json:"-" tf:"dhcp_lease_time"`
+}
+
+type CreateStaticNetwork struct {
+	PoolID int `json:"-" tf:"pool_id"`
+}
+
 type CreateNetworkConfig struct {
-	ConnectedGateway string `json:"connectedGateway,omitempty" tf:"connected_gateway"`
-	VlanIDs          string `json:"vlanIDs,omitempty" tf:"vlan_ids"`
+	ConnectedGateway        string `json:"connectedGateway,omitempty"`
+	VlanIDs                 string `json:"vlanIDs,omitempty"`
+	SubnetIPManagementType  string `json:"subnetIpManagementType"`
+	SubnetIPServerID        string `json:"subnetIpServerId"`
+	SubnetDhcpServerAddress string `json:"subnetDhcpServerAddress"`
+	DhcpRange               string `json:"dhcpRange"`
+	SubnetDhcpLeaseTime     string `json:"subnetDhcpLeaseTime"`
 }
 
 type GetNetworkTypesResponse struct {

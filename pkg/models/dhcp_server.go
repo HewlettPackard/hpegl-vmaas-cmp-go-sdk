@@ -34,7 +34,7 @@ type GetNetworkDhcpServers struct {
 type GetNetworkDhcpServerResp struct {
 	ID              int           `json:"id" tf:"id,computed"`
 	DateCreated     time.Time     `json:"dateCreated"`
-	ProviderID      string        `json:"providerId"`
+	ProviderID      string        `json:"providerId" tf:"provider_id,computed"`
 	LastUpdated     time.Time     `json:"lastUpdated"`
 	LeaseTime       int           `json:"leaseTime"`
 	Name            string        `json:"name"`
@@ -62,7 +62,7 @@ type GetSpecificNetworkDhcpServer struct {
 type GetSpecificNetworkDhcpServerResp struct {
 	ID              int           `json:"id" tf:"id,computed"`
 	DateCreated     time.Time     `json:"dateCreated"`
-	ProviderID      string        `json:"providerId"`
+	ProviderID      string        `json:"providerId" tf:"provider_id,computed"`
 	LastUpdated     time.Time     `json:"lastUpdated"`
 	LeaseTime       int           `json:"leaseTime"`
 	Name            string        `json:"name"`

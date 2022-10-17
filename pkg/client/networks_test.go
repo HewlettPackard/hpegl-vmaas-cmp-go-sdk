@@ -249,7 +249,7 @@ func TestNetworksAPIService_UpdateNetwork(t *testing.T) {
 				networkID: 1,
 				request: models.CreateNetworkRequest{
 					Network: models.CreateNetwork{
-						Name: "test_net",
+						Name: "tf_net",
 					},
 				},
 			},
@@ -264,7 +264,7 @@ func TestNetworksAPIService_UpdateNetwork(t *testing.T) {
 				m.EXPECT().prepareRequest(gomock.Any(), path, method,
 					models.CreateNetworkRequest{
 						Network: models.CreateNetwork{
-							Name: "test_net",
+							Name: "tf_net",
 						},
 					},
 					headers, url.Values{}, url.Values{}, "", nil).Return(req, nil)
