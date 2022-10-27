@@ -4,7 +4,7 @@ package common
 
 const (
 	// VmaasCmpAPIBasePath base cmp api path
-	VmaasCmpAPIBasePath = "v1beta1"
+	VmaasCmpAPIBasePath = "v1"
 	// InstancesPath
 	InstancesPath = "instances"
 	// InstanceTypesPath
