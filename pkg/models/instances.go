@@ -201,14 +201,14 @@ type GetInstanceResponseInstanceConfig struct {
 	Createbackup         bool          `json:"createBackup,omitempty"`
 	Memorydisplay        string        `json:"memoryDisplay,omitempty"`
 	Backup               struct {
-		Veeammanagedserver string `json:"veeamManagedServer,omitempty"`
-		Createbackup       bool   `json:"createBackup,omitempty"`
-		Jobaction          string `json:"jobAction,omitempty"`
-		Jobretentioncount  int    `json:"jobRetentionCount,omitempty"`
+		Veeammanagedserver string      `json:"veeamManagedServer,omitempty"`
+		Createbackup       bool        `json:"createBackup,omitempty"`
+		Jobaction          string      `json:"jobAction,omitempty"`
+		Jobretentioncount  json.Number `json:"jobRetentionCount,omitempty"`
 	} `json:"backup,omitempty"`
 	Layoutsize        int           `json:"layoutSize,omitempty"`
 	Lbinstances       []interface{} `json:"lbInstances,omitempty"`
-	PowerScheduleType int           `json:"powerScheduleType"`
+	PowerScheduleType json.Number   `json:"powerScheduleType"`
 }
 
 // GetInstanceResponseInstanceConfigBackup
@@ -533,11 +533,11 @@ type CreateInstanceCloneInstanceTypeBody struct {
 }
 
 type CreateInstanceCloneInstanceBody struct {
-	Tags              []string `json:"tags,omitempty"`
-	Labels            []string `json:"labels,omitempty"`
-	InstanceContext   string   `json:"instanceContext,omitempty"`
-	EnvironmentPrefix string   `json:"environmentPrefix,omitempty"`
-	PowerScheduleType int      `json:"powerScheduleType,omitempty"`
+	Tags              []string    `json:"tags,omitempty"`
+	Labels            []string    `json:"labels,omitempty"`
+	InstanceContext   string      `json:"instanceContext,omitempty"`
+	EnvironmentPrefix string      `json:"environmentPrefix,omitempty"`
+	PowerScheduleType json.Number `json:"powerScheduleType,omitempty"`
 }
 
 type CreateInstanceCloneBody struct {
