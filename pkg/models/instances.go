@@ -201,10 +201,9 @@ type GetInstanceResponseInstanceConfig struct {
 	Createbackup         bool          `json:"createBackup,omitempty"`
 	Memorydisplay        string        `json:"memoryDisplay,omitempty"`
 	Backup               struct {
-		Veeammanagedserver string      `json:"veeamManagedServer,omitempty"`
-		Createbackup       bool        `json:"createBackup,omitempty"`
-		Jobaction          string      `json:"jobAction,omitempty"`
-		Jobretentioncount  json.Number `json:"jobRetentionCount,omitempty"`
+		Createbackup      bool        `json:"createBackup,omitempty"`
+		Jobaction         string      `json:"jobAction,omitempty"`
+		Jobretentioncount json.Number `json:"jobRetentionCount,omitempty"`
 	} `json:"backup,omitempty"`
 	Layoutsize        int           `json:"layoutSize,omitempty"`
 	Lbinstances       []interface{} `json:"lbInstances,omitempty"`
