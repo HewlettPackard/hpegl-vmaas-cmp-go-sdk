@@ -53,20 +53,20 @@ type CloudRespBody struct {
 	Autorecoverpowerstate bool        `json:"autoRecoverPowerState"`
 	Scalepriority         int         `json:"scalePriority"`
 	Config                struct {
-		Apiurl            string `json:"apiUrl"`
-		Username          string `json:"username"`
-		Password          string `json:"password"`
-		Datacenter        string `json:"datacenter"`
-		Cluster           string `json:"cluster"`
-		Resourcepoolid    string `json:"resourcePoolId"`
-		Resourcepool      string `json:"resourcePool"`
-		Rpcmode           string `json:"rpcMode"`
-		Hidehostselection string `json:"hideHostSelection"`
-		Enablevnc         string `json:"enableVnc"`
-		Diskstoragetype   string `json:"diskStorageType"`
-		Applianceurl      string `json:"applianceUrl"`
-		Datacentername    string `json:"datacenterName"`
-		NetworkserverID   string `json:"networkServer.id"`
+		Apiurl            string      `json:"apiUrl"`
+		Username          string      `json:"username"`
+		Password          string      `json:"password"`
+		Datacenter        string      `json:"datacenter"`
+		Cluster           string      `json:"cluster"`
+		Resourcepoolid    interface{} `json:"resourcePoolId"`
+		Resourcepool      string      `json:"resourcePool"`
+		Rpcmode           string      `json:"rpcMode"`
+		Hidehostselection string      `json:"hideHostSelection"`
+		Enablevnc         string      `json:"enableVnc"`
+		Diskstoragetype   string      `json:"diskStorageType"`
+		Applianceurl      string      `json:"applianceUrl"`
+		Datacentername    string      `json:"datacenterName"`
+		NetworkserverID   string      `json:"networkServer.id"`
 		Networkserver     struct {
 			ID string `json:"id"`
 		} `json:"networkServer"`
