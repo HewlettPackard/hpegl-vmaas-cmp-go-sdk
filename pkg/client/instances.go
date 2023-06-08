@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"reflect"
 
 	"github.com/antihax/optional"
 
@@ -51,8 +52,14 @@ func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 
 	// Pre-pending 'pool-' to ResourcePoolId in 6.0.3 and above
 	if v, _ := parseVersion("6.0.3"); v <= a.Client.getVersion() {
-		localVarOptionals.Config.ResourcePoolID = fmt.Sprintf("pool-%v",
-			localVarOptionals.Config.ResourcePoolID)
+		localVarOptionalsValue := reflect.ValueOf(localVarOptionals)
+		if field := localVarOptionalsValue.FieldByName("Config"); field.IsValid() {
+			configValue := reflect.ValueOf(localVarOptionals.Config)
+			if configField := configValue.FieldByName("ResourcePoolID"); configField.IsValid() {
+				localVarOptionals.Config.ResourcePoolID = fmt.Sprintf("pool-%v",
+					localVarOptionals.Config.ResourcePoolID)
+			}
+		}
 	}
 	createInstanceAPI := &api{
 		method: "POST",
