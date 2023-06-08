@@ -49,6 +49,10 @@ func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 	localVarOptionals *models.CreateInstanceBody) (models.GetInstanceResponse, error) {
 	createInstanceResp := models.GetInstanceResponse{}
 
+	// Pre-pending 'pool-' to ResourcePoolId in 6.0.3 and above
+	if v, _ := parseVersion("6.0.3"); v <= a.Client.getVersion() {
+		createInstanceResp.Instance.Config.ResourcePoolID = fmt.Sprintf("pool-%v", "34")
+	}
 	createInstanceAPI := &api{
 		method: "POST",
 		path:   consts.InstancesPath,
@@ -102,10 +106,11 @@ func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
 /*
 InstancesAPIService
 Get a Specific Instance
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param instanceID
+
 @return models.GetInstanceResponse
 */
 func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
@@ -156,11 +161,10 @@ func (a *InstancesAPIService) GetAllInstances(ctx context.Context,
 /*
 InstancesAPIService
 Lists VMware Snapshot of the instance
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param instanceID
 */
 func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Context,
 	instanceID int) (models.ListSnapshotResponse, error) {
@@ -216,11 +220,10 @@ func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, in
 /*
 InstancesAPIService
 Restarts all VM running within an instance
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param instanceID
 */
 func (a *InstancesAPIService) RestartAnInstance(ctx context.Context,
 	instanceID int) (models.InstancePowerResponse, error) {
@@ -275,11 +278,10 @@ func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID
 /*
 InstancesAPIService
 Starts all VM running within an instance
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param instanceID
 */
 func (a *InstancesAPIService) StartAnInstance(ctx context.Context,
 	instanceID int) (models.InstancePowerResponse, error) {
@@ -303,11 +305,10 @@ func (a *InstancesAPIService) StartAnInstance(ctx context.Context,
 /*
 InstancesAPIService
 Stops all VM running within an instance
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param instanceID
 */
 func (a *InstancesAPIService) StopAnInstance(ctx context.Context,
 	instanceID int) (models.InstancePowerResponse, error) {
@@ -331,11 +332,10 @@ func (a *InstancesAPIService) StopAnInstance(ctx context.Context,
 /*
 InstancesAPIService
 Suspends all VM running within an instance
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param instanceID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param instanceID
 */
 func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
 	instanceID int) (models.InstancePowerResponse, error) {
