@@ -52,15 +52,13 @@ func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 
 	// Pre-pending 'pool-' to ResourcePoolId in 6.0.3 and above
 	if v, _ := parseVersion("6.0.3"); v <= a.Client.getVersion() {
-		localVarOptionalsValue := reflect.ValueOf(localVarOptionals)
-		if field := localVarOptionalsValue.FieldByName("Config"); !field.IsNil() {
-			configValue := reflect.ValueOf(localVarOptionals.Config)
-			if configField := configValue.FieldByName("ResourcePoolID"); !configField.IsNil() {
-				if configField.IsValid() {
-					localVarOptionals.Config.ResourcePoolID = fmt.Sprintf("pool-%v",
-						localVarOptionals.Config.ResourcePoolID)
-
-				}
+		// To check if the key exists
+		localVarOptionalsValue := reflect.ValueOf(localVarOptionals).Elem()
+		if field := localVarOptionalsValue.FieldByName("Config"); field.IsValid() {
+			configValue := reflect.ValueOf(localVarOptionals.Config).Elem()
+			if configField := configValue.FieldByName("ResourcePoolID"); configField.IsValid() {
+				localVarOptionals.Config.ResourcePoolID = fmt.Sprintf("pool-%v",
+					localVarOptionals.Config.ResourcePoolID)
 			}
 		}
 	}
