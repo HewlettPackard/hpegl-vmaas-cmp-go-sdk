@@ -54,9 +54,9 @@ func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 	if v, _ := parseVersion("6.0.3"); v <= a.Client.getVersion() {
 		// To check if the key exists
 		localVarOptionalsValue := reflect.ValueOf(localVarOptionals).Elem()
-		if field := localVarOptionalsValue.FieldByName("Config"); field.IsValid() {
+		if field := localVarOptionalsValue.FieldByName("Config"); field.IsValid() && !field.IsZero() {
 			configValue := reflect.ValueOf(localVarOptionals.Config).Elem()
-			if configField := configValue.FieldByName("ResourcePoolID"); configField.IsValid() {
+			if configField := configValue.FieldByName("ResourcePoolID"); configField.IsValid() && !configField.IsZero() {
 				localVarOptionals.Config.ResourcePoolID = fmt.Sprintf("pool-%v",
 					localVarOptionals.Config.ResourcePoolID)
 			}
