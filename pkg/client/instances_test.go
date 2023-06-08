@@ -240,6 +240,54 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name: "Normal Test case 2: Create an Instance",
+			param: models.CreateInstanceBody{
+				ZoneID:    "1",
+				CloneName: "Instance_Create",
+			},
+			given: func(m *MockAPIClientHandler) {
+				m.EXPECT().getHost().Return(mockHost)
+				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
+				method := "POST"
+				headers := getDefaultHeaders()
+				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+					{
+						"zoneId": "1",
+						"name": "Instance_Create"
+					}
+				`)))
+				req, _ := http.NewRequest(method, path, postBody)
+				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				{
+					"instance": {
+						"id": 1,
+						"name": "test_create_an_instance"
+					}
+				}
+				`)))
+				pBody := &models.CreateInstanceBody{
+					ZoneID:    "1",
+					CloneName: "Instance_Create",
+				}
+
+				m.EXPECT().getVersion().Return(50412).MaxTimes(2)
+				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
+					url.Values{}, "", nil).Return(req, nil)
+
+				m.EXPECT().callAPI(req).Return(&http.Response{
+					StatusCode: 200,
+					Body:       respBody,
+				}, nil)
+			},
+			want: models.GetInstanceResponse{
+				Instance: &models.GetInstanceResponseInstance{
+					ID:   1,
+					Name: "test_create_an_instance",
+				},
+			},
+			wantErr: false,
+		},
+		{
 			name: "Failed test case 2: Error in call prepare request",
 			param: models.CreateInstanceBody{
 				ZoneID:    "1",
@@ -255,7 +303,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				}
-				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().getVersion().Return(999999).MaxTimes(2)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(nil, errors.New("prepare request error"))
 			},
@@ -293,7 +341,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					ZoneID:    "1",
 					CloneName: "Instance_Create",
 				}
-				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().getVersion().Return(999999).MaxTimes(2)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
