@@ -51,7 +51,8 @@ func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 
 	// Pre-pending 'pool-' to ResourcePoolId in 6.0.3 and above
 	if v, _ := parseVersion("6.0.3"); v <= a.Client.getVersion() {
-		createInstanceResp.Instance.Config.ResourcePoolID = fmt.Sprintf("pool-%v", "34")
+		localVarOptionals.Config.ResourcePoolID = fmt.Sprintf("pool-%v",
+			localVarOptionals.Config.ResourcePoolID)
 	}
 	createInstanceAPI := &api{
 		method: "POST",
