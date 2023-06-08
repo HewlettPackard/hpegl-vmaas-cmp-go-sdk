@@ -222,7 +222,7 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 					CloneName: "Instance_Create",
 				}
 
-				m.EXPECT().getVersion().Return(999999)
+				m.EXPECT().getVersion().Return(999999).MaxTimes(2)
 				m.EXPECT().prepareRequest(gomock.Any(), path, method, pBody, headers, url.Values{},
 					url.Values{}, "", nil).Return(req, nil)
 
