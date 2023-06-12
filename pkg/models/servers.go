@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2023 Hewlett Packard Enterprise Development LP
 
 package models
 
@@ -33,7 +33,7 @@ type Server struct {
 	Description       interface{}        `json:"description"`
 	ZoneID            int                `json:"zoneId"`
 	SiteID            int                `json:"siteId"`
-	ResourcePoolID    int                `json:"resourcePoolId"`
+	ResourcePoolID    interface{}        `json:"resourcePoolId"`
 	FolderID          int                `json:"folderId"`
 	SSHHost           interface{}        `json:"sshHost"`
 	SSHPort           int                `json:"sshPort"`

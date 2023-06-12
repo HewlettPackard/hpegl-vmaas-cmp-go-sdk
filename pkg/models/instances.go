@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2023 Hewlett Packard Enterprise Development LP
 
 package models
 
@@ -57,7 +57,7 @@ type CreateInstanceBodyConfig struct {
 	// To specify agent install (on/off)
 	NoAgent              string      `json:"noAgent,omitempty"`
 	Template             int         `json:"template,omitempty"`
-	ResourcePoolID       json.Number `json:"resourcePoolId"`
+	ResourcePoolID       interface{} `json:"resourcePoolId"`
 	SmbiosAssetTag       string      `json:"smbiosAssetTag,omitempty"`
 	HostID               string      `json:"hostId,omitempty"`
 	VmwareDomainName     string      `json:"vmwareDomainName,omitempty"`
@@ -186,7 +186,7 @@ type GetInstanceResponseInstanceCloud struct {
 
 // GetInstanceResponseInstanceConfig
 type GetInstanceResponseInstanceConfig struct {
-	ResourcePoolID       json.Number   `json:"resourcePoolId,omitempty"`
+	ResourcePoolID       interface{}   `json:"resourcePoolId,omitempty"`
 	Template             int           `json:"template,omitempty"`
 	Poolprovidertype     interface{}   `json:"poolProviderType,omitempty"`
 	Isvpcselectable      bool          `json:"isVpcSelectable,omitempty"`
