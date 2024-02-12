@@ -99,7 +99,7 @@ type CreateNetwork struct {
 	AllowStaticOverride bool                 `json:"allowStaticOverride" tf:"allow_static_override"`
 	AppURLProxyBypass   bool                 `json:"applianceUrlProxyBypass,omitempty" tf:"appliance_url_proxy_bypass"`
 	NoProxy             string               `json:"noProxy,omitempty" tf:"no_proxy"`
-	ScopeID             string               `json:"scopeId,omitempty" tf:"scode_id"`
+	ScopeID             string               `json:"scopeId,omitempty" tf:"scope_id"`
 	GroupID             string               `json:"-" tf:"group_id"`
 	ConnectedGateway    string               `json:"connectedGateway,omitempty" tf:"connected_gateway"`
 	VlanIDs             string               `json:"vlanIDs,omitempty" tf:"vlan_ids"`
