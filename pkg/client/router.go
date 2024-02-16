@@ -166,7 +166,7 @@ func (r *RouterAPIService) RefreshNetworkServices(
 		compatibleVersion: "6.0.5",
 		method:            "POST",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworksPath,
-			consts.NetworkServicePath, serverID, consts.RefreshPath),
+			consts.ServerPath, serverID, consts.RefreshPath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
 			return json.Unmarshal(body, &serverResp)
