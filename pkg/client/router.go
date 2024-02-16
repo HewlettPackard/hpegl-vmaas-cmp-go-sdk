@@ -156,6 +156,27 @@ func (r *RouterAPIService) GetNetworkServices(
 	return routerResp, err
 }
 
+func (r *RouterAPIService) RefreshNetworkServices(
+	ctx context.Context,
+	serverID int,
+	queryParams map[string]string,
+) (models.SuccessOrErrorMessage, error) {
+	serverResp := models.SuccessOrErrorMessage{}
+	serverAPI := &api{
+		compatibleVersion: "6.0.5",
+		method:            "POST",
+		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworksPath,
+			consts.NetworkServicePath, serverID, consts.RefreshPath),
+		client: r.Client,
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &serverResp)
+		},
+	}
+	err := serverAPI.do(ctx, nil, queryParams)
+
+	return serverResp, err
+}
+
 func (r *RouterAPIService) CreateRouterNat(
 	ctx context.Context,
 	routerID int,

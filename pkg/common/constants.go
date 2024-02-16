@@ -57,6 +57,7 @@ const (
 	RouterBgpNeighborPath          = "bgp-neighbors"
 	NetworkEdgeClusterPath         = "edge-clusters"
 	DhcpServerPath                 = "dhcp-servers"
+	RefreshPath                    = "refresh"
 	// Whoami Path
 	WhoamiPath            = "whoami"
 	LBSSLCertificatesPath = "certificates"
