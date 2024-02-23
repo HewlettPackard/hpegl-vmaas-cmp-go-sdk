@@ -64,4 +64,7 @@ const (
 
 	// headers
 	ContentType = "application/json"
+
+	// Morpheus version
+	CMPSixZeroFiveVersion = "6.0.5"
 )

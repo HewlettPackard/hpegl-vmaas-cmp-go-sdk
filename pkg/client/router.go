@@ -163,7 +163,7 @@ func (r *RouterAPIService) RefreshNetworkServices(
 ) (models.SuccessOrErrorMessage, error) {
 	serverResp := models.SuccessOrErrorMessage{}
 	serverAPI := &api{
-		compatibleVersion: "6.0.5",
+		compatibleVersion: consts.CMPSixZeroFiveVersion,
 		method:            "POST",
 		path: fmt.Sprintf("%s/%s/%d/%s", consts.NetworksPath,
 			consts.ServerPath, serverID, consts.RefreshPath),
