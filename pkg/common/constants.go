@@ -57,10 +57,14 @@ const (
 	RouterBgpNeighborPath          = "bgp-neighbors"
 	NetworkEdgeClusterPath         = "edge-clusters"
 	DhcpServerPath                 = "dhcp-servers"
+	RefreshPath                    = "refresh"
 	// Whoami Path
 	WhoamiPath            = "whoami"
 	LBSSLCertificatesPath = "certificates"
 
 	// headers
 	ContentType = "application/json"
+
+	// Morpheus version
+	CMPSixZeroFiveVersion = "6.0.5"
 )
