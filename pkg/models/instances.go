@@ -1,4 +1,4 @@
-// (C) Copyright 2021-2023 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 package models
 
@@ -265,7 +265,7 @@ type GetInstanceResponseInstanceInstanceType struct {
 type GetInstanceResponseInstanceInterfaces struct {
 	ID                     interface{}                         `json:"id,omitempty"`
 	Network                *GetInstanceResponseInstanceNetwork `json:"network,omitempty"`
-	NetworkInterfaceTypeID int                                 `json:"networkInterfaceTypeId,omitempty"`
+	NetworkInterfaceTypeID json.Number                         `json:"networkInterfaceTypeId,omitempty"`
 }
 
 // GetInstanceResponseInstanceLayout
