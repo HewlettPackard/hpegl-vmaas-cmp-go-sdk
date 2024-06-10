@@ -1,4 +1,4 @@
-// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
 
 // This file contains struct models related to terraform, but not the API
 package models
@@ -28,8 +28,9 @@ type TFInstanceVolume struct {
 }
 
 type TFInstanceNetwork struct {
-	ID          int  `tf:"id"`
-	InterfaceID int  `tf:"interface_id"`
-	IsPrimary   bool `tf:"is_primary"`
-	InternalID  int  `tf:"internal_id"`
+	ID          int    `tf:"id"`
+	InterfaceID int    `tf:"interface_id"`
+	IsPrimary   bool   `tf:"is_primary"`
+	InternalID  int    `tf:"internal_id"`
+	Name        string `tf:"name"`
 }
