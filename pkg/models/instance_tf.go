@@ -28,9 +28,8 @@ type TFInstanceVolume struct {
 }
 
 type TFInstanceNetwork struct {
-	ID          int    `tf:"id"`
-	InterfaceID int    `tf:"interface_id"`
-	IsPrimary   bool   `tf:"is_primary"`
-	InternalID  int    `tf:"internal_id"`
-	Name        string `tf:"name"`
+	ID          int  `tf:"id"`
+	InterfaceID int  `tf:"interface_id"`
+	IsPrimary   bool `tf:"is_primary"`
+	InternalID  int  `tf:"internal_id"`
 }
