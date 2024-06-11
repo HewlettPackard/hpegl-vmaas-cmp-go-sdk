@@ -54,5 +54,5 @@ all: lint test
 .PHONY: all
 
 tools:
-	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.1
+	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.59.0
 .PHONY: tools
