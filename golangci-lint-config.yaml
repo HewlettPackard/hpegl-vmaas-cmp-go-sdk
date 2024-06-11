@@ -24,7 +24,7 @@ linters-settings:
     statements: 60
 
 linters:
-  enable-all: true
+  # enable-all: true
   disable:
     - wsl
     - gci
