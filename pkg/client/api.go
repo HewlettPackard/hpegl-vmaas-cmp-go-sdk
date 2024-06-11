@@ -5,7 +5,7 @@ package client
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
 
@@ -81,7 +81,7 @@ func (a *api) do(ctx context.Context, request interface{}, queryParams map[strin
 		return ParseError(localVarHTTPResponse)
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	defer localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return err

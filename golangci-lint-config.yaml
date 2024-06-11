@@ -1,10 +1,8 @@
-#(C) Copyright 2021 Hewlett Packard Enterprise Development LP
+#(C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 run:
   deadline: 240s
   tests: false
-  skip-dirs:
-    - vendor
   build-tags: acceptance
 
 linters-settings:
@@ -36,12 +34,10 @@ linters:
     - testpackage
     - nolintlint
     - dupl
-    - maligned
     # Temporarily disabling paralleltest
     # - paralleltest
     #Temporarily disabling wrapcheck, exhaustivestruct, forbidigo, tagliatelle
     - wrapcheck
-    - exhaustivestruct
     - forbidigo
     - tagliatelle
     - forcetypeassert
@@ -51,7 +47,8 @@ linters:
     - cyclop
 
 issues:
-
+  exclude-dirs:
+    - vendor
   exclude-rules:
     # Exclude lll issues for long lines with go:generate
     - linters:
@@ -61,7 +58,7 @@ issues:
     # ignore function length for tests as look up tables typically exceed.
     - linters:
         - funlen
-        - goerr113
+        - err113
       path: _test\.go
 
     - linters:

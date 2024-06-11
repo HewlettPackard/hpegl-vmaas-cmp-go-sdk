@@ -7,7 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -43,7 +43,7 @@ func TestRouterAPIService_GetAllRouters(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkRouters": [{
 							"id": 1,
@@ -102,7 +102,7 @@ func TestRouterAPIService_GetAllRouters(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -172,7 +172,7 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkRouterTypes": [{
 							"id": 1,
@@ -231,7 +231,7 @@ func TestRouterAPIService_GetNetworkRouterTypes(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -312,7 +312,7 @@ func TestRouterAPIService_CreateRouter(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true,
 						"id": 16
@@ -375,14 +375,14 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 				m.EXPECT().getHost().Return(mockHost)
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "PUT"
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"networkRouter": {
 						"name": "test_update_router_name"
 					}
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+				respBody := io.NopCloser(bytes.NewReader([]byte(`{
 						"success": true
 				}`)))
 				pBody := models.CreateRouterRequest{
@@ -440,14 +440,14 @@ func TestRouterAPIService_UpdateRouter(t *testing.T) {
 				m.EXPECT().getHost().Return(mockHost)
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/networks/routers/1"
 				method := "PUT"
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"networkRouter": {
 						"name": "test_update_router_name"
 					}
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+				respBody := io.NopCloser(bytes.NewReader([]byte(`{
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -516,7 +516,7 @@ func TestRouterAPIService_GetSpecificRouter(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkRouter":{
 							"id": 1,
@@ -586,7 +586,7 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true,
 						"message": "test_template_delete_a_router"
@@ -631,7 +631,7 @@ func TestRouterAPIService_DeleteRouter(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -698,7 +698,7 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkServices": [{
 							"id": 1,
@@ -757,7 +757,7 @@ func TestRouterAPIService_GetNetworkServices(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -829,7 +829,7 @@ func TestRouterAPIService_DeleteRouterNat(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -898,7 +898,7 @@ func TestRouterAPIService_GetSpecificRouterNat(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkRouterNAT": {
 							"id": 1
@@ -982,9 +982,9 @@ func TestRouterAPIService_CreateRouterNat(t *testing.T) {
 					},
 				}
 				jsonByte, _ := json.Marshal(reqModel)
-				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				postBody := io.NopCloser(bytes.NewReader(jsonByte))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true,
 						"id": 2
@@ -1068,9 +1068,9 @@ func TestRouterAPIService_UpdateRouterNat(t *testing.T) {
 					},
 				}
 				jsonByte, _ := json.Marshal(reqModel)
-				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				postBody := io.NopCloser(bytes.NewReader(jsonByte))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true,
 						"id": 2
@@ -1144,7 +1144,7 @@ func TestRouterAPIService_DeleteRouterFirewallRuleGroup(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -1213,7 +1213,7 @@ func TestRouterAPIService_GetSpecificRouterFirewallRuleGroup(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"ruleGroup": {
 							"id": 1
@@ -1297,9 +1297,9 @@ func TestRouterAPIService_CreateRouterFirewallRuleGroup(t *testing.T) {
 					},
 				}
 				jsonByte, _ := json.Marshal(reqModel)
-				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				postBody := io.NopCloser(bytes.NewReader(jsonByte))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true,
 						"id": 2
@@ -1370,7 +1370,7 @@ func TestRouterAPIService_DeleteRouterBgpNeighbor(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -1439,7 +1439,7 @@ func TestRouterAPIService_GetSpecificRouterBgpNeighbor(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkRouterBgpNeighbor": {
 							"id": 1
@@ -1523,9 +1523,9 @@ func TestRouterAPIService_CreateRouterBgpNeighbor(t *testing.T) {
 					},
 				}
 				jsonByte, _ := json.Marshal(reqModel)
-				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				postBody := io.NopCloser(bytes.NewReader(jsonByte))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true,
 						"id": 2
@@ -1609,9 +1609,9 @@ func TestRouterAPIService_UpdateRouterBgpNeighbor(t *testing.T) {
 					},
 				}
 				jsonByte, _ := json.Marshal(reqModel)
-				postBody := ioutil.NopCloser(bytes.NewReader(jsonByte))
+				postBody := io.NopCloser(bytes.NewReader(jsonByte))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
