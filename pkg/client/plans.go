@@ -19,13 +19,13 @@ type PlansAPIService struct {
 /*
 PlansAPIService
 Get All Service Plans
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
 */
 func (a *PlansAPIService) GetAllServicePlans(ctx context.Context,
 	param map[string]string) (models.ServicePlans, error) {
-	response := models.ServicePlans{}
+	Response := models.ServicePlans{}
 
 	allServicePlansAPI := &api{
 		method: "GET",
@@ -33,19 +33,19 @@ func (a *PlansAPIService) GetAllServicePlans(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 	err := allServicePlansAPI.do(ctx, nil, param)
 
-	return response, err
+	return Response, err
 }
 
 func (a *PlansAPIService) GetSpecificServicePlan(
 	ctx context.Context,
 	planID int,
 ) (models.GetSpecificServicePlan, error) {
-	response := models.GetSpecificServicePlan{}
+	Response := models.GetSpecificServicePlan{}
 
 	allServicePlansAPI := &api{
 		method: "GET",
@@ -53,10 +53,10 @@ func (a *PlansAPIService) GetSpecificServicePlan(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 	err := allServicePlansAPI.do(ctx, nil, nil)
 
-	return response, err
+	return Response, err
 }

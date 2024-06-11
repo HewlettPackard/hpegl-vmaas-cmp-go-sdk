@@ -22,45 +22,45 @@ func (n *NetworksAPIService) GetAllNetworks(
 	ctx context.Context,
 	param map[string]string,
 ) (models.ListNetworksBody, error) {
-	var networksResp models.ListNetworksBody
+	var NetworksResp models.ListNetworksBody
 	networkAPI := &api{
 		method: "GET",
 		path:   consts.NetworksPath,
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &networksResp)
+			return json.Unmarshal(body, &NetworksResp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, param)
 
-	return networksResp, err
+	return NetworksResp, err
 }
 
 func (n *NetworksAPIService) GetSpecificNetwork(
 	ctx context.Context,
 	networkID int,
 ) (models.GetSpecificNetworkBody, error) {
-	var networksResp models.GetSpecificNetworkBody
+	var NetworksResp models.GetSpecificNetworkBody
 	networkAPI := &api{
 		method: "GET",
 		path:   fmt.Sprintf("%s/%d", consts.NetworksPath, networkID),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &networksResp)
+			return json.Unmarshal(body, &NetworksResp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, nil)
 
-	return networksResp, err
+	return NetworksResp, err
 }
 
 func (n *NetworksAPIService) CreateNetwork(
 	ctx context.Context,
 	networkReq models.CreateNetworkRequest,
 ) (models.CreateNetworkResponse, error) {
-	var networksResp models.CreateNetworkResponse
+	var NetworksResp models.CreateNetworkResponse
 	if v, _ := parseVersion("5.4.4"); v <= n.Client.getVersion() {
 		// network Pool is not required for DHCP
 		if networkReq.Network.NetworkPool != nil {
@@ -75,19 +75,19 @@ func (n *NetworksAPIService) CreateNetwork(
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &networksResp)
+			return json.Unmarshal(body, &NetworksResp)
 		},
 	}
 	err := networkAPI.do(ctx, networkReq, nil)
 
-	return networksResp, err
+	return NetworksResp, err
 }
 
 func (n *NetworksAPIService) DeleteNetwork(
 	ctx context.Context,
 	networkID int,
 ) (models.SuccessOrErrorMessage, error) {
-	var output models.SuccessOrErrorMessage
+	var Output models.SuccessOrErrorMessage
 	networkAPI := &api{
 		compatibleVersion: networkCompatibleVersion,
 		method:            "DELETE",
@@ -95,19 +95,19 @@ func (n *NetworksAPIService) DeleteNetwork(
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &output)
+			return json.Unmarshal(body, &Output)
 		},
 	}
 	err := networkAPI.do(ctx, nil, nil)
 
-	return output, err
+	return Output, err
 }
 
 func (n *NetworksAPIService) GetNetworkType(
 	ctx context.Context,
 	params map[string]string,
 ) (models.GetNetworkTypesResponse, error) {
-	var resp models.GetNetworkTypesResponse
+	var Resp models.GetNetworkTypesResponse
 	networkAPI := &api{
 		compatibleVersion: networkCompatibleVersion,
 		method:            "GET",
@@ -115,38 +115,38 @@ func (n *NetworksAPIService) GetNetworkType(
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, params)
 
-	return resp, err
+	return Resp, err
 }
 
 func (n *NetworksAPIService) GetNetworkPool(
 	ctx context.Context,
 	params map[string]string,
 ) (models.GetNetworkPoolsResp, error) {
-	var resp models.GetNetworkPoolsResp
+	var Resp models.GetNetworkPoolsResp
 	networkAPI := &api{
 		method: "GET",
 		path:   fmt.Sprintf("%s/%s", consts.NetworksPath, consts.NetworkPoolPath),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, params)
 
-	return resp, err
+	return Resp, err
 }
 
 func (n *NetworksAPIService) GetSpecificNetworkPool(
 	ctx context.Context,
 	networkPoolID int,
 ) (models.GetSpecificNetworkPool, error) {
-	var resp models.GetSpecificNetworkPool
+	var Resp models.GetSpecificNetworkPool
 	networkAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d",
@@ -154,12 +154,12 @@ func (n *NetworksAPIService) GetSpecificNetworkPool(
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, nil)
 
-	return resp, err
+	return Resp, err
 }
 
 func (n *NetworksAPIService) UpdateNetwork(
@@ -167,7 +167,7 @@ func (n *NetworksAPIService) UpdateNetwork(
 	networkID int,
 	request models.CreateNetworkRequest,
 ) (models.SuccessOrErrorMessage, error) {
-	var output models.SuccessOrErrorMessage
+	var Output models.SuccessOrErrorMessage
 	networkAPI := &api{
 		compatibleVersion: "5.2.13",
 		method:            "PUT",
@@ -175,57 +175,57 @@ func (n *NetworksAPIService) UpdateNetwork(
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &output)
+			return json.Unmarshal(body, &Output)
 		},
 	}
 	err := networkAPI.do(ctx, request, nil)
 
-	return output, err
+	return Output, err
 }
 
 func (n *NetworksAPIService) GetNetworkProxy(
 	ctx context.Context,
 	params map[string]string,
 ) (models.GetAllNetworkProxies, error) {
-	var proxyResp models.GetAllNetworkProxies
+	var ProxyResp models.GetAllNetworkProxies
 	networkAPI := &api{
 		method: "GET",
 		path:   fmt.Sprintf("%s/%s", consts.NetworksPath, consts.NetworkProxyPath),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &proxyResp)
+			return json.Unmarshal(body, &ProxyResp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, params)
 
-	return proxyResp, err
+	return ProxyResp, err
 }
 
 func (n *NetworksAPIService) GetSpecificNetworkProxy(
 	ctx context.Context,
 	proxyID int,
 ) (models.GetSpecificNetworkProxy, error) {
-	var proxyResp models.GetSpecificNetworkProxy
+	var ProxyResp models.GetSpecificNetworkProxy
 	networkAPI := &api{
 		method: "GET",
 		path:   fmt.Sprintf("%s/%s/%d", consts.NetworksPath, consts.NetworkProxyPath, proxyID),
 		client: n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &proxyResp)
+			return json.Unmarshal(body, &ProxyResp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, nil)
 
-	return proxyResp, err
+	return ProxyResp, err
 }
 
 func (n *NetworksAPIService) GetSpecificNetworkType(
 	ctx context.Context,
 	typeID int,
 ) (models.GetaNetworkType, error) {
-	var resp models.GetaNetworkType
+	var Resp models.GetaNetworkType
 	networkAPI := &api{
 		compatibleVersion: networkCompatibleVersion,
 		method:            "GET",
@@ -233,10 +233,10 @@ func (n *NetworksAPIService) GetSpecificNetworkType(
 		client:            n.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, nil)
 
-	return resp, err
+	return Resp, err
 }

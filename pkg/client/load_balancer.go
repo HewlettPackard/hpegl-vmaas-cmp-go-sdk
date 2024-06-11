@@ -20,18 +20,18 @@ func (lb *LoadBalancerAPIService) CreateLoadBalancer(
 	ctx context.Context,
 	request models.CreateLoadBalancerRequest,
 ) (models.CreateNetworkLoadBalancerResp, error) {
-	loadBalancerResp := models.CreateNetworkLoadBalancerResp{}
+	LoadBalancerResp := models.CreateNetworkLoadBalancerResp{}
 	loadBalancerAPI := &api{
 		method: "POST",
 		path:   consts.LoadBalancerPath,
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &loadBalancerResp)
+			return json.Unmarshal(body, &LoadBalancerResp)
 		},
 	}
 	err := loadBalancerAPI.do(ctx, request, nil)
 
-	return loadBalancerResp, err
+	return LoadBalancerResp, err
 }
 
 func (lb *LoadBalancerAPIService) UpdateLoadBalancer(
@@ -39,91 +39,91 @@ func (lb *LoadBalancerAPIService) UpdateLoadBalancer(
 	lbID int,
 	request models.CreateLoadBalancerRequest,
 ) (models.CreateNetworkLoadBalancerResp, error) {
-	loadBalancerResp := models.CreateNetworkLoadBalancerResp{}
+	LoadBalancerResp := models.CreateNetworkLoadBalancerResp{}
 	loadBalancerAPI := &api{
 		method: "PUT",
 		path: fmt.Sprintf("%s/%d",
 			consts.LoadBalancerPath, lbID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &loadBalancerResp)
+			return json.Unmarshal(body, &LoadBalancerResp)
 		},
 	}
 	err := loadBalancerAPI.do(ctx, request, nil)
 
-	return loadBalancerResp, err
+	return LoadBalancerResp, err
 }
 
 func (lb *LoadBalancerAPIService) DeleteLoadBalancer(
 	ctx context.Context,
 	lbID int,
 ) (models.SuccessOrErrorMessage, error) {
-	loadBalancerResp := models.SuccessOrErrorMessage{}
+	LoadBalancerResp := models.SuccessOrErrorMessage{}
 	loadBalancerAPI := &api{
 		method: "DELETE",
 		path:   fmt.Sprintf("%s/%d", consts.LoadBalancerPath, lbID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &loadBalancerResp)
+			return json.Unmarshal(body, &LoadBalancerResp)
 		},
 	}
 	err := loadBalancerAPI.do(ctx, nil, nil)
 
-	return loadBalancerResp, err
+	return LoadBalancerResp, err
 }
 
 func (lb *LoadBalancerAPIService) GetLoadBalancers(
 	ctx context.Context,
 ) (models.GetNetworkLoadBalancers, error) {
-	loadBalancerResp := models.GetNetworkLoadBalancers{}
+	LoadBalancerResp := models.GetNetworkLoadBalancers{}
 	loadBalancerAPI := &api{
 		method: "GET",
 		path:   consts.LoadBalancerPath,
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &loadBalancerResp)
+			return json.Unmarshal(body, &LoadBalancerResp)
 		},
 	}
 	err := loadBalancerAPI.do(ctx, nil, nil)
 
-	return loadBalancerResp, err
+	return LoadBalancerResp, err
 }
 
 func (lb *LoadBalancerAPIService) GetLoadBalancerTypes(
 	ctx context.Context,
 	queryParams map[string]string,
 ) (models.GetLoadBalancerTypes, error) {
-	loadBalancerResp := models.GetLoadBalancerTypes{}
+	LoadBalancerResp := models.GetLoadBalancerTypes{}
 	loadBalancerAPI := &api{
 		method: "GET",
 		path:   consts.LoadBalancerTypePath,
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &loadBalancerResp)
+			return json.Unmarshal(body, &LoadBalancerResp)
 		},
 	}
 	err := loadBalancerAPI.do(ctx, nil, nil)
 
-	return loadBalancerResp, err
+	return LoadBalancerResp, err
 }
 
 func (lb *LoadBalancerAPIService) GetSpecificLoadBalancers(
 	ctx context.Context,
 	lbID int,
 ) (models.GetSpecificNetworkLoadBalancer, error) {
-	loadBalancerResp := models.GetSpecificNetworkLoadBalancer{}
+	LoadBalancerResp := models.GetSpecificNetworkLoadBalancer{}
 	loadBalancerAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%d",
 			consts.LoadBalancerPath, lbID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &loadBalancerResp)
+			return json.Unmarshal(body, &LoadBalancerResp)
 		},
 	}
 	err := loadBalancerAPI.do(ctx, nil, nil)
 
-	return loadBalancerResp, err
+	return LoadBalancerResp, err
 }
 
 func (lb *LoadBalancerAPIService) CreateLBMonitor(

@@ -19,15 +19,14 @@ type GroupsAPIService struct {
 /*
 GroupsAPIService
 Get a Specific Group
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param groupID The Group ID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param groupID The Group ID
 */
 func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context,
 	groupID int) (models.GroupResp, error) {
-	specificGrpResp := models.GroupResp{}
+	SpecificGrpResp := models.GroupResp{}
 
 	specificGrpRespAPI := &api{
 		method: "GET",
@@ -36,7 +35,7 @@ func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &specificGrpResp)
+			return json.Unmarshal(body, &SpecificGrpResp)
 		},
 		validations: []validationFunc{
 			func() error {
@@ -50,20 +49,19 @@ func (a *GroupsAPIService) GetASpecificGroup(ctx context.Context,
 	}
 	err := specificGrpRespAPI.do(ctx, nil, nil)
 
-	return specificGrpResp, err
+	return SpecificGrpResp, err
 }
 
 /*
 GroupsAPIService
 This endpoint retrieves all groups and a list of zones associated with the group by id.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
 */
 func (a *GroupsAPIService) GetAllGroups(ctx context.Context,
 	queryParams map[string]string) (models.Groups, error) {
-	allGrpResp := models.Groups{}
+	AllGrpResp := models.Groups{}
 
 	allGrpRespAPI := &api{
 		method: "GET",
@@ -71,10 +69,10 @@ func (a *GroupsAPIService) GetAllGroups(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &allGrpResp)
+			return json.Unmarshal(body, &AllGrpResp)
 		},
 	}
 	err := allGrpRespAPI.do(ctx, nil, queryParams)
 
-	return allGrpResp, err
+	return AllGrpResp, err
 }

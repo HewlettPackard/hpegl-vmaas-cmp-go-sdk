@@ -22,26 +22,26 @@ func (r *RouterAPIService) GetAllRouter(
 	ctx context.Context,
 	queryParams map[string]string,
 ) (models.GetAllNetworkRouter, error) {
-	routerResp := models.GetAllNetworkRouter{}
+	RouterResp := models.GetAllNetworkRouter{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
 		path:              fmt.Sprintf("%s/%s", consts.NetworksPath, consts.NetworkRouterPath),
 		client:            r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &routerResp)
+			return json.Unmarshal(body, &RouterResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, queryParams)
 
-	return routerResp, err
+	return RouterResp, err
 }
 
 func (r *RouterAPIService) GetSpecificRouter(
 	ctx context.Context,
 	routerID int,
 ) (models.GetSpecificRouterResp, error) {
-	routerResp := models.GetSpecificRouterResp{}
+	RouterResp := models.GetSpecificRouterResp{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
@@ -49,31 +49,31 @@ func (r *RouterAPIService) GetSpecificRouter(
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &routerResp)
+			return json.Unmarshal(body, &RouterResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return routerResp, err
+	return RouterResp, err
 }
 
 func (r *RouterAPIService) CreateRouter(
 	ctx context.Context,
 	request models.CreateRouterRequest,
 ) (models.CreateRouterResp, error) {
-	routerResp := models.CreateRouterResp{}
+	RouterResp := models.CreateRouterResp{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
 		path:              fmt.Sprintf("%s/%s", consts.NetworksPath, consts.NetworkRouterPath),
 		client:            r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &routerResp)
+			return json.Unmarshal(body, &RouterResp)
 		},
 	}
 	err := routerAPI.do(ctx, request, nil)
 
-	return routerResp, err
+	return RouterResp, err
 }
 
 func (r *RouterAPIService) UpdateRouter(
@@ -81,7 +81,7 @@ func (r *RouterAPIService) UpdateRouter(
 	routerID int,
 	request models.CreateRouterRequest,
 ) (models.SuccessOrErrorMessage, error) {
-	routerResp := models.SuccessOrErrorMessage{}
+	RouterResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "PUT",
@@ -89,19 +89,19 @@ func (r *RouterAPIService) UpdateRouter(
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &routerResp)
+			return json.Unmarshal(body, &RouterResp)
 		},
 	}
 	err := routerAPI.do(ctx, request, nil)
 
-	return routerResp, err
+	return RouterResp, err
 }
 
 func (r *RouterAPIService) DeleteRouter(
 	ctx context.Context,
 	routerID int,
 ) (models.SuccessOrErrorMessage, error) {
-	routerResp := models.SuccessOrErrorMessage{}
+	RouterResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "DELETE",
@@ -109,38 +109,38 @@ func (r *RouterAPIService) DeleteRouter(
 			consts.NetworksPath, consts.NetworkRouterPath, routerID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &routerResp)
+			return json.Unmarshal(body, &RouterResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return routerResp, err
+	return RouterResp, err
 }
 
 func (r *RouterAPIService) GetRouterTypes(
 	ctx context.Context,
 	queryParams map[string]string,
 ) (models.GetNetworlRouterTypes, error) {
-	routerResp := models.GetNetworlRouterTypes{}
+	RouterResp := models.GetNetworlRouterTypes{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
 		path:              consts.NetworkRouterTypePath,
 		client:            r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &routerResp)
+			return json.Unmarshal(body, &RouterResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, queryParams)
 
-	return routerResp, err
+	return RouterResp, err
 }
 
 func (r *RouterAPIService) GetNetworkServices(
 	ctx context.Context,
 	queryParams map[string]string,
 ) (models.GetNetworkServicesResp, error) {
-	routerResp := models.GetNetworkServicesResp{}
+	RouterResp := models.GetNetworkServicesResp{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
@@ -148,12 +148,12 @@ func (r *RouterAPIService) GetNetworkServices(
 			consts.NetworkServicePath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &routerResp)
+			return json.Unmarshal(body, &RouterResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, queryParams)
 
-	return routerResp, err
+	return RouterResp, err
 }
 
 func (r *RouterAPIService) RefreshNetworkServices(
@@ -161,7 +161,7 @@ func (r *RouterAPIService) RefreshNetworkServices(
 	serverID int,
 	queryParams map[string]string,
 ) (models.SuccessOrErrorMessage, error) {
-	serverResp := models.SuccessOrErrorMessage{}
+	ServerResp := models.SuccessOrErrorMessage{}
 	serverAPI := &api{
 		compatibleVersion: consts.CMPSixZeroFiveVersion,
 		method:            "POST",
@@ -169,12 +169,12 @@ func (r *RouterAPIService) RefreshNetworkServices(
 			consts.ServerPath, serverID, consts.RefreshPath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &serverResp)
+			return json.Unmarshal(body, &ServerResp)
 		},
 	}
 	err := serverAPI.do(ctx, nil, queryParams)
 
-	return serverResp, err
+	return ServerResp, err
 }
 
 func (r *RouterAPIService) CreateRouterNat(
@@ -182,7 +182,7 @@ func (r *RouterAPIService) CreateRouterNat(
 	routerID int,
 	request models.CreateRouterNatRequest,
 ) (models.SuccessOrErrorMessage, error) {
-	natResp := models.SuccessOrErrorMessage{}
+	NatResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
@@ -190,19 +190,19 @@ func (r *RouterAPIService) CreateRouterNat(
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &natResp)
+			return json.Unmarshal(body, &NatResp)
 		},
 	}
 	err := routerAPI.do(ctx, request, nil)
 
-	return natResp, err
+	return NatResp, err
 }
 
 func (r *RouterAPIService) GetSpecificRouterNat(
 	ctx context.Context,
 	routerID, natID int,
 ) (models.GetSpecificRouterNatResponse, error) {
-	natResp := models.GetSpecificRouterNatResponse{}
+	NatResp := models.GetSpecificRouterNatResponse{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
@@ -210,12 +210,12 @@ func (r *RouterAPIService) GetSpecificRouterNat(
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &natResp)
+			return json.Unmarshal(body, &NatResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return natResp, err
+	return NatResp, err
 }
 
 func (r *RouterAPIService) UpdateRouterNat(
@@ -223,7 +223,7 @@ func (r *RouterAPIService) UpdateRouterNat(
 	routerID, natID int,
 	req models.CreateRouterNatRequest,
 ) (models.SuccessOrErrorMessage, error) {
-	natResp := models.SuccessOrErrorMessage{}
+	NatResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "PUT",
@@ -231,19 +231,19 @@ func (r *RouterAPIService) UpdateRouterNat(
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &natResp)
+			return json.Unmarshal(body, &NatResp)
 		},
 	}
 	err := routerAPI.do(ctx, req, nil)
 
-	return natResp, err
+	return NatResp, err
 }
 
 func (r *RouterAPIService) DeleteRouterNat(
 	ctx context.Context,
 	routerID, natID int,
 ) (models.SuccessOrErrorMessage, error) {
-	natResp := models.SuccessOrErrorMessage{}
+	NatResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "DELETE",
@@ -251,12 +251,12 @@ func (r *RouterAPIService) DeleteRouterNat(
 			consts.NetworkRouterPath, routerID, consts.RoutersNatPath, natID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &natResp)
+			return json.Unmarshal(body, &NatResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return natResp, err
+	return NatResp, err
 }
 
 func (r *RouterAPIService) CreateRouterFirewallRuleGroup(
@@ -264,7 +264,7 @@ func (r *RouterAPIService) CreateRouterFirewallRuleGroup(
 	routerID int,
 	request models.CreateRouterFirewallRuleGroupRequest,
 ) (models.SuccessOrErrorMessage, error) {
-	firewallGroupResp := models.SuccessOrErrorMessage{}
+	FirewallGroupResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "POST",
@@ -272,19 +272,19 @@ func (r *RouterAPIService) CreateRouterFirewallRuleGroup(
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &firewallGroupResp)
+			return json.Unmarshal(body, &FirewallGroupResp)
 		},
 	}
 	err := routerAPI.do(ctx, request, nil)
 
-	return firewallGroupResp, err
+	return FirewallGroupResp, err
 }
 
 func (r *RouterAPIService) GetSpecificRouterFirewallRuleGroup(
 	ctx context.Context,
 	routerID, firewallGroupID int,
 ) (models.GetSpecificRouterFirewallRuleGroupResponse, error) {
-	firewallGroupResp := models.GetSpecificRouterFirewallRuleGroupResponse{}
+	FirewallGroupResp := models.GetSpecificRouterFirewallRuleGroupResponse{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "GET",
@@ -292,19 +292,19 @@ func (r *RouterAPIService) GetSpecificRouterFirewallRuleGroup(
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath, firewallGroupID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &firewallGroupResp)
+			return json.Unmarshal(body, &FirewallGroupResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return firewallGroupResp, err
+	return FirewallGroupResp, err
 }
 
 func (r *RouterAPIService) DeleteRouterFirewallRuleGroup(
 	ctx context.Context,
 	routerID, firewallGroupID int,
 ) (models.SuccessOrErrorMessage, error) {
-	firewallGroupResp := models.SuccessOrErrorMessage{}
+	FirewallGroupResp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: routerCompatibleVersion,
 		method:            "DELETE",
@@ -312,12 +312,12 @@ func (r *RouterAPIService) DeleteRouterFirewallRuleGroup(
 			consts.NetworkRouterPath, routerID, consts.RoutersFirewallRuleGroupPath, firewallGroupID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &firewallGroupResp)
+			return json.Unmarshal(body, &FirewallGroupResp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return firewallGroupResp, err
+	return FirewallGroupResp, err
 }
 
 func (r *RouterAPIService) CreateRouterRoute(
@@ -325,7 +325,7 @@ func (r *RouterAPIService) CreateRouterRoute(
 	routerID int,
 	req models.CreateRouterRoute,
 ) (models.SuccessOrErrorMessage, error) {
-	resp := models.SuccessOrErrorMessage{}
+	Resp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.12",
 		method:            "POST",
@@ -333,19 +333,19 @@ func (r *RouterAPIService) CreateRouterRoute(
 			consts.NetworkRouterPath, routerID, consts.RouterRoutePath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := routerAPI.do(ctx, req, nil)
 
-	return resp, err
+	return Resp, err
 }
 
 func (r *RouterAPIService) GetSpecificRouterRoute(
 	ctx context.Context,
 	routerID, routeID int,
 ) (models.GetSpecificRouterRoute, error) {
-	resp := models.GetSpecificRouterRoute{}
+	Resp := models.GetSpecificRouterRoute{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.12",
 		method:            "GET",
@@ -353,19 +353,19 @@ func (r *RouterAPIService) GetSpecificRouterRoute(
 			consts.NetworkRouterPath, routerID, consts.RouterRoutePath, routeID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return resp, err
+	return Resp, err
 }
 
 func (r *RouterAPIService) DeleteRouterRoute(
 	ctx context.Context,
 	routerID, routeID int,
 ) (models.SuccessOrErrorMessage, error) {
-	resp := models.SuccessOrErrorMessage{}
+	Resp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.12",
 		method:            "DELETE",
@@ -373,12 +373,12 @@ func (r *RouterAPIService) DeleteRouterRoute(
 			consts.NetworkRouterPath, routerID, consts.RouterRoutePath, routeID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return resp, err
+	return Resp, err
 }
 
 func (r *RouterAPIService) CreateRouterBgpNeighbor(
@@ -386,7 +386,7 @@ func (r *RouterAPIService) CreateRouterBgpNeighbor(
 	routerID int,
 	req models.CreateNetworkRouterBgpNeighborRequest,
 ) (models.SuccessOrErrorMessage, error) {
-	resp := models.SuccessOrErrorMessage{}
+	Resp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.12",
 		method:            "POST",
@@ -394,19 +394,19 @@ func (r *RouterAPIService) CreateRouterBgpNeighbor(
 			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := routerAPI.do(ctx, req, nil)
 
-	return resp, err
+	return Resp, err
 }
 
 func (r *RouterAPIService) GetSpecificRouterBgpNeighbor(
 	ctx context.Context,
 	routerID, bgpNeighborID int,
 ) (models.GetSpecificNetworkRouterBgpNeighbor, error) {
-	resp := models.GetSpecificNetworkRouterBgpNeighbor{}
+	Resp := models.GetSpecificNetworkRouterBgpNeighbor{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.12",
 		method:            "GET",
@@ -414,12 +414,12 @@ func (r *RouterAPIService) GetSpecificRouterBgpNeighbor(
 			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath, bgpNeighborID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return resp, err
+	return Resp, err
 }
 
 func (r *RouterAPIService) UpdateRouterBgpNeighbor(
@@ -427,7 +427,7 @@ func (r *RouterAPIService) UpdateRouterBgpNeighbor(
 	routerID, bgpNeighborID int,
 	req models.CreateNetworkRouterBgpNeighborRequest,
 ) (models.SuccessOrErrorMessage, error) {
-	resp := models.SuccessOrErrorMessage{}
+	Resp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.12",
 		method:            "PUT",
@@ -435,19 +435,19 @@ func (r *RouterAPIService) UpdateRouterBgpNeighbor(
 			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath, bgpNeighborID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := routerAPI.do(ctx, req, nil)
 
-	return resp, err
+	return Resp, err
 }
 
 func (r *RouterAPIService) DeleteRouterBgpNeighbor(
 	ctx context.Context,
 	routerID, bgpNeighborID int,
 ) (models.SuccessOrErrorMessage, error) {
-	resp := models.SuccessOrErrorMessage{}
+	Resp := models.SuccessOrErrorMessage{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.12",
 		method:            "DELETE",
@@ -455,12 +455,12 @@ func (r *RouterAPIService) DeleteRouterBgpNeighbor(
 			consts.NetworkRouterPath, routerID, consts.RouterBgpNeighborPath, bgpNeighborID),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := routerAPI.do(ctx, nil, nil)
 
-	return resp, err
+	return Resp, err
 }
 
 func (r *RouterAPIService) GetTransportZones(
@@ -468,7 +468,7 @@ func (r *RouterAPIService) GetTransportZones(
 	serviceID int,
 	transportName string,
 ) (models.NetworkScope, error) {
-	resp := models.TransportZonesResp{}
+	Resp := models.TransportZonesResp{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.13",
 		method:            "GET",
@@ -476,7 +476,7 @@ func (r *RouterAPIService) GetTransportZones(
 			consts.NetworksPath, consts.ServerPath, serviceID, consts.NetworkScopePath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 
@@ -484,7 +484,7 @@ func (r *RouterAPIService) GetTransportZones(
 		return models.NetworkScope{}, err
 	}
 
-	for _, t := range resp.NetworkScopes {
+	for _, t := range Resp.NetworkScopes {
 		if t.Name == transportName {
 			return t, nil
 		}
@@ -498,7 +498,7 @@ func (r *RouterAPIService) GetEdgeCluster(
 	serviceID int,
 	edgeClusterName string,
 ) (models.NetworkEdgeClusters, error) {
-	resp := models.NetworkEdgeClustersResp{}
+	Resp := models.NetworkEdgeClustersResp{}
 	routerAPI := &api{
 		compatibleVersion: "5.2.13",
 		method:            "GET",
@@ -506,7 +506,7 @@ func (r *RouterAPIService) GetEdgeCluster(
 			consts.NetworksPath, consts.ServerPath, serviceID, consts.NetworkEdgeClusterPath),
 		client: r.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 
@@ -514,7 +514,7 @@ func (r *RouterAPIService) GetEdgeCluster(
 		return models.NetworkEdgeClusters{}, err
 	}
 
-	for _, t := range resp.NetworkEdgeClusters {
+	for _, t := range Resp.NetworkEdgeClusters {
 		if t.Name == edgeClusterName {
 			return t, nil
 		}

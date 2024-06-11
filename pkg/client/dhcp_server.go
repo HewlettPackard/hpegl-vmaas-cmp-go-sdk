@@ -23,7 +23,7 @@ func (lb *DhcpServerAPIService) CreateDhcpServer(
 	serverID int,
 	request models.CreateNetworkDhcpServerRequest,
 ) (models.CreateNetworkDhcpServerResp, error) {
-	dhcpServerResp := models.CreateNetworkDhcpServerResp{}
+	DhcpServerResp := models.CreateNetworkDhcpServerResp{}
 	dhcpServerAPI := &api{
 		compatibleVersion: dhcpCompatibleVersion,
 		method:            "POST",
@@ -32,12 +32,12 @@ func (lb *DhcpServerAPIService) CreateDhcpServer(
 			serverID, consts.DhcpServerPath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &dhcpServerResp)
+			return json.Unmarshal(body, &DhcpServerResp)
 		},
 	}
 	err := dhcpServerAPI.do(ctx, request, nil)
 
-	return dhcpServerResp, err
+	return DhcpServerResp, err
 }
 
 func (lb *DhcpServerAPIService) UpdateDhcpServer(
@@ -46,7 +46,7 @@ func (lb *DhcpServerAPIService) UpdateDhcpServer(
 	dhcpID int,
 	request models.CreateNetworkDhcpServerRequest,
 ) (models.CreateNetworkDhcpServerResp, error) {
-	dhcpServerResp := models.CreateNetworkDhcpServerResp{}
+	DhcpServerResp := models.CreateNetworkDhcpServerResp{}
 	dhcpServerAPI := &api{
 		compatibleVersion: dhcpCompatibleVersion,
 		method:            "PUT",
@@ -55,12 +55,12 @@ func (lb *DhcpServerAPIService) UpdateDhcpServer(
 			serverID, consts.DhcpServerPath, dhcpID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &dhcpServerResp)
+			return json.Unmarshal(body, &DhcpServerResp)
 		},
 	}
 	err := dhcpServerAPI.do(ctx, request, nil)
 
-	return dhcpServerResp, err
+	return DhcpServerResp, err
 }
 
 func (lb *DhcpServerAPIService) DeleteDhcpServer(
@@ -68,7 +68,7 @@ func (lb *DhcpServerAPIService) DeleteDhcpServer(
 	serverID int,
 	dhcpID int,
 ) (models.SuccessOrErrorMessage, error) {
-	dhcpServerResp := models.SuccessOrErrorMessage{}
+	DhcpServerResp := models.SuccessOrErrorMessage{}
 	dhcpServerAPI := &api{
 		compatibleVersion: dhcpCompatibleVersion,
 		method:            "DELETE",
@@ -77,19 +77,19 @@ func (lb *DhcpServerAPIService) DeleteDhcpServer(
 			serverID, consts.DhcpServerPath, dhcpID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &dhcpServerResp)
+			return json.Unmarshal(body, &DhcpServerResp)
 		},
 	}
 	err := dhcpServerAPI.do(ctx, nil, nil)
 
-	return dhcpServerResp, err
+	return DhcpServerResp, err
 }
 
 func (lb *DhcpServerAPIService) GetDhcpServers(
 	ctx context.Context,
 	serverID int,
 ) (models.GetNetworkDhcpServers, error) {
-	dhcpServerResp := models.GetNetworkDhcpServers{}
+	DhcpServerResp := models.GetNetworkDhcpServers{}
 	dhcpServerAPI := &api{
 		compatibleVersion: dhcpCompatibleVersion,
 		method:            "GET",
@@ -98,12 +98,12 @@ func (lb *DhcpServerAPIService) GetDhcpServers(
 			serverID, consts.DhcpServerPath),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &dhcpServerResp)
+			return json.Unmarshal(body, &DhcpServerResp)
 		},
 	}
 	err := dhcpServerAPI.do(ctx, nil, nil)
 
-	return dhcpServerResp, err
+	return DhcpServerResp, err
 }
 
 func (lb *DhcpServerAPIService) GetSpecificDhcpServer(
@@ -111,7 +111,7 @@ func (lb *DhcpServerAPIService) GetSpecificDhcpServer(
 	serverID int,
 	dhcpID int,
 ) (models.GetSpecificNetworkDhcpServer, error) {
-	dhcpServerResp := models.GetSpecificNetworkDhcpServer{}
+	DhcpServerResp := models.GetSpecificNetworkDhcpServer{}
 	dhcpServerAPI := &api{
 		compatibleVersion: dhcpCompatibleVersion,
 		method:            "GET",
@@ -120,10 +120,10 @@ func (lb *DhcpServerAPIService) GetSpecificDhcpServer(
 			serverID, consts.DhcpServerPath, dhcpID),
 		client: lb.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &dhcpServerResp)
+			return json.Unmarshal(body, &DhcpServerResp)
 		},
 	}
 	err := dhcpServerAPI.do(ctx, nil, nil)
 
-	return dhcpServerResp, err
+	return DhcpServerResp, err
 }

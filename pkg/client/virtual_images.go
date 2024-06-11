@@ -19,15 +19,16 @@ type VirtualImagesAPIService struct {
 /*
 VirtualImageAPIService
 Get All Virtual images
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param name/phrase optional
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param name/phrase optional
+
 @return models.VirtualImages
 */
 func (a *VirtualImagesAPIService) GetAllVirtualImages(ctx context.Context,
 	param map[string]string) (models.VirtualImages, error) {
-	response := models.VirtualImages{}
+	Response := models.VirtualImages{}
 
 	allVirtualImagesAPI := &api{
 		method: "GET",
@@ -35,20 +36,20 @@ func (a *VirtualImagesAPIService) GetAllVirtualImages(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 
 	err := allVirtualImagesAPI.do(ctx, nil, param)
 
-	return response, err
+	return Response, err
 }
 
 func (a *VirtualImagesAPIService) GetSpecificVirtualImage(
 	ctx context.Context,
 	virtualImageID int,
 ) (models.GetSpecificVirtualImage, error) {
-	response := models.GetSpecificVirtualImage{}
+	Response := models.GetSpecificVirtualImage{}
 
 	api := &api{
 		method: "GET",
@@ -56,11 +57,11 @@ func (a *VirtualImagesAPIService) GetSpecificVirtualImage(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 
 	err := api.do(ctx, nil, nil)
 
-	return response, err
+	return Response, err
 }

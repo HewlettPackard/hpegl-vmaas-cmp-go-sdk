@@ -20,7 +20,7 @@ func (d *DomainAPIService) GetAllDomains(
 	ctx context.Context,
 	param map[string]string,
 ) (models.GetAllDomains, error) {
-	var domainResp models.GetAllDomains
+	var DomainResp models.GetAllDomains
 	networkAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s",
@@ -28,19 +28,19 @@ func (d *DomainAPIService) GetAllDomains(
 		client: d.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &domainResp)
+			return json.Unmarshal(body, &DomainResp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, param)
 
-	return domainResp, err
+	return DomainResp, err
 }
 
 func (d *DomainAPIService) GetSpecificDomain(
 	ctx context.Context,
 	domainID int,
 ) (models.GetSpecificDomain, error) {
-	var domainResp models.GetSpecificDomain
+	var DomainResp models.GetSpecificDomain
 	networkAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%s/%d",
@@ -48,10 +48,10 @@ func (d *DomainAPIService) GetSpecificDomain(
 		client: d.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &domainResp)
+			return json.Unmarshal(body, &DomainResp)
 		},
 	}
 	err := networkAPI.do(ctx, nil, nil)
 
-	return domainResp, err
+	return DomainResp, err
 }

@@ -19,14 +19,13 @@ type LibraryAPIService struct {
 /*
 LibrariesAPIService
 Get All layouts
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
 */
 func (a *LibraryAPIService) GetAllLayouts(ctx context.Context,
 	param map[string]string) (models.LayoutsResp, error) {
-	response := models.LayoutsResp{}
+	Response := models.LayoutsResp{}
 
 	allLayoutsAPI := &api{
 		method: "GET",
@@ -34,17 +33,17 @@ func (a *LibraryAPIService) GetAllLayouts(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 	err := allLayoutsAPI.do(ctx, nil, param)
 
-	return response, err
+	return Response, err
 }
 
 func (a *LibraryAPIService) GetAllInstanceTypes(ctx context.Context,
 	param map[string]string) (models.InstanceTypesResp, error) {
-	response := models.InstanceTypesResp{}
+	Response := models.InstanceTypesResp{}
 
 	allInstTypeAPI := &api{
 		method: "GET",
@@ -52,19 +51,19 @@ func (a *LibraryAPIService) GetAllInstanceTypes(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 	err := allInstTypeAPI.do(ctx, nil, param)
 
-	return response, err
+	return Response, err
 }
 
 func (a *LibraryAPIService) GetSpecificLayout(
 	ctx context.Context,
 	layoutID int,
 ) (models.GetSpecificLayout, error) {
-	response := models.GetSpecificLayout{}
+	Response := models.GetSpecificLayout{}
 
 	allLayoutsAPI := &api{
 		method: "GET",
@@ -72,10 +71,10 @@ func (a *LibraryAPIService) GetSpecificLayout(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 	err := allLayoutsAPI.do(ctx, nil, nil)
 
-	return response, err
+	return Response, err
 }

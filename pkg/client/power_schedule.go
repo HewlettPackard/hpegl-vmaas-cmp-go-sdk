@@ -19,15 +19,16 @@ type PowerSchedulesAPIService struct {
 /*
 VirtualImageApiService
 Get All Virtual images
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param name/phrase optional
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param name/phrase optional
+
 @return models.VirtualImages
 */
 func (a *PowerSchedulesAPIService) GetAllPowerSchedules(ctx context.Context,
 	param map[string]string) (models.GetAllPowerSchedules, error) {
-	response := models.GetAllPowerSchedules{}
+	Response := models.GetAllPowerSchedules{}
 
 	allPowerScheduleAPI := &api{
 		method: "GET",
@@ -35,19 +36,19 @@ func (a *PowerSchedulesAPIService) GetAllPowerSchedules(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 	err := allPowerScheduleAPI.do(ctx, nil, param)
 
-	return response, err
+	return Response, err
 }
 
 func (a *PowerSchedulesAPIService) GetSpecificPowerSchedule(
 	ctx context.Context,
 	powerID int,
 ) (models.GetSpecificPowerSchedule, error) {
-	response := models.GetSpecificPowerSchedule{}
+	Response := models.GetSpecificPowerSchedule{}
 
 	allPowerScheduleAPI := &api{
 		method: "GET",
@@ -55,10 +56,10 @@ func (a *PowerSchedulesAPIService) GetSpecificPowerSchedule(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 	err := allPowerScheduleAPI.do(ctx, nil, nil)
 
-	return response, err
+	return Response, err
 }

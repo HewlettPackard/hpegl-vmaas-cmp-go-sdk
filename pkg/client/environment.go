@@ -18,7 +18,7 @@ type EnvironmentAPIService struct {
 
 func (e *EnvironmentAPIService) GetAllEnvironment(ctx context.Context,
 	param map[string]string) (models.GetAllEnvironment, error) {
-	response := models.GetAllEnvironment{}
+	Response := models.GetAllEnvironment{}
 
 	allEnvAPI := &api{
 		method: "GET",
@@ -26,31 +26,31 @@ func (e *EnvironmentAPIService) GetAllEnvironment(ctx context.Context,
 		client: e.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 
 	err := allEnvAPI.do(ctx, nil, param)
 
-	return response, err
+	return Response, err
 }
 
 func (e *EnvironmentAPIService) GetSpecificEnvironment(
 	ctx context.Context,
 	envID int,
 ) (models.GetSpecificEnvironment, error) {
-	response := models.GetSpecificEnvironment{}
+	Response := models.GetSpecificEnvironment{}
 
 	allEnvAPI := &api{
 		method: "GET",
 		path:   fmt.Sprintf("%s/%d", consts.EnvironmentPath, envID),
 		client: e.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 
 	err := allEnvAPI.do(ctx, nil, nil)
 
-	return response, err
+	return Response, err
 }
