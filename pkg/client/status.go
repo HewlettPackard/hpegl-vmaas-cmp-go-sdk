@@ -16,7 +16,7 @@ type CmpStatus struct {
 }
 
 func (a *CmpStatus) GetCmpVersion(ctx context.Context) (models.CmpVersionModel, error) {
-	checkResp := models.CmpVersionModel{}
+	CheckResp := models.CmpVersionModel{}
 
 	statusAPI := &api{
 		method: "GET",
@@ -24,10 +24,10 @@ func (a *CmpStatus) GetCmpVersion(ctx context.Context) (models.CmpVersionModel, 
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &checkResp)
+			return json.Unmarshal(body, &CheckResp)
 		},
 	}
 	err := statusAPI.do(ctx, nil, nil)
 
-	return checkResp, err
+	return CheckResp, err
 }

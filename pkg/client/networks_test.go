@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -42,7 +42,7 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networks": [{
 							"id": 1,
@@ -103,7 +103,7 @@ func TestNetworksAPIService_GetAllNetworks(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -184,7 +184,7 @@ func TestNetworksAPIService_CreateNetwork(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"Success": true,
 						"network": {
@@ -271,7 +271,7 @@ func TestNetworksAPIService_UpdateNetwork(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"Success": true
 					}
@@ -327,7 +327,7 @@ func TestNetworksAPIService_GetNetworkProxy(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkProxies": [
 							{
@@ -403,7 +403,7 @@ func TestNetworksAPIService_GetSpecificNetwork(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"network": {
 							"id": 1,
@@ -452,7 +452,7 @@ func TestNetworksAPIService_GetSpecificNetwork(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -518,7 +518,7 @@ func TestNetworksAPIService_DeleteNetwork(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true,
 						"message": "test_template_delete_network"
@@ -563,7 +563,7 @@ func TestNetworksAPIService_DeleteNetwork(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -632,7 +632,7 @@ func TestNetworksAPIService_GetNetworkType(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkTypes": [{
 							"id": 1,
@@ -691,7 +691,7 @@ func TestNetworksAPIService_GetNetworkType(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -762,7 +762,7 @@ func TestNetworksAPIService_GetNetworkPool(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkPools": [{
 							"id": 1,
@@ -821,7 +821,7 @@ func TestNetworksAPIService_GetNetworkPool(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -889,7 +889,7 @@ func TestNetworksAPIService_GetSpecificNetworkPool(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkPool": {
 							"id": 1,
@@ -938,7 +938,7 @@ func TestNetworksAPIService_GetSpecificNetworkPool(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [

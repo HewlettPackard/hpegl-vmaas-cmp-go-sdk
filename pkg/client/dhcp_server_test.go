@@ -3,7 +3,7 @@ package client
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -51,7 +51,7 @@ func Test_dhcpServerAPIService_CreateDhcpServer(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -124,7 +124,7 @@ func Test_dhcpServerAPIService_UpdateDhcpServer(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -180,7 +180,7 @@ func Test_dhcpServerAPIService_DeleteDhcpServer(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -246,7 +246,7 @@ func Test_dhcpServerAPIService_GetSpecificDhcpServer(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"networkDhcpServer":{
 							"id": 1,

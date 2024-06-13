@@ -19,40 +19,41 @@ type ServersAPIService struct {
 /*
 ServersApiService
 Get All Servers
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param name/phrase optional
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param name/phrase optional
+
 @return models.Servers
 */
 func (a *ServersAPIService) GetAllServers(
 	ctx context.Context,
 	queryParams map[string]string,
 ) (models.ServersResponse, error) {
-	serversResponse := models.ServersResponse{}
+	ServersResponse := models.ServersResponse{}
 	serverAPI := &api{
 		method: "GET",
 		path:   consts.ServerPath,
 		client: a.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &serversResponse)
+			return json.Unmarshal(body, &ServersResponse)
 		},
 	}
 	err := serverAPI.do(ctx, nil, queryParams)
 
-	return serversResponse, err
+	return ServersResponse, err
 }
 
 func (a *ServersAPIService) GetSpecificServer(
 	ctx context.Context,
 	serverID int) (models.GetSpecificServerResponse, error) {
-	serversResponse := models.GetSpecificServerResponse{}
+	ServersResponse := models.GetSpecificServerResponse{}
 	serverAPI := &api{
 		method: "GET",
 		path: fmt.Sprintf("%s/%d",
 			consts.ServerPath, serverID),
 		client: a.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &serversResponse)
+			return json.Unmarshal(body, &ServersResponse)
 		},
 		validations: []validationFunc{
 			func() error {
@@ -66,5 +67,5 @@ func (a *ServersAPIService) GetSpecificServer(
 	}
 	err := serverAPI.do(ctx, nil, nil)
 
-	return serversResponse, err
+	return ServersResponse, err
 }

@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -43,7 +43,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				method := "PUT"
 				// headers := getDefaultHeaders()
 				headers := getDefaultHeaders()
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"cloud": {
 						"ID": 1
@@ -52,7 +52,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				}
 				`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true,
 						"message": "Successfully cloned an instance"
@@ -120,7 +120,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 				// headers := getDefaultHeaders()
 				headers := getDefaultHeaders()
 
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"cloud": {
 							"ID": 1
@@ -129,7 +129,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 					}
 				`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -202,14 +202,14 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "POST"
 				headers := getDefaultHeaders()
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"zoneId": "1",
 						"name": "Instance_Create"
 					}
 				`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"instance": {
 						"id": 1,
@@ -250,14 +250,14 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "POST"
 				headers := getDefaultHeaders()
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"zoneId": "1",
 						"name": "Instance_Create"
 					}
 				`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"instance": {
 						"id": 1,
@@ -321,14 +321,14 @@ func TestInstancesAPIService_CreateAnInstance(t *testing.T) {
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances"
 				method := "POST"
 				headers := getDefaultHeaders()
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"zoneId": "1",
 						"name": "Instance_Create"
 					}
 				`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -396,7 +396,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"success": true,
 					"message": "Successfully Deleted the instance"
@@ -441,7 +441,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -507,11 +507,11 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/import-snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+				postBody := io.NopCloser(bytes.NewReader([]byte(`{
 					"storageProviderId" : 1
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"success": true,
 					"message": "Successfully imported a snapshot of an instance"
@@ -566,11 +566,11 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/import-snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+				postBody := io.NopCloser(bytes.NewReader([]byte(`{
 					"storageProviderId" : 1
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -646,14 +646,14 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 				m.EXPECT().getHost().Return(mockHost)
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/resize"
 				method := "PUT"
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"instance" : {"id": 1},
 					"volumes" : [{"id": 1, "name": "test_instance_volume" }],
 					"deleteOriginalVolumes" : false
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+				respBody := io.NopCloser(bytes.NewReader([]byte(`{
 					"instance": {
 						"id": 1,
 						"string": "test_instance_response"
@@ -736,14 +736,14 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 				m.EXPECT().getHost().Return(mockHost)
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/resize"
 				method := "PUT"
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"instance" : {"id": 1},
 					"volumes" : [{"id": 1, "name": "test_instance_volume" }],
 					"deleteOriginalVolumes" : false
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -821,7 +821,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"snapshot": {
 						"name": "test_snapshot_name",
@@ -829,7 +829,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 					}
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+				respBody := io.NopCloser(bytes.NewReader([]byte(`{
 					"instances": [{
 						"id": 1,
 						"name": "test_snapshot_name"
@@ -900,7 +900,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1/snapshot"
 				method := "PUT"
 				headers := getDefaultHeaders()
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"snapshot": {
 						"name": "test_snapshot_name",
@@ -908,7 +908,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 					}
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -982,7 +982,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 				m.EXPECT().getHost().Return(mockHost)
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "PUT"
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"snapshot": {
 						"name": "test_update_instance_name",
@@ -990,7 +990,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 					}
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+				respBody := io.NopCloser(bytes.NewReader([]byte(`{
 					"instance": {
 						"id": 1,
 						"name": "test_update_instance_name"
@@ -1058,7 +1058,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 				m.EXPECT().getHost().Return(mockHost)
 				path := mockHost + "/" + consts.VmaasCmpAPIBasePath + "/instances/1"
 				method := "PUT"
-				postBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				postBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"snapshot": {
 						"name": "test_update_instance_name",
@@ -1066,7 +1066,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 					}
 				}`)))
 				req, _ := http.NewRequest(method, path, postBody)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`{
+				respBody := io.NopCloser(bytes.NewReader([]byte(`{
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -1135,7 +1135,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"instance": {
 							"id": 1,
@@ -1186,7 +1186,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -1255,7 +1255,7 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"instances": [{
 							"id": 1,
@@ -1316,7 +1316,7 @@ func TestInstancesAPIService_GetAllInstances(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -1383,7 +1383,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"snapshots": [{
 							"id": 1,
@@ -1434,7 +1434,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -1499,7 +1499,7 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"processes": [
 						{
@@ -1566,7 +1566,7 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -1632,7 +1632,7 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"success": true
 				}
@@ -1675,7 +1675,7 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -1738,7 +1738,7 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"success": true
 				}
@@ -1781,7 +1781,7 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -1844,7 +1844,7 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"success": true
 				}
@@ -1887,7 +1887,7 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -1950,7 +1950,7 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 				{
 					"success": true
 				}
@@ -1993,7 +1993,7 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 				method := "PUT"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [

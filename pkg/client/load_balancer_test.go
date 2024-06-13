@@ -3,7 +3,7 @@ package client
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -51,7 +51,7 @@ func Test_loadBalancerAPIService_CreateLoadBalancer(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -125,7 +125,7 @@ func Test_loadBalancerAPIService_UpdateLoadBalancer(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -182,7 +182,7 @@ func Test_loadBalancerAPIService_DeleteLoadBalancer(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -248,7 +248,7 @@ func Test_loadBalancerAPIService_GetSpecificLoadBalancers(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"loadBalancer":{
 							"id": 1,
@@ -333,7 +333,7 @@ func Test_loadBalancerAPIService_CreateLBMonitor(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -407,7 +407,7 @@ func Test_loadBalancerAPIService_UpdateLBMonitor(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -464,7 +464,7 @@ func Test_loadBalancerAPIService_DeleteLBMonitor(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -529,7 +529,7 @@ func Test_loadBalancerAPIService_GetSpecificLBMonitor(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"loadBalancerMonitor":{
 							"name":"test_template_get_a_specific_LB"
@@ -612,7 +612,7 @@ func Test_loadBalancerAPIService_CreateLBProfile(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -686,7 +686,7 @@ func Test_loadBalancerAPIService_UpdateLBProfile(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -743,7 +743,7 @@ func Test_loadBalancerAPIService_DeleteLBProfile(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -809,7 +809,7 @@ func Test_loadBalancerAPIService_GetSpecificLBProfile(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"loadBalancerProfile":{
 							"id": 1,
@@ -894,7 +894,7 @@ func Test_loadBalancerAPIService_CreateLBPool(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -968,7 +968,7 @@ func Test_loadBalancerAPIService_UpdateLBPool(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -1025,7 +1025,7 @@ func Test_loadBalancerAPIService_DeleteLBPool(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -1091,7 +1091,7 @@ func Test_loadBalancerAPIService_GetSpecificLBPool(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"loadBalancerPool":{
 							"id": 1,
@@ -1176,7 +1176,7 @@ func Test_loadBalancerAPIService_CreateLBVirtualServers(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -1250,7 +1250,7 @@ func Test_loadBalancerAPIService_UpdateLBVirtualServers(t *testing.T) {
 
 				m.EXPECT().callAPI(req).Return(&http.Response{
 					StatusCode: 200,
-					Body: ioutil.NopCloser(bytes.NewReader([]byte(`
+					Body: io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -1306,7 +1306,7 @@ func Test_loadBalancerAPIService_DeleteLBVirtualServers(t *testing.T) {
 				method := "DELETE"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"success": true
 					}
@@ -1372,7 +1372,7 @@ func Test_loadBalancerAPIService_GetSpecificLBVirtualServers(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"loadBalancerInstance":{
 							"id": 1,

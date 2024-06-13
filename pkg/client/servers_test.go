@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -42,7 +42,7 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"servers": [{
 							"id": 1,
@@ -103,7 +103,7 @@ func TestServersAPIService_GetAllServers(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [
@@ -173,7 +173,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"server": {
 							"id": 1,
@@ -224,7 +224,7 @@ func TestServersAPIService_GetSpecificServer(t *testing.T) {
 				method := "GET"
 				headers := getDefaultHeaders()
 				req, _ := http.NewRequest(method, path, nil)
-				respBody := ioutil.NopCloser(bytes.NewReader([]byte(`
+				respBody := io.NopCloser(bytes.NewReader([]byte(`
 					{
 						"message": "Internal Server Error",
 						"recommendedActions": [

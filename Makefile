@@ -1,5 +1,5 @@
 #! /usr/bin/make
-#(C) Copyright 2021 Hewlett Packard Enterprise Development LP
+#(C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 # Inspiration from https://github.com/rightscale/go-boilerplate/blob/master/Makefile
 
 VERSION=0.0.1
@@ -54,5 +54,5 @@ all: lint test
 .PHONY: all
 
 tools:
-	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.43.0
+	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.59.0
 .PHONY: tools

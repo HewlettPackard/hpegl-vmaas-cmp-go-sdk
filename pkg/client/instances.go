@@ -48,7 +48,7 @@ Create an Instance
 
 func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 	localVarOptionals *models.CreateInstanceBody) (models.GetInstanceResponse, error) {
-	createInstanceResp := models.GetInstanceResponse{}
+	CreateInstanceResp := models.GetInstanceResponse{}
 
 	// Pre-pending 'pool-' to ResourcePoolId in 6.0.3 and above
 	if v, _ := parseVersion("6.0.3"); v <= a.Client.getVersion() {
@@ -68,13 +68,13 @@ func (a *InstancesAPIService) CreateAnInstance(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &createInstanceResp)
+			return json.Unmarshal(body, &CreateInstanceResp)
 		},
 	}
 
 	err := createInstanceAPI.do(ctx, localVarOptionals, nil)
 
-	return createInstanceResp, err
+	return CreateInstanceResp, err
 }
 
 /*
@@ -95,7 +95,7 @@ type InstancesAPIDeleteAnIstanceOpts struct {
 
 func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
 	instanceID int) (models.SuccessOrErrorMessage, error) {
-	delInstanceResp := models.SuccessOrErrorMessage{}
+	DelInstanceResp := models.SuccessOrErrorMessage{}
 
 	delInstanceAPI := &api{
 		method: "DELETE",
@@ -104,12 +104,12 @@ func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &delInstanceResp)
+			return json.Unmarshal(body, &DelInstanceResp)
 		},
 	}
 	err := delInstanceAPI.do(ctx, nil, nil)
 
-	return delInstanceResp, err
+	return DelInstanceResp, err
 }
 
 /*
@@ -124,7 +124,7 @@ Get a Specific Instance
 */
 func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
 	instanceID int) (models.GetInstanceResponse, error) {
-	specificInstResp := models.GetInstanceResponse{}
+	SpecificInstResp := models.GetInstanceResponse{}
 
 	specificInstanceAPI := &api{
 		method: "GET",
@@ -133,12 +133,12 @@ func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &specificInstResp)
+			return json.Unmarshal(body, &SpecificInstResp)
 		},
 	}
 	err := specificInstanceAPI.do(ctx, nil, nil)
 
-	return specificInstResp, err
+	return SpecificInstResp, err
 }
 
 /*
@@ -151,7 +151,7 @@ Get All Instances
 
 func (a *InstancesAPIService) GetAllInstances(ctx context.Context,
 	queryParams map[string]string) (models.Instances, error) {
-	getAllInstance := models.Instances{}
+	GetAllInstance := models.Instances{}
 
 	instanceAPI := &api{
 		method: "GET",
@@ -159,12 +159,12 @@ func (a *InstancesAPIService) GetAllInstances(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &getAllInstance)
+			return json.Unmarshal(body, &GetAllInstance)
 		},
 	}
 	err := instanceAPI.do(ctx, nil, queryParams)
 
-	return getAllInstance, err
+	return GetAllInstance, err
 }
 
 /*
@@ -177,7 +177,7 @@ Lists VMware Snapshot of the instance
 */
 func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Context,
 	instanceID int) (models.ListSnapshotResponse, error) {
-	listSnapshotResp := models.ListSnapshotResponse{}
+	ListSnapshotResp := models.ListSnapshotResponse{}
 
 	listSnapshotAPI := &api{
 		method: "GET",
@@ -186,12 +186,12 @@ func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Contex
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &listSnapshotResp)
+			return json.Unmarshal(body, &ListSnapshotResp)
 		},
 	}
 	err := listSnapshotAPI.do(ctx, nil, nil)
 
-	return listSnapshotResp, err
+	return ListSnapshotResp, err
 }
 
 /*
@@ -209,7 +209,7 @@ it currently exists.
 
 func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.ImportSnapshotBody) (models.SuccessOrErrorMessage, error) {
-	importSnapshotResp := models.SuccessOrErrorMessage{}
+	ImportSnapshotResp := models.SuccessOrErrorMessage{}
 
 	importSnapshotAPI := &api{
 		method: "PUT",
@@ -218,12 +218,12 @@ func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, in
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &importSnapshotResp)
+			return json.Unmarshal(body, &ImportSnapshotResp)
 		},
 	}
 	err := importSnapshotAPI.do(ctx, localVarOptionals, nil)
 
-	return importSnapshotResp, err
+	return ImportSnapshotResp, err
 }
 
 /*
@@ -236,7 +236,7 @@ Restarts all VM running within an instance
 */
 func (a *InstancesAPIService) RestartAnInstance(ctx context.Context,
 	instanceID int) (models.InstancePowerResponse, error) {
-	restartInstResp := models.InstancePowerResponse{}
+	RestartInstResp := models.InstancePowerResponse{}
 
 	restartInstAPI := &api{
 		method: "PUT",
@@ -245,12 +245,12 @@ func (a *InstancesAPIService) RestartAnInstance(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &restartInstResp)
+			return json.Unmarshal(body, &RestartInstResp)
 		},
 	}
 	err := restartInstAPI.do(ctx, nil, nil)
 
-	return restartInstResp, err
+	return RestartInstResp, err
 }
 
 /*
@@ -267,7 +267,7 @@ Creates VMware Snapshot of the instance
 
 func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID int,
 	localVarOptionals *models.SnapshotBody) (models.Instances, error) {
-	snapshotInstResp := models.Instances{}
+	SnapshotInstResp := models.Instances{}
 
 	instanceAPI := &api{
 		method: "PUT",
@@ -276,12 +276,12 @@ func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &snapshotInstResp)
+			return json.Unmarshal(body, &SnapshotInstResp)
 		},
 	}
 	err := instanceAPI.do(ctx, localVarOptionals, nil)
 
-	return snapshotInstResp, err
+	return SnapshotInstResp, err
 }
 
 /*
@@ -294,7 +294,7 @@ Starts all VM running within an instance
 */
 func (a *InstancesAPIService) StartAnInstance(ctx context.Context,
 	instanceID int) (models.InstancePowerResponse, error) {
-	startInstanceResp := models.InstancePowerResponse{}
+	StartInstanceResp := models.InstancePowerResponse{}
 
 	startInstanceAPI := &api{
 		method: "PUT",
@@ -303,12 +303,12 @@ func (a *InstancesAPIService) StartAnInstance(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &startInstanceResp)
+			return json.Unmarshal(body, &StartInstanceResp)
 		},
 	}
 	err := startInstanceAPI.do(ctx, nil, nil)
 
-	return startInstanceResp, err
+	return StartInstanceResp, err
 }
 
 /*
@@ -321,7 +321,7 @@ Stops all VM running within an instance
 */
 func (a *InstancesAPIService) StopAnInstance(ctx context.Context,
 	instanceID int) (models.InstancePowerResponse, error) {
-	stopInstanceResp := models.InstancePowerResponse{}
+	StopInstanceResp := models.InstancePowerResponse{}
 
 	stopInstanceAPI := &api{
 		method: "PUT",
@@ -330,12 +330,12 @@ func (a *InstancesAPIService) StopAnInstance(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &stopInstanceResp)
+			return json.Unmarshal(body, &StopInstanceResp)
 		},
 	}
 	err := stopInstanceAPI.do(ctx, nil, nil)
 
-	return stopInstanceResp, err
+	return StopInstanceResp, err
 }
 
 /*
@@ -348,7 +348,7 @@ Suspends all VM running within an instance
 */
 func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
 	instanceID int) (models.InstancePowerResponse, error) {
-	suspendResp := models.InstancePowerResponse{}
+	SuspendResp := models.InstancePowerResponse{}
 	suspendInstanceAPI := &api{
 		method: "PUT",
 		path: fmt.Sprintf("%s/%d/suspend",
@@ -356,17 +356,17 @@ func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &suspendResp)
+			return json.Unmarshal(body, &SuspendResp)
 		},
 	}
 	err := suspendInstanceAPI.do(ctx, nil, nil)
 
-	return suspendResp, err
+	return SuspendResp, err
 }
 
 func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int,
 	request *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
-	resizeResp := models.ResizeInstanceResponse{}
+	ResizeResp := models.ResizeInstanceResponse{}
 
 	instanceAPI := &api{
 		method: "PUT",
@@ -375,12 +375,12 @@ func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID i
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resizeResp)
+			return json.Unmarshal(body, &ResizeResp)
 		},
 	}
 	err := instanceAPI.do(ctx, request, nil)
 
-	return resizeResp, err
+	return ResizeResp, err
 }
 
 func (a *InstancesAPIService) UpdatingAnInstance(
@@ -388,7 +388,7 @@ func (a *InstancesAPIService) UpdatingAnInstance(
 	instanceID int,
 	request *models.UpdateInstanceBody,
 ) (models.UpdateInstanceResponse, error) {
-	instance := models.UpdateInstanceResponse{}
+	Instance := models.UpdateInstanceResponse{}
 
 	instanceAPI := &api{
 		method: "PUT",
@@ -397,17 +397,17 @@ func (a *InstancesAPIService) UpdatingAnInstance(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &instance)
+			return json.Unmarshal(body, &Instance)
 		},
 	}
 	err := instanceAPI.do(ctx, request, nil)
 
-	return instance, err
+	return Instance, err
 }
 
 func (a *InstancesAPIService) GetInstanceHistory(
 	ctx context.Context, instanceID int) (models.GetInstanceHistory, error) {
-	history := models.GetInstanceHistory{}
+	History := models.GetInstanceHistory{}
 
 	historyAPI := &api{
 		method: "GET",
@@ -416,17 +416,17 @@ func (a *InstancesAPIService) GetInstanceHistory(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &history)
+			return json.Unmarshal(body, &History)
 		},
 	}
 	err := historyAPI.do(ctx, nil, nil)
 
-	return history, err
+	return History, err
 }
 
 func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int,
 	cloneRequest models.CreateInstanceCloneBody) (models.SuccessOrErrorMessage, error) {
-	var cloneResp models.SuccessOrErrorMessage
+	var CloneResp models.SuccessOrErrorMessage
 	if v, _ := parseVersion("5.2.12"); v <= a.Client.getVersion() {
 		cloneRequest.Tags = cloneRequest.Metadata
 		cloneRequest.Metadata = nil
@@ -440,10 +440,10 @@ func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID in
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &cloneResp)
+			return json.Unmarshal(body, &CloneResp)
 		},
 	}
 	err := instanceClone.do(ctx, cloneRequest, nil)
 
-	return cloneResp, err
+	return CloneResp, err
 }

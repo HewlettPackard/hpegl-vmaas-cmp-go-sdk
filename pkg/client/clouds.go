@@ -20,15 +20,14 @@ type CloudsAPIService struct {
 /*
 CloudsAPIService
 Get All Cloud Data Stores
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param cloudID The cloud ID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param cloudID The cloud ID
 */
 func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID int,
 	queryParams map[string]string) (models.DataStoresResp, error) {
-	allCloudDSResp := models.DataStoresResp{}
+	AllCloudDSResp := models.DataStoresResp{}
 
 	allCloudDSAPI := &api{
 		method: "GET",
@@ -37,7 +36,7 @@ func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID in
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &allCloudDSResp)
+			return json.Unmarshal(body, &AllCloudDSResp)
 		},
 		validations: []validationFunc{
 			func() error {
@@ -51,21 +50,20 @@ func (a *CloudsAPIService) GetAllCloudDataStores(ctx context.Context, cloudID in
 	}
 	err := allCloudDSAPI.do(ctx, nil, queryParams)
 
-	return allCloudDSResp, err
+	return AllCloudDSResp, err
 }
 
 /*
 CloudsAPIService
 Get All Cloud Resource Pools
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
- * @param cloudID The cloud ID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
+  - @param cloudID The cloud ID
 */
 func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID int,
 	queryParams map[string]string) (models.ResourcePoolsResp, error) {
-	allCloudRPoolResp := models.ResourcePoolsResp{}
+	AllCloudRPoolResp := models.ResourcePoolsResp{}
 
 	allCloudRPoolAPI := &api{
 		method: "GET",
@@ -74,7 +72,7 @@ func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &allCloudRPoolResp)
+			return json.Unmarshal(body, &AllCloudRPoolResp)
 		},
 		validations: []validationFunc{
 			func() error {
@@ -88,20 +86,19 @@ func (a *CloudsAPIService) GetAllCloudResourcePools(ctx context.Context, cloudID
 	}
 	err := allCloudRPoolAPI.do(ctx, nil, queryParams)
 
-	return allCloudRPoolResp, err
+	return AllCloudRPoolResp, err
 }
 
 /*
 CloudsAPIService
 Get All Clouds
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
- 	Passed from http.Request or context.Background().
- * @param serviceInstanceID
-
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc.
+    Passed from http.Request or context.Background().
+  - @param serviceInstanceID
 */
 func (a *CloudsAPIService) GetAllClouds(ctx context.Context,
 	queryParams map[string]string) (models.CloudsResp, error) {
-	allCloudResp := models.CloudsResp{}
+	AllCloudResp := models.CloudsResp{}
 
 	allCloudAPI := &api{
 		method: "GET",
@@ -109,17 +106,17 @@ func (a *CloudsAPIService) GetAllClouds(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &allCloudResp)
+			return json.Unmarshal(body, &AllCloudResp)
 		},
 	}
 	err := allCloudAPI.do(ctx, nil, queryParams)
 
-	return allCloudResp, err
+	return AllCloudResp, err
 }
 
 func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
 	provisionTypeID int) (models.GetAllCloudNetworks, error) {
-	allCloudNetworkResp := models.GetAllCloudNetworks{}
+	AllCloudNetworkResp := models.GetAllCloudNetworks{}
 
 	allCloudNetworkAPI := &api{
 		method: "GET",
@@ -128,7 +125,7 @@ func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &allCloudNetworkResp)
+			return json.Unmarshal(body, &AllCloudNetworkResp)
 		},
 	}
 	queryParams := map[string]string{
@@ -137,7 +134,7 @@ func (a *CloudsAPIService) GetAllCloudNetworks(ctx context.Context, cloudID,
 	}
 	err := allCloudNetworkAPI.do(ctx, nil, queryParams)
 
-	return allCloudNetworkResp, err
+	return AllCloudNetworkResp, err
 }
 
 func (a *CloudsAPIService) GetAllCloudFolders(
@@ -145,7 +142,7 @@ func (a *CloudsAPIService) GetAllCloudFolders(
 	cloudID int,
 	queryParams map[string]string,
 ) (models.GetAllCloudFolders, error) {
-	folders := models.GetAllCloudFolders{}
+	Folders := models.GetAllCloudFolders{}
 
 	folderAPI := &api{
 		method: "GET",
@@ -154,7 +151,7 @@ func (a *CloudsAPIService) GetAllCloudFolders(
 		client: a.Client,
 		// jsonParser also stores folder response, since folders is not a local variable
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &folders)
+			return json.Unmarshal(body, &Folders)
 		},
 		// validate cloud id > 1
 		validations: []validationFunc{
@@ -170,7 +167,7 @@ func (a *CloudsAPIService) GetAllCloudFolders(
 
 	err := folderAPI.do(ctx, nil, queryParams)
 
-	return folders, err
+	return Folders, err
 }
 
 func (a *CloudsAPIService) GetSpecificCloudFolder(
@@ -178,7 +175,7 @@ func (a *CloudsAPIService) GetSpecificCloudFolder(
 	cloudID int,
 	folderID int,
 ) (models.GetSpecificCloudFolder, error) {
-	folder := models.GetSpecificCloudFolder{}
+	Folder := models.GetSpecificCloudFolder{}
 
 	folderAPI := &api{
 		method: "GET",
@@ -187,7 +184,7 @@ func (a *CloudsAPIService) GetSpecificCloudFolder(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &folder)
+			return json.Unmarshal(body, &Folder)
 		},
 		// validate cloud id > 1
 		validations: []validationFunc{
@@ -203,14 +200,14 @@ func (a *CloudsAPIService) GetSpecificCloudFolder(
 
 	err := folderAPI.do(ctx, nil, nil)
 
-	return folder, err
+	return Folder, err
 }
 
 func (a *CloudsAPIService) GetSpecificCloud(
 	ctx context.Context,
 	cloudID int,
 ) (models.GetSpecificCloud, error) {
-	folder := models.GetSpecificCloud{}
+	Folder := models.GetSpecificCloud{}
 
 	folderAPI := &api{
 		method: "GET",
@@ -219,19 +216,19 @@ func (a *CloudsAPIService) GetSpecificCloud(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &folder)
+			return json.Unmarshal(body, &Folder)
 		},
 	}
 	err := folderAPI.do(ctx, nil, nil)
 
-	return folder, err
+	return Folder, err
 }
 
 func (a *CloudsAPIService) GetSpecificCloudDataStores(
 	ctx context.Context,
 	cloudID, datastoreID int,
 ) (models.GetSpecificCloudDataStores, error) {
-	folder := models.GetSpecificCloudDataStores{}
+	Folder := models.GetSpecificCloudDataStores{}
 
 	folderAPI := &api{
 		method: "GET",
@@ -240,12 +237,12 @@ func (a *CloudsAPIService) GetSpecificCloudDataStores(
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &folder)
+			return json.Unmarshal(body, &Folder)
 		},
 	}
 	err := folderAPI.do(ctx, nil, nil)
 
-	return folder, err
+	return Folder, err
 }
 
 func (a *CloudsAPIService) GetSpecificCloudResourcePool(
@@ -253,7 +250,7 @@ func (a *CloudsAPIService) GetSpecificCloudResourcePool(
 	cloudID int,
 	resourcePoolID int,
 ) (models.GetSpecificCloudResourcePool, error) {
-	resp := models.GetSpecificCloudResourcePool{}
+	Resp := models.GetSpecificCloudResourcePool{}
 
 	api := &api{
 		method: "GET",
@@ -261,10 +258,10 @@ func (a *CloudsAPIService) GetSpecificCloudResourcePool(
 			consts.ZonePath, cloudID, consts.ResourcePoolPath, resourcePoolID),
 		client: a.Client,
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &resp)
+			return json.Unmarshal(body, &Resp)
 		},
 	}
 	err := api.do(ctx, nil, nil)
 
-	return resp, err
+	return Resp, err
 }

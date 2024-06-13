@@ -17,7 +17,7 @@ type ProvisioningAPIService struct {
 
 func (a *ProvisioningAPIService) GetAllProvisioningTypes(ctx context.Context,
 	param map[string]string) (models.GetAllProvisioningTypes, error) {
-	response := models.GetAllProvisioningTypes{}
+	Response := models.GetAllProvisioningTypes{}
 
 	allProvisionAPI := &api{
 		method: "GET",
@@ -25,11 +25,11 @@ func (a *ProvisioningAPIService) GetAllProvisioningTypes(ctx context.Context,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
-			return json.Unmarshal(body, &response)
+			return json.Unmarshal(body, &Response)
 		},
 	}
 
 	err := allProvisionAPI.do(ctx, nil, param)
 
-	return response, err
+	return Response, err
 }
