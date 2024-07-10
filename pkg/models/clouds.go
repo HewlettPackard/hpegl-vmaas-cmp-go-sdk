@@ -79,7 +79,7 @@ type CloudRespBody struct {
 		Apiversion                 string `json:"apiVersion"`
 		Serviceregistryid          string `json:"serviceRegistryId"`
 		Configmanagementid         string `json:"configManagementId"`
-		Importexisting             bool   `json:"importExisting"`
+		Importexisting             string `json:"importExisting"`
 		Enabledisktypeselection    string `json:"enableDiskTypeSelection"`
 		Enablenetworktypeselection string `json:"enableNetworkTypeSelection"`
 	} `json:"config"`
