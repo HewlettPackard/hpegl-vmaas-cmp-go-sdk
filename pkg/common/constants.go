@@ -69,4 +69,8 @@ const (
 
 	// Morpheus version
 	CMPSixZeroFiveVersion = "6.0.5"
+
+	// Broker API paths
+	SubscriptionDetails = "vmaas/api/v1alpha1/subscription_details"
+	MorpheusToken       = "vmaas/api/v1/service_instances/%s/cmp_access_token"
 )

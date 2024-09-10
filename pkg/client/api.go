@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 package client
 
@@ -25,6 +25,8 @@ type api struct {
 	jsonParser        jsonPareserFunc
 	validations       []validationFunc
 	compatibleVersion string
+	// removeVmaasCMPBasePath is used to remove the base path of the vmaas-cmp API, for use by the broker API
+	removeVmaasCMPBasePath bool
 }
 
 // do will call the API provided. this function will not return any response, but
@@ -49,7 +51,15 @@ func (a *api) do(ctx context.Context, request interface{}, queryParams map[strin
 	if a.path == "" || a.method == "" || a.client == nil || a.jsonParser == nil {
 		panic("api not properly configured")
 	}
-	a.path = fmt.Sprintf("%s/%s/%s", a.client.getHost(), consts.VmaasCmpAPIBasePath, a.path)
+
+	// Set the path
+	if !a.removeVmaasCMPBasePath {
+		// Add the base path of the vmaas-cmp API if we are calling the vmaas-cmp API
+		a.path = fmt.Sprintf("%s/%s/%s", a.client.getHost(), consts.VmaasCmpAPIBasePath, a.path)
+	} else {
+		// Don't use the base path of the vmaas-cmp API if we are calling the broker API
+		a.path = fmt.Sprintf("%s/%s", a.client.getHost(), a.path)
+	}
 
 	for _, validations := range a.validations {
 		err := validations()
