@@ -27,7 +27,7 @@ const (
 	// Service plans path
 	ServicePlansPath = "service-plans"
 	// Instance Service Plan for storage vol type
-	InstanceStorageTypePath = "instances/service-plans"
+	InstancePlanPath = "instances/service-plans"
 	// CloudsPath
 	CloudsPath = "clouds"
 	// ZonePath

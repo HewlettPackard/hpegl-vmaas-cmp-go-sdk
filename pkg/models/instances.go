@@ -593,7 +593,7 @@ type GetInstanceContainersServerType struct {
 	ExternalDelete bool   `json:"externalDelete" tf:"external_delete"`
 }
 
-type InstancePlanStorageTypeResponse struct {
+type InstancePlanResponse struct {
 	Plans []struct {
 		ID                   int                   `json:"id"`
 		Name                 string                `json:"name"`

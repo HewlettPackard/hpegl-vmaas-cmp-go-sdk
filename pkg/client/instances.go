@@ -449,12 +449,12 @@ func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID in
 }
 
 func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, layoutID string,
-) (models.InstancePlanStorageTypeResponse, error) {
-	StorageVol := models.InstancePlanStorageTypeResponse{}
+) (models.InstancePlanResponse, error) {
+	StorageVol := models.InstancePlanResponse{}
 
 	apiCaller := &api{
 		method: "GET",
-		path:   consts.InstanceStorageTypePath,
+		path:   consts.InstancePlanPath,
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
