@@ -615,10 +615,10 @@ type InstancePlanStorageTypeResponse struct {
 }
 
 type InstanceStorageType struct {
-	ID               int    `json:"id"`
-	Code             string `json:"code"`
+	ID               int    `json:"id" tf:"id,computed"`
+	Code             string `json:"code" tf:"code"`
 	DisplayName      string `json:"displayName"`
-	Name             string `json:"name"`
+	Name             string `json:"name" tf:"name"`
 	ConfigurableIOPS bool   `json:"configurableIOPS"`
 	PlanResizable    bool   `json:"planResizable"`
 	CustomLabel      bool   `json:"customLabel"`
