@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -23,7 +24,7 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.Morph
 	// Get the service instance ID and Morpheus URL
 	ServiceSubscriptionDetailsResp := models.SubscriptionDetailsResponse{}
 	serviceSubscriptionDetailsAPI := &api{
-		method:                 "GET",
+		method:                 http.MethodGet,
 		path:                   consts.SubscriptionDetails,
 		client:                 a.Client,
 		removeVmaasCMPBasePath: true,
@@ -42,7 +43,7 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.Morph
 	MorpheusTokenResp := models.MorpheusTokenResponse{}
 	log.Printf(consts.MorpheusToken, ServiceSubscriptionDetailsResp.ServiceInstanceID)
 	morpheusTokenAPI := &api{
-		method:                 "GET",
+		method:                 http.MethodGet,
 		path:                   fmt.Sprintf(consts.MorpheusToken, ServiceSubscriptionDetailsResp.ServiceInstanceID),
 		client:                 a.Client,
 		removeVmaasCMPBasePath: true,
