@@ -1,4 +1,4 @@
-// (C) Copyright 2021-2022 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 package common
 
@@ -26,6 +26,8 @@ const (
 	LibraryInstanceTypesPath = "library/instance-types"
 	// Service plans path
 	ServicePlansPath = "service-plans"
+	// Instance Service Plan for storage vol type
+	InstancePlanPath = "instances/service-plans"
 	// CloudsPath
 	CloudsPath = "clouds"
 	// ZonePath

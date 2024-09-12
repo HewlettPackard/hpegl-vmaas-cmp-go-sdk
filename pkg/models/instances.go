@@ -318,6 +318,7 @@ type GetInstanceResponseInstanceVolumes struct {
 	Size              int         `json:"size,omitempty"`
 	Name              string      `json:"name,omitempty"`
 	RootVolume        bool        `json:"rootVolume,omitempty"`
+	StorageType       int         `json:"storageType,omitempty"`
 	ID                int         `json:"id,omitempty"`
 	DatastoreID       interface{} `json:"datastoreId,omitempty"`
 	MaxStorage        float64     `json:"maxStorage,omitempty"`
@@ -590,4 +591,39 @@ type GetInstanceContainersServerType struct {
 	Name           string `json:"name" tf:"name"`
 	Managed        bool   `json:"managed" tf:"managed"`
 	ExternalDelete bool   `json:"externalDelete" tf:"external_delete"`
+}
+
+type InstancePlanResponse struct {
+	Plans []struct {
+		ID                   int                   `json:"id"`
+		Name                 string                `json:"name"`
+		Value                int                   `json:"value"`
+		Code                 string                `json:"code"`
+		MaxStorage           int                   `json:"maxStorage"`
+		MaxMemory            int                   `json:"maxMemory"`
+		MaxCPU               interface{}           `json:"maxCpu"`
+		MaxCores             int                   `json:"maxCores"`
+		CustomCPU            bool                  `json:"customCpu"`
+		CustomMaxMemory      bool                  `json:"customMaxMemory"`
+		CustomMaxStorage     bool                  `json:"customMaxStorage"`
+		CustomMaxDataStorage bool                  `json:"customMaxDataStorage"`
+		CustomCoresPerSocket bool                  `json:"customCoresPerSocket"`
+		CoresPerSocket       int                   `json:"coresPerSocket"`
+		StorageTypes         []InstanceStorageType `json:"storageTypes"`
+		RootStorageTypes     []InstanceStorageType `json:"rootStorageTypes"`
+	} `json:"plans"`
+}
+
+type InstanceStorageType struct {
+	ID               int    `json:"id" tf:"id,computed"`
+	Code             string `json:"code" tf:"code"`
+	DisplayName      string `json:"displayName"`
+	Name             string `json:"name" tf:"name"`
+	ConfigurableIOPS bool   `json:"configurableIOPS"`
+	PlanResizable    bool   `json:"planResizable"`
+	CustomLabel      bool   `json:"customLabel"`
+	Enabled          bool   `json:"enabled"`
+	Description      string `json:"description"`
+	VolumeCategory   string `json:"volumeCategory"`
+	ExternalID       string `json:"externalId"`
 }
