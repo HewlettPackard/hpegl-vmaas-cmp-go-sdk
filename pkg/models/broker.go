@@ -20,6 +20,7 @@ type MorpheusTokenResponse struct {
 
 // MorpheusDetails is what we return to terraform
 type MorpheusDetails struct {
+	ID                   string `json:"id"` // This is the ServiceInstanceID, added here for use by the provider
 	AccessToken          string `json:"access_token"`
 	RefreshToken         string `json:"refresh_token"`
 	AccessTokenExpiresIn int    `json:"access_token_expires_in"`

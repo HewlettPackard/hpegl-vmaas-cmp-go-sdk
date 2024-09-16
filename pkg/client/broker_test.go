@@ -22,7 +22,7 @@ import (
 )
 
 const (
-	testSubscriptionID       = "18ba6409-ac59-4eac-9414-0147e72d615e"
+	testServiceInstanceID    = "18ba6409-ac59-4eac-9414-0147e72d615e"
 	testAccessToken          = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
 	testRefreshToken         = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
 	testMorpheusURL          = "https://1234-mp.private.greenlake.hpe-gl-intg.com/"
@@ -56,6 +56,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 		{
 			name: "Test GetMorpheusDetails success",
 			want: models.MorpheusDetails{
+				ID:                   testServiceInstanceID,
 				AccessToken:          testAccessToken,
 				RefreshToken:         testRefreshToken,
 				AccessTokenExpiresIn: testAccessTokenExpiresIn,
@@ -71,7 +72,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				reqSubscription, _ := http.NewRequest(method, pathSubscription, nil)
 				respBodySubscription := io.NopCloser(bytes.NewReader([]byte(`
 					{
-						"ServiceInstanceID": "` + testSubscriptionID + `",	
+						"ServiceInstanceID": "` + testServiceInstanceID + `",	
 						"URL": "` + testMorpheusURL + `"	
 					}
 				`)))
@@ -87,7 +88,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 
 				// Get Morpheus token
 				m.EXPECT().getHost().Return(mockHost)
-				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testSubscriptionID)
+				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testServiceInstanceID)
 				reqToken, _ := http.NewRequest(method, pathToken, nil)
 				tokenResp := models.MorpheusTokenResponse{
 					AccessToken:          testAccessToken,
@@ -139,7 +140,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				reqSubscription, _ := http.NewRequest(method, pathSubscription, nil)
 				respBodySubscription := io.NopCloser(bytes.NewReader([]byte(`
 					{
-						"ServiceInstanceID": "` + testSubscriptionID + `",	
+						"ServiceInstanceID": "` + testServiceInstanceID + `",	
 						"URL": "` + testMorpheusURL + `"	
 					}
 				`)))
@@ -167,7 +168,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				reqSubscription, _ := http.NewRequest(method, pathSubscription, nil)
 				respBodySubscription := io.NopCloser(bytes.NewReader([]byte(`
 					{
-						"ServiceInstanceID": "` + testSubscriptionID + `",	
+						"ServiceInstanceID": "` + testServiceInstanceID + `",	
 						"URL": "` + testMorpheusURL + `"	
 					}
 				`)))
@@ -183,7 +184,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 
 				// Get Morpheus token
 				m.EXPECT().getHost().Return(mockHost)
-				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testSubscriptionID)
+				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testServiceInstanceID)
 				// mock the context only since it is not validated in this function
 				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), pathToken, method, nil, headers,
@@ -204,7 +205,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				reqSubscription, _ := http.NewRequest(method, pathSubscription, nil)
 				respBodySubscription := io.NopCloser(bytes.NewReader([]byte(`
 					{
-						"ServiceInstanceID": "` + testSubscriptionID + `",	
+						"ServiceInstanceID": "` + testServiceInstanceID + `",	
 						"URL": "` + testMorpheusURL + `"	
 					}
 				`)))
@@ -220,7 +221,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 
 				// Get Morpheus token
 				m.EXPECT().getHost().Return(mockHost)
-				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testSubscriptionID)
+				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testServiceInstanceID)
 				reqToken, _ := http.NewRequest(method, pathToken, nil)
 				tokenResp := models.MorpheusTokenResponse{
 					AccessToken:          testAccessToken,
