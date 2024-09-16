@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
@@ -41,7 +40,6 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.Morph
 
 	// Get the Morpheus token
 	MorpheusTokenResp := models.MorpheusTokenResponse{}
-	log.Printf(consts.MorpheusToken, ServiceSubscriptionDetailsResp.ServiceInstanceID)
 	morpheusTokenAPI := &api{
 		method:                 http.MethodGet,
 		path:                   fmt.Sprintf(consts.MorpheusToken, ServiceSubscriptionDetailsResp.ServiceInstanceID),
