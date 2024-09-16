@@ -12,13 +12,17 @@ type SubscriptionDetailsResponse struct {
 
 // MorpheusTokenResponse is the response for Morpheus Token from the broker
 type MorpheusTokenResponse struct {
-	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
+	AccessToken          string `json:"access_token"`
+	RefreshToken         string `json:"refresh_token"`
+	AccessTokenExpiresIn int    `json:"expires_in"`
+	RefreshTokenExpires  int    `json:"expires"`
 }
 
 // MorpheusDetails is what we return to terraform
 type MorpheusDetails struct {
-	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
-	URL          string `json:"URL"`
+	AccessToken          string `json:"access_token"`
+	RefreshToken         string `json:"refresh_token"`
+	AccessTokenExpiresIn int    `json:"access_token_expires_in"`
+	RefreshTokenExpires  int    `json:"refresh_token_expires"`
+	URL                  string `json:"URL"`
 }

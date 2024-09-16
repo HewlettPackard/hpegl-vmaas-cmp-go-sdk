@@ -5,6 +5,7 @@ package client
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -14,15 +15,19 @@ import (
 
 	"github.com/golang/mock/gomock"
 
+	"github.com/stretchr/testify/assert"
+
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
 const (
-	testSubscriptionID = "18ba6409-ac59-4eac-9414-0147e72d615e"
-	testAccessToken    = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
-	testRefreshToken   = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
-	testMorpheusURL    = "https://1234-mp.private.greenlake.hpe-gl-intg.com/"
+	testSubscriptionID       = "18ba6409-ac59-4eac-9414-0147e72d615e"
+	testAccessToken          = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
+	testRefreshToken         = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
+	testMorpheusURL          = "https://1234-mp.private.greenlake.hpe-gl-intg.com/"
+	testAccessTokenExpiresIn = 3600
+	testRefreshTokenExpires  = 1758034360176
 )
 
 func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
@@ -51,9 +56,11 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 		{
 			name: "Test GetMorpheusDetails success",
 			want: models.MorpheusDetails{
-				AccessToken:  testAccessToken,
-				RefreshToken: testRefreshToken,
-				URL:          testMorpheusURL,
+				AccessToken:          testAccessToken,
+				RefreshToken:         testRefreshToken,
+				AccessTokenExpiresIn: testAccessTokenExpiresIn,
+				RefreshTokenExpires:  testRefreshTokenExpires,
+				URL:                  testMorpheusURL,
 			},
 			wantErr: false,
 			given: func(m *MockAPIClientHandler) {
@@ -82,12 +89,15 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				m.EXPECT().getHost().Return(mockHost)
 				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testSubscriptionID)
 				reqToken, _ := http.NewRequest(method, pathToken, nil)
-				respBodyToken := io.NopCloser(bytes.NewReader([]byte(`
-					{
-						"access_token": "` + testAccessToken + `",
-						"refresh_token": "` + testRefreshToken + `"
-					}
-				`)))
+				tokenResp := models.MorpheusTokenResponse{
+					AccessToken:          testAccessToken,
+					RefreshToken:         testRefreshToken,
+					AccessTokenExpiresIn: testAccessTokenExpiresIn,
+					RefreshTokenExpires:  testRefreshTokenExpires,
+				}
+				body, err := json.Marshal(tokenResp)
+				assert.NoError(t, err)
+				respBodyToken := io.NopCloser(bytes.NewReader(body))
 				// mock the context only since it is not validated in this function
 				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), pathToken, method, nil, headers,
@@ -212,12 +222,15 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				m.EXPECT().getHost().Return(mockHost)
 				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testSubscriptionID)
 				reqToken, _ := http.NewRequest(method, pathToken, nil)
-				respBodyToken := io.NopCloser(bytes.NewReader([]byte(`
-					{
-						"access_token": "` + testAccessToken + `",
-						"refresh_token": "` + testRefreshToken + `"
-					}
-				`)))
+				tokenResp := models.MorpheusTokenResponse{
+					AccessToken:          testAccessToken,
+					RefreshToken:         testRefreshToken,
+					AccessTokenExpiresIn: testAccessTokenExpiresIn,
+					RefreshTokenExpires:  testRefreshTokenExpires,
+				}
+				body, err := json.Marshal(tokenResp)
+				assert.NoError(t, err)
+				respBodyToken := io.NopCloser(bytes.NewReader([]byte(body)))
 				// mock the context only since it is not validated in this function
 				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), pathToken, method, nil, headers,
