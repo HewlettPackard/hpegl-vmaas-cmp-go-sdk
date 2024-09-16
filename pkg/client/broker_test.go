@@ -7,19 +7,18 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
-	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 	"io"
 	"net/http"
 	"net/url"
 	"testing"
 
 	"github.com/golang/mock/gomock"
+
+	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
+	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
 const (
-	testTenantID       = "1234"
-	testBrokerURL      = "https://broker.com"
 	testSubscriptionID = "18ba6409-ac59-4eac-9414-0147e72d615e"
 	testAccessToken    = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
 	testRefreshToken   = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
@@ -32,7 +31,6 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 	defer testCtrl.Finish()
 
 	headers := getDefaultHeaders()
-	//	headers["X-Tenant-ID"] = testTenantID
 
 	queryParams := map[string]string{
 		"location":   "BLR",
