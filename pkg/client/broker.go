@@ -58,12 +58,10 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.Morph
 
 	// build response
 	ret := models.MorpheusDetails{
-		ID:                   ServiceSubscriptionDetailsResp.ServiceInstanceID,
-		AccessToken:          MorpheusTokenResp.AccessToken,
-		RefreshToken:         MorpheusTokenResp.RefreshToken,
-		AccessTokenExpiresIn: MorpheusTokenResp.AccessTokenExpiresIn,
-		RefreshTokenExpires:  MorpheusTokenResp.RefreshTokenExpires,
-		URL:                  ServiceSubscriptionDetailsResp.URL,
+		ID:                 ServiceSubscriptionDetailsResp.ServiceInstanceID,
+		AccessToken:        MorpheusTokenResp.AccessToken,
+		AccessTokenExpires: MorpheusTokenResp.AccessTokenExpires,
+		URL:                ServiceSubscriptionDetailsResp.URL,
 	}
 
 	return ret, nil
