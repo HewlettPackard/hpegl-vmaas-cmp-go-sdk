@@ -22,10 +22,12 @@ import (
 )
 
 const (
-	testServiceInstanceID  = "18ba6409-ac59-4eac-9414-0147e72d615e"
-	testAccessToken        = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
-	testMorpheusURL        = "https://1234-mp.private.greenlake.hpe-gl-intg.com/"
-	testAccessTokenExpires = 1758034360176
+	testServiceInstanceID    = "18ba6409-ac59-4eac-9414-0147e72d615e"
+	testAccessToken          = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
+	testRefreshToken         = "7806acfb-f847-48b1-a6d5-6119dccb3ffe"
+	testMorpheusURL          = "https://1234-mp.private.greenlake.hpe-gl-intg.com/"
+	testAccessTokenExpires   = 1758034360176
+	testAccessTokenExpiresIn = 3600
 )
 
 func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
@@ -48,16 +50,16 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 	tests := []struct {
 		name    string
 		given   func(m *MockAPIClientHandler)
-		want    models.MorpheusDetails
+		want    models.TFMorpheusDetails
 		wantErr bool
 	}{
 		{
 			name: "Test GetMorpheusDetails success",
-			want: models.MorpheusDetails{
-				ID:                 testServiceInstanceID,
-				AccessToken:        testAccessToken,
-				AccessTokenExpires: testAccessTokenExpires,
-				URL:                testMorpheusURL,
+			want: models.TFMorpheusDetails{
+				ID:          testServiceInstanceID,
+				AccessToken: testAccessToken,
+				ValidTill:   testAccessTokenExpires,
+				URL:         testMorpheusURL,
 			},
 			wantErr: false,
 			given: func(m *MockAPIClientHandler) {
@@ -87,8 +89,10 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testServiceInstanceID)
 				reqToken, _ := http.NewRequest(method, pathToken, nil)
 				tokenResp := models.MorpheusTokenResponse{
-					AccessToken:        testAccessToken,
-					AccessTokenExpires: testAccessTokenExpires,
+					AccessToken:  testAccessToken,
+					Expires:      testAccessTokenExpires,
+					RefreshToken: testRefreshToken,
+					ExpiresIn:    testAccessTokenExpiresIn,
 				}
 				body, err := json.Marshal(tokenResp)
 				assert.NoError(t, err)
@@ -107,7 +111,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 
 		{
 			name:    "Test GetMorpheusDetails error in get subscription details prepare request",
-			want:    models.MorpheusDetails{},
+			want:    models.TFMorpheusDetails{},
 			wantErr: true,
 			given: func(m *MockAPIClientHandler) {
 				// Get subscription details
@@ -124,7 +128,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 
 		{
 			name:    "Test GetMorpheusDetails error in get subscription details call API",
-			want:    models.MorpheusDetails{},
+			want:    models.TFMorpheusDetails{},
 			wantErr: true,
 			given: func(m *MockAPIClientHandler) {
 				// Get subscription details
@@ -152,7 +156,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 
 		{
 			name:    "Test GetMorpheusDetails error in get Morpheus token prepare request",
-			want:    models.MorpheusDetails{},
+			want:    models.TFMorpheusDetails{},
 			wantErr: true,
 			given: func(m *MockAPIClientHandler) {
 				// Get subscription details
@@ -189,7 +193,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 
 		{
 			name:    "Test GetMorpheusDetails error in get Morpheus token call API",
-			want:    models.MorpheusDetails{},
+			want:    models.TFMorpheusDetails{},
 			wantErr: true,
 			given: func(m *MockAPIClientHandler) {
 				// Get subscription details
@@ -218,8 +222,10 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				pathToken := mockHost + "/" + fmt.Sprintf(consts.MorpheusToken, testServiceInstanceID)
 				reqToken, _ := http.NewRequest(method, pathToken, nil)
 				tokenResp := models.MorpheusTokenResponse{
-					AccessToken:        testAccessToken,
-					AccessTokenExpires: testAccessTokenExpires,
+					AccessToken:  testAccessToken,
+					Expires:      testAccessTokenExpires,
+					RefreshToken: testRefreshToken,
+					ExpiresIn:    testAccessTokenExpiresIn,
 				}
 				body, err := json.Marshal(tokenResp)
 				assert.NoError(t, err)

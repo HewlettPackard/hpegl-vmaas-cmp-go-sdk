@@ -12,14 +12,18 @@ type SubscriptionDetailsResponse struct {
 
 // MorpheusTokenResponse is the response for Morpheus Token from the broker
 type MorpheusTokenResponse struct {
-	AccessToken        string `json:"access_token"`
-	AccessTokenExpires int    `json:"expires"`
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+	Expires      int64  `json:"expires"`
+	ExpiresIn    int64  `json:"expires_in"`
 }
 
-// MorpheusDetails is what we return to terraform
-type MorpheusDetails struct {
-	ID                 string `json:"id"` // This is the ServiceInstanceID, added here for use by the provider
-	AccessToken        string `json:"access_token"`
-	AccessTokenExpires int    `json:"access_token_expires"` // This is the Unix timestamp of when the token expires
-	URL                string `json:"URL"`
+// TFMorpheusDetails is what we return to terraform
+type TFMorpheusDetails struct {
+	// ID is the ServiceInstanceID, added here for use by the provider when storing the data
+	ID          string `json:"id"`
+	AccessToken string `json:"access_token"`
+	// ValidTill Unix timestamp of when the access_token expires in seconds
+	ValidTill int64  `json:"valid_till"`
+	URL       string `json:"URL"`
 }

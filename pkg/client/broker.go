@@ -19,7 +19,7 @@ type BrokerAPIService struct {
 }
 
 // GetMorpheusDetails returns Morpheus details to terraform
-func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.MorpheusDetails, error) {
+func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.TFMorpheusDetails, error) {
 	// Get the service instance ID and Morpheus URL
 	ServiceSubscriptionDetailsResp := models.SubscriptionDetailsResponse{}
 	serviceSubscriptionDetailsAPI := &api{
@@ -35,7 +35,7 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.Morph
 
 	// Use the default query params
 	if err := serviceSubscriptionDetailsAPI.do(ctx, nil, a.Cfg.DefaultQueryParams); err != nil {
-		return models.MorpheusDetails{}, fmt.Errorf("error getting service subscription details: %v", err)
+		return models.TFMorpheusDetails{}, fmt.Errorf("error getting service subscription details: %v", err)
 	}
 
 	// Get the Morpheus token
@@ -53,15 +53,15 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.Morph
 
 	// No query params needed
 	if err := morpheusTokenAPI.do(ctx, nil, nil); err != nil {
-		return models.MorpheusDetails{}, fmt.Errorf("error getting Morpheus token: %v", err)
+		return models.TFMorpheusDetails{}, fmt.Errorf("error getting Morpheus token: %v", err)
 	}
 
 	// build response
-	ret := models.MorpheusDetails{
-		ID:                 ServiceSubscriptionDetailsResp.ServiceInstanceID,
-		AccessToken:        MorpheusTokenResp.AccessToken,
-		AccessTokenExpires: MorpheusTokenResp.AccessTokenExpires,
-		URL:                ServiceSubscriptionDetailsResp.URL,
+	ret := models.TFMorpheusDetails{
+		ID:          ServiceSubscriptionDetailsResp.ServiceInstanceID,
+		AccessToken: MorpheusTokenResp.AccessToken,
+		ValidTill:   MorpheusTokenResp.Expires,
+		URL:         ServiceSubscriptionDetailsResp.URL,
 	}
 
 	return ret, nil
