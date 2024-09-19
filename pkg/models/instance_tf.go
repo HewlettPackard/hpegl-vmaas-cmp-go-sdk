@@ -8,7 +8,7 @@ type TFInstance struct {
 	Containers []GetInstanceContainer        `tf:"containers,computed"`
 	Snapshot   TFInstanceSnapshot            `tf:"snapshot,computed,sub"`
 	Volume     []TFInstanceVolume            `tf:"volume,computed"`
-	Network    []TFInstanceNetwork           `tf:"network,computed"`
+	Network    []TFInstanceNetwork           `tf:"network,compute"`
 	Status     string                        `tf:"status,computed"`
 }
 
