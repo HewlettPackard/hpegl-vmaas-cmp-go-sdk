@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 //go:generate go run github.com/golang/mock/mockgen -source ./client.go -package client -destination ./client_mock.go
 
@@ -36,6 +36,11 @@ type APIClientHandler interface {
 	SetMeta(meta interface{}, fn SetScmClientToken) error
 	getVersion() int
 	getHost() string
+	// The next two methods are for use when creating the Broker API client
+	// SetMetaFnAndVersion is used to set the client token function in meta and the SCM version for the Broker client
+	SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken)
+	// GetSCMVersion returns the SCM version for use when creating the Broker client
+	GetSCMVersion() int
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
@@ -96,6 +101,12 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	return nil
 }
 
+func (c *APIClient) SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken) {
+	c.meta = meta
+	c.tokenFunc = fn
+	c.cmpVersion = version
+}
+
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	return c.cfg.HTTPClient.Do(request)
@@ -110,8 +121,12 @@ func (c *APIClient) getVersion() int {
 	return c.cmpVersion
 }
 
+func (c *APIClient) GetSCMVersion() int {
+	return c.cmpVersion
+}
+
 // prepareRequest build the request
-//nolint
+// nolint
 func (c *APIClient) prepareRequest(
 	ctx context.Context,
 	path string, method string,
