@@ -114,7 +114,8 @@ type CreateInstanceBodyVolumes struct {
 	Size        int    `json:"size,omitempty"`
 	StorageType int    `json:"storageType,omitempty"`
 	// The ID of the specific datastore. Auto selection can be specified as auto or autoCluster (for clusters).
-	DatastoreID interface{} `json:"datastoreId,omitempty"`
+	DatastoreID          interface{} `json:"datastoreId,omitempty"`
+	ControllerMountPoint string      `json:"controllerMountPoint,omitempty"`
 }
 
 type Instances struct {
@@ -360,13 +361,14 @@ type ResizeInstanceBodyInstancePlan struct {
 
 // ResizeInstanceBodyInstanceVolumes
 type ResizeInstanceBodyInstanceVolumes struct {
-	ID          json.Number `json:"id"`
-	RootVolume  bool        `json:"rootVolume"`
-	Name        string      `json:"name"`
-	Size        int         `json:"size"`
-	SizeID      interface{} `json:"sizeId,omitempty"`
-	StorageType interface{} `json:"storageType,omitempty"`
-	DatastoreID interface{} `json:"datastoreId,omitempty"`
+	ID                   json.Number `json:"id"`
+	RootVolume           bool        `json:"rootVolume"`
+	Name                 string      `json:"name"`
+	Size                 int         `json:"size"`
+	SizeID               interface{} `json:"sizeId,omitempty"`
+	StorageType          interface{} `json:"storageType,omitempty"`
+	DatastoreID          interface{} `json:"datastoreId,omitempty"`
+	ControllerMountPoint string      `json:"controllerMountPoint,omitempty"`
 }
 
 type ResizeInstanceResponse struct {
@@ -385,12 +387,13 @@ type ResizeInstanceResponseInstance struct {
 }
 
 type GetInstanceResposeResizeVolumes struct {
-	ID          json.Number `json:"id,omitempty"`
-	RootVolume  interface{} `json:"rootVolume,omitempty"`
-	Name        string      `json:"name,omitempty"`
-	Size        json.Number `json:"size,omitempty"`
-	StorageType json.Number `json:"storageType,omitempty"`
-	DatastoreID interface{} `json:"datastoreId,omitempty"`
+	ID                   json.Number `json:"id,omitempty"`
+	RootVolume           interface{} `json:"rootVolume,omitempty"`
+	Name                 string      `json:"name,omitempty"`
+	Size                 json.Number `json:"size,omitempty"`
+	StorageType          json.Number `json:"storageType,omitempty"`
+	DatastoreID          interface{} `json:"datastoreId,omitempty"`
+	ControllerMountPoint string      `json:"controllerMountPoint,omitempty"`
 }
 
 // SnapshotBody
