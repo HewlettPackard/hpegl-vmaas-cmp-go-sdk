@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/antihax/optional"
 
@@ -468,4 +469,28 @@ func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, 
 	err := apiCaller.do(ctx, nil, queryParams)
 
 	return StorageVol, err
+}
+
+func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, instanceID int, controllerType string,
+	busNumber, unitNumber int) (ControllerMount string, err error) {
+	controllerType = strings.ToLower(controllerType)
+	instanceResp, err := a.GetASpecificInstance(ctx, instanceID)
+	if err != nil {
+		return
+	}
+	if instanceResp.Instance.Controllers == nil {
+		err = fmt.Errorf("no controllers found in the instance response")
+		return
+	}
+	for _, controller := range instanceResp.Instance.Controllers {
+		if strings.ToLower(controller.Type.Name) == controllerType {
+			if controller.MaxDevices <= unitNumber {
+				err = fmt.Errorf("max allowed devices exceed for controller '%s'", controllerType)
+				return
+			}
+			ControllerMount = fmt.Sprintf("%d:%d:%d:%d", controller.ID, busNumber, controller.Type.ID, unitNumber)
+		}
+	}
+
+	return
 }

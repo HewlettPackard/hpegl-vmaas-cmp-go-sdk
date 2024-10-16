@@ -26,6 +26,7 @@ type TFInstanceVolume struct {
 	ID          int    `tf:"id"`
 	Root        bool   `tf:"root"`
 	StorageType int    `tf:"storage_type"`
+	Controller  string `tf:"controller"`
 }
 
 type TFInstanceNetwork struct {

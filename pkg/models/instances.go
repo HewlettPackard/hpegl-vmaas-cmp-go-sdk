@@ -176,6 +176,19 @@ type GetInstanceResponseInstance struct {
 	EnvironmentPrefix   string                                      `json:"environmentPrefix"`
 	InstanceContext     string                                      `json:"instanceContext"`
 	ContainerDetails    []GetInstanceContainer                      `json:"containerDetails"`
+	Controllers         []InstanceStorageController                 `json:"controllers,omitempty"`
+}
+
+type InstanceStorageController struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+	Type struct {
+		ID   int    `json:"id"`
+		Code string `json:"code"`
+		Name string `json:"name"`
+	} `json:"type"`
+	MaxDevices         int `json:"maxDevices"`
+	ReservedUnitNumber int `json:"reservedUnitNumber"`
 }
 
 // GetInstanceResponseInstanceCloud
@@ -315,14 +328,15 @@ type GetInstanceResponseInstanceTenant struct {
 
 // GetInstanceResponseInstanceVolumes
 type GetInstanceResponseInstanceVolumes struct {
-	Size              int         `json:"size,omitempty"`
-	Name              string      `json:"name,omitempty"`
-	RootVolume        bool        `json:"rootVolume,omitempty"`
-	StorageType       int         `json:"storageType,omitempty"`
-	ID                int         `json:"id,omitempty"`
-	DatastoreID       interface{} `json:"datastoreId,omitempty"`
-	MaxStorage        float64     `json:"maxStorage,omitempty"`
-	DeviceDisplayName string      `json:"deviceDisplayName,omitempty"`
+	Size                 int         `json:"size,omitempty"`
+	Name                 string      `json:"name,omitempty"`
+	RootVolume           bool        `json:"rootVolume,omitempty"`
+	StorageType          int         `json:"storageType,omitempty"`
+	ID                   int         `json:"id,omitempty"`
+	DatastoreID          interface{} `json:"datastoreId,omitempty"`
+	MaxStorage           float64     `json:"maxStorage,omitempty"`
+	DeviceDisplayName    string      `json:"deviceDisplayName,omitempty"`
+	ControllerMountPoint string      `json:"controllerMountPoint,omitempty"`
 }
 
 // ResizeInstanceBody
