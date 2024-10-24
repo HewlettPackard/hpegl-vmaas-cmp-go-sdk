@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/antihax/optional"
 
@@ -468,4 +469,40 @@ func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, 
 	err := apiCaller.do(ctx, nil, queryParams)
 
 	return StorageVol, err
+}
+
+func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, instanceID int, controllerType string,
+	busNumber, unitNumber int) (ControllerMount string, err error) {
+	controllerTypeInput := strings.ToLower(controllerType)
+	if controllerTypeInput == "ide" {
+		controllerTypeInput = fmt.Sprintf("%s %d", controllerTypeInput, busNumber)
+	} else if controllerTypeInput == "scsi" {
+		controllerTypeInput = fmt.Sprintf("%s controller %d", controllerTypeInput, busNumber)
+	} else {
+		err = fmt.Errorf("invalid controller type '%s'", controllerType)
+		return
+	}
+	instanceResp, err := a.GetASpecificInstance(ctx, instanceID)
+	if err != nil {
+		return
+	}
+	if instanceResp.Instance.Controllers == nil {
+		err = fmt.Errorf("no storage controllers found in the instance response")
+		return
+	}
+	for _, controller := range instanceResp.Instance.Controllers {
+		controllerName := strings.TrimSpace(strings.ToLower(controller.Name))
+		if controllerName == controllerTypeInput {
+			if controller.MaxDevices <= unitNumber {
+				err = fmt.Errorf("max allowed devices exceed for controller '%s'", controllerTypeInput)
+				return
+			}
+			ControllerMount = fmt.Sprintf("%d:%d:%d:%d", controller.ID, busNumber, controller.Type.ID, unitNumber)
+			break
+		}
+	}
+	if ControllerMount == "" {
+		err = fmt.Errorf("storage controller '%s' not found", controllerTypeInput)
+	}
+	return
 }
