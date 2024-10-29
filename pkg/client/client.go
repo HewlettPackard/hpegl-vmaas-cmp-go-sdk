@@ -47,6 +47,8 @@ type APIClientHandler interface {
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg        *Configuration
+	cmpURL     string
+	cmpToken   string
 	cmpVersion int
 	meta       interface{}
 	tokenFunc  SetScmClientToken
@@ -77,6 +79,16 @@ func (c *APIClient) getHost() string {
 func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	c.meta = meta
 	c.tokenFunc = fn
+	cmpBroker := BrokerAPIService{
+		Client: c,
+		Cfg:    *c.cfg,
+	}
+	cmpDetails, err := cmpBroker.GetMorpheusDetails(context.Background())
+	if err != nil {
+		return err
+	}
+	c.cmpURL = cmpDetails.URL
+	c.cmpToken = cmpDetails.AccessToken
 	// if cmp version already set then skip
 	if c.cmpVersion != 0 {
 		return nil
@@ -260,6 +272,10 @@ func (c *APIClient) prepareRequest(
 		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
 			localVarRequest.Header.Set("Authorization", "Bearer "+auth)
 		}
+	}
+	if c.cmpToken != "" && c.cmpURL != "" {
+		c.cfg.Host = c.cmpURL
+		localVarRequest.Header.Set("Authorization", "Bearer "+c.cmpToken)
 	}
 
 	for header, value := range c.cfg.DefaultHeader {
