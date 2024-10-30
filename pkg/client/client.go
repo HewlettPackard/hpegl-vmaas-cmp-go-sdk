@@ -16,6 +16,8 @@ import (
 	"net/url"
 	"path/filepath"
 	"strings"
+
+	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
 type SetScmClientToken func(ctx *context.Context, meta interface{})
@@ -41,14 +43,13 @@ type APIClientHandler interface {
 	SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken)
 	// GetSCMVersion returns the SCM version for use when creating the Broker client
 	GetSCMVersion() int
+	GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, error)
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg        *Configuration
-	cmpURL     string
-	cmpToken   string
 	cmpVersion int
 	meta       interface{}
 	tokenFunc  SetScmClientToken
@@ -79,16 +80,6 @@ func (c *APIClient) getHost() string {
 func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	c.meta = meta
 	c.tokenFunc = fn
-	cmpBroker := BrokerAPIService{
-		Client: c,
-		Cfg:    *c.cfg,
-	}
-	cmpDetails, err := cmpBroker.GetMorpheusDetails(context.Background())
-	if err != nil {
-		return err
-	}
-	c.cmpURL = cmpDetails.URL
-	c.cmpToken = cmpDetails.AccessToken
 	// if cmp version already set then skip
 	if c.cmpVersion != 0 {
 		return nil
@@ -113,6 +104,14 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	return nil
 }
 
+func (c *APIClient) GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, error) {
+	cmpBroker := BrokerAPIService{
+		Client: c,
+		Cfg:    *c.cfg,
+	}
+	return cmpBroker.GetMorpheusDetails(ctx)
+
+}
 func (c *APIClient) SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken) {
 	c.meta = meta
 	c.tokenFunc = fn
@@ -272,10 +271,6 @@ func (c *APIClient) prepareRequest(
 		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
 			localVarRequest.Header.Set("Authorization", "Bearer "+auth)
 		}
-	}
-	if c.cmpToken != "" && c.cmpURL != "" {
-		c.cfg.Host = c.cmpURL
-		localVarRequest.Header.Set("Authorization", "Bearer "+c.cmpToken)
 	}
 
 	for header, value := range c.cfg.DefaultHeader {
