@@ -55,8 +55,8 @@ func (a *api) do(ctx context.Context, request interface{}, queryParams map[strin
 	// Set the path
 	if !a.removeVmaasCMPBasePath {
 		// Add the base path of the vmaas-cmp API if we are calling the vmaas-cmp API
-		// a.path = fmt.Sprintf("%s/%s/%s", a.client.getHost(), consts.VmaasCmpAPIBasePath, a.path)
-		a.path = fmt.Sprintf("%s/%s", a.client.getHost(), a.path)
+		a.path = fmt.Sprintf("%s/%s/%s", a.client.getHost(), consts.VmaasCmpAPIBasePath, a.path)
+		//a.path = fmt.Sprintf("%s/%s", a.client.getHost(), a.path)
 	} else {
 		// Don't use the base path of the vmaas-cmp API if we are calling the broker API
 		a.path = fmt.Sprintf("%s/%s", a.client.getHost(), a.path)

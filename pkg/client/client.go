@@ -44,16 +44,18 @@ type APIClientHandler interface {
 	// GetSCMVersion returns the SCM version for use when creating the Broker client
 	GetSCMVersion() int
 	GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, error)
-	SetCMPMeta(meta interface{}, fn SetScmClientToken) error
+	SetCMPMeta(meta interface{}, brokerClient *APIClient, fn SetScmClientToken) error
+	SetCMPVersion(ctx context.Context) (err error)
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg        *Configuration
-	cmpVersion int
-	meta       interface{}
-	tokenFunc  SetScmClientToken
+	cfg          *Configuration
+	cmpVersion   int
+	meta         interface{}
+	tokenFunc    SetScmClientToken
+	BrokerClient *APIClient
 }
 
 // defaultTokenFunc will use while defining httpClient. defaultTokenFunc
@@ -77,8 +79,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 func (c *APIClient) getHost() string {
 	return c.cfg.Host
 }
-func (c *APIClient) SetHost(host string) {
+func (c *APIClient) SetHostandToken(host, token string) {
 	c.cfg.Host = host
+	if c.cfg.DefaultHeader == nil {
+		c.cfg.DefaultHeader = map[string]string{}
+	}
+	c.cfg.AddDefaultHeader("Authorization", "Bearer "+token)
 }
 func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	c.meta = meta
@@ -114,15 +120,18 @@ func (c *APIClient) GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, e
 	return cmpBroker.GetMorpheusDetails(ctx)
 
 }
-func (c *APIClient) SetCMPMeta(meta interface{}, fn SetScmClientToken) (err error) {
+func (c *APIClient) SetCMPMeta(meta interface{}, brokerClient *APIClient, fn SetScmClientToken) (err error) {
 	c.meta = meta
 	c.tokenFunc = fn
 	// if cmp version already set then skip
+	c.BrokerClient = brokerClient
+
+	return
+}
+func (c *APIClient) SetCMPVersion(ctx context.Context) (err error) {
 	if c.cmpVersion != 0 {
 		return nil
 	}
-	ctx := context.Background()
-	c.tokenFunc(&ctx, meta)
 	cmpClient := CmpStatus{
 		Client: c,
 		Cfg:    *c.cfg,
@@ -137,7 +146,6 @@ func (c *APIClient) SetCMPMeta(meta interface{}, fn SetScmClientToken) (err erro
 		return fmt.Errorf("failed to parse cmp build, error: %w", err)
 	}
 	c.cmpVersion = versionInt
-
 	return
 }
 func (c *APIClient) SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken) {
