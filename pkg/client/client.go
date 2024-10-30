@@ -44,6 +44,7 @@ type APIClientHandler interface {
 	// GetSCMVersion returns the SCM version for use when creating the Broker client
 	GetSCMVersion() int
 	GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, error)
+	SetCMPMeta(meta interface{}, fn SetScmClientToken) error
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
@@ -103,9 +104,6 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 
 	return nil
 }
-func (c *APIClient) SetHost(host string) {
-	c.cfg.Host = host
-}
 func (c *APIClient) GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, error) {
 	cmpBroker := BrokerAPIService{
 		Client: c,
@@ -113,6 +111,32 @@ func (c *APIClient) GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, e
 	}
 	return cmpBroker.GetMorpheusDetails(ctx)
 
+}
+func (c *APIClient) SetCMPMeta(meta interface{}, fn SetScmClientToken) (err error) {
+	c.meta = meta
+	c.tokenFunc = fn
+	// if cmp version already set then skip
+	if c.cmpVersion != 0 {
+		return nil
+	}
+	ctx := context.Background()
+	c.tokenFunc(&ctx, meta)
+	cmpClient := CmpStatus{
+		Client: c,
+		Cfg:    *c.cfg,
+	}
+	// Get status of cmp
+	statusResp, err := cmpClient.GetCmpVersion(ctx)
+	if err != nil {
+		return
+	}
+	versionInt, err := parseVersion(statusResp.Appliance.BuildVersion)
+	if err != nil {
+		return fmt.Errorf("failed to parse cmp build, error: %w", err)
+	}
+	c.cmpVersion = versionInt
+
+	return
 }
 func (c *APIClient) SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken) {
 	c.meta = meta
