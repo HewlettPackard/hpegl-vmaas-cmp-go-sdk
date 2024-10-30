@@ -103,7 +103,9 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 
 	return nil
 }
-
+func (c *APIClient) SetHost(host string) {
+	c.cfg.Host = host
+}
 func (c *APIClient) GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, error) {
 	cmpBroker := BrokerAPIService{
 		Client: c,
