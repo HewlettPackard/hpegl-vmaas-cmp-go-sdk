@@ -25,7 +25,7 @@ const (
 	testServiceInstanceID    = "18ba6409-ac59-4eac-9414-0147e72d615e"
 	testAccessToken          = "2b9fba7f-7c14-4773-a970-a9ad393811ac"
 	testRefreshToken         = "7806acfb-f847-48b1-a6d5-6119dccb3ffe"
-	testMorpheusURL          = "https://1234-mp.private.greenlake.hpe-gl-intg.com/"
+	testMorpheusURL          = "https://1234-mp.private.greenlake.hpe-gl-intg.com"
 	testAccessTokenExpires   = 1758034360176
 	testAccessTokenExpiresIn = 3600
 )

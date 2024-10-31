@@ -43,8 +43,9 @@ type APIClientHandler interface {
 	SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken)
 	// GetSCMVersion returns the SCM version for use when creating the Broker client
 	GetSCMVersion() int
-	GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, error)
-	SetCMPMeta(meta interface{}, brokerClient *APIClient, fn SetScmClientToken) error
+	SetHost(host string)
+	GetCMPDetails(ctx context.Context) (models.TFMorpheusDetails, error)
+	SetCMPMeta(meta interface{}, brokerClient *APIClient, fn SetScmClientToken)
 	SetCMPVersion(ctx context.Context) (err error)
 }
 
@@ -79,12 +80,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 func (c *APIClient) getHost() string {
 	return c.cfg.Host
 }
-func (c *APIClient) SetHostandToken(host, token string) {
+func (c *APIClient) SetHost(host string) {
 	c.cfg.Host = host
-	if c.cfg.DefaultHeader == nil {
-		c.cfg.DefaultHeader = map[string]string{}
-	}
-	c.cfg.AddDefaultHeader("Authorization", "Bearer "+token)
 }
 func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	c.meta = meta
@@ -112,7 +109,9 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 
 	return nil
 }
-func (c *APIClient) GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, error) {
+
+// GetCMPDetails here APIClient is the brokerClient
+func (c *APIClient) GetCMPDetails(ctx context.Context) (models.TFMorpheusDetails, error) {
 	cmpBroker := BrokerAPIService{
 		Client: c,
 		Cfg:    *c.cfg,
@@ -120,13 +119,10 @@ func (c *APIClient) GetCMPVars(ctx context.Context) (models.TFMorpheusDetails, e
 	return cmpBroker.GetMorpheusDetails(ctx)
 
 }
-func (c *APIClient) SetCMPMeta(meta interface{}, brokerClient *APIClient, fn SetScmClientToken) (err error) {
+func (c *APIClient) SetCMPMeta(meta interface{}, brokerClient *APIClient, fn SetScmClientToken) {
 	c.meta = meta
 	c.tokenFunc = fn
-	// if cmp version already set then skip
 	c.BrokerClient = brokerClient
-
-	return
 }
 func (c *APIClient) SetCMPVersion(ctx context.Context) (err error) {
 	if c.cmpVersion != 0 {
