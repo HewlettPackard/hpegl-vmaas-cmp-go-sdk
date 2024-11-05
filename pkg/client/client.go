@@ -44,19 +44,18 @@ type APIClientHandler interface {
 	// GetSCMVersion returns the SCM version for use when creating the Broker client
 	GetSCMVersion() int
 	SetHost(host string)
+	// GetCMPDetails here the client is the one which has broker host set
 	GetCMPDetails(ctx context.Context) (models.TFMorpheusDetails, error)
-	SetCMPMeta(meta interface{}, brokerClient *APIClient, fn SetScmClientToken)
 	SetCMPVersion(ctx context.Context) (err error)
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg          *Configuration
-	cmpVersion   int
-	meta         interface{}
-	tokenFunc    SetScmClientToken
-	BrokerClient *APIClient
+	cfg        *Configuration
+	cmpVersion int
+	meta       interface{}
+	tokenFunc  SetScmClientToken
 }
 
 // defaultTokenFunc will use while defining httpClient. defaultTokenFunc
@@ -119,11 +118,7 @@ func (c *APIClient) GetCMPDetails(ctx context.Context) (models.TFMorpheusDetails
 	return cmpBroker.GetMorpheusDetails(ctx)
 
 }
-func (c *APIClient) SetCMPMeta(meta interface{}, brokerClient *APIClient, fn SetScmClientToken) {
-	c.meta = meta
-	c.tokenFunc = fn
-	c.BrokerClient = brokerClient
-}
+
 func (c *APIClient) SetCMPVersion(ctx context.Context) (err error) {
 	if c.cmpVersion != 0 {
 		return nil
