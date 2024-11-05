@@ -16,6 +16,8 @@ import (
 	"net/url"
 	"path/filepath"
 	"strings"
+
+	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
 )
 
 type SetScmClientToken func(ctx *context.Context, meta interface{})
@@ -41,6 +43,10 @@ type APIClientHandler interface {
 	SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken)
 	// GetSCMVersion returns the SCM version for use when creating the Broker client
 	GetSCMVersion() int
+	SetHost(host string)
+	// GetCMPDetails here the client is the one which has broker host set
+	GetCMPDetails(ctx context.Context) (models.TFMorpheusDetails, error)
+	SetCMPVersion(ctx context.Context) (err error)
 }
 
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
@@ -73,7 +79,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 func (c *APIClient) getHost() string {
 	return c.cfg.Host
 }
-
+func (c *APIClient) SetHost(host string) {
+	c.cfg.Host = host
+}
 func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	c.meta = meta
 	c.tokenFunc = fn
@@ -101,6 +109,36 @@ func (c *APIClient) SetMeta(meta interface{}, fn SetScmClientToken) error {
 	return nil
 }
 
+// GetCMPDetails here APIClient is the brokerClient
+func (c *APIClient) GetCMPDetails(ctx context.Context) (models.TFMorpheusDetails, error) {
+	cmpBroker := BrokerAPIService{
+		Client: c,
+		Cfg:    *c.cfg,
+	}
+	return cmpBroker.GetMorpheusDetails(ctx)
+
+}
+
+func (c *APIClient) SetCMPVersion(ctx context.Context) (err error) {
+	if c.cmpVersion != 0 {
+		return nil
+	}
+	cmpClient := CmpStatus{
+		Client: c,
+		Cfg:    *c.cfg,
+	}
+	// Get status of cmp
+	statusResp, err := cmpClient.GetCmpVersion(ctx)
+	if err != nil {
+		return
+	}
+	versionInt, err := parseVersion(statusResp.Appliance.BuildVersion)
+	if err != nil {
+		return fmt.Errorf("failed to parse cmp build, error: %w", err)
+	}
+	c.cmpVersion = versionInt
+	return
+}
 func (c *APIClient) SetMetaFnAndVersion(meta interface{}, version int, fn SetScmClientToken) {
 	c.meta = meta
 	c.tokenFunc = fn

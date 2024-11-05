@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	consts "github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/common"
 	"github.com/HewlettPackard/hpegl-vmaas-cmp-go-sdk/pkg/models"
@@ -61,7 +62,7 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.TFMor
 		ID:          ServiceSubscriptionDetailsResp.ServiceInstanceID,
 		AccessToken: MorpheusTokenResp.AccessToken,
 		ValidTill:   MorpheusTokenResp.Expires,
-		URL:         ServiceSubscriptionDetailsResp.URL,
+		URL:         strings.TrimSuffix(ServiceSubscriptionDetailsResp.URL, "/"),
 	}
 
 	return ret, nil
