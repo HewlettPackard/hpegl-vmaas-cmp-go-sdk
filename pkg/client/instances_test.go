@@ -382,7 +382,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
 		wantErr    bool
@@ -623,7 +623,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		param      models.ResizeInstanceBody
 		given      func(m *MockAPIClientHandler)
 		want       models.ResizeInstanceResponse
@@ -801,7 +801,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		param      models.SnapshotBody
 		given      func(m *MockAPIClientHandler)
 		want       models.Instances
@@ -963,7 +963,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		param      models.UpdateInstanceBody
 		given      func(m *MockAPIClientHandler)
 		want       models.UpdateInstanceResponse
@@ -1369,7 +1369,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.ListSnapshotResponse
 		wantErr    bool
@@ -1485,7 +1485,7 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.GetInstanceHistory
 		wantErr    bool

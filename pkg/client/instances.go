@@ -95,7 +95,7 @@ type InstancesAPIDeleteAnIstanceOpts struct {
 }
 
 func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
-	instanceID int) (models.SuccessOrErrorMessage, error) {
+	instanceID int64) (models.SuccessOrErrorMessage, error) {
 	DelInstanceResp := models.SuccessOrErrorMessage{}
 
 	delInstanceAPI := &api{
@@ -177,7 +177,7 @@ Lists VMware Snapshot of the instance
   - @param instanceID
 */
 func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Context,
-	instanceID int) (models.ListSnapshotResponse, error) {
+	instanceID int64) (models.ListSnapshotResponse, error) {
 	ListSnapshotResp := models.ListSnapshotResponse{}
 
 	listSnapshotAPI := &api{
@@ -266,7 +266,7 @@ Creates VMware Snapshot of the instance
 
 */
 
-func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID int,
+func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID int64,
 	localVarOptionals *models.SnapshotBody) (models.Instances, error) {
 	SnapshotInstResp := models.Instances{}
 
@@ -365,7 +365,7 @@ func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
 	return SuspendResp, err
 }
 
-func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int,
+func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int64,
 	request *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
 	ResizeResp := models.ResizeInstanceResponse{}
 
@@ -386,7 +386,7 @@ func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID i
 
 func (a *InstancesAPIService) UpdatingAnInstance(
 	ctx context.Context,
-	instanceID int,
+	instanceID int64,
 	request *models.UpdateInstanceBody,
 ) (models.UpdateInstanceResponse, error) {
 	Instance := models.UpdateInstanceResponse{}
@@ -407,7 +407,7 @@ func (a *InstancesAPIService) UpdatingAnInstance(
 }
 
 func (a *InstancesAPIService) GetInstanceHistory(
-	ctx context.Context, instanceID int) (models.GetInstanceHistory, error) {
+	ctx context.Context, instanceID int64) (models.GetInstanceHistory, error) {
 	History := models.GetInstanceHistory{}
 
 	historyAPI := &api{
