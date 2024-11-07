@@ -25,7 +25,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 	tests := []struct {
 		name       string
 		param      models.CreateInstanceCloneBody
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
 		wantErr    bool
@@ -490,7 +490,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		param      models.ImportSnapshotBody
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
@@ -1617,7 +1617,7 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.InstancePowerResponse
 		wantErr    bool
@@ -1723,7 +1723,7 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.InstancePowerResponse
 		wantErr    bool
@@ -1829,7 +1829,7 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.InstancePowerResponse
 		wantErr    bool
@@ -1935,7 +1935,7 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.InstancePowerResponse
 		wantErr    bool

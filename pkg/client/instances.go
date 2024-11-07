@@ -208,7 +208,7 @@ it currently exists.
 
 */
 
-func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, instanceID int,
+func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, instanceID int64,
 	localVarOptionals *models.ImportSnapshotBody) (models.SuccessOrErrorMessage, error) {
 	ImportSnapshotResp := models.SuccessOrErrorMessage{}
 
@@ -236,7 +236,7 @@ Restarts all VM running within an instance
   - @param instanceID
 */
 func (a *InstancesAPIService) RestartAnInstance(ctx context.Context,
-	instanceID int) (models.InstancePowerResponse, error) {
+	instanceID int64) (models.InstancePowerResponse, error) {
 	RestartInstResp := models.InstancePowerResponse{}
 
 	restartInstAPI := &api{
@@ -294,7 +294,7 @@ Starts all VM running within an instance
   - @param instanceID
 */
 func (a *InstancesAPIService) StartAnInstance(ctx context.Context,
-	instanceID int) (models.InstancePowerResponse, error) {
+	instanceID int64) (models.InstancePowerResponse, error) {
 	StartInstanceResp := models.InstancePowerResponse{}
 
 	startInstanceAPI := &api{
@@ -321,7 +321,7 @@ Stops all VM running within an instance
   - @param instanceID
 */
 func (a *InstancesAPIService) StopAnInstance(ctx context.Context,
-	instanceID int) (models.InstancePowerResponse, error) {
+	instanceID int64) (models.InstancePowerResponse, error) {
 	StopInstanceResp := models.InstancePowerResponse{}
 
 	stopInstanceAPI := &api{
@@ -348,7 +348,7 @@ Suspends all VM running within an instance
   - @param instanceID
 */
 func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
-	instanceID int) (models.InstancePowerResponse, error) {
+	instanceID int64) (models.InstancePowerResponse, error) {
 	SuspendResp := models.InstancePowerResponse{}
 	suspendInstanceAPI := &api{
 		method: "PUT",
@@ -425,7 +425,7 @@ func (a *InstancesAPIService) GetInstanceHistory(
 	return History, err
 }
 
-func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int,
+func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int64,
 	cloneRequest models.CreateInstanceCloneBody) (models.SuccessOrErrorMessage, error) {
 	var CloneResp models.SuccessOrErrorMessage
 	if v, _ := parseVersion("5.2.12"); v <= a.Client.getVersion() {
