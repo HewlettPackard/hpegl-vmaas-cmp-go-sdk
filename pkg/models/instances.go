@@ -585,8 +585,8 @@ type GetInstanceContainer struct {
 	ContainerType NameModel                   `json:"containerType" tf:"container_type,sub"`
 	Server        GetInstanceContainersServer `json:"server" tf:"server,sub"`
 	Hostname      string                      `json:"hostname" tf:"hostname"`
-	MaxStorage    int                         `json:"maxStorage" tf:"max_storage"`
-	MaxMemory     int                         `json:"maxMemory" tf:"max_memory"`
+	MaxStorage    int64                       `json:"maxStorage" tf:"max_storage"`
+	MaxMemory     int64                       `json:"maxMemory" tf:"max_memory"`
 	MaxCores      int                         `json:"maxCores" tf:"max_cores"`
 }
 
@@ -616,8 +616,8 @@ type InstancePlanResponse struct {
 		Name                 string                `json:"name"`
 		Value                int                   `json:"value"`
 		Code                 string                `json:"code"`
-		MaxStorage           int                   `json:"maxStorage"`
-		MaxMemory            int                   `json:"maxMemory"`
+		MaxStorage           int64                 `json:"maxStorage"`
+		MaxMemory            int64                 `json:"maxMemory"`
 		MaxCPU               interface{}           `json:"maxCpu"`
 		MaxCores             int                   `json:"maxCores"`
 		CustomCPU            bool                  `json:"customCpu"`

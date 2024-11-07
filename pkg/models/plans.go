@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 package models
 
@@ -17,7 +17,7 @@ type ServicePlanResponse struct {
 	Active               bool        `json:"active"`
 	SortOrder            int         `json:"sortOrder"`
 	Description          interface{} `json:"description"`
-	MaxStorage           int         `json:"maxStorage"`
+	MaxStorage           int64       `json:"maxStorage"`
 	MaxMemory            int64       `json:"maxMemory"`
 	MaxCPU               interface{} `json:"maxCpu"`
 	MaxCores             int         `json:"maxCores"`
