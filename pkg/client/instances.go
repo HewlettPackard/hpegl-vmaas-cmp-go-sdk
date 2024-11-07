@@ -95,7 +95,7 @@ type InstancesAPIDeleteAnIstanceOpts struct {
 }
 
 func (a *InstancesAPIService) DeleteAnInstance(ctx context.Context,
-	instanceID int) (models.SuccessOrErrorMessage, error) {
+	instanceID int64) (models.SuccessOrErrorMessage, error) {
 	DelInstanceResp := models.SuccessOrErrorMessage{}
 
 	delInstanceAPI := &api{
@@ -124,7 +124,7 @@ Get a Specific Instance
 @return models.GetInstanceResponse
 */
 func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
-	instanceID int) (models.GetInstanceResponse, error) {
+	instanceID int64) (models.GetInstanceResponse, error) {
 	SpecificInstResp := models.GetInstanceResponse{}
 
 	specificInstanceAPI := &api{
@@ -177,7 +177,7 @@ Lists VMware Snapshot of the instance
   - @param instanceID
 */
 func (a *InstancesAPIService) GetListOfSnapshotsForAnInstance(ctx context.Context,
-	instanceID int) (models.ListSnapshotResponse, error) {
+	instanceID int64) (models.ListSnapshotResponse, error) {
 	ListSnapshotResp := models.ListSnapshotResponse{}
 
 	listSnapshotAPI := &api{
@@ -208,7 +208,7 @@ it currently exists.
 
 */
 
-func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, instanceID int,
+func (a *InstancesAPIService) ImportSnapshotOfAnInstance(ctx context.Context, instanceID int64,
 	localVarOptionals *models.ImportSnapshotBody) (models.SuccessOrErrorMessage, error) {
 	ImportSnapshotResp := models.SuccessOrErrorMessage{}
 
@@ -236,7 +236,7 @@ Restarts all VM running within an instance
   - @param instanceID
 */
 func (a *InstancesAPIService) RestartAnInstance(ctx context.Context,
-	instanceID int) (models.InstancePowerResponse, error) {
+	instanceID int64) (models.InstancePowerResponse, error) {
 	RestartInstResp := models.InstancePowerResponse{}
 
 	restartInstAPI := &api{
@@ -266,7 +266,7 @@ Creates VMware Snapshot of the instance
 
 */
 
-func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID int,
+func (a *InstancesAPIService) SnapshotAnInstance(ctx context.Context, instanceID int64,
 	localVarOptionals *models.SnapshotBody) (models.Instances, error) {
 	SnapshotInstResp := models.Instances{}
 
@@ -294,7 +294,7 @@ Starts all VM running within an instance
   - @param instanceID
 */
 func (a *InstancesAPIService) StartAnInstance(ctx context.Context,
-	instanceID int) (models.InstancePowerResponse, error) {
+	instanceID int64) (models.InstancePowerResponse, error) {
 	StartInstanceResp := models.InstancePowerResponse{}
 
 	startInstanceAPI := &api{
@@ -321,7 +321,7 @@ Stops all VM running within an instance
   - @param instanceID
 */
 func (a *InstancesAPIService) StopAnInstance(ctx context.Context,
-	instanceID int) (models.InstancePowerResponse, error) {
+	instanceID int64) (models.InstancePowerResponse, error) {
 	StopInstanceResp := models.InstancePowerResponse{}
 
 	stopInstanceAPI := &api{
@@ -348,7 +348,7 @@ Suspends all VM running within an instance
   - @param instanceID
 */
 func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
-	instanceID int) (models.InstancePowerResponse, error) {
+	instanceID int64) (models.InstancePowerResponse, error) {
 	SuspendResp := models.InstancePowerResponse{}
 	suspendInstanceAPI := &api{
 		method: "PUT",
@@ -365,7 +365,7 @@ func (a *InstancesAPIService) SuspendAnInstance(ctx context.Context,
 	return SuspendResp, err
 }
 
-func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int,
+func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID int64,
 	request *models.ResizeInstanceBody) (models.ResizeInstanceResponse, error) {
 	ResizeResp := models.ResizeInstanceResponse{}
 
@@ -386,7 +386,7 @@ func (a *InstancesAPIService) ResizeAnInstance(ctx context.Context, instanceID i
 
 func (a *InstancesAPIService) UpdatingAnInstance(
 	ctx context.Context,
-	instanceID int,
+	instanceID int64,
 	request *models.UpdateInstanceBody,
 ) (models.UpdateInstanceResponse, error) {
 	Instance := models.UpdateInstanceResponse{}
@@ -407,7 +407,7 @@ func (a *InstancesAPIService) UpdatingAnInstance(
 }
 
 func (a *InstancesAPIService) GetInstanceHistory(
-	ctx context.Context, instanceID int) (models.GetInstanceHistory, error) {
+	ctx context.Context, instanceID int64) (models.GetInstanceHistory, error) {
 	History := models.GetInstanceHistory{}
 
 	historyAPI := &api{
@@ -425,7 +425,7 @@ func (a *InstancesAPIService) GetInstanceHistory(
 	return History, err
 }
 
-func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int,
+func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID int64,
 	cloneRequest models.CreateInstanceCloneBody) (models.SuccessOrErrorMessage, error) {
 	var CloneResp models.SuccessOrErrorMessage
 	if v, _ := parseVersion("5.2.12"); v <= a.Client.getVersion() {
@@ -471,7 +471,7 @@ func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, 
 	return StorageVol, err
 }
 
-func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, instanceID int, controllerType string,
+func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, instanceID int64, controllerType string,
 	busNumber, unitNumber int) (ControllerMount string, err error) {
 	controllerTypeInput := strings.ToLower(controllerType)
 	if controllerTypeInput == "ide" {

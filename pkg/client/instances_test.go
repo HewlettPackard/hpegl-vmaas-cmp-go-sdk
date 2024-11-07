@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 package client
 
@@ -25,7 +25,7 @@ func TestInstancesAPIService_CloneAnInstance(t *testing.T) {
 	tests := []struct {
 		name       string
 		param      models.CreateInstanceCloneBody
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
 		wantErr    bool
@@ -382,7 +382,7 @@ func TestInstancesAPIService_DeleteAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
 		wantErr    bool
@@ -490,7 +490,7 @@ func TestInstancesAPIService_ImportSnapshotOfAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		param      models.ImportSnapshotBody
 		given      func(m *MockAPIClientHandler)
 		want       models.SuccessOrErrorMessage
@@ -623,7 +623,7 @@ func TestInstancesAPIService_ResizeAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		param      models.ResizeInstanceBody
 		given      func(m *MockAPIClientHandler)
 		want       models.ResizeInstanceResponse
@@ -801,7 +801,7 @@ func TestInstancesAPIService_SnapshotAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		param      models.SnapshotBody
 		given      func(m *MockAPIClientHandler)
 		want       models.Instances
@@ -963,7 +963,7 @@ func TestInstancesAPIService_UpdatingAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		param      models.UpdateInstanceBody
 		given      func(m *MockAPIClientHandler)
 		want       models.UpdateInstanceResponse
@@ -1120,7 +1120,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		// All expectaion captures here
 		given   func(m *MockAPIClientHandler)
 		want    models.GetInstanceResponse
@@ -1369,7 +1369,7 @@ func TestInstancesAPIService_GetListOfSnapshotsForAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.ListSnapshotResponse
 		wantErr    bool
@@ -1485,7 +1485,7 @@ func TestInstancesAPIService_GetInstanceHistory(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.GetInstanceHistory
 		wantErr    bool
@@ -1617,7 +1617,7 @@ func TestInstancesAPIService_RestartAnInstance(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.InstancePowerResponse
 		wantErr    bool
@@ -1723,7 +1723,7 @@ func TestInstancesAPIService_StartAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.InstancePowerResponse
 		wantErr    bool
@@ -1829,7 +1829,7 @@ func TestInstancesAPIService_StopAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.InstancePowerResponse
 		wantErr    bool
@@ -1935,7 +1935,7 @@ func TestInstancesAPIService_SuspendAnInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		given      func(m *MockAPIClientHandler)
 		want       models.InstancePowerResponse
 		wantErr    bool
