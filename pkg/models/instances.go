@@ -585,9 +585,10 @@ type GetInstanceContainer struct {
 	ContainerType NameModel                   `json:"containerType" tf:"container_type,sub"`
 	Server        GetInstanceContainersServer `json:"server" tf:"server,sub"`
 	Hostname      string                      `json:"hostname" tf:"hostname"`
-	MaxStorage    int64                       `json:"maxStorage" tf:"max_storage"`
-	MaxMemory     int64                       `json:"maxMemory" tf:"max_memory"`
-	MaxCores      int                         `json:"maxCores" tf:"max_cores"`
+	// int64 not there in terraform schema type
+	// MaxStorage    int64                       `json:"maxStorage" tf:"max_storage"`
+	// MaxMemory     int64                       `json:"maxMemory" tf:"max_memory"`
+	MaxCores int `json:"maxCores" tf:"max_cores"`
 }
 
 type GetInstanceContainersServer struct {
