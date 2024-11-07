@@ -130,9 +130,9 @@ type GetInstanceResponse struct {
 
 // GetInstanceResponseInstance
 type GetInstanceResponseInstance struct {
-	ID                  int                                         `json:"id,omitempty"`
+	ID                  int64                                       `json:"id,omitempty"`
 	UUID                string                                      `json:"uuid,omitempty"`
-	AccountID           int                                         `json:"accountId,omitempty"`
+	AccountID           int64                                       `json:"accountId,omitempty"`
 	Tenant              *GetInstanceResponseInstanceTenant          `json:"tenant,omitempty"`
 	InstanceType        *GetInstanceResponseInstanceInstanceType    `json:"instanceType,omitempty"`
 	Group               *GetInstanceResponseInstanceGroup           `json:"group,omitempty"`
@@ -517,12 +517,12 @@ type GetInstanceHistoryProcessType struct {
 }
 
 type GetInstanceHistoryProcesses struct {
-	ID          int                           `json:"id" tf:"id"`
-	AccountID   int                           `json:"accountId" tf:"account_id"`
+	ID          int64                         `json:"id" tf:"id"`
+	AccountID   int64                         `json:"accountId" tf:"account_id"`
 	UniqueID    string                        `json:"uniqueId" tf:"unique_id"`
 	ProcessType GetInstanceHistoryProcessType `json:"processType" tf:"process_type,sub"`
 	DisplayName string                        `json:"displayName" tf:"display_name"`
-	InstanceID  int                           `json:"instanceId" tf:"instance_id"`
+	InstanceID  int64                         `json:"instanceId" tf:"instance_id"`
 	Status      string                        `json:"status" tf:"status"`
 	Reason      interface{}                   `json:"reason" tf:"reason"`
 	Percent     float64                       `json:"percent" tf:"percent"`
@@ -578,20 +578,20 @@ type CreateInstanceCloneBody struct {
 }
 
 type GetInstanceContainer struct {
-	ID            int                         `json:"id" tf:"id"`
+	ID            int64                       `json:"id" tf:"id"`
 	Name          string                      `json:"name" tf:"name"`
 	IP            string                      `json:"ip" tf:"ip"`
 	ExternalFqdn  string                      `json:"externalFqdn" tf:"external_fqdn"`
 	ContainerType NameModel                   `json:"containerType" tf:"container_type,sub"`
 	Server        GetInstanceContainersServer `json:"server" tf:"server,sub"`
 	Hostname      string                      `json:"hostname" tf:"hostname"`
-	MaxStorage    int                         `json:"maxStorage" tf:"max_storage"`
-	MaxMemory     int                         `json:"maxMemory" tf:"max_memory"`
+	MaxStorage    int64                       `json:"maxStorage" tf:"max_storage"`
+	MaxMemory     int64                       `json:"maxMemory" tf:"max_memory"`
 	MaxCores      int                         `json:"maxCores" tf:"max_cores"`
 }
 
 type GetInstanceContainersServer struct {
-	ID                int                             `json:"id" tf:"id"`
+	ID                int64                           `json:"id" tf:"id"`
 	Owner             UserNameModel                   `json:"owner" tf:"owner,sub"`
 	ComputeServerType GetInstanceContainersServerType `json:"computeServerType" tf:"compute_server_type,sub"`
 	Visibility        string                          `json:"visibility" tf:"visibility"`
@@ -616,8 +616,8 @@ type InstancePlanResponse struct {
 		Name                 string                `json:"name"`
 		Value                int                   `json:"value"`
 		Code                 string                `json:"code"`
-		MaxStorage           int                   `json:"maxStorage"`
-		MaxMemory            int                   `json:"maxMemory"`
+		MaxStorage           int64                 `json:"maxStorage"`
+		MaxMemory            int64                 `json:"maxMemory"`
 		MaxCPU               interface{}           `json:"maxCpu"`
 		MaxCores             int                   `json:"maxCores"`
 		CustomCPU            bool                  `json:"customCpu"`
