@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 package client
 
@@ -1120,7 +1120,7 @@ func TestInstancesAPIService_GetASpecificInstance(t *testing.T) {
 	defer ctrl.Finish()
 	tests := []struct {
 		name       string
-		instanceID int
+		instanceID int64
 		// All expectaion captures here
 		given   func(m *MockAPIClientHandler)
 		want    models.GetInstanceResponse

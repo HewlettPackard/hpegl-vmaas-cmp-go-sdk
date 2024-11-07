@@ -124,7 +124,7 @@ Get a Specific Instance
 @return models.GetInstanceResponse
 */
 func (a *InstancesAPIService) GetASpecificInstance(ctx context.Context,
-	instanceID int) (models.GetInstanceResponse, error) {
+	instanceID int64) (models.GetInstanceResponse, error) {
 	SpecificInstResp := models.GetInstanceResponse{}
 
 	specificInstanceAPI := &api{
@@ -471,7 +471,7 @@ func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, 
 	return StorageVol, err
 }
 
-func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, instanceID int, controllerType string,
+func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, instanceID int64, controllerType string,
 	busNumber, unitNumber int) (ControllerMount string, err error) {
 	controllerTypeInput := strings.ToLower(controllerType)
 	if controllerTypeInput == "ide" {
