@@ -52,10 +52,12 @@ type APIClientHandler interface {
 // APIClient manages communication with the GreenLake Private Cloud VMaaS CMP API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg        *Configuration
-	cmpVersion int
-	meta       interface{}
-	tokenFunc  SetScmClientToken
+	cfg         *Configuration
+	cmpVersion  int
+	meta        interface{}
+	tokenFunc   SetScmClientToken
+	CMPToken    string
+	TokenExpiry int64
 }
 
 // defaultTokenFunc will use while defining httpClient. defaultTokenFunc
