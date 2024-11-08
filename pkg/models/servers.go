@@ -116,9 +116,9 @@ type ComputeServerType struct {
 type ServerStats struct {
 	TS             string  `json:"ts"`
 	MaxMemory      int64   `json:"maxMemory"`
-	UsedMemory     int     `json:"usedMemory"`
+	UsedMemory     int64   `json:"usedMemory"`
 	MaxStorage     int64   `json:"maxStorage"`
-	UsedStorage    int     `json:"usedStorage"`
+	UsedStorage    int64   `json:"usedStorage"`
 	CPUUsage       float64 `json:"cpuUsage"`
 	FreeMemory     int64   `json:"freeMemory"`
 	ReservedMemory int64   `json:"reservedMemory"`
