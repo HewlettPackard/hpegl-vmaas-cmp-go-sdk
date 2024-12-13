@@ -471,38 +471,40 @@ func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, 
 	return StorageVol, err
 }
 
-func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, instanceID int, controllerType string,
+func (a *InstancesAPIService) GetStorageControllerTypes(ctx context.Context, provisionTypeID string,
+) (models.StorageControllerTypesResp, error) {
+	StorageControllers := models.StorageControllerTypesResp{}
+
+	apiCaller := &api{
+		method: "GET",
+		path:   consts.StorageControllerTypesPath,
+		client: a.Client,
+
+		jsonParser: func(body []byte) error {
+			return json.Unmarshal(body, &StorageControllers)
+		},
+	}
+	queryParams := map[string]string{
+		"provisionTypeId": provisionTypeID,
+	}
+	err := apiCaller.do(ctx, nil, queryParams)
+
+	return StorageControllers, err
+}
+func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, provisionTypeID string, controllerName string,
 	busNumber, unitNumber int) (ControllerMount string, err error) {
-	controllerTypeInput := strings.ToLower(controllerType)
-	if controllerTypeInput == "ide" {
-		controllerTypeInput = fmt.Sprintf("%s %d", controllerTypeInput, busNumber)
-	} else if controllerTypeInput == "scsi" {
-		controllerTypeInput = fmt.Sprintf("%s controller %d", controllerTypeInput, busNumber)
-	} else {
-		err = fmt.Errorf("invalid controller type '%s'", controllerType)
-		return
-	}
-	instanceResp, err := a.GetASpecificInstance(ctx, instanceID)
-	if err != nil {
-		return
-	}
-	if instanceResp.Instance.Controllers == nil {
-		err = fmt.Errorf("no storage controllers found in the instance response")
-		return
-	}
-	for _, controller := range instanceResp.Instance.Controllers {
+	controllerNameInput := strings.TrimSpace(strings.ToLower(controllerName))
+	controllerRest, err := a.GetStorageControllerTypes(ctx, provisionTypeID)
+	for _, controller := range controllerRest.Data {
 		controllerName := strings.TrimSpace(strings.ToLower(controller.Name))
-		if controllerName == controllerTypeInput {
-			if controller.MaxDevices <= unitNumber {
-				err = fmt.Errorf("max allowed devices exceed for controller '%s'", controllerTypeInput)
-				return
-			}
-			ControllerMount = fmt.Sprintf("%d:%d:%d:%d", controller.ID, busNumber, controller.Type.ID, unitNumber)
+		if controllerName == controllerNameInput {
+
+			ControllerMount = fmt.Sprintf("%d:%d:%d:%d", -1, busNumber, controller.Value, unitNumber)
 			break
 		}
 	}
 	if ControllerMount == "" {
-		err = fmt.Errorf("storage controller '%s' not found", controllerTypeInput)
+		err = fmt.Errorf("invalid controller type '%s'", controllerName)
 	}
 	return
 }
