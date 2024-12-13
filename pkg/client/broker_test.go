@@ -186,7 +186,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				// mock the context only since it is not validated in this function
 				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), pathToken, method, nil, headers,
-					url.Values{}, url.Values{}, "", nil).
+					getURLValues(queryParams), url.Values{}, "", nil).
 					Return(nil, errors.New("error in prepare request"))
 			},
 		},
@@ -233,7 +233,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 				// mock the context only since it is not validated in this function
 				m.EXPECT().getVersion().Return(999999)
 				m.EXPECT().prepareRequest(gomock.Any(), pathToken, method, nil, headers,
-					url.Values{}, url.Values{}, "", nil).Return(reqToken, nil)
+					getURLValues(queryParams), url.Values{}, "", nil).Return(reqToken, nil)
 
 				m.EXPECT().callAPI(reqToken).Return(&http.Response{
 					StatusCode: 500,
