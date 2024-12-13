@@ -471,7 +471,7 @@ func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, 
 	return StorageVol, err
 }
 
-func (a *InstancesAPIService) GetStorageControllerTypes(ctx context.Context, provisionTypeID string,
+func (a *InstancesAPIService) GetStorageControllerTypes(ctx context.Context, layoutID string,
 ) (models.StorageControllerTypesResp, error) {
 	StorageControllers := models.StorageControllerTypesResp{}
 
@@ -485,16 +485,16 @@ func (a *InstancesAPIService) GetStorageControllerTypes(ctx context.Context, pro
 		},
 	}
 	queryParams := map[string]string{
-		"provisionTypeId": provisionTypeID,
+		"layoutId": layoutID,
 	}
 	err := apiCaller.do(ctx, nil, queryParams)
 
 	return StorageControllers, err
 }
-func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, provisionTypeID string, controllerName string,
+func (a *InstancesAPIService) GetStorageControllerMount(ctx context.Context, layoutID string, controllerName string,
 	busNumber, unitNumber int) (ControllerMount string, err error) {
 	controllerNameInput := strings.TrimSpace(strings.ToLower(controllerName))
-	controllerRest, err := a.GetStorageControllerTypes(ctx, provisionTypeID)
+	controllerRest, err := a.GetStorageControllerTypes(ctx, layoutID)
 	for _, controller := range controllerRest.Data {
 		controllerName := strings.TrimSpace(strings.ToLower(controller.Name))
 		if controllerName == controllerNameInput {
