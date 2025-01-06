@@ -28,6 +28,8 @@ const (
 	ServicePlansPath = "service-plans"
 	// Instance Service Plan for storage vol type
 	InstancePlanPath = "instances/service-plans"
+	// Storage Controller Types for a layout
+	StorageControllerTypesPath = "options/storageControllerTypes"
 	// CloudsPath
 	CloudsPath = "clouds"
 	// ZonePath

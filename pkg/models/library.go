@@ -1,4 +1,4 @@
-// (C) Copyright 2021 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 
 package models
 
@@ -248,12 +248,18 @@ type InstanceTypeRespBody struct {
 	Featured            bool        `json:"featured"`
 	Versions            []string    `json:"versions"`
 	Instancetypelayouts []struct {
-		ID                int    `json:"id"`
-		Name              string `json:"name"`
-		Provisiontypecode string `json:"provisionTypeCode"`
+		ID                int           `json:"id"`
+		Name              string        `json:"name"`
+		Provisiontypecode string        `json:"provisionTypeCode"`
+		ProvisionType     ProvisionType `json:"provisionType"`
 	} `json:"instanceTypeLayouts"`
 }
 
+type ProvisionType struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Code string `json:"code"`
+}
 type InstanceTypesResp struct {
 	InstanceTypes []InstanceTypeRespBody `json:"instanceTypes"`
 }

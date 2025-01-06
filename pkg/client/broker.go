@@ -52,8 +52,8 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.TFMor
 		},
 	}
 
-	// No query params needed
-	if err := morpheusTokenAPI.do(ctx, nil, nil); err != nil {
+	// for edge pass location in query params
+	if err := morpheusTokenAPI.do(ctx, nil, a.Cfg.DefaultQueryParams); err != nil {
 		return models.TFMorpheusDetails{}, fmt.Errorf("error getting Morpheus token: %v", err)
 	}
 

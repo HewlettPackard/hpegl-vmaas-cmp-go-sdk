@@ -645,3 +645,11 @@ type InstanceStorageType struct {
 	VolumeCategory   string `json:"volumeCategory"`
 	ExternalID       string `json:"externalId"`
 }
+type ValueName struct {
+	Value int    `json:"value"`
+	Name  string `json:"name"`
+}
+
+type StorageControllerTypesResp struct {
+	Data []ValueName `json:"data"`
+}
