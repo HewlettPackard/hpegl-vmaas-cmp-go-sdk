@@ -1,4 +1,4 @@
-// (C) Copyright 2024 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2024-2025 Hewlett Packard Enterprise Development LP
 
 package models
 
@@ -26,4 +26,20 @@ type TFMorpheusDetails struct {
 	// ValidTill Unix timestamp of when the access_token expires in seconds
 	ValidTill int64  `json:"valid_till"`
 	URL       string `json:"URL"`
+}
+
+type CMPDetails struct {
+	ServiceInstanceID string `json:"ServiceInstanceID"`
+	TenantID          string `json:"TenantID"`
+	TenantName        string `json:"TenantName"`
+	LocationName      string `json:"LocationName"`
+	URL               string `json:"URL"`
+	TokenDetails      struct {
+		AccessToken  string `json:"access_token"`
+		ExpiresIn    int64  `json:"expires_in"`
+		RefreshToken string `json:"refresh_token"`
+		TokenType    string `json:"token_type"`
+		Expires      int64  `json:"expires"`
+		Success      bool   `json:"success"`
+	} `json:"TokenDetails"`
 }
