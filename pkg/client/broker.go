@@ -21,41 +21,6 @@ type BrokerAPIService struct {
 
 // GetMorpheusDetails returns Morpheus details to terraform
 func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.TFMorpheusDetails, error) {
-	// Get the service instance ID and Morpheus URL
-	// ServiceSubscriptionDetailsResp := models.SubscriptionDetailsResponse{}
-	// serviceSubscriptionDetailsAPI := &api{
-	// 	method:                 http.MethodGet,
-	// 	path:                   consts.SubscriptionDetails,
-	// 	client:                 a.Client,
-	// 	removeVmaasCMPBasePath: true,
-
-	// 	jsonParser: func(body []byte) error {
-	// 		return json.Unmarshal(body, &ServiceSubscriptionDetailsResp)
-	// 	},
-	// }
-
-	// // Use the default query params
-	// if err := serviceSubscriptionDetailsAPI.do(ctx, nil, a.Cfg.DefaultQueryParams); err != nil {
-	// 	return models.TFMorpheusDetails{}, fmt.Errorf("error getting service subscription details: %v", err)
-	// }
-
-	// // Get the Morpheus token
-	// MorpheusTokenResp := models.MorpheusTokenResponse{}
-	// morpheusTokenAPI := &api{
-	// 	method:                 http.MethodGet,
-	// 	path:                   fmt.Sprintf(consts.MorpheusToken, ServiceSubscriptionDetailsResp.ServiceInstanceID),
-	// 	client:                 a.Client,
-	// 	removeVmaasCMPBasePath: true,
-
-	// 	jsonParser: func(body []byte) error {
-	// 		return json.Unmarshal(body, &MorpheusTokenResp)
-	// 	},
-	// }
-
-	// // for edge pass location in query params
-	// if err := morpheusTokenAPI.do(ctx, nil, a.Cfg.DefaultQueryParams); err != nil {
-	// 	return models.TFMorpheusDetails{}, fmt.Errorf("error getting Morpheus token: %v", err)
-	// }
 
 	// Get the Morpheus token
 	CMPDetails := models.CMPDetails{}
