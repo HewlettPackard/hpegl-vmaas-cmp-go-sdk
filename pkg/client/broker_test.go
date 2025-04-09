@@ -55,7 +55,7 @@ func TestBrokerAPIService_GetMorpheusDetails(t *testing.T) {
 			want: models.TFMorpheusDetails{
 				ID:          testServiceInstanceID,
 				AccessToken: testAccessToken,
-				ValidTill:   testAccessTokenExpires,
+				ValidTill:   testAccessTokenExpiresIn,
 				URL:         testMorpheusURL,
 			},
 			wantErr: false,

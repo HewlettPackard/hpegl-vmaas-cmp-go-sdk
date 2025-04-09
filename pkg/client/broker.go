@@ -40,7 +40,7 @@ func (a *BrokerAPIService) GetMorpheusDetails(ctx context.Context) (models.TFMor
 	ret := models.TFMorpheusDetails{
 		ID:          CMPDetails.ServiceInstanceID,
 		AccessToken: CMPDetails.TokenDetails.AccessToken,
-		ValidTill:   CMPDetails.TokenDetails.Expires,
+		ValidTill:   CMPDetails.TokenDetails.ExpiresIn,
 		URL:         strings.TrimSuffix(CMPDetails.URL, "/"),
 	}
 
