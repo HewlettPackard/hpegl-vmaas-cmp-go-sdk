@@ -1,4 +1,4 @@
-// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2025 Hewlett Packard Enterprise Development LP
 
 package client
 
@@ -449,7 +449,7 @@ func (a *InstancesAPIService) CloneAnInstance(ctx context.Context, instanceID in
 	return CloneResp, err
 }
 
-func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, layoutID string,
+func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, layoutID, siteID string,
 ) (models.InstancePlanResponse, error) {
 	StorageVol := models.InstancePlanResponse{}
 
@@ -465,6 +465,7 @@ func (a *InstancesAPIService) GetStorageVolTypeID(ctx context.Context, cloudID, 
 	queryParams := map[string]string{
 		"zoneId":   cloudID,
 		"layoutId": layoutID,
+		"siteId":   siteID,
 	}
 	err := apiCaller.do(ctx, nil, queryParams)
 

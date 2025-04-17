@@ -1,4 +1,4 @@
-// (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
+// (C) Copyright 2021-2025 Hewlett Packard Enterprise Development LP
 
 package common
 
@@ -73,6 +73,5 @@ const (
 	CMPSixZeroFiveVersion = "6.0.5"
 
 	// Broker API paths
-	SubscriptionDetails = "vmaas/api/v1alpha1/subscription_details"
-	MorpheusToken       = "vmaas/api/v1/service_instances/%s/cmp_access_token"
+	CMPDetails = "vmaas/api/v1/cmp_details"
 )
