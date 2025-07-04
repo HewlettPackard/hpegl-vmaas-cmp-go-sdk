@@ -29,7 +29,7 @@ func (a *PlansAPIService) GetAllServicePlans(ctx context.Context,
 
 	allServicePlansAPI := &api{
 		method: "GET",
-		path:   consts.ServicePlansPath,
+		path:   fmt.Sprintf("%s?max=-1", consts.ServicePlansPath),
 		client: a.Client,
 
 		jsonParser: func(body []byte) error {
